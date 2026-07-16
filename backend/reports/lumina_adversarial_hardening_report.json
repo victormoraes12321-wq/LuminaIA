@@ -1,0 +1,559 @@
+{
+  "generated_at": "2026-07-11T12:38:54.051443+00:00",
+  "base_url": "http://localhost:8000",
+  "total_cases": 32,
+  "passed_cases": 32,
+  "failed_cases": 0,
+  "score": 100.0,
+  "critical_failures": 0,
+  "high_failures": 0,
+  "medium_failures": 0,
+  "low_failures": 0,
+  "cases": [
+    {
+      "name": "unauthenticated session rejected",
+      "category": "auth",
+      "method": "GET",
+      "path": "/api/v1/auth/session",
+      "expected_statuses": [
+        401
+      ],
+      "status_code": 401,
+      "passed": true,
+      "elapsed_ms": 270.39,
+      "severity_if_failed": "CRITICAL",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 401, \"message\": \"Credenciais inválidas ou token expirado.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/auth/session\"}}"
+    },
+    {
+      "name": "invalid login SQL injection is rejected",
+      "category": "auth",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "expected_statuses": [
+        401,
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 272.05,
+      "severity_if_failed": "CRITICAL",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"value_error\", \"loc\": [\"body\", \"email\"], \"msg\": \"value is not a valid email address: The email address contains invalid characters before the @-sign: SPACE.\", \"input\": \"' OR 1=1 --@evil.com\", \"ctx\": {\"reason\": \"The email address contains invalid characters before the @-sign: SPACE.\"}}]}"
+    },
+    {
+      "name": "wrong bearer token rejected",
+      "category": "auth",
+      "method": "GET",
+      "path": "/api/v1/query/history",
+      "expected_statuses": [
+        401
+      ],
+      "status_code": 401,
+      "passed": true,
+      "elapsed_ms": 270.59,
+      "severity_if_failed": "CRITICAL",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 401, \"message\": \"Credenciais inválidas ou token expirado.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/query/history\"}}"
+    },
+    {
+      "name": "tampered tenant is forbidden",
+      "category": "tenant-isolation",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        403
+      ],
+      "status_code": 403,
+      "passed": true,
+      "elapsed_ms": 18.77,
+      "severity_if_failed": "CRITICAL",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 403, \"message\": \"Acesso negado. O tenant_id informado não corresponde ao seu usuário.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/query/\"}}"
+    },
+    {
+      "name": "empty query validation",
+      "category": "query-validation",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 24.68,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"string_too_short\", \"loc\": [\"body\", \"pergunta\"], \"msg\": \"String should have at least 3 characters\", \"input\": \"\", \"ctx\": {\"min_length\": 3}}]}"
+    },
+    {
+      "name": "oversized query validation",
+      "category": "query-validation",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 16.52,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"string_too_long\", \"loc\": [\"body\", \"pergunta\"], \"msg\": \"String should have at most 1000 characters\", \"input\": \"vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vendas vend"
+    },
+    {
+      "name": "malformed JSON rejected",
+      "category": "api-contract",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 10.71,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"json_invalid\", \"loc\": [\"body\", 13], \"msg\": \"JSON decode error\", \"input\": {}, \"ctx\": {\"error\": \"Expecting value\"}}]}"
+    },
+    {
+      "name": "prompt injection query remains safe",
+      "category": "ai-security",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        403
+      ],
+      "status_code": 403,
+      "passed": true,
+      "elapsed_ms": 64.91,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 403, \"message\": \"A consulta contem instrucoes de manipulacao de contexto ou fora do escopo autorizado.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/query/\"}}"
+    },
+    {
+      "name": "xss query is not executed by backend",
+      "category": "xss",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        403
+      ],
+      "status_code": 403,
+      "passed": true,
+      "elapsed_ms": 40.52,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 403, \"message\": \"A consulta contem instrucoes de manipulacao de contexto ou fora do escopo autorizado.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/query/\"}}"
+    },
+    {
+      "name": "invalid history role rejected",
+      "category": "query-validation",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 12.84,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"string_pattern_mismatch\", \"loc\": [\"body\", \"history\", 0, \"role\"], \"msg\": \"String should match pattern '^(user|assistant)$'\", \"input\": \"system\", \"ctx\": {\"pattern\": \"^(user|assistant)$\"}}]}"
+    },
+    {
+      "name": "oversized history item rejected",
+      "category": "query-validation",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        422
+      ],
+      "status_code": 422,
+      "passed": true,
+      "elapsed_ms": 13.85,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "{\"detail\": [{\"type\": \"string_too_long\", \"loc\": [\"body\", \"history\", 0, \"content\"], \"msg\": \"String should have at most 2000 characters\", \"input\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "request body over 2mb blocked",
+      "category": "dos-protection",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        413
+      ],
+      "status_code": 413,
+      "passed": true,
+      "elapsed_ms": 6.4,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 413, \"message\": \"Payload excede o limite permitido.\", \"type\": \"PayloadTooLarge\", \"path\": \"/api/v1/query/\"}}"
+    },
+    {
+      "name": "normal query returns usable response",
+      "category": "functional",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 8340.4,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"1a418d8c-b9f3-4aff-b989-a3b697d0166f\", \"request_id\": \"1a418d8c-b9f3-4aff-b989-a3b697d0166f\", \"view_catalog_id\": \"3e65fc1b-24e6-4388-9826-db3d28d1ad21\", \"view_name\": \"VW_VENDAS_MENSAIS\", \"chart_type\": \"TABLE\", \"chart_data\": {\"columns\": [{\"key\": \"mes\", \"label\": \"Mes\", \"type\": \"number\", \"sortable\": true, \"width\": \"140px\"}, {\"key\": \"ano\", \"label\": \"Ano\", \"type\": \"number\", \"sortable\": true, \"width\": \"140px\"}, {\"key\": \"venda_valor\", \"label\": \"Venda Valor\", \"type\": \"currency\", \"sortable\": true, \"width\": \"140px\"}, {\"key\": \"venda_quantidade\", \"label\": \"Venda Quantidade\", \"type\": \"number\", \"sortable\": true, \"width\": \"140px\"}, {\"key\": \"forma_pagamento\", \"label\": \"Forma Pagamento\", \"type\": \"string\", \"sortable\": true, \"width\": null}, {\"key\": \"status\", \"label\": \"Status\", \"type\": \"badge\", \"sortable\": true, \"width\": \"160px\"}, {\"key\": \"vendedor\", \"label\": \"Vendedor\", \"type\": \"string\", \"sortable\": true, \"width\": null}, {\"key\": \"cliente\", \"label\": \"Cliente\", \"type\": \"string\", \"sortable\": true, \"width\": null}, {\"key\": \"data_referencia\", \"label\": \"Data Referencia\", \"type\": \"date\", \"sortable\": true, \"width\": \"120px\"}, {\"key\": \"receita_total\", \"label\": \"Receita Total\", \"type\": \"currency\", \""
+    },
+    {
+      "name": "dashboard studio overlap validation",
+      "category": "dashboard-studio",
+      "method": "POST",
+      "path": "/api/v1/dashboard-studio/validate-layout",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 17.88,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "{\"is_valid\": false, \"grid\": {\"columns\": 12, \"gap\": 16, \"items\": [{\"id\": \"a\", \"x\": 0, \"y\": 0, \"w\": 6, \"h\": 4}, {\"id\": \"b\", \"x\": 0, \"y\": 4, \"w\": 6, \"h\": 4}], \"no_overlap\": true, \"row_height\": 88, \"snap\": true, \"auto_spacing\": true, \"auto_balance\": true, \"responsive\": true}, \"adjustments\": [\"b: reposicionado para evitar sobreposicao.\"]}"
+    },
+    {
+      "name": "dashboard studio invalid width rejected",
+      "category": "dashboard-studio",
+      "method": "POST",
+      "path": "/api/v1/dashboard-studio/validate-layout",
+      "expected_statuses": [
+        200,
+        422
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 15.23,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "{\"is_valid\": true, \"grid\": {\"columns\": 12, \"gap\": 16, \"items\": [{\"id\": \"huge\", \"x\": 0, \"y\": 0, \"w\": 12, \"h\": 4}], \"no_overlap\": true, \"row_height\": 88, \"snap\": true, \"auto_spacing\": true, \"auto_balance\": true, \"responsive\": true}, \"adjustments\": []}"
+    },
+    {
+      "name": "restore backup rejects garbage",
+      "category": "security",
+      "method": "POST",
+      "path": "/api/v1/query/security/restore",
+      "expected_statuses": [
+        400
+      ],
+      "status_code": 400,
+      "passed": true,
+      "elapsed_ms": 19.01,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"success\": false, \"error\": {\"code\": 400, \"message\": \"Falha ao restaurar backup: dados corrompidos ou assinatura inválida.\", \"type\": \"HTTPException\", \"path\": \"/api/v1/query/security/restore\"}}"
+    },
+    {
+      "name": "cors disallowed origin not reflected",
+      "category": "cors",
+      "method": "OPTIONS",
+      "path": "/api/v1/auth/session",
+      "expected_statuses": [
+        400
+      ],
+      "status_code": 400,
+      "passed": true,
+      "elapsed_ms": 6.36,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "Disallowed CORS origin"
+    },
+    {
+      "name": "cors allowed network origin accepted",
+      "category": "cors",
+      "method": "OPTIONS",
+      "path": "/api/v1/auth/session",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 5.72,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "OK"
+    },
+    {
+      "name": "daily sales explicit date routes to daily-capable sales view",
+      "category": "semantic-regression",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 1426.76,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": {
+        "view_name": "VW_VENDAS_CONTEXTO_GERAL",
+        "chart_type": "TABLE",
+        "parametros_extraidos": {
+          "date_range": "2026-06-05 to 2026-06-05",
+          "data_inicio": "2026-06-05",
+          "data_fim": "2026-06-05"
+        },
+        "tokens": 0
+      }
+    },
+    {
+      "name": "seller ranking month keeps March 2026 filters",
+      "category": "semantic-regression",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 1310.88,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": {
+        "view_name": "VW_PERFORMANCE_VENDEDORES",
+        "chart_type": "BAR",
+        "parametros_extraidos": {
+          "date_range": "2026-03-01 to 2026-03-31",
+          "data_inicio": "2026-03-01",
+          "data_fim": "2026-03-31",
+          "ano": "2026",
+          "mes": "03"
+        },
+        "tokens": 0
+      }
+    },
+    {
+      "name": "who sold most with month name maps to seller performance",
+      "category": "semantic-regression",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 1485.41,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": {
+        "view_name": "VW_PERFORMANCE_VENDEDORES",
+        "chart_type": "BAR",
+        "parametros_extraidos": {
+          "date_range": "2026-03-01 to 2026-03-31",
+          "data_inicio": "2026-03-01",
+          "data_fim": "2026-03-31",
+          "ano": "2026",
+          "mes": "03"
+        },
+        "tokens": 0
+      }
+    },
+    {
+      "name": "financial return product question uses ranking chart",
+      "category": "semantic-regression",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 1424.42,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": {
+        "view_name": "VW_PRODUTOS_MAIS_VENDIDOS",
+        "chart_type": "BAR",
+        "parametros_extraidos": {
+          "ano": "2026",
+          "limite": "1",
+          "data_inicio": "2026-07-01",
+          "data_fim": "2026-07-31",
+          "date_range": "2026-07-01 to 2026-07-31",
+          "mes": "07"
+        },
+        "tokens": 4854
+      }
+    },
+    {
+      "name": "concurrent query 01",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 6021.33,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"e365395f-553b-4f59-9256-2b4dc0e59010\", \"request_id\": \"e365395f-553b-4f59-9256-2b4dc0e59010\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 02",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 7159.11,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"9b08d4fd-c895-488f-8c6f-5b61a5c7ab5d\", \"request_id\": \"9b08d4fd-c895-488f-8c6f-5b61a5c7ab5d\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 03",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 8080.96,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"424316ce-5b19-43f5-8b5c-bad713c79a59\", \"request_id\": \"424316ce-5b19-43f5-8b5c-bad713c79a59\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 04",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 10610.65,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"ec10001c-6dfb-4542-9934-66a859707711\", \"request_id\": \"ec10001c-6dfb-4542-9934-66a859707711\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 05",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 8942.64,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"4ca012c2-7a7d-40bf-9783-0e6e4f05321c\", \"request_id\": \"4ca012c2-7a7d-40bf-9783-0e6e4f05321c\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 06",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 12326.03,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"860c8ae1-5eca-4fb7-a04b-bc1542778cce\", \"request_id\": \"860c8ae1-5eca-4fb7-a04b-bc1542778cce\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 07",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 9706.07,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"c7e761e3-be20-4833-915b-408f0a1b6956\", \"request_id\": \"c7e761e3-be20-4833-915b-408f0a1b6956\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "concurrent query 08",
+      "category": "concurrency",
+      "method": "POST",
+      "path": "/api/v1/query/",
+      "expected_statuses": [
+        200,
+        429,
+        503
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 11404.9,
+      "severity_if_failed": "HIGH",
+      "notes": "",
+      "response_sample": "{\"query_id\": \"569350be-691f-4ecf-9f9e-9119d1eacaa7\", \"request_id\": \"569350be-691f-4ecf-9f9e-9119d1eacaa7\", \"view_catalog_id\": \"8eee35e8-fdaa-48c7-93b0-e19933060987\", \"view_name\": \"VW_PERFORMANCE_VENDEDORES\", \"chart_type\": \"BAR\", \"chart_data\": {\"labels\": [\"Fernanda Dias\", \"Daniela Costa\", \"Lucas Pires\", \"Eduardo Santos\", \"Carolina Lima\", \"Gabriel Rocha\", \"Juliana Reis\", \"Helena Azevedo\", \"Igor Martins\", \"Bruno Souza\"], \"datasets\": [{\"label\": \"Valor Vendido\", \"data\": [148472448.75000003, 145576360.45000008, 141678891.95000008, 138054412.24999994, 131860001.35000005, 128294450.39999996, 125910783.05, 125373285.85, 122124892.60000008, 120967314.95000005], \"borderColor\": \"#6C63FF\", \"backgroundColor\": \"rgba(108, 99, 255, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Meta Valor\", \"data\": [1232578.88, 1049567.45, 1012219.5, 1395159, 1046263.58, 1014235.49, 842203.08, 1441937.58, 1057347.26, 874189.56], \"borderColor\": \"#00D2D3\", \"backgroundColor\": \"rgba(0, 210, 211, 0.8)\", \"borderWidth\": 2}, {\"label\": \"Atingimento\", \"data\": [12045.68, 13870.13, 13996.85, 9895.25, 12602.94, 12649.37, 14950.17, 8694.78, 11550.12, 13837.65], \"borderColor\": \"#FF6B6B\", \"backgroundColor\": \"rgba(255, 107, 107, 0.8)\", \"bord"
+    },
+    {
+      "name": "system still healthy after adversarial batch",
+      "category": "resilience",
+      "method": "GET",
+      "path": "/health",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 0.0,
+      "severity_if_failed": "CRITICAL",
+      "notes": "",
+      "response_sample": "{\"status\": \"healthy\", \"app\": \"LuminaAI\", \"version\": \"1.0.0\", \"environment\": \"development\", \"debug\": false, \"ai\": {\"status_geral\": \"HEALTHY\", \"provider_atual\": \"openai\", \"modelo_atual\": \"gpt-4o-mini\", \"health_score\": 100.0, \"authentication_score\": 100.0, \"latency_score\": 38.2, \"availability_score\": 100.0, \"success_rate\": 100.0, \"providers\": [{\"provider_id\": \"openai\", \"name\": \"OpenAI\", \"version\": \"v1\", \"models_available\": [\"gpt-4o-mini\"], \"status\": \"HEALTHY\", \"latency_ms\": 6179.635899999994, \"availability\": 100.0, \"rate_limits\": {}, \"context_limits\": {\"gpt-4o-mini\": 128000}, \"estimated_cost\": {\"gpt-4o-mini\": 0.0}}, {\"provider_id\": \"anthropic\", \"name\": \"Anthropic\", \"version\": \"prepared\", \"models_available\": [], \"status\": \"NOT_CONFIGURED\", \"latency_ms\": null, \"availability\": 0.0, \"rate_limits\": {}, \"context_limits\": {}, \"estimated_cost\": {}}, {\"provider_id\": \"google\", \"name\": \"Google Gemini\", \"version\": \"prepared\", \"models_available\": [], \"status\": \"NOT_CONFIGURED\", \"latency_ms\": null, \"availability\": 0.0, \"rate_limits\": {}, \"context_limits\": {}, \"estimated_cost\": {}}, {\"provider_id\": \"azure_openai\", \"name\": \"Azure OpenAI\", \"version\": \"prepared\", \"models_available\": [], \"status\": \"NOT_"
+    },
+    {
+      "name": "compatibility duplicate routes hidden from openapi",
+      "category": "api-contract",
+      "method": "GET",
+      "path": "/openapi.json",
+      "expected_statuses": [
+        200
+      ],
+      "status_code": 200,
+      "passed": true,
+      "elapsed_ms": 0.0,
+      "severity_if_failed": "MEDIUM",
+      "notes": "",
+      "response_sample": "duplicate routes hidden"
+    }
+  ],
+  "observations": [
+    "concurrency_latency_ms avg=9281.46 max=12326.03 total_batch=12337.1",
+    "cookie_auth_keys=['lumina-token']"
+  ]
+}

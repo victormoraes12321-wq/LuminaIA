@@ -1,0 +1,57 @@
+[
+  {
+    "id": "b44be86a-cb87-429e-a6b5-99f792f354e5",
+    "nome": "Tenant Blueprint Versioning",
+    "logo_url": null,
+    "tema_config": {},
+    "ia_config": {},
+    "oracle_conn": {},
+    "ativo": true,
+    "criado_em": "2026-07-10 10:39:41.804180+00:00",
+    "atualizado_em": "2026-07-10 10:39:41.804180+00:00",
+    "clone_db_conn": {},
+    "sync_config": {}
+  },
+  {
+    "id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome": "LuminaAI Demo Corp",
+    "logo_url": "https://cdn.luminaai.com/logos/demo-corp.png",
+    "tema_config": {
+      "dark_mode": false,
+      "font_family": "Inter",
+      "accent_color": "#FF6B6B",
+      "border_radius": "12px",
+      "primary_color": "#FF00FF",
+      "secondary_color": "#00D2D3"
+    },
+    "ia_config": {
+      "model": "gpt-4o",
+      "api_key": "sk-proj-TESTKEY",
+      "max_tokens": 1024,
+      "temperature": 0.2,
+      "active_model_id": "legacy-default",
+      "registered_models": [],
+      "custom_instructions": "Responda sempre em português brasileiro. Priorize precisão sobre velocidade."
+    },
+    "oracle_conn": {
+      "payload": "gAAAAABqUi0JpF6p2QlsR2_1gC5QLkK5-ZOLSRiNcSl3S-OZPfXAzoiNwLmsqdHfTR4KTS3JOxgQqKsxPUQ4UX5fNtd2Hl2jcTgZcHjVqu_cJD-QHu_kTrPkxEG80WGIb3A0K78YAcJLQOWTdzbvWGx9mxeeJTF19m_8LZBZpQ5xac78lh8I8Rl8ucPzZQLFWMQZB9RExeCtG2m51C90gEOFwej063GUww==",
+      "algorithm": "Fernet",
+      "encrypted": true
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-07-11 12:39:34.675580+00:00",
+    "clone_db_conn": {
+      "payload": "gAAAAABqUMr4st5gbx_7oPx3wF4MFLoUclq6qapL5nvPT8mz8BckYYyYl1tLpwRSo3hKryNoYL2WxEz5cr7xGeAbfrnf2-p1TfQQ_tZscvU_-HhJ5SPSjAFF4rqph4rPmNw8ESj3634ZSIaUpwA6IaU8nvjcKm_dfpF_t3uSEpNdEHj43IAgBebtzFFPycID90oieIsSDilbmu-iRH0-BMbxmFWrRWcHasFmiK2OyhZWB_KQ9rhMVKE=",
+      "algorithm": "Fernet",
+      "encrypted": true
+    },
+    "sync_config": {
+      "times": [],
+      "enabled": false,
+      "last_sync": "2026-07-10T10:36:04.436965+00:00",
+      "last_sync_status": "success",
+      "last_sync_message": "Sincronização concluída com sucesso: 18 views atualizadas. Total de registros: 18."
+    }
+  }
+]

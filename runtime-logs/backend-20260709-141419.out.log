@@ -1,0 +1,52 @@
+INFO:     127.0.0.1:60505 - "GET /health HTTP/1.1" 200 OK
+INFO:     192.168.18.103:49672 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64599 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     192.168.18.103:60883 - "GET /api/v1/auth/session HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:52429 - "OPTIONS /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61454 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61454 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52429 - "OPTIONS /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:53378 - "OPTIONS /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:53482 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61454 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:53378 - "OPTIONS /api/v1/query HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61454 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:53378 - "OPTIONS /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61454 - "POST /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62935 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:62935 - "POST /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62272 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:62272 - "POST /api/v1/query/ HTTP/1.1" 422 Unprocessable Entity
+INFO:     192.168.18.103:62596 - "OPTIONS /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:59702 - "OPTIONS /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:64873 - "OPTIONS /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:50408 - "OPTIONS /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:64890 - "GET /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52236 - "GET /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52563 - "GET /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:64890 - "GET /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62538 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
+INFO:     192.168.18.103:55541 - "GET /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62538 - "GET /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:55541 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62538 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:64043 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:55541 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:55093 - "OPTIONS /api/v1/svr/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:58591 - "OPTIONS /api/v1/svr/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:58591 - "GET /api/v1/svr/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:58591 - "GET /api/v1/svr/ HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:58591 - "OPTIONS /api/v1/svr/concepts/MET_001/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:58591 - "OPTIONS /api/v1/svr/concepts/MET_001/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:58591 - "GET /api/v1/svr/concepts/MET_001/history HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:58591 - "GET /api/v1/svr/concepts/MET_001/history HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:56288 - "OPTIONS /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:54929 - "OPTIONS /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52637 - "OPTIONS /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52851 - "OPTIONS /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:50475 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:63070 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:50475 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:59146 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:49669 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:65077 - "GET /api/v1/query/history HTTP/1.1" 200 OK

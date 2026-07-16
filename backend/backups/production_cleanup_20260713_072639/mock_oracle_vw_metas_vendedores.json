@@ -1,0 +1,1042 @@
+[
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "118753.3200000000069849193096160888671875",
+    "valor_atingido": "7088701.84999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "77213.860000000000582076609134674072265625",
+    "valor_atingido": "6667110.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "126123.16000000000349245965480804443359375",
+    "valor_atingido": "10257605.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "100287.35000000000582076609134674072265625",
+    "valor_atingido": "6384168.299999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "102772.009999999994761310517787933349609375",
+    "valor_atingido": "9098565.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "110261.89999999999417923390865325927734375",
+    "valor_atingido": "6058048.950000000186264514923095703125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "113277.080000000001746229827404022216796875",
+    "valor_atingido": "5803614.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "101385.41000000000349245965480804443359375",
+    "valor_atingido": "6923869.450000000186264514923095703125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "126650.41000000000349245965480804443359375",
+    "valor_atingido": "8587929.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "7",
+    "ano": "2025",
+    "meta_valor": "95904.630000000004656612873077392578125",
+    "valor_atingido": "11321007.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "124280.139999999999417923390865325927734375",
+    "valor_atingido": "6778130.34999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "106792.300000000002910383045673370361328125",
+    "valor_atingido": "16423465.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "78797.8099999999976716935634613037109375",
+    "valor_atingido": "12660368.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "123093.330000000001746229827404022216796875",
+    "valor_atingido": "13727907.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "80465.880000000004656612873077392578125",
+    "valor_atingido": "8233552.950000000186264514923095703125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "104222.889999999999417923390865325927734375",
+    "valor_atingido": "13425665",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "112552.1799999999930150806903839111328125",
+    "valor_atingido": "7532958.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "127248.9400000000023283064365386962890625",
+    "valor_atingido": "10216603.6999999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "105046.919999999998253770172595977783203125",
+    "valor_atingido": "10818958.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "8",
+    "ano": "2025",
+    "meta_valor": "124338.080000000001746229827404022216796875",
+    "valor_atingido": "12072794.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "77716.66000000000349245965480804443359375",
+    "valor_atingido": "12651114.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "103439.5",
+    "valor_atingido": "7263051.049999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "79216.89999999999417923390865325927734375",
+    "valor_atingido": "14005419.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "89530.14999999999417923390865325927734375",
+    "valor_atingido": "11366850.09999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "110711.169999999998253770172595977783203125",
+    "valor_atingido": "13749418.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "74394.64999999999417923390865325927734375",
+    "valor_atingido": "14119648.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "103560.740000000005238689482212066650390625",
+    "valor_atingido": "9643590.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "85076.009999999994761310517787933349609375",
+    "valor_atingido": "10960570.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "118915.97000000000116415321826934814453125",
+    "valor_atingido": "8401101.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "9",
+    "ano": "2025",
+    "meta_valor": "74571.830000000001746229827404022216796875",
+    "valor_atingido": "12263917.34999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "108637.97000000000116415321826934814453125",
+    "valor_atingido": "11103328.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "106151.389999999999417923390865325927734375",
+    "valor_atingido": "11300906.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "81361.64999999999417923390865325927734375",
+    "valor_atingido": "10659086.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "115865.380000000004656612873077392578125",
+    "valor_atingido": "10863960.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "103353.66000000000349245965480804443359375",
+    "valor_atingido": "16004611.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "115257.4299999999930150806903839111328125",
+    "valor_atingido": "7787784.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "99183.6799999999930150806903839111328125",
+    "valor_atingido": "12915117.0500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "95773.979999999995925463736057281494140625",
+    "valor_atingido": "8502241.34999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "84156.830000000001746229827404022216796875",
+    "valor_atingido": "12070648.4499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "10",
+    "ano": "2025",
+    "meta_valor": "87309.41000000000349245965480804443359375",
+    "valor_atingido": "11236546.84999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "81646.729999999995925463736057281494140625",
+    "valor_atingido": "8779880.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "115971.740000000005238689482212066650390625",
+    "valor_atingido": "11069281.09999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "87262.110000000000582076609134674072265625",
+    "valor_atingido": "13634903.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "115872.9299999999930150806903839111328125",
+    "valor_atingido": "11096773",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "112610.380000000004656612873077392578125",
+    "valor_atingido": "10758990.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "128890.580000000001746229827404022216796875",
+    "valor_atingido": "11490479.34999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "77611.10000000000582076609134674072265625",
+    "valor_atingido": "9146155.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "109699.10000000000582076609134674072265625",
+    "valor_atingido": "11831976.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "100469.6799999999930150806903839111328125",
+    "valor_atingido": "9041016.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "11",
+    "ano": "2025",
+    "meta_valor": "93337.539999999993597157299518585205078125",
+    "valor_atingido": "13325001.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "122809.740000000005238689482212066650390625",
+    "valor_atingido": "14259699.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "99344.740000000005238689482212066650390625",
+    "valor_atingido": "11559068.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "117979.97000000000116415321826934814453125",
+    "valor_atingido": "11984120.3000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "71320.4400000000023283064365386962890625",
+    "valor_atingido": "10658405.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "116744.880000000004656612873077392578125",
+    "valor_atingido": "12007653.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "92326.449999999997089616954326629638671875",
+    "valor_atingido": "8578189.1999999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "103208.22000000000116415321826934814453125",
+    "valor_atingido": "9753962.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "108140.02999999999883584678173065185546875",
+    "valor_atingido": "11525518.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "78282.449999999997089616954326629638671875",
+    "valor_atingido": "12466327.0500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "12",
+    "ano": "2025",
+    "meta_valor": "82444.16000000000349245965480804443359375",
+    "valor_atingido": "9855755.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "92557.3099999999976716935634613037109375",
+    "valor_atingido": "10593522.15000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "78717.509999999994761310517787933349609375",
+    "valor_atingido": "10969035.0500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "99375.22000000000116415321826934814453125",
+    "valor_atingido": "11317246.84999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "99822.41000000000349245965480804443359375",
+    "valor_atingido": "10277665.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "85411.889999999999417923390865325927734375",
+    "valor_atingido": "13104408",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "103886.880000000004656612873077392578125",
+    "valor_atingido": "10132186.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "114954.880000000004656612873077392578125",
+    "valor_atingido": "10186529.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "89211.8099999999976716935634613037109375",
+    "valor_atingido": "8031006.299999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "124128.889999999999417923390865325927734375",
+    "valor_atingido": "8452837.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "1",
+    "ano": "2026",
+    "meta_valor": "79044.25",
+    "valor_atingido": "11120887.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "100168.10000000000582076609134674072265625",
+    "valor_atingido": "8229987.049999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "82535.9299999999930150806903839111328125",
+    "valor_atingido": "7779656.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "95113.66000000000349245965480804443359375",
+    "valor_atingido": "10900216.15000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "106339.619999999995343387126922607421875",
+    "valor_atingido": "10412509.84999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "129179.860000000000582076609134674072265625",
+    "valor_atingido": "13792170.09999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "73137.490000000005238689482212066650390625",
+    "valor_atingido": "11080594.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "101712.75",
+    "valor_atingido": "9662554.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "90894.119999999995343387126922607421875",
+    "valor_atingido": "9937223.6999999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "124158.619999999995343387126922607421875",
+    "valor_atingido": "10228850.1999999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "2",
+    "ano": "2026",
+    "meta_valor": "86446.740000000005238689482212066650390625",
+    "valor_atingido": "10051013.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "86238.669999999998253770172595977783203125",
+    "valor_atingido": "13104696.34999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "104036.33999999999650754034519195556640625",
+    "valor_atingido": "9899177.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "73838.759999999994761310517787933349609375",
+    "valor_atingido": "10943828.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "124492.630000000004656612873077392578125",
+    "valor_atingido": "12630297.3000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "115790.5700000000069849193096160888671875",
+    "valor_atingido": "13128857.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "89673.479999999995925463736057281494140625",
+    "valor_atingido": "6940363.049999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "79635.91000000000349245965480804443359375",
+    "valor_atingido": "11323036.9499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "98888.35000000000582076609134674072265625",
+    "valor_atingido": "12678230.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "90866.380000000004656612873077392578125",
+    "valor_atingido": "11295375.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "3",
+    "ano": "2026",
+    "meta_valor": "99594.66000000000349245965480804443359375",
+    "valor_atingido": "13082730",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "128390.039999999993597157299518585205078125",
+    "valor_atingido": "8284741.049999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "74710.39999999999417923390865325927734375",
+    "valor_atingido": "13358185.5500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "102980.110000000000582076609134674072265625",
+    "valor_atingido": "10199795.09999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "78964.330000000001746229827404022216796875",
+    "valor_atingido": "12671899.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "76632.27999999999883584678173065185546875",
+    "valor_atingido": "13082559.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "72034.41000000000349245965480804443359375",
+    "valor_atingido": "10743806.90000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "117945.710000000006402842700481414794921875",
+    "valor_atingido": "13797560.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "77446.5700000000069849193096160888671875",
+    "valor_atingido": "9403945.1999999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "99668.119999999995343387126922607421875",
+    "valor_atingido": "7978823",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "4",
+    "ano": "2026",
+    "meta_valor": "120335.759999999994761310517787933349609375",
+    "valor_atingido": "11579269.40000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "115225.0700000000069849193096160888671875",
+    "valor_atingido": "7736935.700000000186264514923095703125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "127763.169999999998253770172595977783203125",
+    "valor_atingido": "10464540.15000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "93099.97000000000116415321826934814453125",
+    "valor_atingido": "14597943.4499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "127562.639999999999417923390865325927734375",
+    "valor_atingido": "10186959.09999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "101310.64999999999417923390865325927734375",
+    "valor_atingido": "11060768.90000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "111818.889999999999417923390865325927734375",
+    "valor_atingido": "11747700.75",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "78641.110000000000582076609134674072265625",
+    "valor_atingido": "10711102.4499999992549419403076171875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "129612.110000000000582076609134674072265625",
+    "valor_atingido": "8022647.90000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "127793.960000000006402842700481414794921875",
+    "valor_atingido": "12047489.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "5",
+    "ano": "2026",
+    "meta_valor": "82463.5",
+    "valor_atingido": "11896433.8000000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "98485.490000000005238689482212066650390625",
+    "valor_atingido": "9563689.0500000007450580596923828125",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "126405.270000000004074536263942718505859375",
+    "valor_atingido": "11670652.5",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "117233.52999999999883584678173065185546875",
+    "valor_atingido": "11340486.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "116519.460000000006402842700481414794921875",
+    "valor_atingido": "12731810.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "103319.509999999994761310517787933349609375",
+    "valor_atingido": "10368821.15000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "106697.669999999998253770172595977783203125",
+    "valor_atingido": "12370991.15000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "119034.800000000002910383045673370361328125",
+    "valor_atingido": "12331021.65000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "116340.199999999997089616954326629638671875",
+    "valor_atingido": "9705445.59999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "95715.25",
+    "valor_atingido": "11121969.84999999962747097015380859375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "6",
+    "ano": "2026",
+    "meta_valor": "123934.6900000000023283064365386962890625",
+    "valor_atingido": "12202092.90000000037252902984619140625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Bruno Souza",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "81885.039999999993597157299518585205078125",
+    "valor_atingido": "2792886.8999999999068677425384521484375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Carolina Lima",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "86490.729999999995925463736057281494140625",
+    "valor_atingido": "3435870.3500000000931322574615478515625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Daniela Costa",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "94437.229999999995925463736057281494140625",
+    "valor_atingido": "3075339.1499999999068677425384521484375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Eduardo Santos",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "109990.5700000000069849193096160888671875",
+    "valor_atingido": "5045205.299999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Fernanda Dias",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "85756.169999999998253770172595977783203125",
+    "valor_atingido": "4082070.1000000000931322574615478515625",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Gabriel Rocha",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "70822.039999999993597157299518585205078125",
+    "valor_atingido": "3818991.3999999999068677425384521484375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Helena Azevedo",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "80962.0700000000069849193096160888671875",
+    "valor_atingido": "2566081.8999999999068677425384521484375",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Igor Martins",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "126909.460000000006402842700481414794921875",
+    "valor_atingido": "4385613.25",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Juliana Reis",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "104628.58999999999650754034519195556640625",
+    "valor_atingido": "3399455.049999999813735485076904296875",
+    "status": "METAS ATINGIDAS"
+  },
+  {
+    "vendedor": "Lucas Pires",
+    "mes": "7",
+    "ano": "2026",
+    "meta_valor": "126793.419999999998253770172595977783203125",
+    "valor_atingido": "1671441.1000000000931322574615478515625",
+    "status": "METAS ATINGIDAS"
+  }
+]

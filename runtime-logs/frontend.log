@@ -1,0 +1,12 @@
+
+> frontend@0.1.0 dev
+> next dev -H 0.0.0.0 -p 3000
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://0.0.0.0:3000
+- Environments: .env.local
+✓ Ready in 1326ms
+  Downloading swc package @next/swc-wasm-nodejs... to C:\Users\wccto11ti1\AppData\Local\next-swc
+  Skipping creating a lockfile at C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\frontend\.next\dev\lock because we're using WASM bindings
+[?25h

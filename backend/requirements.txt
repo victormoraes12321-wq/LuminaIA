@@ -1,0 +1,35 @@
+# ================================================================
+# LuminaAI — Dependências Python
+# Python 3.12+ recomendado
+# ================================================================
+
+# ── Framework Web ────────────────────────────────────────────
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+gunicorn==23.0.0
+
+# ── ORM & Database ───────────────────────────────────────────
+sqlalchemy==2.0.36
+asyncpg==0.30.0           # Driver assíncrono PostgreSQL
+oracledb==2.2.1           # Driver moderno Oracle (Thin mode)
+
+# ── Configuração & Validação ─────────────────────────────────
+pydantic==2.10.3
+pydantic-settings==2.6.1
+email-validator==2.2.0    # Validação de e-mail (requerido por Pydantic EmailStr)
+
+# ── IA — OpenAI ───────────────────────────────────────────────
+openai==1.58.1            # SDK oficial com suporte a Structured Outputs
+
+# ── Segurança ────────────────────────────────────────────────
+PyJWT==2.10.1                    # JWT tokens
+passlib[bcrypt]==1.7.4             # Hash de senhas (bcrypt)
+cryptography==43.0.3               # Fernet encryption para oracle_conn
+
+# ── Utilitários ──────────────────────────────────────────────
+python-multipart==0.0.20  # Upload de arquivos (futura feature)
+
+# ── Desenvolvimento & Testes ─────────────────────────────────
+pytest==8.3.4
+pytest-asyncio==0.24.0
+httpx==0.28.1             # Cliente HTTP assíncrono (testes de integração)

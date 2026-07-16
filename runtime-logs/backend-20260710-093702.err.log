@@ -1,0 +1,690 @@
+INFO:     Started server process [18640]
+INFO:     Waiting for application startup.
+2026-07-10 09:37:05 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 09:37:05 | INFO     | luminaai.main                  | \U0001f31f LuminaAI v1.0.0 — Iniciando
+2026-07-10 09:37:05 | INFO     | luminaai.main                  |    Ambiente  : DEVELOPMENT
+2026-07-10 09:37:05 | INFO     | luminaai.main                  |    Debug     : False
+2026-07-10 09:37:05 | INFO     | luminaai.main                  |    Modelo IA : gpt-4o-mini
+2026-07-10 09:37:05 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 09:37:06 | INFO     | luminaai.main                  | \u2705 PostgreSQL conectado e tabelas sincronizadas com sucesso
+2026-07-10 09:37:06 | INFO     | luminaai.scheduler             | \u23f0 Agendador iniciado com sucesso.
+2026-07-10 09:37:06 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronizando com SemanticCatalog e BKE... (tenant=a0eebc99)
+2026-07-10 09:37:06 | INFO     | luminaai.scheduler             | \u23f0 Agendador de sincronização iniciado.
+2026-07-10 09:37:06 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronização BKE/SemanticCatalog concluída: 5 conceitos processados.
+2026-07-10 09:37:06 | INFO     | luminaai.main                  | âœ… SemanticCatalog sincronizado: 5 conceitos carregados
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-07-10 09:37:10 | INFO     | luminaai.main                  | GET /health â†’ 200 | 1.03ms
+2026-07-10 09:37:28 | INFO     | luminaai.routers.auth          | Usuário autenticado com sucesso: email=ti@casadocampo.vet.br | tenant=a0eebc99 | role=ADMIN
+2026-07-10 09:37:28 | INFO     | luminaai.main                  | POST /api/v1/auth/login â†’ 200 | 269.36ms
+2026-07-10 09:37:28 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Quais os produtos mais vendidos nos ultimos 3 meses'
+2026-07-10 09:37:28 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=9a5f120794e8... best_score=0.100
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.99 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_intelligence_engine | [QIE] [REUSO] Pergunta semelhante encontrada. Ignorando NLU e reutilizando blueprint.
+2026-07-10 09:37:28 | INFO     | luminaai.ai.csie               | [CSIE] [MEMORY HIT] Resolvido via Memória | tempo=10.10ms score=95.00
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PRODUTOS_MAIS_VENDIDOS | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 09:37:28 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Metrica adaptada ao contexto da view: quantidade_pedidos -> unidades_vendidas | view=VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 09:37:28 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 09:37:28 | WARNING  | luminaai.services.iar          | [IAR] [ARP REDIRECT BLOCKED] Domínio solicitado 'PRODUTOS' impede troca de 'VW_PRODUTOS_MAIS_VENDIDOS' para 'VW_VENDAS_MENSAIS'
+2026-07-10 09:37:28 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 1 ms! Estratégia: Default Execution
+2026-07-10 09:37:28 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 09:37:28 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.05 ms). Métricas oficiais: ['ticket_medio', 'quantidade_pedidos']
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_PRODUTOS_MAIS_VENDIDOS (tenant=a0eebc99)...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=blueprint_reutilizado_
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=blueprint_reutilizado_
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=blueprint_reutilizado_ | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura blueprint_reutilizado_ | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | nós=3
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_PRODUTOS_MAIS_VENDIDOS)...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_PRODUTOS_MAIS_VENDIDOS | Tenant: a0eebc99
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: complementar_kpi_executivo (view: VW_KPI_EXECUTIVO)...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_KPI_EXECUTIVO | Tenant: a0eebc99
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_KPI_EXECUTIVO
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_PRODUTOS_MAIS_VENDIDOS table=mock_oracle_vw_ranking_produtos rows=336 filters={'date_range': '2026-04-05 to 2026-07-03'}
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_KPI_EXECUTIVO table=mock_oracle_vw_kpi_executivo rows=4 filters={'date_range': '2026-04-05 to 2026-07-03'}
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=f75d3d65-d226-4ac4-9523-acff26db07e4
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=f75d3d65-d226-4ac4-9523-acff26db07e4
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=f75d3d65-d226-4ac4-9523-acff26db07e4 | upstream=['VW_PRODUTOS_MAIS_VENDIDOS']
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura f75d3d65-d226-4ac4-9523-acff26db07e4 | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=3a7be066-d7ad-4417-9976-ff6e728b3b52
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=3a7be066-d7ad-4417-9976-ff6e728b3b52
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=3a7be066-d7ad-4417-9976-ff6e728b3b52 | upstream=['f75d3d65-d226-4ac4-9523-acff26db07e4']
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 3a7be066-d7ad-4417-9976-ff6e728b3b52 | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=c455e1a1-cc5f-4868-9699-e0a320288cbc
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=c455e1a1-cc5f-4868-9699-e0a320288cbc
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=c455e1a1-cc5f-4868-9699-e0a320288cbc | upstream=['VW_KPI_EXECUTIVO']
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 336
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura c455e1a1-cc5f-4868-9699-e0a320288cbc | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=0d87d3cc-a2e2-42c4-a98a-5132217e54c1
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=0d87d3cc-a2e2-42c4-a98a-5132217e54c1
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=0d87d3cc-a2e2-42c4-a98a-5132217e54c1 | upstream=['c455e1a1-cc5f-4868-9699-e0a320288cbc']
+2026-07-10 09:37:28 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 0d87d3cc-a2e2-42c4-a98a-5132217e54c1 | health=77.5
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de complementar_kpi_executivo | Registros obtidos: 4
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insight deterministico gerado pelo backend.
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 2 | Layout: split | Semântica: ['icone_padrao']
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=e2023112-c2bb-4dab-acd4-2fe226b95aac | name=Painel de Filtros | category=CONTROLS | type=FILTROS | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=ddb8f507-deb7-47e6-a54f-82202170f8cc | name=Tabela KPI_EXECUTIVO | category=TABLES | type=TABLE | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=4a2d002e-f1ad-4a74-8736-0ea2810c1585 | name=Gráfico KPI_EXECUTIVO | category=CHARTS | type=BAR | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=e2023112-c2bb-4dab-acd4-2fe226b95aac | Fase=MOUNT | Estado=Ready
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=ddb8f507-deb7-47e6-a54f-82202170f8cc | Fase=MOUNT | Estado=Ready
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=4a2d002e-f1ad-4a74-8736-0ea2810c1585 | Fase=MOUNT | Estado=Ready
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Renderização finalizada | componentes=3 | reusados=3 | tempo=15ms
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 3 componentes ordenados por precedência
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 09:37:28 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 6.28ms | Componentes=3
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_intelligence_engine | [RIS] QualificaÃ§Ã£o analÃ­tica completa executada! Trust Score: 89.5 | SLA Score: 100.0
+2026-07-10 09:37:28 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] ExecuÃ§Ã£o concluÃ­da | Tempo Total: 584ms | Tempo IA/SemÃ¢ntica: 30ms | Tempo Planner: 0ms | Tempo Validator: 21ms | Tempo Backend (Business + Resolver): 142ms | Tempo Data Platform (Execution + DAL): 191ms | Tempo Insights/Dashboard: 8ms
+2026-07-10 09:37:28 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+2026-07-10 09:37:29 | INFO     | luminaai.main                  | GET /health â†’ 200 | 10.31ms
+2026-07-10 09:37:29 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 985.70ms
+2026-07-10 09:37:29 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=7c44c8dd-454d-43e7-b9df-48e7eb8b8812 domain=PRODUTOS operation=AGGREGATION entity=PRODUTO
+2026-07-10 09:37:29 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 09:37:29 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=134eb4a2 | tempo=584ms
+2026-07-10 09:38:47 | INFO     | luminaai.main                  | GET / â†’ 200 | 3.32ms
+2026-07-10 09:38:47 | WARNING  | luminaai.main                  | GET /favicon.ico â†’ 404 | 1.09ms
+2026-07-10 09:39:52 | INFO     | luminaai.main                  | GET /health â†’ 200 | 0.61ms
+2026-07-10 09:41:40 | INFO     | luminaai.main                  | GET /health â†’ 200 | 0.56ms
+2026-07-10 09:41:58 | INFO     | luminaai.main                  | OPTIONS /api/v1/auth/login â†’ 200 | 0.73ms
+2026-07-10 09:42:20 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 291, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\dependencies\utils.py", line 638, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\dependencies.py", line 55, in get_current_user
+    raise credentials_exception
+fastapi.exceptions.HTTPException: 401: Credenciais inválidas ou token expirado.
+2026-07-10 09:42:20 | WARNING  | luminaai.main                  | HTTP 401 em GET /api/v1/auth/session: Credenciais inválidas ou token expirado.
+2026-07-10 09:42:20 | WARNING  | luminaai.main                  | GET /api/v1/auth/session â†’ 401 | 28.46ms
+2026-07-10 09:42:25 | INFO     | luminaai.main                  | GET /api/v1/auth/session â†’ 200 | 27.03ms
+2026-07-10 09:42:26 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history â†’ 200 | 0.47ms
+2026-07-10 09:42:26 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites â†’ 200 | 0.32ms
+2026-07-10 09:42:26 | INFO     | luminaai.main                  | GET /api/v1/query/favorites â†’ 200 | 99.98ms
+2026-07-10 09:42:26 | INFO     | luminaai.main                  | GET /api/v1/query/history â†’ 200 | 112.15ms
+2026-07-10 09:42:29 | INFO     | luminaai.main                  | OPTIONS /api/v1/query â†’ 200 | 0.54ms
+2026-07-10 09:42:29 | INFO     | luminaai.main                  | POST /api/v1/query â†’ 307 | 3.59ms
+2026-07-10 09:42:29 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ â†’ 200 | 0.25ms
+2026-07-10 09:42:29 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Quais os produtos mais vendidos nos ultimos 3 meses'
+2026-07-10 09:42:29 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=9a5f120794e8... best_score=0.100
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.99 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_intelligence_engine | [QIE] [REUSO] Pergunta semelhante encontrada. Ignorando NLU e reutilizando blueprint.
+2026-07-10 09:42:29 | INFO     | luminaai.ai.csie               | [CSIE] [MEMORY HIT] Resolvido via Memória | tempo=9.55ms score=95.00
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PRODUTOS_MAIS_VENDIDOS | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 09:42:29 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Metrica adaptada ao contexto da view: quantidade_pedidos -> unidades_vendidas | view=VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 09:42:29 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 09:42:29 | WARNING  | luminaai.services.iar          | [IAR] [ARP REDIRECT BLOCKED] Domínio solicitado 'PRODUTOS' impede troca de 'VW_PRODUTOS_MAIS_VENDIDOS' para 'VW_VENDAS_MENSAIS'
+2026-07-10 09:42:29 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 2 ms! Estratégia: Default Execution
+2026-07-10 09:42:29 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 09:42:29 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.23 ms). Métricas oficiais: ['ticket_medio', 'quantidade_pedidos']
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_PRODUTOS_MAIS_VENDIDOS (tenant=a0eebc99)...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=blueprint_reutilizado_
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=blueprint_reutilizado_
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=blueprint_reutilizado_ | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 09:42:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura blueprint_reutilizado_ | health=77.5
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | nós=3
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 09:42:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | health=77.5
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_PRODUTOS_MAIS_VENDIDOS)...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_PRODUTOS_MAIS_VENDIDOS | Tenant: a0eebc99
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: complementar_kpi_executivo (view: VW_KPI_EXECUTIVO)...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_KPI_EXECUTIVO | Tenant: a0eebc99
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_KPI_EXECUTIVO
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_PRODUTOS_MAIS_VENDIDOS table=mock_oracle_vw_ranking_produtos rows=336 filters={'date_range': '2026-04-05 to 2026-07-03'}
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_KPI_EXECUTIVO table=mock_oracle_vw_kpi_executivo rows=4 filters={'date_range': '2026-04-05 to 2026-07-03'}
+C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\execution_engine.py:168: SAWarning: Usage of the 'Session.add()' operation is not currently supported within the execution stage of the flush process. Results may not be consistent.  Consider using alternative event listeners or connection-level operations instead.
+  db_session.add(new_dataset)
+2026-07-10 09:42:29 | ERROR    | luminaai.data_platform.execution_engine | [ExecutionEngine] Falha ao persistir dataset analítico: Session is already flushing
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de complementar_kpi_executivo | Registros obtidos: 4
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=1fedf8df-09df-4767-93f9-d8aeb07403d3
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=1fedf8df-09df-4767-93f9-d8aeb07403d3
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=1fedf8df-09df-4767-93f9-d8aeb07403d3 | upstream=['VW_PRODUTOS_MAIS_VENDIDOS']
+2026-07-10 09:42:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 1fedf8df-09df-4767-93f9-d8aeb07403d3 | health=77.5
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=107824ce-4a2a-433f-b06b-70673478b420
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=107824ce-4a2a-433f-b06b-70673478b420
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=107824ce-4a2a-433f-b06b-70673478b420 | upstream=['1fedf8df-09df-4767-93f9-d8aeb07403d3']
+2026-07-10 09:42:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 107824ce-4a2a-433f-b06b-70673478b420 | health=77.5
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 336
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insight deterministico gerado pelo backend.
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 2 | Layout: split | Semântica: ['icone_padrao']
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Cache HIT para layout completo de componentes!
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 3 componentes ordenados por precedência
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 09:42:29 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 3.73ms | Componentes=3
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_intelligence_engine | [RIS] QualificaÃ§Ã£o analÃ­tica completa executada! Trust Score: 89.5 | SLA Score: 100.0
+2026-07-10 09:42:29 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] ExecuÃ§Ã£o concluÃ­da | Tempo Total: 594ms | Tempo IA/SemÃ¢ntica: 32ms | Tempo Planner: 0ms | Tempo Validator: 28ms | Tempo Backend (Business + Resolver): 230ms | Tempo Data Platform (Execution + DAL): 229ms | Tempo Insights/Dashboard: 12ms
+2026-07-10 09:42:30 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+2026-07-10 09:42:30 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 834.02ms
+2026-07-10 09:42:30 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=3be40b7f-3656-41fb-9d56-20442460ffa7 domain=PRODUTOS operation=AGGREGATION entity=PRODUTO
+2026-07-10 09:42:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 09:42:30 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=134eb4a2 | tempo=594ms
+2026-07-10 09:43:20 | INFO     | luminaai.main                  | POST /api/v1/query â†’ 307 | 0.86ms
+2026-07-10 09:43:20 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Qual o top 3 de vendedores que mais venderam juntando os mes...'
+2026-07-10 09:43:20 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 09:43:20 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=3f078d157fa8... best_score=0.600
+2026-07-10 09:43:20 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.22 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 09:43:21 | INFO     | luminaai.ai.corporate_intelligence_engine | [CIE] Starting semantic processing: 'Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?'
+2026-07-10 09:43:21 | INFO     | luminaai.ai.context_engine     | [CIE] Carregando contexto para o tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11...
+2026-07-10 09:43:21 | INFO     | luminaai.ai.intent_engine      | [CIE] Extracting raw intentions through structured LLM parse...
+2026-07-10 09:43:21 | ERROR    | database                       | Erro no context manager do banco — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 126, in get_db_context
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:43:21 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:43:21 | ERROR    | luminaai.main                  | Exceção não tratada em POST /api/v1/query/ | tipo=AuthenticationError
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 185, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_utils.py", line 82, in collapse_excgroups
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 187, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\main.py", line 174, in request_timing_and_logging
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 163, in call_next
+    raise app_exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 187, in __call__
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 185, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_utils.py", line 82, in collapse_excgroups
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 187, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\main.py", line 174, in request_timing_and_logging
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 163, in call_next
+    raise app_exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:44:08 | INFO     | luminaai.main                  | GET /api/v1/auth/session â†’ 200 | 9.86ms
+2026-07-10 09:44:08 | INFO     | luminaai.main                  | GET /api/v1/query/history â†’ 200 | 24.21ms
+2026-07-10 09:44:08 | INFO     | luminaai.main                  | GET /api/v1/query/favorites â†’ 200 | 25.84ms
+2026-07-10 09:44:10 | INFO     | luminaai.main                  | POST /api/v1/query â†’ 307 | 0.55ms
+2026-07-10 09:44:10 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Qual o top 3 de vendedores que mais venderam juntando os mes...'
+2026-07-10 09:44:10 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 09:44:10 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=3f078d157fa8... best_score=0.600
+2026-07-10 09:44:10 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.22 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 09:44:10 | INFO     | luminaai.ai.corporate_intelligence_engine | [CIE] Starting semantic processing: 'Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?'
+2026-07-10 09:44:10 | INFO     | luminaai.ai.context_engine     | [CIE] Carregando contexto para o tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11...
+2026-07-10 09:44:10 | INFO     | luminaai.ai.intent_engine      | [CIE] Extracting raw intentions through structured LLM parse...
+2026-07-10 09:44:11 | ERROR    | database                       | Erro no context manager do banco — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 126, in get_db_context
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:44:11 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:44:11 | ERROR    | luminaai.main                  | Exceção não tratada em POST /api/v1/query/ | tipo=AuthenticationError
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 185, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_utils.py", line 82, in collapse_excgroups
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 187, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\main.py", line 174, in request_timing_and_logging
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 163, in call_next
+    raise app_exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 187, in __call__
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 185, in __call__
+    with collapse_excgroups():
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 158, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_utils.py", line 82, in collapse_excgroups
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 187, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\main.py", line 174, in request_timing_and_logging
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 163, in call_next
+    raise app_exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 715, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 735, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\starlette\routing.py", line 73, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\query.py", line 325, in processar_consulta
+    return await query_intelligence_engine.process_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\query_intelligence_engine.py", line 991, in process_query
+    intentions = await intentions_func(
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai_service.py", line 143, in identify_intention
+    return await corporate_intelligence_engine.identify_intention(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\corporate_intelligence_engine.py", line 98, in identify_intention
+    raw_result = await intent_engine.extract_intent(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\ai\intent_engine.py", line 113, in extract_intent
+    response = await client.beta.chat.completions.parse(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\resources\beta\chat\completions.py", line 435, in parse
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1843, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1537, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\openai\_base_client.py", line 1638, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-studio/templates â†’ 200 | 2.76ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-studio/instances â†’ 200 | 3.46ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-studio/templates â†’ 200 | 5.01ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-studio/instances â†’ 200 | 6.47ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | GET /api/v1/dashboard-studio/templates â†’ 200 | 335.61ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | GET /api/v1/dashboard-studio/instances â†’ 200 | 312.83ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | GET /api/v1/dashboard-studio/instances â†’ 200 | 32.74ms
+2026-07-10 09:44:19 | INFO     | luminaai.main                  | GET /api/v1/dashboard-studio/templates â†’ 200 | 37.35ms
+2026-07-10 09:47:00 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ â†’ 200 | 0.21ms
+2026-07-10 09:47:00 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ â†’ 200 | 0.23ms

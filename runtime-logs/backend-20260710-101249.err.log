@@ -1,0 +1,271 @@
+INFO:     Started server process [2552]
+INFO:     Waiting for application startup.
+2026-07-10 10:12:51 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 10:12:51 | INFO     | luminaai.main                  | \U0001f31f LuminaAI v1.0.0 — Iniciando
+2026-07-10 10:12:51 | INFO     | luminaai.main                  |    Ambiente  : DEVELOPMENT
+2026-07-10 10:12:51 | INFO     | luminaai.main                  |    Debug     : False
+2026-07-10 10:12:51 | INFO     | luminaai.main                  |    Modelo IA : gpt-4o-mini
+2026-07-10 10:12:51 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 10:12:51 | INFO     | luminaai.main                  | \u2705 PostgreSQL conectado e tabelas sincronizadas com sucesso
+2026-07-10 10:12:51 | INFO     | luminaai.scheduler             | \u23f0 Agendador iniciado com sucesso.
+2026-07-10 10:12:51 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronizando com SemanticCatalog e BKE... (tenant=a0eebc99)
+2026-07-10 10:12:51 | INFO     | luminaai.scheduler             | \u23f0 Agendador de sincronização iniciado.
+2026-07-10 10:12:51 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronização BKE/SemanticCatalog concluída: 5 conceitos processados.
+2026-07-10 10:12:51 | INFO     | luminaai.main                  | âœ… SemanticCatalog sincronizado: 5 conceitos carregados
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-07-10 10:13:28 | INFO     | luminaai.routers.auth          | Usuário autenticado com sucesso: email=ti@casadocampo.vet.br | tenant=a0eebc99 | role=ADMIN
+2026-07-10 10:13:28 | INFO     | luminaai.main                  | POST /api/v1/auth/login â†’ 200 | 250.13ms
+2026-07-10 10:13:28 | INFO     | luminaai.main                  | GET /api/v1/auth/session â†’ 200 | 15.53ms
+2026-07-10 10:13:28 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Qual o top 3 de vendedores que mais venderam juntando os mes...'
+2026-07-10 10:13:28 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 10:13:28 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=3f078d157fa8... best_score=0.600
+2026-07-10 10:13:28 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.99 | Blueprint: bp_subconsulta_para_analisa_c1_v1
+2026-07-10 10:13:28 | INFO     | luminaai.services.query_intelligence_engine | [QIE] [REUSO] Pergunta semelhante encontrada. Ignorando NLU e reutilizando blueprint.
+2026-07-10 10:13:28 | INFO     | luminaai.ai.csie               | [CSIE] [STATIC HIT] Resolvido via mapeamento estático | tempo=3.19ms score=0.95
+2026-07-10 10:13:28 | WARNING  | luminaai.services.query_planner | Query Planner corrigiu view incompatível | Dominio=VENDEDOR | Original=VW_VENDAS_MENSAIS | Corrigida=VW_PERFORMANCE_VENDEDORES
+2026-07-10 10:13:28 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PERFORMANCE_VENDEDORES | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 10:13:28 | WARNING  | luminaai.services.query_intelligence_engine | Plano estruturado rejeitado pelo validador: InconsistÃªncia de mÃ©trica corporativa: Métrica 'MET_001' não está cadastrada no dicionário semântico de negócios corporativo.. Tentando regeneração...
+2026-07-10 10:13:29 | INFO     | luminaai.ai.corporate_intelligence_engine | [CIE] Starting semantic processing: 'Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?'
+2026-07-10 10:13:29 | INFO     | luminaai.ai.context_engine     | [CIE] Carregando contexto para o tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11...
+2026-07-10 10:13:29 | INFO     | luminaai.ai.intent_engine      | [CIE] Extracting raw intentions through structured LLM parse...
+2026-07-10 10:13:29 | WARNING  | services.ai_service            | [AIService] CIE indisponivel/falhou; acionando fallback deterministico de intencao. Motivo: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 10:13:29 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Metrica adaptada ao contexto da view: receita_total -> valor_vendido | view=VW_PERFORMANCE_VENDEDORES
+2026-07-10 10:13:29 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Metrica adaptada ao contexto da view: receita_total -> valor_vendido | view=VW_PERFORMANCE_VENDEDORES
+2026-07-10 10:13:29 | INFO     | luminaai.services.query_intelligence_engine | Plano estruturado regenerado e validado com sucesso!
+2026-07-10 10:13:29 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PERFORMANCE_VENDEDORES | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_meta_vendedor']]
+2026-07-10 10:13:29 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 10:13:29 | WARNING  | luminaai.services.iar          | [IAR] [ARP REDIRECT BLOCKED] Domínio solicitado 'VENDEDORES' impede troca de 'VW_PERFORMANCE_VENDEDORES' para 'VW_VENDAS_MENSAIS'
+2026-07-10 10:13:29 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 2 ms! Estratégia: Default Execution
+2026-07-10 10:13:29 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 10:13:29 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.07 ms). Métricas oficiais: ['meta_atingimento']
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_PERFORMANCE_VENDEDORES (tenant=a0eebc99)...
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=fallback_determinstico_
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=fallback_determinstico_
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=fallback_determinstico_ | upstream=['Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?\n\n[SISTEMA: O plano estruturado anterior']
+2026-07-10 10:13:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura fallback_determinstico_ | health=77.5
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?
+
+[SISTEMA: O plano estruturado anterior
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?
+
+[SISTEMA: O plano estruturado anterior
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?
+
+[SISTEMA: O plano estruturado anterior | nós=3
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?
+
+[SISTEMA: O plano estruturado anterior | upstream=['Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?\n\n[SISTEMA: O plano estruturado anterior']
+2026-07-10 10:13:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?
+
+[SISTEMA: O plano estruturado anterior | health=77.5
+2026-07-10 10:13:29 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_PERFORMANCE_VENDEDORES)...
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_PERFORMANCE_VENDEDORES | Tenant: a0eebc99
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: complementar_meta_vendedor (view: VW_KPI_EXECUTIVO)...
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_KPI_EXECUTIVO | Tenant: a0eebc99
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_PERFORMANCE_VENDEDORES
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_KPI_EXECUTIVO
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_PERFORMANCE_VENDEDORES table=mock_oracle_vw_performance_vendedores rows=3 filters={'date_range': '2026-02-01 to 2026-04-30'}
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_KPI_EXECUTIVO table=mock_oracle_vw_kpi_executivo rows=3 filters={'date_range': '2026-02-01 to 2026-04-30'}
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=457c63b2-72e1-4673-88e8-e145b1df6515
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=457c63b2-72e1-4673-88e8-e145b1df6515
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=457c63b2-72e1-4673-88e8-e145b1df6515 | upstream=['VW_PERFORMANCE_VENDEDORES']
+2026-07-10 10:13:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 457c63b2-72e1-4673-88e8-e145b1df6515 | health=77.5
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=940bd28d-35f1-4883-93e7-18dbdcef5f49
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=940bd28d-35f1-4883-93e7-18dbdcef5f49
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=940bd28d-35f1-4883-93e7-18dbdcef5f49 | upstream=['457c63b2-72e1-4673-88e8-e145b1df6515']
+2026-07-10 10:13:29 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 940bd28d-35f1-4883-93e7-18dbdcef5f49 | health=77.5
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 10:13:29 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=bd3b86f6-b495-470a-ad1c-fc792aa911eb
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=bd3b86f6-b495-470a-ad1c-fc792aa911eb
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 3
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=bd3b86f6-b495-470a-ad1c-fc792aa911eb | upstream=['VW_KPI_EXECUTIVO']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura bd3b86f6-b495-470a-ad1c-fc792aa911eb | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=61abe89c-0b3c-4e8f-b004-9125037fbfa7
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=61abe89c-0b3c-4e8f-b004-9125037fbfa7
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=61abe89c-0b3c-4e8f-b004-9125037fbfa7 | upstream=['bd3b86f6-b495-470a-ad1c-fc792aa911eb']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 61abe89c-0b3c-4e8f-b004-9125037fbfa7 | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de complementar_meta_vendedor | Registros obtidos: 3
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insight deterministico gerado pelo backend.
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 3 | Layout: split | Semântica: ['icone_padrao']
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=36995f9e-8d30-46a8-af66-f8e5a080be4d | name=Painel de Filtros | category=CONTROLS | type=FILTROS | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=c8bf4d1f-dbe2-4e0f-9118-d731fe1f1f32 | name=Tabela KPI_EXECUTIVO | category=TABLES | type=TABLE | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=60a9670e-3e59-46f4-af48-47a6f2c7d0be | name=Gráfico KPI_EXECUTIVO | category=CHARTS | type=BAR | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=36995f9e-8d30-46a8-af66-f8e5a080be4d | Fase=MOUNT | Estado=Ready
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=c8bf4d1f-dbe2-4e0f-9118-d731fe1f1f32 | Fase=MOUNT | Estado=Ready
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=60a9670e-3e59-46f4-af48-47a6f2c7d0be | Fase=MOUNT | Estado=Ready
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Renderização finalizada | componentes=3 | reusados=3 | tempo=2ms
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 3 componentes ordenados por precedência
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 1.92ms | Componentes=3
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [RIS] Qualificação analítica completa executada! Trust Score: 84.5 | SLA Score: 100.0
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] Execução concluída | Tempo Total: 1354ms | Tempo IA/Semântica: 21ms | Tempo Planner: 1ms | Tempo Validator: 958ms | Tempo Backend (Business + Resolver): 132ms | Tempo Data Platform (Execution + DAL): 140ms | Tempo Insights/Dashboard: 1ms
+2026-07-10 10:13:30 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 1568.64ms
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=098ca09b-f6f7-4e63-a26c-2ff4ebff08c2 domain=VENDEDORES operation=RANKING entity=VENDEDOR
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 10:13:30 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=8eee35e8 | tempo=1354ms
+2026-07-10 10:13:30 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Quais os produtos mais vendidos nos ultimos 3 meses'
+2026-07-10 10:13:30 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=9a5f120794e8... best_score=0.100
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.99 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] [REUSO] Pergunta semelhante encontrada. Ignorando NLU e reutilizando blueprint.
+2026-07-10 10:13:30 | INFO     | luminaai.ai.csie               | [CSIE] [MEMORY HIT] Resolvido via Memória | tempo=2.47ms score=95.00
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PRODUTOS_MAIS_VENDIDOS | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 10:13:30 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Metrica adaptada ao contexto da view: quantidade_pedidos -> unidades_vendidas | view=VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_PRODUTOS_MAIS_VENDIDOS | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 10:13:30 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 10:13:30 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 0 ms! Estratégia: Default Execution
+2026-07-10 10:13:30 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 10:13:30 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.05 ms). Métricas oficiais: ['ticket_medio', 'quantidade_pedidos']
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_PRODUTOS_MAIS_VENDIDOS (tenant=a0eebc99)...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=blueprint_reutilizado_
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=blueprint_reutilizado_
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=blueprint_reutilizado_ | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura blueprint_reutilizado_ | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | nós=3
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | upstream=['Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual.']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura Solicitação para identificar os produtos mais vendidos nos últimos 3 meses, considerando o período atual. | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_PRODUTOS_MAIS_VENDIDOS)...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_PRODUTOS_MAIS_VENDIDOS | Tenant: a0eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: complementar_kpi_executivo (view: VW_KPI_EXECUTIVO)...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_KPI_EXECUTIVO | Tenant: a0eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_PRODUTOS_MAIS_VENDIDOS
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_KPI_EXECUTIVO
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_PRODUTOS_MAIS_VENDIDOS table=mock_oracle_vw_ranking_produtos rows=336 filters={'date_range': '2026-04-05 to 2026-07-03', 'data_inicio': '2026-04-05', 'data_fim': '2026-07-03'}
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_KPI_EXECUTIVO table=mock_oracle_vw_kpi_executivo rows=4 filters={'date_range': '2026-04-05 to 2026-07-03', 'data_inicio': '2026-04-05', 'data_fim': '2026-07-03'}
+C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\execution_engine.py:168: SAWarning: Usage of the 'Session.add()' operation is not currently supported within the execution stage of the flush process. Results may not be consistent.  Consider using alternative event listeners or connection-level operations instead.
+  db_session.add(new_dataset)
+2026-07-10 10:13:30 | ERROR    | luminaai.data_platform.execution_engine | [ExecutionEngine] Falha ao persistir dataset analítico: Session is already flushing
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de complementar_kpi_executivo | Registros obtidos: 4
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=6d4c4f7e-ff27-466a-a441-8a960f12a950
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=6d4c4f7e-ff27-466a-a441-8a960f12a950
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=6d4c4f7e-ff27-466a-a441-8a960f12a950 | upstream=['VW_PRODUTOS_MAIS_VENDIDOS']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 6d4c4f7e-ff27-466a-a441-8a960f12a950 | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=3791bf40-907f-48e0-9924-48f21f595fa3
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=3791bf40-907f-48e0-9924-48f21f595fa3
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=3791bf40-907f-48e0-9924-48f21f595fa3 | upstream=['6d4c4f7e-ff27-466a-a441-8a960f12a950']
+2026-07-10 10:13:30 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 3791bf40-907f-48e0-9924-48f21f595fa3 | health=77.5
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 336
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insight deterministico gerado pelo backend.
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 2 | Layout: split | Semântica: ['icone_padrao']
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=36995f9e-8d30-46a8-af66-f8e5a080be4d | Fase=UPDATE | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=c8bf4d1f-dbe2-4e0f-9118-d731fe1f1f32 | Fase=UPDATE | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=60a9670e-3e59-46f4-af48-47a6f2c7d0be | Fase=UPDATE | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=36995f9e-8d30-46a8-af66-f8e5a080be4d | Fase=MOUNT | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=c8bf4d1f-dbe2-4e0f-9118-d731fe1f1f32 | Fase=MOUNT | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=60a9670e-3e59-46f4-af48-47a6f2c7d0be | Fase=MOUNT | Estado=Updating
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Renderização finalizada | componentes=3 | reusados=0 | tempo=2ms
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 3 componentes ordenados por precedência
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 3.09ms | Componentes=3
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [RIS] Qualificação analítica completa executada! Trust Score: 89.5 | SLA Score: 100.0
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] Execução concluída | Tempo Total: 265ms | Tempo IA/Semântica: 22ms | Tempo Planner: 0ms | Tempo Validator: 16ms | Tempo Backend (Business + Resolver): 107ms | Tempo Data Platform (Execution + DAL): 88ms | Tempo Insights/Dashboard: 6ms
+2026-07-10 10:13:30 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 384.11ms
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=8c364934-f2d6-4430-8b5f-712a2a685f7a domain=PRODUTOS operation=AGGREGATION entity=PRODUTO
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 10:13:30 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=134eb4a2 | tempo=265ms
+2026-07-10 10:13:30 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Qual foi o valor das vendas em 05/06/2026?'
+2026-07-10 10:13:30 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 10:13:30 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=6fe640102a2c... best_score=0.550
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.99 | Blueprint: bp_o_usurio_solicitou_o_va_v1
+2026-07-10 10:13:30 | INFO     | luminaai.services.query_intelligence_engine | [QIE] [REUSO] Pergunta semelhante encontrada. Ignorando NLU e reutilizando blueprint.
+2026-07-10 10:13:31 | ERROR    | luminaai.ai.csie               | [CSIE] Erro na chamada do CSIE Fallback IA: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_VENDAS_CONTEXTO_GERAL | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_VENDAS_CONTEXTO_GERAL | Complementares_Otimizadas=1 | Ordem=[['principal', 'complementar_kpi_executivo']]
+2026-07-10 10:13:31 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 10:13:31 | INFO     | luminaai.services.iar          | [IAR] [ARP REDIRECT] Substituindo view 'VW_VENDAS_CONTEXTO_GERAL' pela estratégia vencedora do ARP 'VW_VENDAS_MENSAIS' (Score 91.5)
+2026-07-10 10:13:31 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 1 ms! Estratégia: ARP Redirect: strat_composite_1_task_principal
+2026-07-10 10:13:31 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 10:13:31 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.05 ms). Métricas oficiais: ['ticket_medio', 'quantidade_pedidos']
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_VENDAS_MENSAIS (tenant=a0eebc99)...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=blueprint_reutilizado_
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=blueprint_reutilizado_
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=blueprint_reutilizado_ | upstream=['O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos.']
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura blueprint_reutilizado_ | health=77.5
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos.
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos.
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos. | nós=3
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos. | upstream=['O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos.']
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura O usuário solicitou o valor das vendas em uma data específica, o que se alinha com a análise de vendas e pedidos. | health=77.5
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_VENDAS_MENSAIS)...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_VENDAS_MENSAIS | Tenant: a0eebc99
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: complementar_kpi_executivo (view: VW_KPI_EXECUTIVO)...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_KPI_EXECUTIVO | Tenant: a0eebc99
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_VENDAS_MENSAIS
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_KPI_EXECUTIVO
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_VENDAS_MENSAIS table=mock_oracle_vw_vendas_mensais rows=93 filters={'date_range': '2026-06-05 to 2026-06-05', 'data_inicio': '2026-06-05', 'data_fim': '2026-06-05'}
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_KPI_EXECUTIVO table=mock_oracle_vw_kpi_executivo rows=4 filters={'date_range': '2026-06-05 to 2026-06-05', 'data_inicio': '2026-06-05', 'data_fim': '2026-06-05'}
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=b1b0e088-c100-4be9-ad71-58c7fbd87296
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=b1b0e088-c100-4be9-ad71-58c7fbd87296
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=a0dfadd8-268f-4c06-a0ae-c6e027a28558
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=a0dfadd8-268f-4c06-a0ae-c6e027a28558
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=b1b0e088-c100-4be9-ad71-58c7fbd87296 | upstream=['VW_VENDAS_MENSAIS']
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=a0dfadd8-268f-4c06-a0ae-c6e027a28558 | upstream=['VW_KPI_EXECUTIVO']
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura b1b0e088-c100-4be9-ad71-58c7fbd87296 | health=77.5
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=2bd7af00-59dc-4fa1-9ca8-804876cafa99
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=2bd7af00-59dc-4fa1-9ca8-804876cafa99
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura a0dfadd8-268f-4c06-a0ae-c6e027a28558 | health=77.5
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=35ca9208-ff33-4aa2-a3a7-b0306c5a21e7
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=35ca9208-ff33-4aa2-a3a7-b0306c5a21e7
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=2bd7af00-59dc-4fa1-9ca8-804876cafa99 | upstream=['b1b0e088-c100-4be9-ad71-58c7fbd87296']
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=35ca9208-ff33-4aa2-a3a7-b0306c5a21e7 | upstream=['a0dfadd8-268f-4c06-a0ae-c6e027a28558']
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 35ca9208-ff33-4aa2-a3a7-b0306c5a21e7 | health=77.5
+2026-07-10 10:13:31 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 2bd7af00-59dc-4fa1-9ca8-804876cafa99 | health=77.5
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de complementar_kpi_executivo | Registros obtidos: 4
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 93
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insight deterministico gerado pelo backend.
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 2 | Layout: split | Semântica: ['icone_padrao']
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Cache HIT para layout completo de componentes!
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 3 componentes ordenados por precedência
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 1.95ms | Componentes=3
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_intelligence_engine | [RIS] Qualificação analítica completa executada! Trust Score: 89.5 | SLA Score: 100.0
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] Execução concluída | Tempo Total: 872ms | Tempo IA/Semântica: 16ms | Tempo Planner: 0ms | Tempo Validator: 4ms | Tempo Backend (Business + Resolver): 92ms | Tempo Data Platform (Execution + DAL): 78ms | Tempo Insights/Dashboard: 3ms
+2026-07-10 10:13:31 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\.venv\Lib\site-packages\pydantic\main.py:426: UserWarning: Pydantic serializer warnings:
+  Expected `uuid` but got `str` with value `'3e65fc1b-24e6-4388-9826-db3d28d1ad21'` - serialized value may not be as expected
+  return self.__pydantic_serializer__.to_python(
+2026-07-10 10:13:31 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 1120.32ms
+2026-07-10 10:13:31 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=d01b57e1-6c41-4a8b-ad05-6fa777e43b67 domain=VENDAS operation=SELECT entity=GERAL
+2026-07-10 10:13:31 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 10:13:31 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=df824f81 | tempo=872ms

@@ -1,0 +1,179 @@
+[
+  {
+    "id": "05fdd96b-4051-4332-892d-db6457828411",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_oficial": "receita_total",
+    "descricao": "Total de vendas realizadas em um período comercial.",
+    "sinonimos": [
+      "receita",
+      "faturamento",
+      "venda",
+      "venda bruta",
+      "valor vendido",
+      "faturamento_total",
+      "total_vendas"
+    ],
+    "categoria": "Financeiro",
+    "tipo": "Monetário",
+    "unidade": "R$",
+    "formato": "currency",
+    "metodo_agregacao": "Soma",
+    "contexto": "Vendas líquidas faturadas no período",
+    "kpis_relacionados": [
+      "lucro_bruto",
+      "margem_lucro",
+      "ticket_medio"
+    ],
+    "indicadores_derivados": [
+      "lucro_bruto"
+    ],
+    "visualizacoes_recomendadas": [
+      "LINE",
+      "BAR",
+      "KPI"
+    ],
+    "restricoes": [],
+    "permissoes": [
+      "Geral"
+    ],
+    "versao": 1,
+    "criado_em": "2026-07-07 15:03:16.248688+00:00",
+    "atualizado_em": "2026-07-07 15:03:16.248688+00:00"
+  },
+  {
+    "id": "17be3ec7-8cc1-4fa8-95b9-25166bce6729",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_oficial": "lucro_bruto",
+    "descricao": "Receita total líquida deduzindo custos operacionais diretos, taxas e impostos.",
+    "sinonimos": [
+      "lucro",
+      "margem_bruta"
+    ],
+    "categoria": "Financeiro",
+    "tipo": "Monetário",
+    "unidade": "R$",
+    "formato": "currency",
+    "metodo_agregacao": "Soma",
+    "contexto": "Lucratividade bruta da operação",
+    "kpis_relacionados": [
+      "receita_total",
+      "margem_lucro",
+      "ticket_medio"
+    ],
+    "indicadores_derivados": [
+      "margem_lucro"
+    ],
+    "visualizacoes_recomendadas": [
+      "BAR",
+      "KPI"
+    ],
+    "restricoes": [],
+    "permissoes": [
+      "Diretoria",
+      "Financeiro"
+    ],
+    "versao": 1,
+    "criado_em": "2026-07-07 15:03:16.248688+00:00",
+    "atualizado_em": "2026-07-07 15:03:16.248688+00:00"
+  },
+  {
+    "id": "0cddabef-f507-494c-a66d-f5784c13f31e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_oficial": "margem_lucro",
+    "descricao": "Margem percentual de lucratividade sobre a receita total gerada.",
+    "sinonimos": [
+      "margem",
+      "lucratividade"
+    ],
+    "categoria": "Financeiro",
+    "tipo": "Percentual",
+    "unidade": "%",
+    "formato": "percentage",
+    "metodo_agregacao": "Média",
+    "contexto": "Percentual de lucro sobre faturamento",
+    "kpis_relacionados": [
+      "lucro_bruto",
+      "receita_total"
+    ],
+    "indicadores_derivados": [],
+    "visualizacoes_recomendadas": [
+      "LINE",
+      "KPI",
+      "BAR"
+    ],
+    "restricoes": [],
+    "permissoes": [
+      "Diretoria",
+      "Financeiro"
+    ],
+    "versao": 1,
+    "criado_em": "2026-07-07 15:03:16.248688+00:00",
+    "atualizado_em": "2026-07-07 15:03:16.248688+00:00"
+  },
+  {
+    "id": "c29a3529-e691-42fd-a3e0-d0abe0aff215",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_oficial": "ticket_medio",
+    "descricao": "Valor médio transacionado por cada venda concluída.",
+    "sinonimos": [
+      "ticket",
+      "valor_medio_compra"
+    ],
+    "categoria": "Financeiro",
+    "tipo": "Monetário",
+    "unidade": "R$",
+    "formato": "currency",
+    "metodo_agregacao": "Média",
+    "contexto": "Valor médio gasto por transação",
+    "kpis_relacionados": [
+      "receita_total",
+      "quantidade_pedidos"
+    ],
+    "indicadores_derivados": [],
+    "visualizacoes_recomendadas": [
+      "LINE",
+      "KPI"
+    ],
+    "restricoes": [],
+    "permissoes": [
+      "Geral"
+    ],
+    "versao": 1,
+    "criado_em": "2026-07-07 15:03:16.248688+00:00",
+    "atualizado_em": "2026-07-07 15:03:16.248688+00:00"
+  },
+  {
+    "id": "73e439ba-ded1-48d4-8ebd-e617efa78cbb",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_oficial": "quantidade_pedidos",
+    "descricao": "Número total de pedidos ou transações de vendas no período.",
+    "sinonimos": [
+      "pedidos",
+      "volume_vendas"
+    ],
+    "categoria": "Comercial",
+    "tipo": "Quantidade",
+    "unidade": "un",
+    "formato": "integer",
+    "metodo_agregacao": "Soma",
+    "contexto": "Quantidade absoluta de transações faturadas",
+    "kpis_relacionados": [
+      "receita_total",
+      "ticket_medio"
+    ],
+    "indicadores_derivados": [
+      "ticket_medio"
+    ],
+    "visualizacoes_recomendadas": [
+      "BAR",
+      "KPI"
+    ],
+    "restricoes": [],
+    "permissoes": [
+      "Geral"
+    ],
+    "versao": 1,
+    "criado_em": "2026-07-07 15:03:16.248688+00:00",
+    "atualizado_em": "2026-07-07 15:03:16.248688+00:00"
+  }
+]

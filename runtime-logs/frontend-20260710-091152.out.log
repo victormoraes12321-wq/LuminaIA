@@ -1,0 +1,31 @@
+
+> frontend@0.1.0 dev
+> next dev --hostname 0.0.0.0 --port 3000
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://0.0.0.0:3000
+- Environments: .env.local
+✓ Ready in 1181ms
+
+ GET /healthz 404 in 3.3s (next.js: 2.9s, application-code: 490ms)
+ GET / 200 in 175ms (next.js: 79ms, application-code: 96ms)
+ GET /healthz 404 in 92ms (next.js: 12ms, application-code: 80ms)
+ GET /healthz 404 in 276ms (next.js: 29ms, application-code: 248ms)
+ GET /healthz 404 in 46ms (next.js: 6ms, application-code: 41ms)
+ GET /healthz 404 in 41ms (next.js: 5ms, application-code: 36ms)
+ HEAD / 200 in 69ms (next.js: 8ms, application-code: 61ms)
+ GET /healthz 404 in 46ms (next.js: 5ms, application-code: 41ms)
+ GET / 200 in 111ms (next.js: 9ms, application-code: 102ms)
+ GET /login 200 in 115ms (next.js: 62ms, proxy.ts: 8ms, application-code: 45ms)
+ GET /login 200 in 39ms (next.js: 5ms, proxy.ts: 7ms, application-code: 27ms)
+ GET / 200 in 130ms (next.js: 18ms, application-code: 112ms)
+ GET / 200 in 72ms (next.js: 10ms, application-code: 61ms)
+ GET /login 200 in 38ms (next.js: 3ms, proxy.ts: 8ms, application-code: 27ms)
+ GET /login 200 in 50ms (next.js: 10ms, proxy.ts: 8ms, application-code: 32ms)
+ GET /healthz 404 in 48ms (next.js: 6ms, application-code: 42ms)
+ GET /healthz 404 in 184ms (next.js: 10ms, application-code: 174ms)
+ GET /healthz 404 in 88ms (next.js: 6ms, application-code: 82ms)
+ GET /healthz 404 in 45ms (next.js: 7ms, application-code: 37ms)
+ GET /healthz 404 in 309ms (next.js: 139ms, application-code: 170ms)
+[?25h

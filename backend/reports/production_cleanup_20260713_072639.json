@@ -1,0 +1,3835 @@
+{
+  "timestamp": "2026-07-13T10:26:39.408980+00:00",
+  "mode": "production_data_cleanup",
+  "schema_operations": [],
+  "backup_dir": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\backups\\production_cleanup_20260713_072639",
+  "deleted_rows": {
+    "package_dashboard_instances": 604,
+    "dashboard_studio_versions": 350,
+    "dashboard_instances": 95,
+    "dashboard_templates": 127,
+    "favorites": 0,
+    "search_history": 886,
+    "analytical_packages": 599,
+    "blueprint_repository": 144,
+    "datasets": 1165,
+    "data_platform_history": 1241,
+    "sync_queue": 193,
+    "semantic_memory": 61,
+    "business_governance_logs": 0,
+    "metadata_catalog_versions": 1139,
+    "metadata_catalog": 1730,
+    "mock_oracle_vw_estoque_produtos": 336,
+    "mock_oracle_vw_faturamento_mensal": 13,
+    "mock_oracle_vw_historico_clientes": 15,
+    "mock_oracle_vw_kpi_executivo": 4,
+    "mock_oracle_vw_lojas_regioes": 3,
+    "mock_oracle_vw_metas_vendedores": 130,
+    "mock_oracle_vw_performance_vendedores": 10,
+    "mock_oracle_vw_ranking_produtos": 336,
+    "mock_oracle_vw_vendas_mensais": 40170,
+    "vw_clientes_historico": 35,
+    "vw_detalhe_pedidos": 191,
+    "vw_estoque_status": 35,
+    "vw_evolucao_clientes": 191,
+    "vw_fat_prod_1781608977": 191,
+    "vw_fat_prod_1781612969": 191,
+    "vw_fat_prod_1781613201": 191,
+    "vw_faturamento_mensal": 35,
+    "vw_faturamento_produtos": 191,
+    "vw_integrity_test_err": 1,
+    "vw_integrity_test_ok": 1,
+    "vw_isolation_test": 1,
+    "vw_kpi_executivo": 35,
+    "vw_kpi_executivo_vendas": 190,
+    "vw_lojas_regioes": 3,
+    "vw_market_share_produtos": 191,
+    "vw_metas_atingimento": 191,
+    "vw_performance_vendedores": 35,
+    "vw_produtos_mais_vendidos": 35,
+    "vw_ranking_produtos": 336,
+    "vw_test_dataplatform": 191,
+    "vw_test_extended_dataplatform": 1,
+    "vw_teste_integracao": 1,
+    "vw_vendas_contexto_geral": 40205,
+    "vw_vendas_mensais": 35,
+    "users_demo_test_only": 1,
+    "view_catalog_test_entries_only": 4,
+    "tenants_test_only": 1,
+    "svr_audit_logs_test_temp_only": 24,
+    "svr_compatibility_matrix_test_temp_only": 24,
+    "svr_versions_test_temp_only": 24,
+    "svr_concepts_test_temp_only": 17
+  },
+  "preserved_tables": [
+    "tenants",
+    "users",
+    "view_catalog",
+    "semantic_catalog",
+    "svr_audit_logs",
+    "svr_compatibility_matrix",
+    "svr_concepts",
+    "svr_versions",
+    "business_concepts",
+    "business_formulas",
+    "business_kpis",
+    "business_relationships"
+  ],
+  "notes": [],
+  "before_counts": {
+    "analytical_packages": 599,
+    "blueprint_repository": 144,
+    "business_concepts": 0,
+    "business_formulas": 0,
+    "business_governance_logs": 0,
+    "business_kpis": 0,
+    "business_relationships": 0,
+    "dashboard_instances": 95,
+    "dashboard_studio_versions": 350,
+    "dashboard_templates": 127,
+    "data_platform_history": 1241,
+    "datasets": 1165,
+    "favorites": 0,
+    "metadata_catalog": 1730,
+    "metadata_catalog_versions": 1139,
+    "mock_oracle_vw_estoque_produtos": 336,
+    "mock_oracle_vw_faturamento_mensal": 13,
+    "mock_oracle_vw_historico_clientes": 15,
+    "mock_oracle_vw_kpi_executivo": 4,
+    "mock_oracle_vw_lojas_regioes": 3,
+    "mock_oracle_vw_metas_vendedores": 130,
+    "mock_oracle_vw_performance_vendedores": 10,
+    "mock_oracle_vw_ranking_produtos": 336,
+    "mock_oracle_vw_vendas_mensais": 40170,
+    "package_dashboard_instances": 604,
+    "search_history": 886,
+    "semantic_catalog": 5,
+    "semantic_memory": 61,
+    "svr_audit_logs": 24,
+    "svr_compatibility_matrix": 36,
+    "svr_concepts": 29,
+    "svr_versions": 36,
+    "sync_queue": 193,
+    "tenants": 2,
+    "users": 2,
+    "view_catalog": 20,
+    "vw_clientes_historico": 35,
+    "vw_detalhe_pedidos": 191,
+    "vw_estoque_status": 35,
+    "vw_evolucao_clientes": 191,
+    "vw_fat_prod_1781608977": 191,
+    "vw_fat_prod_1781612969": 191,
+    "vw_fat_prod_1781613201": 191,
+    "vw_faturamento_mensal": 35,
+    "vw_faturamento_produtos": 191,
+    "vw_integrity_test_err": 1,
+    "vw_integrity_test_ok": 1,
+    "vw_isolation_test": 1,
+    "vw_kpi_executivo": 35,
+    "vw_kpi_executivo_vendas": 190,
+    "vw_lojas_regioes": 3,
+    "vw_market_share_produtos": 191,
+    "vw_metas_atingimento": 191,
+    "vw_performance_vendedores": 35,
+    "vw_produtos_mais_vendidos": 35,
+    "vw_ranking_produtos": 336,
+    "vw_test_dataplatform": 191,
+    "vw_test_extended_dataplatform": 1,
+    "vw_teste_integracao": 1,
+    "vw_vendas_contexto_geral": 40205,
+    "vw_vendas_mensais": 35
+  },
+  "generated_analytical_tables": [
+    "mock_oracle_vw_estoque_produtos",
+    "mock_oracle_vw_faturamento_mensal",
+    "mock_oracle_vw_historico_clientes",
+    "mock_oracle_vw_kpi_executivo",
+    "mock_oracle_vw_lojas_regioes",
+    "mock_oracle_vw_metas_vendedores",
+    "mock_oracle_vw_performance_vendedores",
+    "mock_oracle_vw_ranking_produtos",
+    "mock_oracle_vw_vendas_mensais",
+    "vw_clientes_historico",
+    "vw_detalhe_pedidos",
+    "vw_estoque_status",
+    "vw_evolucao_clientes",
+    "vw_fat_prod_1781608977",
+    "vw_fat_prod_1781612969",
+    "vw_fat_prod_1781613201",
+    "vw_faturamento_mensal",
+    "vw_faturamento_produtos",
+    "vw_integrity_test_err",
+    "vw_integrity_test_ok",
+    "vw_isolation_test",
+    "vw_kpi_executivo",
+    "vw_kpi_executivo_vendas",
+    "vw_lojas_regioes",
+    "vw_market_share_produtos",
+    "vw_metas_atingimento",
+    "vw_performance_vendedores",
+    "vw_produtos_mais_vendidos",
+    "vw_ranking_produtos",
+    "vw_test_dataplatform",
+    "vw_test_extended_dataplatform",
+    "vw_teste_integracao",
+    "vw_vendas_contexto_geral",
+    "vw_vendas_mensais"
+  ],
+  "backup_counts": {
+    "analytical_packages": 599,
+    "blueprint_repository": 144,
+    "business_concepts": 0,
+    "business_formulas": 0,
+    "business_governance_logs": 0,
+    "business_kpis": 0,
+    "business_relationships": 0,
+    "dashboard_instances": 95,
+    "dashboard_studio_versions": 350,
+    "dashboard_templates": 127,
+    "data_platform_history": 1241,
+    "datasets": 1165,
+    "favorites": 0,
+    "metadata_catalog": 1730,
+    "metadata_catalog_versions": 1139,
+    "mock_oracle_vw_estoque_produtos": 336,
+    "mock_oracle_vw_faturamento_mensal": 13,
+    "mock_oracle_vw_historico_clientes": 15,
+    "mock_oracle_vw_kpi_executivo": 4,
+    "mock_oracle_vw_lojas_regioes": 3,
+    "mock_oracle_vw_metas_vendedores": 130,
+    "mock_oracle_vw_performance_vendedores": 10,
+    "mock_oracle_vw_ranking_produtos": 336,
+    "mock_oracle_vw_vendas_mensais": 40170,
+    "package_dashboard_instances": 604,
+    "search_history": 886,
+    "semantic_catalog": 5,
+    "semantic_memory": 61,
+    "svr_audit_logs": 24,
+    "svr_compatibility_matrix": 36,
+    "svr_concepts": 29,
+    "svr_versions": 36,
+    "sync_queue": 193,
+    "tenants": 2,
+    "users": 2,
+    "view_catalog": 20,
+    "vw_clientes_historico": 35,
+    "vw_detalhe_pedidos": 191,
+    "vw_estoque_status": 35,
+    "vw_evolucao_clientes": 191,
+    "vw_fat_prod_1781608977": 191,
+    "vw_fat_prod_1781612969": 191,
+    "vw_fat_prod_1781613201": 191,
+    "vw_faturamento_mensal": 35,
+    "vw_faturamento_produtos": 191,
+    "vw_integrity_test_err": 1,
+    "vw_integrity_test_ok": 1,
+    "vw_isolation_test": 1,
+    "vw_kpi_executivo": 35,
+    "vw_kpi_executivo_vendas": 190,
+    "vw_lojas_regioes": 3,
+    "vw_market_share_produtos": 191,
+    "vw_metas_atingimento": 191,
+    "vw_performance_vendedores": 35,
+    "vw_produtos_mais_vendidos": 35,
+    "vw_ranking_produtos": 336,
+    "vw_test_dataplatform": 191,
+    "vw_test_extended_dataplatform": 1,
+    "vw_teste_integracao": 1,
+    "vw_vendas_contexto_geral": 40205,
+    "vw_vendas_mensais": 35
+  },
+  "after_counts": {
+    "analytical_packages": 0,
+    "blueprint_repository": 0,
+    "business_concepts": 0,
+    "business_formulas": 0,
+    "business_governance_logs": 0,
+    "business_kpis": 0,
+    "business_relationships": 0,
+    "dashboard_instances": 0,
+    "dashboard_studio_versions": 0,
+    "dashboard_templates": 0,
+    "data_platform_history": 0,
+    "datasets": 0,
+    "favorites": 0,
+    "metadata_catalog": 0,
+    "metadata_catalog_versions": 0,
+    "mock_oracle_vw_estoque_produtos": 0,
+    "mock_oracle_vw_faturamento_mensal": 0,
+    "mock_oracle_vw_historico_clientes": 0,
+    "mock_oracle_vw_kpi_executivo": 0,
+    "mock_oracle_vw_lojas_regioes": 0,
+    "mock_oracle_vw_metas_vendedores": 0,
+    "mock_oracle_vw_performance_vendedores": 0,
+    "mock_oracle_vw_ranking_produtos": 0,
+    "mock_oracle_vw_vendas_mensais": 0,
+    "package_dashboard_instances": 0,
+    "search_history": 0,
+    "semantic_catalog": 5,
+    "semantic_memory": 0,
+    "svr_audit_logs": 0,
+    "svr_compatibility_matrix": 12,
+    "svr_concepts": 12,
+    "svr_versions": 12,
+    "sync_queue": 0,
+    "tenants": 1,
+    "users": 1,
+    "view_catalog": 14,
+    "vw_clientes_historico": 0,
+    "vw_detalhe_pedidos": 0,
+    "vw_estoque_status": 0,
+    "vw_evolucao_clientes": 0,
+    "vw_fat_prod_1781608977": 0,
+    "vw_fat_prod_1781612969": 0,
+    "vw_fat_prod_1781613201": 0,
+    "vw_faturamento_mensal": 0,
+    "vw_faturamento_produtos": 0,
+    "vw_integrity_test_err": 0,
+    "vw_integrity_test_ok": 0,
+    "vw_isolation_test": 0,
+    "vw_kpi_executivo": 0,
+    "vw_kpi_executivo_vendas": 0,
+    "vw_lojas_regioes": 0,
+    "vw_market_share_produtos": 0,
+    "vw_metas_atingimento": 0,
+    "vw_performance_vendedores": 0,
+    "vw_produtos_mais_vendidos": 0,
+    "vw_ranking_produtos": 0,
+    "vw_test_dataplatform": 0,
+    "vw_test_extended_dataplatform": 0,
+    "vw_teste_integracao": 0,
+    "vw_vendas_contexto_geral": 0,
+    "vw_vendas_mensais": 0
+  },
+  "fk_orphan_issues": [],
+  "unchanged_tables": [
+    "business_concepts",
+    "business_formulas",
+    "business_governance_logs",
+    "business_kpis",
+    "business_relationships",
+    "favorites",
+    "semantic_catalog",
+    "svr_audit_logs",
+    "svr_compatibility_matrix",
+    "svr_concepts",
+    "svr_versions"
+  ],
+  "affected_tables": [
+    "analytical_packages",
+    "blueprint_repository",
+    "dashboard_instances",
+    "dashboard_studio_versions",
+    "dashboard_templates",
+    "data_platform_history",
+    "datasets",
+    "metadata_catalog",
+    "metadata_catalog_versions",
+    "mock_oracle_vw_estoque_produtos",
+    "mock_oracle_vw_faturamento_mensal",
+    "mock_oracle_vw_historico_clientes",
+    "mock_oracle_vw_kpi_executivo",
+    "mock_oracle_vw_lojas_regioes",
+    "mock_oracle_vw_metas_vendedores",
+    "mock_oracle_vw_performance_vendedores",
+    "mock_oracle_vw_ranking_produtos",
+    "mock_oracle_vw_vendas_mensais",
+    "package_dashboard_instances",
+    "search_history",
+    "semantic_memory",
+    "sync_queue",
+    "tenants",
+    "users",
+    "view_catalog",
+    "vw_clientes_historico",
+    "vw_detalhe_pedidos",
+    "vw_estoque_status",
+    "vw_evolucao_clientes",
+    "vw_fat_prod_1781608977",
+    "vw_fat_prod_1781612969",
+    "vw_fat_prod_1781613201",
+    "vw_faturamento_mensal",
+    "vw_faturamento_produtos",
+    "vw_integrity_test_err",
+    "vw_integrity_test_ok",
+    "vw_isolation_test",
+    "vw_kpi_executivo",
+    "vw_kpi_executivo_vendas",
+    "vw_lojas_regioes",
+    "vw_market_share_produtos",
+    "vw_metas_atingimento",
+    "vw_performance_vendedores",
+    "vw_produtos_mais_vendidos",
+    "vw_ranking_produtos",
+    "vw_test_dataplatform",
+    "vw_test_extended_dataplatform",
+    "vw_teste_integracao",
+    "vw_vendas_contexto_geral",
+    "vw_vendas_mensais"
+  ],
+  "removed_temp_paths": [
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.pytest_cache",
+      "files": 6,
+      "bytes": 30927
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\frontend\\.next\\cache",
+      "files": 13,
+      "bytes": 372976244
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\frontend\\playwright-report",
+      "files": 1,
+      "bytes": 538374
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\frontend\\test-results",
+      "files": 1,
+      "bytes": 45
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\__pycache__",
+      "files": 5,
+      "bytes": 37351
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\scripts\\__pycache__",
+      "files": 1,
+      "bytes": 11767
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\__pycache__",
+      "files": 3,
+      "bytes": 3753
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\__pycache__",
+      "files": 9,
+      "bytes": 125835
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\__pycache__",
+      "files": 1,
+      "bytes": 4601
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\cli\\__pycache__",
+      "files": 13,
+      "bytes": 128109
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\commands\\__pycache__",
+      "files": 19,
+      "bytes": 164818
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\distributions\\__pycache__",
+      "files": 5,
+      "bytes": 16304
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\index\\__pycache__",
+      "files": 4,
+      "bytes": 77489
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\locations\\__pycache__",
+      "files": 4,
+      "bytes": 33684
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\__pycache__",
+      "files": 4,
+      "bytes": 59881
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\models\\__pycache__",
+      "files": 13,
+      "bytes": 60314
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\network\\__pycache__",
+      "files": 8,
+      "bytes": 82066
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\__pycache__",
+      "files": 4,
+      "bytes": 44195
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\req\\__pycache__",
+      "files": 8,
+      "bytes": 132908
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\__pycache__",
+      "files": 2,
+      "bytes": 1379
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\utils\\__pycache__",
+      "files": 26,
+      "bytes": 167792
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\vcs\\__pycache__",
+      "files": 6,
+      "bytes": 74660
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\__pycache__",
+      "files": 4,
+      "bytes": 25546
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\build\\__pycache__",
+      "files": 6,
+      "bytes": 15356
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\install\\__pycache__",
+      "files": 2,
+      "bytes": 34966
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\legacy\\__pycache__",
+      "files": 2,
+      "bytes": 22733
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\__pycache__",
+      "files": 9,
+      "bytes": 129041
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\__pycache__",
+      "files": 9,
+      "bytes": 48600
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\certifi\\__pycache__",
+      "files": 3,
+      "bytes": 3069
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\__pycache__",
+      "files": 5,
+      "bytes": 171939
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\distro\\__pycache__",
+      "files": 3,
+      "bytes": 55068
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\idna\\__pycache__",
+      "files": 8,
+      "bytes": 288569
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\__pycache__",
+      "files": 4,
+      "bytes": 53579
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\__pycache__",
+      "files": 18,
+      "bytes": 333886
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__pycache__",
+      "files": 1,
+      "bytes": 161257
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\__pycache__",
+      "files": 8,
+      "bytes": 84240
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\__pycache__",
+      "files": 15,
+      "bytes": 140308
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\__pycache__",
+      "files": 2,
+      "bytes": 18811
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\requests\\__pycache__",
+      "files": 18,
+      "bytes": 209735
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\__pycache__",
+      "files": 4,
+      "bytes": 26528
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__pycache__",
+      "files": 77,
+      "bytes": 1133550
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\__pycache__",
+      "files": 4,
+      "bytes": 34489
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\tomli_w\\__pycache__",
+      "files": 2,
+      "bytes": 10694
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\truststore\\__pycache__",
+      "files": 6,
+      "bytes": 57145
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\__pycache__",
+      "files": 12,
+      "bytes": 240977
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\caches\\__pycache__",
+      "files": 3,
+      "bytes": 10226
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\licenses\\__pycache__",
+      "files": 2,
+      "bytes": 55321
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\filters\\__pycache__",
+      "files": 1,
+      "bytes": 37920
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__pycache__",
+      "files": 2,
+      "bytes": 11135
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__pycache__",
+      "files": 3,
+      "bytes": 127464
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\styles\\__pycache__",
+      "files": 2,
+      "bytes": 6330
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\_in_process\\__pycache__",
+      "files": 2,
+      "bytes": 16408
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\resolvers\\__pycache__",
+      "files": 5,
+      "bytes": 35733
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\__pycache__",
+      "files": 3,
+      "bytes": 36656
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\http2\\__pycache__",
+      "files": 3,
+      "bytes": 22412
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\__pycache__",
+      "files": 13,
+      "bytes": 108515
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\emscripten\\__pycache__",
+      "files": 5,
+      "bytes": 53691
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\database\\__pycache__",
+      "files": 8,
+      "bytes": 46543
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\models\\__pycache__",
+      "files": 25,
+      "bytes": 115334
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\routers\\__pycache__",
+      "files": 13,
+      "bytes": 160132
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\schemas\\__pycache__",
+      "files": 10,
+      "bytes": 58884
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\scripts\\__pycache__",
+      "files": 3,
+      "bytes": 60114
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\__pycache__",
+      "files": 29,
+      "bytes": 678799
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\tests\\__pycache__",
+      "files": 87,
+      "bytes": 1497214
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\__pycache__",
+      "files": 3,
+      "bytes": 205514
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\annotated_types\\__pycache__",
+      "files": 2,
+      "bytes": 31881
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\anyio\\__pycache__",
+      "files": 13,
+      "bytes": 158625
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\__pycache__",
+      "files": 16,
+      "bytes": 298818
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\bcrypt\\__pycache__",
+      "files": 1,
+      "bytes": 588
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\certifi\\__pycache__",
+      "files": 3,
+      "bytes": 3028
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cffi\\__pycache__",
+      "files": 18,
+      "bytes": 414819
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\click\\__pycache__",
+      "files": 17,
+      "bytes": 475676
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\colorama\\__pycache__",
+      "files": 6,
+      "bytes": 41646
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\__pycache__",
+      "files": 5,
+      "bytes": 20274
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\distro\\__pycache__",
+      "files": 3,
+      "bytes": 55056
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\__pycache__",
+      "files": 59,
+      "bytes": 1024118
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dotenv\\__pycache__",
+      "files": 8,
+      "bytes": 49661
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\ecdsa\\__pycache__",
+      "files": 30,
+      "bytes": 741214
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\email_validator\\__pycache__",
+      "files": 8,
+      "bytes": 44906
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\fastapi\\__pycache__",
+      "files": 23,
+      "bytes": 301836
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\greenlet\\__pycache__",
+      "files": 1,
+      "bytes": 875
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\gunicorn\\__pycache__",
+      "files": 12,
+      "bytes": 199621
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\h11\\__pycache__",
+      "files": 11,
+      "bytes": 81295
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpcore\\__pycache__",
+      "files": 8,
+      "bytes": 54954
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httptools\\__pycache__",
+      "files": 2,
+      "bytes": 912
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpx\\__pycache__",
+      "files": 17,
+      "bytes": 301064
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\idna\\__pycache__",
+      "files": 10,
+      "bytes": 164517
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\iniconfig\\__pycache__",
+      "files": 4,
+      "bytes": 18445
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\jiter\\__pycache__",
+      "files": 1,
+      "bytes": 353
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\jose\\__pycache__",
+      "files": 8,
+      "bytes": 61606
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\jwt\\__pycache__",
+      "files": 12,
+      "bytes": 90844
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\multipart\\__pycache__",
+      "files": 4,
+      "bytes": 2175
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\__pycache__",
+      "files": 19,
+      "bytes": 264901
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\oracledb\\__pycache__",
+      "files": 23,
+      "bytes": 454231
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\packaging\\__pycache__",
+      "files": 18,
+      "bytes": 333718
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\__pycache__",
+      "files": 12,
+      "bytes": 284572
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\__pycache__",
+      "files": 3,
+      "bytes": 3778
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pluggy\\__pycache__",
+      "files": 8,
+      "bytes": 71060
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\__pycache__",
+      "files": 3,
+      "bytes": 10944
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pycparser\\__pycache__",
+      "files": 7,
+      "bytes": 229013
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\__pycache__",
+      "files": 35,
+      "bytes": 653560
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic_core\\__pycache__",
+      "files": 2,
+      "bytes": 148165
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic_settings\\__pycache__",
+      "files": 5,
+      "bytes": 128918
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pytest\\__pycache__",
+      "files": 2,
+      "bytes": 4636
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pytest_asyncio\\__pycache__",
+      "files": 6,
+      "bytes": 99955
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\python_multipart\\__pycache__",
+      "files": 4,
+      "bytes": 78549
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\rsa\\__pycache__",
+      "files": 14,
+      "bytes": 100537
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sniffio\\__pycache__",
+      "files": 3,
+      "bytes": 3876
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\__pycache__",
+      "files": 7,
+      "bytes": 64710
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\starlette\\__pycache__",
+      "files": 24,
+      "bytes": 286186
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\tqdm\\__pycache__",
+      "files": 22,
+      "bytes": 161391
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\__pycache__",
+      "files": 10,
+      "bytes": 92628
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\watchfiles\\__pycache__",
+      "files": 7,
+      "bytes": 54951
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\websockets\\__pycache__",
+      "files": 21,
+      "bytes": 183608
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\yaml\\__pycache__",
+      "files": 17,
+      "bytes": 250359
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\__pycache__",
+      "files": 45,
+      "bytes": 986188
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_yaml\\__pycache__",
+      "files": 1,
+      "bytes": 875
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\anyio\\abc\\__pycache__",
+      "files": 16,
+      "bytes": 120444
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\anyio\\streams\\__pycache__",
+      "files": 11,
+      "bytes": 112087
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\anyio\\_backends\\__pycache__",
+      "files": 6,
+      "bytes": 426375
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\anyio\\_core\\__pycache__",
+      "files": 31,
+      "bytes": 411908
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\exceptions\\__pycache__",
+      "files": 2,
+      "bytes": 61414
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\pgproto\\__pycache__",
+      "files": 2,
+      "bytes": 20295
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\protocol\\__pycache__",
+      "files": 1,
+      "bytes": 375
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\_testbase\\__pycache__",
+      "files": 2,
+      "bytes": 43907
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\asyncpg\\protocol\\codecs\\__pycache__",
+      "files": 1,
+      "bytes": 211
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\colorama\\tests\\__pycache__",
+      "files": 7,
+      "bytes": 49216
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\__pycache__",
+      "files": 2,
+      "bytes": 18736
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\x509\\__pycache__",
+      "files": 9,
+      "bytes": 222856
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\backends\\__pycache__",
+      "files": 1,
+      "bytes": 513
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\__pycache__",
+      "files": 1,
+      "bytes": 216
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\__pycache__",
+      "files": 1,
+      "bytes": 267
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\__pycache__",
+      "files": 11,
+      "bytes": 36729
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\backends\\openssl\\__pycache__",
+      "files": 2,
+      "bytes": 13620
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\openssl\\__pycache__",
+      "files": 3,
+      "bytes": 10412
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\ciphers\\__pycache__",
+      "files": 2,
+      "bytes": 4918
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\asymmetric\\__pycache__",
+      "files": 12,
+      "bytes": 67589
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\ciphers\\__pycache__",
+      "files": 5,
+      "bytes": 26178
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\kdf\\__pycache__",
+      "files": 7,
+      "bytes": 31906
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__pycache__",
+      "files": 5,
+      "bytes": 88217
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\twofactor\\__pycache__",
+      "files": 3,
+      "bytes": 7565
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\dnssecalgs\\__pycache__",
+      "files": 7,
+      "bytes": 37762
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\quic\\__pycache__",
+      "files": 5,
+      "bytes": 72577
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\rdtypes\\__pycache__",
+      "files": 10,
+      "bytes": 71563
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\rdtypes\\ANY\\__pycache__",
+      "files": 51,
+      "bytes": 135297
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\rdtypes\\CH\\__pycache__",
+      "files": 2,
+      "bytes": 2835
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\dns\\rdtypes\\IN\\__pycache__",
+      "files": 15,
+      "bytes": 40283
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\fastapi\\dependencies\\__pycache__",
+      "files": 3,
+      "bytes": 41004
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\fastapi\\middleware\\__pycache__",
+      "files": 6,
+      "bytes": 1661
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\fastapi\\openapi\\__pycache__",
+      "files": 5,
+      "bytes": 54740
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\fastapi\\security\\__pycache__",
+      "files": 7,
+      "bytes": 46714
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\greenlet\\platform\\__pycache__",
+      "files": 1,
+      "bytes": 205
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\greenlet\\tests\\__pycache__",
+      "files": 24,
+      "bytes": 244848
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\gunicorn\\app\\__pycache__",
+      "files": 4,
+      "bytes": 18409
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\gunicorn\\http\\__pycache__",
+      "files": 7,
+      "bytes": 60451
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\gunicorn\\instrument\\__pycache__",
+      "files": 2,
+      "bytes": 7473
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\gunicorn\\workers\\__pycache__",
+      "files": 9,
+      "bytes": 81062
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpcore\\_async\\__pycache__",
+      "files": 8,
+      "bytes": 124845
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpcore\\_backends\\__pycache__",
+      "files": 7,
+      "bytes": 43778
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpcore\\_sync\\__pycache__",
+      "files": 8,
+      "bytes": 113780
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httptools\\parser\\__pycache__",
+      "files": 3,
+      "bytes": 3789
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\httpx\\_transports\\__pycache__",
+      "files": 6,
+      "bytes": 37748
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\jose\\backends\\__pycache__",
+      "files": 7,
+      "bytes": 67833
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\cli\\__pycache__",
+      "files": 6,
+      "bytes": 16821
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\lib\\__pycache__",
+      "files": 6,
+      "bytes": 73177
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\__pycache__",
+      "files": 8,
+      "bytes": 108643
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\__pycache__",
+      "files": 42,
+      "bytes": 41556
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\_extras\\__pycache__",
+      "files": 4,
+      "bytes": 3757
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\_utils\\__pycache__",
+      "files": 9,
+      "bytes": 48347
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\cli\\_api\\__pycache__",
+      "files": 7,
+      "bytes": 29742
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\cli\\_tools\\__pycache__",
+      "files": 4,
+      "bytes": 10631
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\cli\\_api\\chat\\__pycache__",
+      "files": 2,
+      "bytes": 8438
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\lib\\streaming\\__pycache__",
+      "files": 3,
+      "bytes": 49037
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\lib\\_parsing\\__pycache__",
+      "files": 2,
+      "bytes": 10464
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\lib\\streaming\\chat\\__pycache__",
+      "files": 4,
+      "bytes": 36336
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\audio\\__pycache__",
+      "files": 5,
+      "bytes": 43377
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\__pycache__",
+      "files": 3,
+      "bytes": 36858
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\chat\\__pycache__",
+      "files": 3,
+      "bytes": 48813
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\__pycache__",
+      "files": 2,
+      "bytes": 5856
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\uploads\\__pycache__",
+      "files": 3,
+      "bytes": 29722
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\chat\\__pycache__",
+      "files": 3,
+      "bytes": 23973
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\realtime\\__pycache__",
+      "files": 3,
+      "bytes": 50121
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\__pycache__",
+      "files": 3,
+      "bytes": 69482
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\vector_stores\\__pycache__",
+      "files": 4,
+      "bytes": 69363
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\runs\\__pycache__",
+      "files": 3,
+      "bytes": 86158
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\jobs\\__pycache__",
+      "files": 3,
+      "bytes": 28135
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\audio\\__pycache__",
+      "files": 13,
+      "bytes": 10014
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\__pycache__",
+      "files": 40,
+      "bytes": 53916
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\chat\\__pycache__",
+      "files": 33,
+      "bytes": 39303
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\__pycache__",
+      "files": 9,
+      "bytes": 12373
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\shared\\__pycache__",
+      "files": 7,
+      "bytes": 4946
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\shared_params\\__pycache__",
+      "files": 6,
+      "bytes": 4405
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\uploads\\__pycache__",
+      "files": 3,
+      "bytes": 1727
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\chat\\__pycache__",
+      "files": 1,
+      "bytes": 261
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\realtime\\__pycache__",
+      "files": 61,
+      "bytes": 75165
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\__pycache__",
+      "files": 43,
+      "bytes": 44946
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\vector_stores\\__pycache__",
+      "files": 8,
+      "bytes": 7344
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\runs\\__pycache__",
+      "files": 21,
+      "bytes": 23063
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\jobs\\__pycache__",
+      "files": 3,
+      "bytes": 2545
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\packaging\\licenses\\__pycache__",
+      "files": 2,
+      "bytes": 55313
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\crypto\\__pycache__",
+      "files": 4,
+      "bytes": 63044
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\ext\\__pycache__",
+      "files": 1,
+      "bytes": 199
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\handlers\\__pycache__",
+      "files": 24,
+      "bytes": 293464
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\tests\\__pycache__",
+      "files": 32,
+      "bytes": 754872
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\utils\\__pycache__",
+      "files": 7,
+      "bytes": 177671
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\crypto\\scrypt\\__pycache__",
+      "files": 4,
+      "bytes": 24502
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\crypto\\_blowfish\\__pycache__",
+      "files": 4,
+      "bytes": 64238
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\ext\\django\\__pycache__",
+      "files": 3,
+      "bytes": 40008
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\passlib\\utils\\compat\\__pycache__",
+      "files": 2,
+      "bytes": 24819
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\__pycache__",
+      "files": 9,
+      "bytes": 112642
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\__pycache__",
+      "files": 2,
+      "bytes": 144032
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\cli\\__pycache__",
+      "files": 13,
+      "bytes": 105490
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\commands\\__pycache__",
+      "files": 18,
+      "bytes": 149274
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\distributions\\__pycache__",
+      "files": 5,
+      "bytes": 16317
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\index\\__pycache__",
+      "files": 4,
+      "bytes": 75798
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\locations\\__pycache__",
+      "files": 4,
+      "bytes": 35100
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\__pycache__",
+      "files": 4,
+      "bytes": 60176
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\models\\__pycache__",
+      "files": 12,
+      "bytes": 67437
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\network\\__pycache__",
+      "files": 8,
+      "bytes": 73715
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\__pycache__",
+      "files": 4,
+      "bytes": 43381
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\req\\__pycache__",
+      "files": 6,
+      "bytes": 125075
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\__pycache__",
+      "files": 2,
+      "bytes": 1412
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\utils\\__pycache__",
+      "files": 26,
+      "bytes": 155737
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\vcs\\__pycache__",
+      "files": 6,
+      "bytes": 73816
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\__pycache__",
+      "files": 4,
+      "bytes": 28867
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\build\\__pycache__",
+      "files": 8,
+      "bytes": 22308
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\operations\\install\\__pycache__",
+      "files": 3,
+      "bytes": 36212
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\legacy\\__pycache__",
+      "files": 2,
+      "bytes": 22813
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\__pycache__",
+      "files": 9,
+      "bytes": 120412
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\__pycache__",
+      "files": 9,
+      "bytes": 48146
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\certifi\\__pycache__",
+      "files": 3,
+      "bytes": 4222
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\__pycache__",
+      "files": 13,
+      "bytes": 469040
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\distro\\__pycache__",
+      "files": 3,
+      "bytes": 55092
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\idna\\__pycache__",
+      "files": 8,
+      "bytes": 284173
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\__pycache__",
+      "files": 4,
+      "bytes": 53611
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\__pycache__",
+      "files": 14,
+      "bytes": 177375
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__pycache__",
+      "files": 1,
+      "bytes": 161277
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\__pycache__",
+      "files": 8,
+      "bytes": 83709
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\__pycache__",
+      "files": 16,
+      "bytes": 167029
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\__pycache__",
+      "files": 2,
+      "bytes": 18827
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\requests\\__pycache__",
+      "files": 18,
+      "bytes": 210692
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\__pycache__",
+      "files": 5,
+      "bytes": 46604
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__pycache__",
+      "files": 77,
+      "bytes": 1131225
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\__pycache__",
+      "files": 4,
+      "bytes": 34163
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\truststore\\__pycache__",
+      "files": 6,
+      "bytes": 56275
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\__pycache__",
+      "files": 11,
+      "bytes": 166688
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\caches\\__pycache__",
+      "files": 3,
+      "bytes": 10960
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\licenses\\__pycache__",
+      "files": 2,
+      "bytes": 51516
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\filters\\__pycache__",
+      "files": 1,
+      "bytes": 37928
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__pycache__",
+      "files": 14,
+      "bytes": 172308
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__pycache__",
+      "files": 3,
+      "bytes": 125902
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\styles\\__pycache__",
+      "files": 2,
+      "bytes": 6346
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\_in_process\\__pycache__",
+      "files": 2,
+      "bytes": 16424
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\compat\\__pycache__",
+      "files": 2,
+      "bytes": 654
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\__pycache__",
+      "files": 7,
+      "bytes": 86903
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\__pycache__",
+      "files": 2,
+      "bytes": 41488
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\__pycache__",
+      "files": 13,
+      "bytes": 100410
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_securetransport\\__pycache__",
+      "files": 3,
+      "bytes": 32456
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\backports\\__pycache__",
+      "files": 3,
+      "bytes": 9421
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\codec\\__pycache__",
+      "files": 2,
+      "bytes": 8646
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\compat\\__pycache__",
+      "files": 2,
+      "bytes": 858
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\type\\__pycache__",
+      "files": 12,
+      "bytes": 260134
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\codec\\ber\\__pycache__",
+      "files": 4,
+      "bytes": 108467
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\codec\\cer\\__pycache__",
+      "files": 3,
+      "bytes": 15986
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\codec\\der\\__pycache__",
+      "files": 3,
+      "bytes": 6594
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pyasn1\\codec\\native\\__pycache__",
+      "files": 3,
+      "bytes": 26369
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\deprecated\\__pycache__",
+      "files": 8,
+      "bytes": 51981
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\experimental\\__pycache__",
+      "files": 2,
+      "bytes": 35299
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\plugin\\__pycache__",
+      "files": 3,
+      "bytes": 16966
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\v1\\__pycache__",
+      "files": 26,
+      "bytes": 581620
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\pydantic\\_internal\\__pycache__",
+      "files": 29,
+      "bytes": 476219
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sniffio\\_tests\\__pycache__",
+      "files": 2,
+      "bytes": 4065
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\connectors\\__pycache__",
+      "files": 4,
+      "bytes": 29471
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\cyextension\\__pycache__",
+      "files": 1,
+      "bytes": 210
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\__pycache__",
+      "files": 2,
+      "bytes": 2807
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\engine\\__pycache__",
+      "files": 19,
+      "bytes": 730370
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\event\\__pycache__",
+      "files": 6,
+      "bytes": 82231
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\ext\\__pycache__",
+      "files": 12,
+      "bytes": 370223
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\future\\__pycache__",
+      "files": 2,
+      "bytes": 883
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\orm\\__pycache__",
+      "files": 38,
+      "bytes": 2296645
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\pool\\__pycache__",
+      "files": 4,
+      "bytes": 98018
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\sql\\__pycache__",
+      "files": 31,
+      "bytes": 2135899
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\testing\\__pycache__",
+      "files": 15,
+      "bytes": 294926
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\util\\__pycache__",
+      "files": 14,
+      "bytes": 247798
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\mssql\\__pycache__",
+      "files": 8,
+      "bytes": 213722
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\mysql\\__pycache__",
+      "files": 19,
+      "bytes": 313142
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\oracle\\__pycache__",
+      "files": 7,
+      "bytes": 263759
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\postgresql\\__pycache__",
+      "files": 19,
+      "bytes": 545936
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\dialects\\sqlite\\__pycache__",
+      "files": 8,
+      "bytes": 178083
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\ext\\asyncio\\__pycache__",
+      "files": 7,
+      "bytes": 236532
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\ext\\declarative\\__pycache__",
+      "files": 2,
+      "bytes": 23286
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\ext\\mypy\\__pycache__",
+      "files": 7,
+      "bytes": 79758
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\testing\\fixtures\\__pycache__",
+      "files": 5,
+      "bytes": 60887
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\testing\\plugin\\__pycache__",
+      "files": 4,
+      "bytes": 62952
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\sqlalchemy\\testing\\suite\\__pycache__",
+      "files": 14,
+      "bytes": 517834
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\starlette\\middleware\\__pycache__",
+      "files": 11,
+      "bytes": 63617
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\tqdm\\contrib\\__pycache__",
+      "files": 9,
+      "bytes": 43338
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\lifespan\\__pycache__",
+      "files": 3,
+      "bytes": 9165
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\loops\\__pycache__",
+      "files": 4,
+      "bytes": 2187
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\middleware\\__pycache__",
+      "files": 5,
+      "bytes": 21395
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\protocols\\__pycache__",
+      "files": 2,
+      "bytes": 3177
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\supervisors\\__pycache__",
+      "files": 6,
+      "bytes": 36228
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\__pycache__",
+      "files": 5,
+      "bytes": 59965
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\__pycache__",
+      "files": 4,
+      "bytes": 42617
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\websockets\\asyncio\\__pycache__",
+      "files": 8,
+      "bytes": 159255
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\websockets\\extensions\\__pycache__",
+      "files": 3,
+      "bytes": 23732
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\websockets\\legacy\\__pycache__",
+      "files": 9,
+      "bytes": 172226
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\websockets\\sync\\__pycache__",
+      "files": 7,
+      "bytes": 116509
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\assertion\\__pycache__",
+      "files": 4,
+      "bytes": 98477
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\config\\__pycache__",
+      "files": 5,
+      "bytes": 120857
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\mark\\__pycache__",
+      "files": 3,
+      "bytes": 54753
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\_code\\__pycache__",
+      "files": 3,
+      "bytes": 74212
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\_io\\__pycache__",
+      "files": 5,
+      "bytes": 43600
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\.venv\\Lib\\site-packages\\_pytest\\_py\\__pycache__",
+      "files": 3,
+      "bytes": 73706
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\ai\\__pycache__",
+      "files": 17,
+      "bytes": 132587
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\business\\__pycache__",
+      "files": 11,
+      "bytes": 89234
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\data_platform\\__pycache__",
+      "files": 37,
+      "bytes": 433253
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\performance\\__pycache__",
+      "files": 1,
+      "bytes": 11342
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\security\\__pycache__",
+      "files": 1,
+      "bytes": 16807
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\data_platform\\adaptive_dashboard_engine\\__pycache__",
+      "files": 8,
+      "bytes": 32872
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\data_platform\\enterprise_component_engine\\__pycache__",
+      "files": 11,
+      "bytes": 54352
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\__pycache__",
+      "files": 2,
+      "bytes": 167056
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\annotated_types\\__pycache__",
+      "files": 2,
+      "bytes": 31879
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\__pycache__",
+      "files": 14,
+      "bytes": 185743
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\__pycache__",
+      "files": 16,
+      "bytes": 298802
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\bcrypt\\__pycache__",
+      "files": 1,
+      "bytes": 587
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\certifi\\__pycache__",
+      "files": 3,
+      "bytes": 3025
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cffi\\__pycache__",
+      "files": 20,
+      "bytes": 422019
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\click\\__pycache__",
+      "files": 17,
+      "bytes": 485672
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\colorama\\__pycache__",
+      "files": 6,
+      "bytes": 41640
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\__pycache__",
+      "files": 5,
+      "bytes": 20269
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\distro\\__pycache__",
+      "files": 3,
+      "bytes": 55053
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\__pycache__",
+      "files": 59,
+      "bytes": 1024059
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dotenv\\__pycache__",
+      "files": 8,
+      "bytes": 49653
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\email_validator\\__pycache__",
+      "files": 8,
+      "bytes": 44898
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\__pycache__",
+      "files": 23,
+      "bytes": 301813
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\greenlet\\__pycache__",
+      "files": 1,
+      "bytes": 874
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\gunicorn\\__pycache__",
+      "files": 12,
+      "bytes": 199609
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\h11\\__pycache__",
+      "files": 11,
+      "bytes": 81284
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\__pycache__",
+      "files": 8,
+      "bytes": 54946
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httptools\\__pycache__",
+      "files": 2,
+      "bytes": 910
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpx\\__pycache__",
+      "files": 17,
+      "bytes": 301047
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\idna\\__pycache__",
+      "files": 10,
+      "bytes": 164507
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\iniconfig\\__pycache__",
+      "files": 4,
+      "bytes": 18441
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\jiter\\__pycache__",
+      "files": 1,
+      "bytes": 352
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\jwt\\__pycache__",
+      "files": 12,
+      "bytes": 90832
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\multipart\\__pycache__",
+      "files": 4,
+      "bytes": 2171
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\__pycache__",
+      "files": 19,
+      "bytes": 264882
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\oracledb\\__pycache__",
+      "files": 23,
+      "bytes": 454208
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\packaging\\__pycache__",
+      "files": 18,
+      "bytes": 333700
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\__pycache__",
+      "files": 12,
+      "bytes": 284560
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\__pycache__",
+      "files": 3,
+      "bytes": 3775
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pluggy\\__pycache__",
+      "files": 8,
+      "bytes": 71052
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pycparser\\__pycache__",
+      "files": 7,
+      "bytes": 229006
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\__pycache__",
+      "files": 35,
+      "bytes": 653525
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic_core\\__pycache__",
+      "files": 2,
+      "bytes": 148163
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic_settings\\__pycache__",
+      "files": 5,
+      "bytes": 128913
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pytest\\__pycache__",
+      "files": 2,
+      "bytes": 4634
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pytest_asyncio\\__pycache__",
+      "files": 6,
+      "bytes": 99949
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\python_multipart\\__pycache__",
+      "files": 4,
+      "bytes": 78545
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sniffio\\__pycache__",
+      "files": 3,
+      "bytes": 3873
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\__pycache__",
+      "files": 7,
+      "bytes": 64703
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\starlette\\__pycache__",
+      "files": 24,
+      "bytes": 286162
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\tqdm\\__pycache__",
+      "files": 22,
+      "bytes": 162076
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\__pycache__",
+      "files": 10,
+      "bytes": 92618
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\watchfiles\\__pycache__",
+      "files": 7,
+      "bytes": 54944
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\__pycache__",
+      "files": 21,
+      "bytes": 183587
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\yaml\\__pycache__",
+      "files": 17,
+      "bytes": 250342
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\__pycache__",
+      "files": 45,
+      "bytes": 986143
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_yaml\\__pycache__",
+      "files": 1,
+      "bytes": 874
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\abc\\__pycache__",
+      "files": 16,
+      "bytes": 128872
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\__pycache__",
+      "files": 11,
+      "bytes": 112470
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\_backends\\__pycache__",
+      "files": 6,
+      "bytes": 440941
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\__pycache__",
+      "files": 31,
+      "bytes": 448215
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\exceptions\\__pycache__",
+      "files": 2,
+      "bytes": 61412
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\pgproto\\__pycache__",
+      "files": 2,
+      "bytes": 20293
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\protocol\\__pycache__",
+      "files": 1,
+      "bytes": 374
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\_testbase\\__pycache__",
+      "files": 2,
+      "bytes": 43905
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\protocol\\codecs\\__pycache__",
+      "files": 1,
+      "bytes": 210
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\colorama\\tests\\__pycache__",
+      "files": 7,
+      "bytes": 49209
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\__pycache__",
+      "files": 2,
+      "bytes": 18734
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\x509\\__pycache__",
+      "files": 9,
+      "bytes": 222847
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\backends\\__pycache__",
+      "files": 1,
+      "bytes": 512
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\__pycache__",
+      "files": 1,
+      "bytes": 215
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\__pycache__",
+      "files": 1,
+      "bytes": 266
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\__pycache__",
+      "files": 11,
+      "bytes": 36718
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\backends\\openssl\\__pycache__",
+      "files": 2,
+      "bytes": 13618
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\openssl\\__pycache__",
+      "files": 3,
+      "bytes": 10409
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\ciphers\\__pycache__",
+      "files": 2,
+      "bytes": 4916
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\asymmetric\\__pycache__",
+      "files": 12,
+      "bytes": 67577
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\ciphers\\__pycache__",
+      "files": 5,
+      "bytes": 26173
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\kdf\\__pycache__",
+      "files": 7,
+      "bytes": 31899
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__pycache__",
+      "files": 5,
+      "bytes": 88212
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\twofactor\\__pycache__",
+      "files": 3,
+      "bytes": 7562
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\dnssecalgs\\__pycache__",
+      "files": 7,
+      "bytes": 37755
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\quic\\__pycache__",
+      "files": 5,
+      "bytes": 72572
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\rdtypes\\__pycache__",
+      "files": 10,
+      "bytes": 71553
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\rdtypes\\ANY\\__pycache__",
+      "files": 51,
+      "bytes": 135246
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\rdtypes\\CH\\__pycache__",
+      "files": 2,
+      "bytes": 2833
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dns\\rdtypes\\IN\\__pycache__",
+      "files": 15,
+      "bytes": 40268
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\dependencies\\__pycache__",
+      "files": 3,
+      "bytes": 41001
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\__pycache__",
+      "files": 6,
+      "bytes": 1655
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\__pycache__",
+      "files": 5,
+      "bytes": 54735
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\__pycache__",
+      "files": 7,
+      "bytes": 46707
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\greenlet\\platform\\__pycache__",
+      "files": 1,
+      "bytes": 204
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\greenlet\\tests\\__pycache__",
+      "files": 24,
+      "bytes": 251160
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\gunicorn\\app\\__pycache__",
+      "files": 4,
+      "bytes": 18405
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\gunicorn\\http\\__pycache__",
+      "files": 7,
+      "bytes": 60444
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\gunicorn\\instrument\\__pycache__",
+      "files": 2,
+      "bytes": 7471
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\gunicorn\\workers\\__pycache__",
+      "files": 9,
+      "bytes": 81053
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_async\\__pycache__",
+      "files": 8,
+      "bytes": 124837
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_backends\\__pycache__",
+      "files": 7,
+      "bytes": 43771
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_sync\\__pycache__",
+      "files": 8,
+      "bytes": 113772
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httptools\\parser\\__pycache__",
+      "files": 3,
+      "bytes": 3786
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpx\\_transports\\__pycache__",
+      "files": 6,
+      "bytes": 37742
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\cli\\__pycache__",
+      "files": 6,
+      "bytes": 16815
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\__pycache__",
+      "files": 6,
+      "bytes": 73171
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\__pycache__",
+      "files": 8,
+      "bytes": 108635
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\__pycache__",
+      "files": 42,
+      "bytes": 41514
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\_extras\\__pycache__",
+      "files": 4,
+      "bytes": 3753
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\_utils\\__pycache__",
+      "files": 9,
+      "bytes": 48338
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\cli\\_api\\__pycache__",
+      "files": 7,
+      "bytes": 29735
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\cli\\_tools\\__pycache__",
+      "files": 4,
+      "bytes": 10627
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\cli\\_api\\chat\\__pycache__",
+      "files": 2,
+      "bytes": 8436
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\streaming\\__pycache__",
+      "files": 3,
+      "bytes": 49034
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\_parsing\\__pycache__",
+      "files": 2,
+      "bytes": 10462
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\streaming\\chat\\__pycache__",
+      "files": 4,
+      "bytes": 36332
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\audio\\__pycache__",
+      "files": 5,
+      "bytes": 43372
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\__pycache__",
+      "files": 3,
+      "bytes": 36855
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\chat\\__pycache__",
+      "files": 3,
+      "bytes": 48810
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\__pycache__",
+      "files": 2,
+      "bytes": 5854
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\uploads\\__pycache__",
+      "files": 3,
+      "bytes": 29719
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\chat\\__pycache__",
+      "files": 3,
+      "bytes": 23970
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\realtime\\__pycache__",
+      "files": 3,
+      "bytes": 50118
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\__pycache__",
+      "files": 3,
+      "bytes": 69479
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\vector_stores\\__pycache__",
+      "files": 4,
+      "bytes": 69359
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\runs\\__pycache__",
+      "files": 3,
+      "bytes": 86155
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\jobs\\__pycache__",
+      "files": 3,
+      "bytes": 28132
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\audio\\__pycache__",
+      "files": 13,
+      "bytes": 10001
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\__pycache__",
+      "files": 40,
+      "bytes": 53876
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\chat\\__pycache__",
+      "files": 33,
+      "bytes": 39270
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\__pycache__",
+      "files": 9,
+      "bytes": 12364
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\shared\\__pycache__",
+      "files": 7,
+      "bytes": 4939
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\shared_params\\__pycache__",
+      "files": 6,
+      "bytes": 4399
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\uploads\\__pycache__",
+      "files": 3,
+      "bytes": 1724
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\chat\\__pycache__",
+      "files": 1,
+      "bytes": 260
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\realtime\\__pycache__",
+      "files": 61,
+      "bytes": 75104
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\__pycache__",
+      "files": 43,
+      "bytes": 44903
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\vector_stores\\__pycache__",
+      "files": 8,
+      "bytes": 7336
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\runs\\__pycache__",
+      "files": 21,
+      "bytes": 23042
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\jobs\\__pycache__",
+      "files": 3,
+      "bytes": 2542
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\packaging\\licenses\\__pycache__",
+      "files": 2,
+      "bytes": 55311
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\crypto\\__pycache__",
+      "files": 4,
+      "bytes": 63040
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\ext\\__pycache__",
+      "files": 1,
+      "bytes": 198
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\handlers\\__pycache__",
+      "files": 24,
+      "bytes": 293440
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\tests\\__pycache__",
+      "files": 32,
+      "bytes": 754840
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\utils\\__pycache__",
+      "files": 7,
+      "bytes": 177664
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\crypto\\scrypt\\__pycache__",
+      "files": 4,
+      "bytes": 24498
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\crypto\\_blowfish\\__pycache__",
+      "files": 4,
+      "bytes": 64234
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\ext\\django\\__pycache__",
+      "files": 3,
+      "bytes": 40005
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\passlib\\utils\\compat\\__pycache__",
+      "files": 2,
+      "bytes": 24817
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\__pycache__",
+      "files": 9,
+      "bytes": 112633
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\__pycache__",
+      "files": 2,
+      "bytes": 144030
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\cli\\__pycache__",
+      "files": 13,
+      "bytes": 105477
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\commands\\__pycache__",
+      "files": 18,
+      "bytes": 149256
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\distributions\\__pycache__",
+      "files": 5,
+      "bytes": 16312
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\index\\__pycache__",
+      "files": 4,
+      "bytes": 75794
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\locations\\__pycache__",
+      "files": 4,
+      "bytes": 35096
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\__pycache__",
+      "files": 4,
+      "bytes": 60172
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\models\\__pycache__",
+      "files": 12,
+      "bytes": 67425
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\network\\__pycache__",
+      "files": 8,
+      "bytes": 73707
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\operations\\__pycache__",
+      "files": 4,
+      "bytes": 43377
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\req\\__pycache__",
+      "files": 6,
+      "bytes": 125069
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\__pycache__",
+      "files": 2,
+      "bytes": 1410
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\utils\\__pycache__",
+      "files": 26,
+      "bytes": 155711
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\vcs\\__pycache__",
+      "files": 6,
+      "bytes": 73810
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\__pycache__",
+      "files": 4,
+      "bytes": 28863
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\operations\\build\\__pycache__",
+      "files": 8,
+      "bytes": 22300
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\operations\\install\\__pycache__",
+      "files": 3,
+      "bytes": 36209
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\legacy\\__pycache__",
+      "files": 2,
+      "bytes": 22811
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\__pycache__",
+      "files": 9,
+      "bytes": 120403
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\__pycache__",
+      "files": 9,
+      "bytes": 48137
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\certifi\\__pycache__",
+      "files": 3,
+      "bytes": 4219
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\distlib\\__pycache__",
+      "files": 13,
+      "bytes": 469027
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\distro\\__pycache__",
+      "files": 3,
+      "bytes": 55089
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\idna\\__pycache__",
+      "files": 8,
+      "bytes": 284165
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\__pycache__",
+      "files": 4,
+      "bytes": 53607
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\__pycache__",
+      "files": 14,
+      "bytes": 177361
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__pycache__",
+      "files": 1,
+      "bytes": 161276
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\__pycache__",
+      "files": 8,
+      "bytes": 83701
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\__pycache__",
+      "files": 16,
+      "bytes": 167013
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\__pycache__",
+      "files": 2,
+      "bytes": 18825
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\requests\\__pycache__",
+      "files": 18,
+      "bytes": 210674
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\__pycache__",
+      "files": 5,
+      "bytes": 46599
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__pycache__",
+      "files": 77,
+      "bytes": 1131148
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\__pycache__",
+      "files": 4,
+      "bytes": 34159
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\truststore\\__pycache__",
+      "files": 6,
+      "bytes": 56269
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\__pycache__",
+      "files": 11,
+      "bytes": 166677
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\caches\\__pycache__",
+      "files": 3,
+      "bytes": 10957
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\licenses\\__pycache__",
+      "files": 2,
+      "bytes": 51514
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\filters\\__pycache__",
+      "files": 1,
+      "bytes": 37927
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__pycache__",
+      "files": 14,
+      "bytes": 172294
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__pycache__",
+      "files": 3,
+      "bytes": 125899
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\styles\\__pycache__",
+      "files": 2,
+      "bytes": 6344
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\pyproject_hooks\\_in_process\\__pycache__",
+      "files": 2,
+      "bytes": 16422
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\compat\\__pycache__",
+      "files": 2,
+      "bytes": 652
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\__pycache__",
+      "files": 7,
+      "bytes": 86896
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\__pycache__",
+      "files": 2,
+      "bytes": 41486
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\__pycache__",
+      "files": 13,
+      "bytes": 100397
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_securetransport\\__pycache__",
+      "files": 3,
+      "bytes": 32453
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\backports\\__pycache__",
+      "files": 3,
+      "bytes": 9418
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\deprecated\\__pycache__",
+      "files": 8,
+      "bytes": 51973
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\experimental\\__pycache__",
+      "files": 2,
+      "bytes": 35297
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\plugin\\__pycache__",
+      "files": 3,
+      "bytes": 16963
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\__pycache__",
+      "files": 26,
+      "bytes": 581594
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\__pycache__",
+      "files": 29,
+      "bytes": 476190
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sniffio\\_tests\\__pycache__",
+      "files": 2,
+      "bytes": 4063
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\connectors\\__pycache__",
+      "files": 4,
+      "bytes": 29467
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\cyextension\\__pycache__",
+      "files": 1,
+      "bytes": 209
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\__pycache__",
+      "files": 2,
+      "bytes": 2805
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\engine\\__pycache__",
+      "files": 19,
+      "bytes": 730351
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\event\\__pycache__",
+      "files": 6,
+      "bytes": 82225
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\__pycache__",
+      "files": 12,
+      "bytes": 370211
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\future\\__pycache__",
+      "files": 2,
+      "bytes": 881
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\orm\\__pycache__",
+      "files": 38,
+      "bytes": 2296607
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\pool\\__pycache__",
+      "files": 4,
+      "bytes": 98014
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\sql\\__pycache__",
+      "files": 31,
+      "bytes": 2135868
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\testing\\__pycache__",
+      "files": 15,
+      "bytes": 294911
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\util\\__pycache__",
+      "files": 14,
+      "bytes": 247784
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\mssql\\__pycache__",
+      "files": 8,
+      "bytes": 213714
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\mysql\\__pycache__",
+      "files": 19,
+      "bytes": 313123
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\oracle\\__pycache__",
+      "files": 7,
+      "bytes": 263752
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\postgresql\\__pycache__",
+      "files": 19,
+      "bytes": 545917
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\sqlite\\__pycache__",
+      "files": 8,
+      "bytes": 178075
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\asyncio\\__pycache__",
+      "files": 7,
+      "bytes": 236525
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\declarative\\__pycache__",
+      "files": 2,
+      "bytes": 23284
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\mypy\\__pycache__",
+      "files": 7,
+      "bytes": 79751
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\testing\\fixtures\\__pycache__",
+      "files": 5,
+      "bytes": 60882
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\testing\\plugin\\__pycache__",
+      "files": 4,
+      "bytes": 62948
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\testing\\suite\\__pycache__",
+      "files": 14,
+      "bytes": 517820
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\__pycache__",
+      "files": 11,
+      "bytes": 63606
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\tqdm\\contrib\\__pycache__",
+      "files": 9,
+      "bytes": 43225
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\lifespan\\__pycache__",
+      "files": 3,
+      "bytes": 9162
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\__pycache__",
+      "files": 4,
+      "bytes": 2183
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\__pycache__",
+      "files": 5,
+      "bytes": 21390
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\__pycache__",
+      "files": 2,
+      "bytes": 3175
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\__pycache__",
+      "files": 6,
+      "bytes": 36222
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\__pycache__",
+      "files": 5,
+      "bytes": 59960
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\__pycache__",
+      "files": 4,
+      "bytes": 42613
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\asyncio\\__pycache__",
+      "files": 8,
+      "bytes": 159247
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\extensions\\__pycache__",
+      "files": 3,
+      "bytes": 23729
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\legacy\\__pycache__",
+      "files": 9,
+      "bytes": 172217
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\sync\\__pycache__",
+      "files": 7,
+      "bytes": 116502
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\assertion\\__pycache__",
+      "files": 4,
+      "bytes": 98473
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\config\\__pycache__",
+      "files": 5,
+      "bytes": 120852
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\mark\\__pycache__",
+      "files": 3,
+      "bytes": 54750
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\_code\\__pycache__",
+      "files": 3,
+      "bytes": 74209
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\_io\\__pycache__",
+      "files": 5,
+      "bytes": 43595
+    },
+    {
+      "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\_pytest\\_py\\__pycache__",
+      "files": 3,
+      "bytes": 73703
+    }
+  ],
+  "post_cleanup_adjustments": [
+    {
+      "timestamp": "2026-07-13T10:30:55.316689+00:00",
+      "reason": "Residual development data found in tenant config and SVR test/temp concepts.",
+      "updates": {
+        "tenants_sanitized": 1,
+        "svr_test_rows_removed": {
+          "svr_audit_logs": 24,
+          "svr_compatibility_matrix": 24,
+          "svr_versions": 24,
+          "svr_concepts": 17
+        }
+      },
+      "before_counts": {
+        "tenants": 1,
+        "svr_audit_logs": 24,
+        "svr_compatibility_matrix": 36,
+        "svr_versions": 36,
+        "svr_concepts": 29
+      },
+      "after_counts": {
+        "tenants": 1,
+        "svr_audit_logs": 0,
+        "svr_compatibility_matrix": 12,
+        "svr_versions": 12,
+        "svr_concepts": 12
+      },
+      "schema_operations": []
+    }
+  ],
+  "ai_smoke_test": {
+    "timestamp": "2026-07-13T10:32:54.678039+00:00",
+    "status": "OK",
+    "model": "gpt-4o-mini-2024-07-18",
+    "latency_ms": 2713.0,
+    "prompt_tokens": 23,
+    "completion_tokens": 2,
+    "total_tokens": 25,
+    "db_writes": 0
+  },
+  "final_temp_cleanup": [
+    {
+      "timestamp": "2026-07-13T10:32:57.423173+00:00",
+      "removed": [
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\__pycache__",
+          "files": 3,
+          "bytes": 28952
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\models\\__pycache__",
+          "files": 25,
+          "bytes": 115548
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\routers\\__pycache__",
+          "files": 13,
+          "bytes": 160607
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\schemas\\__pycache__",
+          "files": 7,
+          "bytes": 49679
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\__pycache__",
+          "files": 20,
+          "bytes": 467174
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\ai\\__pycache__",
+          "files": 3,
+          "bytes": 16383
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\business\\__pycache__",
+          "files": 11,
+          "bytes": 89289
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\services\\data_platform\\__pycache__",
+          "files": 22,
+          "bytes": 255972
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\__pycache__",
+          "files": 1,
+          "bytes": 166551
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\annotated_types\\__pycache__",
+          "files": 1,
+          "bytes": 18633
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\__pycache__",
+          "files": 4,
+          "bytes": 43014
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\__pycache__",
+          "files": 14,
+          "bytes": 262422
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\bcrypt\\__pycache__",
+          "files": 1,
+          "bytes": 587
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\certifi\\__pycache__",
+          "files": 2,
+          "bytes": 2389
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\click\\__pycache__",
+          "files": 13,
+          "bytes": 381928
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\__pycache__",
+          "files": 5,
+          "bytes": 20269
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\distro\\__pycache__",
+          "files": 2,
+          "bytes": 54758
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\dotenv\\__pycache__",
+          "files": 4,
+          "bytes": 36428
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\email_validator\\__pycache__",
+          "files": 6,
+          "bytes": 36661
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\__pycache__",
+          "files": 18,
+          "bytes": 300117
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\greenlet\\__pycache__",
+          "files": 1,
+          "bytes": 874
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\h11\\__pycache__",
+          "files": 11,
+          "bytes": 81284
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\__pycache__",
+          "files": 8,
+          "bytes": 54946
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httptools\\__pycache__",
+          "files": 2,
+          "bytes": 910
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpx\\__pycache__",
+          "files": 17,
+          "bytes": 301047
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\idna\\__pycache__",
+          "files": 5,
+          "bytes": 53798
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\jiter\\__pycache__",
+          "files": 1,
+          "bytes": 352
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\jwt\\__pycache__",
+          "files": 11,
+          "bytes": 88616
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\__pycache__",
+          "files": 18,
+          "bytes": 264635
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\oracledb\\__pycache__",
+          "files": 23,
+          "bytes": 454208
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\__pycache__",
+          "files": 19,
+          "bytes": 562155
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic_core\\__pycache__",
+          "files": 2,
+          "bytes": 148163
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic_settings\\__pycache__",
+          "files": 5,
+          "bytes": 128913
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\python_multipart\\__pycache__",
+          "files": 4,
+          "bytes": 78545
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sniffio\\__pycache__",
+          "files": 3,
+          "bytes": 3873
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\__pycache__",
+          "files": 6,
+          "bytes": 64133
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\starlette\\__pycache__",
+          "files": 17,
+          "bytes": 197643
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\__pycache__",
+          "files": 9,
+          "bytes": 85891
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\watchfiles\\__pycache__",
+          "files": 5,
+          "bytes": 44483
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\__pycache__",
+          "files": 13,
+          "bytes": 146264
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\abc\\__pycache__",
+          "files": 8,
+          "bytes": 63982
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\streams\\__pycache__",
+          "files": 4,
+          "bytes": 42919
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\_backends\\__pycache__",
+          "files": 2,
+          "bytes": 140988
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\anyio\\_core\\__pycache__",
+          "files": 15,
+          "bytes": 217575
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\exceptions\\__pycache__",
+          "files": 2,
+          "bytes": 61412
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\pgproto\\__pycache__",
+          "files": 2,
+          "bytes": 20293
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\asyncpg\\protocol\\__pycache__",
+          "files": 1,
+          "bytes": 374
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\__pycache__",
+          "files": 2,
+          "bytes": 18734
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\x509\\__pycache__",
+          "files": 8,
+          "bytes": 196768
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\backends\\__pycache__",
+          "files": 1,
+          "bytes": 512
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\bindings\\__pycache__",
+          "files": 1,
+          "bytes": 215
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\__pycache__",
+          "files": 1,
+          "bytes": 266
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\__pycache__",
+          "files": 8,
+          "bytes": 28343
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\decrepit\\ciphers\\__pycache__",
+          "files": 2,
+          "bytes": 4916
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\asymmetric\\__pycache__",
+          "files": 12,
+          "bytes": 67577
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\ciphers\\__pycache__",
+          "files": 4,
+          "bytes": 25327
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\kdf\\__pycache__",
+          "files": 2,
+          "bytes": 3998
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__pycache__",
+          "files": 3,
+          "bytes": 67630
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\dependencies\\__pycache__",
+          "files": 3,
+          "bytes": 41001
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\middleware\\__pycache__",
+          "files": 2,
+          "bytes": 531
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\openapi\\__pycache__",
+          "files": 5,
+          "bytes": 54735
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\fastapi\\security\\__pycache__",
+          "files": 7,
+          "bytes": 46707
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_async\\__pycache__",
+          "files": 8,
+          "bytes": 124837
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_backends\\__pycache__",
+          "files": 7,
+          "bytes": 43771
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpcore\\_sync\\__pycache__",
+          "files": 8,
+          "bytes": 113772
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httptools\\parser\\__pycache__",
+          "files": 3,
+          "bytes": 3786
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\httpx\\_transports\\__pycache__",
+          "files": 6,
+          "bytes": 37742
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\__pycache__",
+          "files": 5,
+          "bytes": 31134
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\__pycache__",
+          "files": 8,
+          "bytes": 108635
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\__pycache__",
+          "files": 42,
+          "bytes": 41514
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\_extras\\__pycache__",
+          "files": 4,
+          "bytes": 3753
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\_utils\\__pycache__",
+          "files": 9,
+          "bytes": 48338
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\streaming\\__pycache__",
+          "files": 3,
+          "bytes": 49034
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\_parsing\\__pycache__",
+          "files": 2,
+          "bytes": 10462
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\lib\\streaming\\chat\\__pycache__",
+          "files": 4,
+          "bytes": 36332
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\audio\\__pycache__",
+          "files": 5,
+          "bytes": 43372
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\__pycache__",
+          "files": 3,
+          "bytes": 36855
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\chat\\__pycache__",
+          "files": 3,
+          "bytes": 48810
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\__pycache__",
+          "files": 2,
+          "bytes": 5854
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\uploads\\__pycache__",
+          "files": 3,
+          "bytes": 29719
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\chat\\__pycache__",
+          "files": 3,
+          "bytes": 23970
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\realtime\\__pycache__",
+          "files": 3,
+          "bytes": 50118
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\__pycache__",
+          "files": 3,
+          "bytes": 69479
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\vector_stores\\__pycache__",
+          "files": 4,
+          "bytes": 69359
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\beta\\threads\\runs\\__pycache__",
+          "files": 3,
+          "bytes": 86155
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\resources\\fine_tuning\\jobs\\__pycache__",
+          "files": 3,
+          "bytes": 28132
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\audio\\__pycache__",
+          "files": 13,
+          "bytes": 10001
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\__pycache__",
+          "files": 40,
+          "bytes": 53876
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\chat\\__pycache__",
+          "files": 33,
+          "bytes": 39270
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\__pycache__",
+          "files": 9,
+          "bytes": 12364
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\shared\\__pycache__",
+          "files": 7,
+          "bytes": 4939
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\shared_params\\__pycache__",
+          "files": 6,
+          "bytes": 4399
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\uploads\\__pycache__",
+          "files": 3,
+          "bytes": 1724
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\realtime\\__pycache__",
+          "files": 61,
+          "bytes": 75104
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\__pycache__",
+          "files": 43,
+          "bytes": 44903
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\vector_stores\\__pycache__",
+          "files": 8,
+          "bytes": 7336
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\beta\\threads\\runs\\__pycache__",
+          "files": 21,
+          "bytes": 23042
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\openai\\types\\fine_tuning\\jobs\\__pycache__",
+          "files": 3,
+          "bytes": 2542
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\plugin\\__pycache__",
+          "files": 3,
+          "bytes": 16963
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\v1\\__pycache__",
+          "files": 23,
+          "bytes": 497652
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\pydantic\\_internal\\__pycache__",
+          "files": 26,
+          "bytes": 460210
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\cyextension\\__pycache__",
+          "files": 1,
+          "bytes": 209
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\__pycache__",
+          "files": 2,
+          "bytes": 2805
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\engine\\__pycache__",
+          "files": 16,
+          "bytes": 721808
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\event\\__pycache__",
+          "files": 6,
+          "bytes": 82225
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\__pycache__",
+          "files": 1,
+          "bytes": 364
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\future\\__pycache__",
+          "files": 2,
+          "bytes": 881
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\orm\\__pycache__",
+          "files": 38,
+          "bytes": 2296607
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\pool\\__pycache__",
+          "files": 4,
+          "bytes": 98014
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\sql\\__pycache__",
+          "files": 30,
+          "bytes": 2132891
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\util\\__pycache__",
+          "files": 12,
+          "bytes": 209830
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\dialects\\postgresql\\__pycache__",
+          "files": 18,
+          "bytes": 538191
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\sqlalchemy\\ext\\asyncio\\__pycache__",
+          "files": 7,
+          "bytes": 236525
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\starlette\\middleware\\__pycache__",
+          "files": 5,
+          "bytes": 35819
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\lifespan\\__pycache__",
+          "files": 2,
+          "bytes": 8170
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\loops\\__pycache__",
+          "files": 3,
+          "bytes": 1630
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\middleware\\__pycache__",
+          "files": 5,
+          "bytes": 21390
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\__pycache__",
+          "files": 2,
+          "bytes": 3175
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\supervisors\\__pycache__",
+          "files": 4,
+          "bytes": 25665
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\http\\__pycache__",
+          "files": 4,
+          "bytes": 32920
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\uvicorn\\protocols\\websockets\\__pycache__",
+          "files": 3,
+          "bytes": 21479
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\asyncio\\__pycache__",
+          "files": 2,
+          "bytes": 1286
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\extensions\\__pycache__",
+          "files": 3,
+          "bytes": 23729
+        },
+        {
+          "path": "C:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\backend\\venv\\Lib\\site-packages\\websockets\\legacy\\__pycache__",
+          "files": 7,
+          "bytes": 136714
+        }
+      ]
+    }
+  ],
+  "deleted_rows_total_final": 92149
+}

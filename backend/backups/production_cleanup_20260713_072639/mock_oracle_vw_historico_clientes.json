@@ -1,0 +1,167 @@
+[
+  {
+    "cliente": "Fazenda Sol Nascente",
+    "email": "contato@solnascente.com.br",
+    "telefone": "(34) 99122-3344",
+    "cidade": "Uberlândia",
+    "estado": "MG",
+    "total_gasto": "97461514.900000035762786865234375",
+    "compras_qtd": "2284",
+    "ticket_medio": "42671.419999999998253770172595977783203125",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Agropecuária Vale Verde",
+    "email": "financeiro@valeverde.com.br",
+    "telefone": "(16) 98111-2233",
+    "cidade": "Ribeirão Preto",
+    "estado": "SP",
+    "total_gasto": "91130822.49999995529651641845703125",
+    "compras_qtd": "2187",
+    "ticket_medio": "41669.330000000001746229827404022216796875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Cooperativa AgroIndustrial",
+    "email": "suprimentos@coopagro.com.br",
+    "telefone": "(43) 99655-4433",
+    "cidade": "Londrina",
+    "estado": "PR",
+    "total_gasto": "89716386.84999994933605194091796875",
+    "compras_qtd": "2092",
+    "ticket_medio": "42885.4599999999991268850862979888916015625",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Três Corações",
+    "email": "gerencia@trescoracoes.agr.br",
+    "telefone": "(66) 99200-8877",
+    "cidade": "Sorriso",
+    "estado": "MT",
+    "total_gasto": "83419713.0999999940395355224609375",
+    "compras_qtd": "2197",
+    "ticket_medio": "37969.830000000001746229827404022216796875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Grupo Agrícola Terra Nova",
+    "email": "compras@terranova.com.br",
+    "telefone": "(62) 99444-5566",
+    "cidade": "Rio Verde",
+    "estado": "GO",
+    "total_gasto": "81304412.35000002384185791015625",
+    "compras_qtd": "2056",
+    "ticket_medio": "39544.949999999997089616954326629638671875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Sítio Santa Rita",
+    "email": "santarita@sitio.com.br",
+    "telefone": "(19) 98777-6655",
+    "cidade": "Piracicaba",
+    "estado": "SP",
+    "total_gasto": "92243947.24999998509883880615234375",
+    "compras_qtd": "2176",
+    "ticket_medio": "42391.5199999999967985786497592926025390625",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Bela Vista",
+    "email": "contato@belavista.agr.br",
+    "telefone": "(67) 99111-9988",
+    "cidade": "Dourados",
+    "estado": "MS",
+    "total_gasto": "90790796.6999999582767486572265625",
+    "compras_qtd": "2212",
+    "ticket_medio": "41044.66000000000349245965480804443359375",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Agro Pampa",
+    "email": "financeiro@agropampa.com.br",
+    "telefone": "(55) 98122-4455",
+    "cidade": "Passo Fundo",
+    "estado": "RS",
+    "total_gasto": "88451440.7000000476837158203125",
+    "compras_qtd": "2084",
+    "ticket_medio": "42443.110000000000582076609134674072265625",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda São Francisco",
+    "email": "saofrancisco@agro.com.br",
+    "telefone": "(84) 98833-2211",
+    "cidade": "Mossoró",
+    "estado": "RN",
+    "total_gasto": "95145631.80000008642673492431640625",
+    "compras_qtd": "2194",
+    "ticket_medio": "43366.2900000000008731149137020111083984375",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Boa Esperança",
+    "email": "boaesperanca@gmail.com",
+    "telefone": "(77) 99911-3322",
+    "cidade": "Barreiras",
+    "estado": "BA",
+    "total_gasto": "83864416.9500000476837158203125",
+    "compras_qtd": "2179",
+    "ticket_medio": "38487.5699999999997089616954326629638671875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Agropecuária Cantagalo",
+    "email": "cantagalo@terra.com.br",
+    "telefone": "(35) 98822-1100",
+    "cidade": "Alfenas",
+    "estado": "MG",
+    "total_gasto": "91385317.89999999105930328369140625",
+    "compras_qtd": "2124",
+    "ticket_medio": "43025.0999999999985448084771633148193359375",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Estrela do Sul",
+    "email": "estreladosul@hotmail.com",
+    "telefone": "(65) 99233-4455",
+    "cidade": "Lucas do Rio Verde",
+    "estado": "MT",
+    "total_gasto": "89189657.8499999940395355224609375",
+    "compras_qtd": "2104",
+    "ticket_medio": "42390.5199999999967985786497592926025390625",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Canaã Agronegócios",
+    "email": "comercial@canaaagro.com.br",
+    "telefone": "(17) 99144-5566",
+    "cidade": "São José do Rio Preto",
+    "estado": "SP",
+    "total_gasto": "86112479.90000002086162567138671875",
+    "compras_qtd": "2103",
+    "ticket_medio": "40947.449999999997089616954326629638671875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Recanto Verde",
+    "email": "recantoverde@uol.com.br",
+    "telefone": "(44) 98877-2233",
+    "cidade": "Maringá",
+    "estado": "PR",
+    "total_gasto": "85404441.30000002682209014892578125",
+    "compras_qtd": "2127",
+    "ticket_medio": "40152.52999999999883584678173065185546875",
+    "ultima_compra": "2026-07-09 00:00:00"
+  },
+  {
+    "cliente": "Fazenda Primavera",
+    "email": "primavera@gmail.com",
+    "telefone": "(64) 99611-2233",
+    "cidade": "Jataí",
+    "estado": "GO",
+    "total_gasto": "82691861.55000002682209014892578125",
+    "compras_qtd": "2108",
+    "ticket_medio": "39227.639999999999417923390865325927734375",
+    "ultima_compra": "2026-07-09 00:00:00"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "loja": "Pólo Cerrado (Rio Verde)",
+    "cidade": "Rio Verde",
+    "regiao": "Centro-Oeste",
+    "faturamento": "597740778.7200000286102294921875",
+    "meta": "557891393.4700000286102294921875",
+    "atingimento": "107.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "loja": "Pólo Sudeste (Ribeirão Preto)",
+    "cidade": "Ribeirão Preto",
+    "regiao": "Sudeste",
+    "faturamento": "398493852.480000019073486328125",
+    "meta": "425060109.310000002384185791015625",
+    "atingimento": "93.75"
+  },
+  {
+    "loja": "Pólo Sul (Passo Fundo)",
+    "cidade": "Passo Fundo",
+    "regiao": "Sul",
+    "faturamento": "332078210.39999997615814208984375",
+    "meta": "318795081.980000019073486328125",
+    "atingimento": "104.1700000000000017053025658242404460906982421875"
+  }
+]

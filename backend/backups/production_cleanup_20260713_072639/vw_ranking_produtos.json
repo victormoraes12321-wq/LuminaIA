@@ -1,0 +1,3026 @@
+[
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "106",
+    "receita_total": "55968000",
+    "estoque_atual": "20",
+    "preco_medio": "528000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "92",
+    "receita_total": "50784000",
+    "estoque_atual": "20",
+    "preco_medio": "552000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "98",
+    "receita_total": "49392000",
+    "estoque_atual": "19",
+    "preco_medio": "504000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "98",
+    "receita_total": "44688000",
+    "estoque_atual": "12",
+    "preco_medio": "456000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "98",
+    "receita_total": "42336000",
+    "estoque_atual": "14",
+    "preco_medio": "432000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "87",
+    "receita_total": "4.176E+7",
+    "estoque_atual": "11",
+    "preco_medio": "4.8E+5",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "90",
+    "receita_total": "3.672E+7",
+    "estoque_atual": "18",
+    "preco_medio": "408000",
+    "margem_media": "33.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "95",
+    "receita_total": "31682500",
+    "estoque_atual": "8",
+    "preco_medio": "333500",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "96",
+    "receita_total": "30624000",
+    "estoque_atual": "13",
+    "preco_medio": "319000",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "101",
+    "receita_total": "28456750",
+    "estoque_atual": "5",
+    "preco_medio": "281750",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "309",
+    "receita_total": "27871800",
+    "estoque_atual": "10",
+    "preco_medio": "90200",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "92",
+    "receita_total": "2.668E+7",
+    "estoque_atual": "13",
+    "preco_medio": "2.9E+5",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "308",
+    "receita_total": "26518800",
+    "estoque_atual": "20",
+    "preco_medio": "86100",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "87",
+    "receita_total": "26491500",
+    "estoque_atual": "12",
+    "preco_medio": "304500",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Trator Cabinada 110CV AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "96",
+    "receita_total": "26448000",
+    "estoque_atual": "14",
+    "preco_medio": "275500",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "104",
+    "receita_total": "25636000",
+    "estoque_atual": "6",
+    "preco_medio": "246500",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "95",
+    "receita_total": "25602500",
+    "estoque_atual": "5",
+    "preco_medio": "269500",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "99",
+    "receita_total": "25467750",
+    "estoque_atual": "11",
+    "preco_medio": "257250",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "106",
+    "receita_total": "24671500",
+    "estoque_atual": "16",
+    "preco_medio": "232750",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "258",
+    "receita_total": "24329400",
+    "estoque_atual": "11",
+    "preco_medio": "94300",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "91",
+    "receita_total": "23751000",
+    "estoque_atual": "18",
+    "preco_medio": "261000",
+    "margem_media": "37.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "295",
+    "receita_total": "22980500",
+    "estoque_atual": "20",
+    "preco_medio": "77900",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "90",
+    "receita_total": "2.205E+7",
+    "estoque_atual": "18",
+    "preco_medio": "245000",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "96",
+    "receita_total": "21528000",
+    "estoque_atual": "7",
+    "preco_medio": "224250",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "94",
+    "receita_total": "20163000",
+    "estoque_atual": "17",
+    "preco_medio": "214500",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "244",
+    "receita_total": "20008000",
+    "estoque_atual": "10",
+    "preco_medio": "82000",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "102",
+    "receita_total": "1.989E+7",
+    "estoque_atual": "8",
+    "preco_medio": "195000",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "272",
+    "receita_total": "18958400",
+    "estoque_atual": "15",
+    "preco_medio": "69700",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "84",
+    "receita_total": "18522000",
+    "estoque_atual": "12",
+    "preco_medio": "220500",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "105",
+    "receita_total": "18427500",
+    "estoque_atual": "11",
+    "preco_medio": "175500",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "89",
+    "receita_total": "18222750",
+    "estoque_atual": "12",
+    "preco_medio": "204750",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "229",
+    "receita_total": "16900200",
+    "estoque_atual": "20",
+    "preco_medio": "73800",
+    "margem_media": "41.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "80",
+    "receita_total": "1.666E+7",
+    "estoque_atual": "7",
+    "preco_medio": "208250",
+    "margem_media": "38.780000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "87",
+    "receita_total": "16116750",
+    "estoque_atual": "6",
+    "preco_medio": "185250",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "89",
+    "receita_total": "14751750",
+    "estoque_atual": "11",
+    "preco_medio": "165750",
+    "margem_media": "38.46000000000000085265128291212022304534912109375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "346",
+    "receita_total": "11262300",
+    "estoque_atual": "427",
+    "preco_medio": "32550",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "315",
+    "receita_total": "11229750",
+    "estoque_atual": "87",
+    "preco_medio": "35650",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "287",
+    "receita_total": "9786700",
+    "estoque_atual": "9",
+    "preco_medio": "34100",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "299",
+    "receita_total": "8342100",
+    "estoque_atual": "18",
+    "preco_medio": "27900",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "264",
+    "receita_total": "8184000",
+    "estoque_atual": "83",
+    "preco_medio": "31000",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "265",
+    "receita_total": "7804250",
+    "estoque_atual": "14",
+    "preco_medio": "29450",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "268",
+    "receita_total": "7061800",
+    "estoque_atual": "175",
+    "preco_medio": "26350",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "271",
+    "receita_total": "6700475",
+    "estoque_atual": "14",
+    "preco_medio": "24725",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "280",
+    "receita_total": "6622000",
+    "estoque_atual": "5",
+    "preco_medio": "23650",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "285",
+    "receita_total": "6433875",
+    "estoque_atual": "207",
+    "preco_medio": "22575",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "329",
+    "receita_total": "6366150",
+    "estoque_atual": "237",
+    "preco_medio": "19350",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "288",
+    "receita_total": "6192000",
+    "estoque_atual": "424",
+    "preco_medio": "21500",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "352",
+    "receita_total": "6098400",
+    "estoque_atual": "324",
+    "preco_medio": "17325",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "287",
+    "receita_total": "5861975",
+    "estoque_atual": "6",
+    "preco_medio": "20425",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "321",
+    "receita_total": "5826150",
+    "estoque_atual": "17",
+    "preco_medio": "18150",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "305",
+    "receita_total": "5787375",
+    "estoque_atual": "8",
+    "preco_medio": "18975",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "302",
+    "receita_total": "5519050",
+    "estoque_atual": "310",
+    "preco_medio": "18275",
+    "margem_media": "44.18999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "310",
+    "receita_total": "5115000",
+    "estoque_atual": "5",
+    "preco_medio": "16500",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "327",
+    "receita_total": "4855950",
+    "estoque_atual": "149",
+    "preco_medio": "14850",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "286",
+    "receita_total": "4483050",
+    "estoque_atual": "501",
+    "preco_medio": "15675",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "290",
+    "receita_total": "4067250",
+    "estoque_atual": "469",
+    "preco_medio": "14025",
+    "margem_media": "42.4200000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Premium",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "341",
+    "receita_total": "3097985",
+    "estoque_atual": "357",
+    "preco_medio": "9085",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "324",
+    "receita_total": "3095820",
+    "estoque_atual": "278",
+    "preco_medio": "9555",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "335",
+    "receita_total": "3048500",
+    "estoque_atual": "20",
+    "preco_medio": "9100",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "285",
+    "receita_total": "2982525",
+    "estoque_atual": "6",
+    "preco_medio": "10465",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2998",
+    "receita_total": "2803130",
+    "estoque_atual": "8",
+    "preco_medio": "935",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "337",
+    "receita_total": "2795415",
+    "estoque_atual": "12",
+    "preco_medio": "8295",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Bio",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "351",
+    "receita_total": "2772900",
+    "estoque_atual": "314",
+    "preco_medio": "7900",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2783",
+    "receita_total": "2755170",
+    "estoque_atual": "8",
+    "preco_medio": "990",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "269",
+    "receita_total": "2692690",
+    "estoque_atual": "14",
+    "preco_medio": "10010",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "314",
+    "receita_total": "2571660",
+    "estoque_atual": "8",
+    "preco_medio": "8190",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2578",
+    "receita_total": "2571555",
+    "estoque_atual": "15",
+    "preco_medio": "997.5",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "292",
+    "receita_total": "2505360",
+    "estoque_atual": "18",
+    "preco_medio": "8580",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "279",
+    "receita_total": "2502630",
+    "estoque_atual": "347",
+    "preco_medio": "8970",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Pampa",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "286",
+    "receita_total": "2485340",
+    "estoque_atual": "14",
+    "preco_medio": "8690",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2606",
+    "receita_total": "2351915",
+    "estoque_atual": "18",
+    "preco_medio": "902.5",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "298",
+    "receita_total": "2305030",
+    "estoque_atual": "16",
+    "preco_medio": "7735",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2422",
+    "receita_total": "2300900",
+    "estoque_atual": "7",
+    "preco_medio": "950",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "293",
+    "receita_total": "2285400",
+    "estoque_atual": "11",
+    "preco_medio": "7800",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2778",
+    "receita_total": "2277960",
+    "estoque_atual": "17",
+    "preco_medio": "820",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "3060",
+    "receita_total": "2258280",
+    "estoque_atual": "10",
+    "preco_medio": "738",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2960",
+    "receita_total": "2246640",
+    "estoque_atual": "11",
+    "preco_medio": "759",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "315",
+    "receita_total": "2245950",
+    "estoque_atual": "5",
+    "preco_medio": "7130",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "270",
+    "receita_total": "2211300",
+    "estoque_atual": "17",
+    "preco_medio": "8190",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2568",
+    "receita_total": "2195640",
+    "estoque_atual": "16",
+    "preco_medio": "855",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2429",
+    "receita_total": "2190958",
+    "estoque_atual": "19",
+    "preco_medio": "902",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "253",
+    "receita_total": "2187185",
+    "estoque_atual": "253",
+    "preco_medio": "8645",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2496",
+    "receita_total": "2149056",
+    "estoque_atual": "19",
+    "preco_medio": "861",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2698",
+    "receita_total": "2140863",
+    "estoque_atual": "5",
+    "preco_medio": "793.5",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2516",
+    "receita_total": "2031670",
+    "estoque_atual": "12",
+    "preco_medio": "807.5",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2932",
+    "receita_total": "2023080",
+    "estoque_atual": "8",
+    "preco_medio": "690",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2775",
+    "receita_total": "2010487.5",
+    "estoque_atual": "12",
+    "preco_medio": "724.5",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "351",
+    "receita_total": "1977885",
+    "estoque_atual": "8",
+    "preco_medio": "5635",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "285",
+    "receita_total": "1943700",
+    "estoque_atual": "52",
+    "preco_medio": "6820",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "258",
+    "receita_total": "1936290",
+    "estoque_atual": "316",
+    "preco_medio": "7505",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2758",
+    "receita_total": "1922326",
+    "estoque_atual": "9",
+    "preco_medio": "697",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "310",
+    "receita_total": "1922000",
+    "estoque_atual": "49",
+    "preco_medio": "6200",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "251",
+    "receita_total": "1859910",
+    "estoque_atual": "399",
+    "preco_medio": "7410",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "339",
+    "receita_total": "1827210",
+    "estoque_atual": "28",
+    "preco_medio": "5390",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2985",
+    "receita_total": "1817865",
+    "estoque_atual": "19",
+    "preco_medio": "609",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "1918",
+    "receita_total": "1808674",
+    "estoque_atual": "9",
+    "preco_medio": "943",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "272",
+    "receita_total": "1803360",
+    "estoque_atual": "15",
+    "preco_medio": "6630",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "272",
+    "receita_total": "1770720",
+    "estoque_atual": "139",
+    "preco_medio": "6510",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2818",
+    "receita_total": "1749978",
+    "estoque_atual": "13",
+    "preco_medio": "621",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2716",
+    "receita_total": "1732808",
+    "estoque_atual": "19",
+    "preco_medio": "638",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "245",
+    "receita_total": "1719900",
+    "estoque_atual": "457",
+    "preco_medio": "7020",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Ouro",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "239",
+    "receita_total": "1699290",
+    "estoque_atual": "359",
+    "preco_medio": "7110",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2536",
+    "receita_total": "1691512",
+    "estoque_atual": "13",
+    "preco_medio": "667",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Forte",
+    "categoria": "Máquinas e Tratores",
+    "unidades_vendidas": "251",
+    "receita_total": "1685465",
+    "estoque_atual": "325",
+    "preco_medio": "6715",
+    "margem_media": "43.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2132",
+    "receita_total": "1660828",
+    "estoque_atual": "14",
+    "preco_medio": "779",
+    "margem_media": "45.11999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "309",
+    "receita_total": "1628430",
+    "estoque_atual": "12",
+    "preco_medio": "5270",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2926",
+    "receita_total": "1612226",
+    "estoque_atual": "19",
+    "preco_medio": "551",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "313",
+    "receita_total": "1610385",
+    "estoque_atual": "20",
+    "preco_medio": "5145",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "320",
+    "receita_total": "1568000",
+    "estoque_atual": "13",
+    "preco_medio": "4900",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2381",
+    "receita_total": "1560745.5",
+    "estoque_atual": "13",
+    "preco_medio": "655.5",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "264",
+    "receita_total": "1554960",
+    "estoque_atual": "17",
+    "preco_medio": "5890",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2679",
+    "receita_total": "1553820",
+    "estoque_atual": "5",
+    "preco_medio": "580",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2672",
+    "receita_total": "1394784",
+    "estoque_atual": "11",
+    "preco_medio": "522",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2255",
+    "receita_total": "1322557.5",
+    "estoque_atual": "7",
+    "preco_medio": "586.5",
+    "margem_media": "44.92999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "237",
+    "receita_total": "1322460",
+    "estoque_atual": "299",
+    "preco_medio": "5580",
+    "margem_media": "43.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "266",
+    "receita_total": "1238230",
+    "estoque_atual": "246",
+    "preco_medio": "4655",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "287",
+    "receita_total": "1195355",
+    "estoque_atual": "5",
+    "preco_medio": "4165",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2387",
+    "receita_total": "1176791",
+    "estoque_atual": "15",
+    "preco_medio": "493",
+    "margem_media": "44.8299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3234",
+    "receita_total": "1152921",
+    "estoque_atual": "19",
+    "preco_medio": "356.5",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2554",
+    "receita_total": "1145469",
+    "estoque_atual": "7",
+    "preco_medio": "448.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "245",
+    "receita_total": "1080450",
+    "estoque_atual": "171",
+    "preco_medio": "4410",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2962",
+    "receita_total": "1039662",
+    "estoque_atual": "18",
+    "preco_medio": "351",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "294",
+    "receita_total": "1034880",
+    "estoque_atual": "13",
+    "preco_medio": "3520",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2615",
+    "receita_total": "1019850",
+    "estoque_atual": "11",
+    "preco_medio": "390",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "341",
+    "receita_total": "1012770",
+    "estoque_atual": "13",
+    "preco_medio": "2970",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "300",
+    "receita_total": "1008000",
+    "estoque_atual": "19",
+    "preco_medio": "3360",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2336",
+    "receita_total": "1002144",
+    "estoque_atual": "12",
+    "preco_medio": "429",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2397",
+    "receita_total": "981571.5",
+    "estoque_atual": "9",
+    "preco_medio": "409.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "265",
+    "receita_total": "975200",
+    "estoque_atual": "19",
+    "preco_medio": "3680",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "358",
+    "receita_total": "966600",
+    "estoque_atual": "18",
+    "preco_medio": "2700",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "298",
+    "receita_total": "953600",
+    "estoque_atual": "146",
+    "preco_medio": "3200",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "325",
+    "receita_total": "897000",
+    "estoque_atual": "10",
+    "preco_medio": "2760",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2390",
+    "receita_total": "885495",
+    "estoque_atual": "20",
+    "preco_medio": "370.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2987",
+    "receita_total": "878178",
+    "estoque_atual": "19",
+    "preco_medio": "294",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2647",
+    "receita_total": "877480.5",
+    "estoque_atual": "8",
+    "preco_medio": "331.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "328",
+    "receita_total": "865920",
+    "estoque_atual": "66",
+    "preco_medio": "2640",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "3246",
+    "receita_total": "863436",
+    "estoque_atual": "12",
+    "preco_medio": "266",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "317",
+    "receita_total": "862240",
+    "estoque_atual": "6",
+    "preco_medio": "2720",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2787",
+    "receita_total": "858396",
+    "estoque_atual": "16",
+    "preco_medio": "308",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "282",
+    "receita_total": "857280",
+    "estoque_atual": "68",
+    "preco_medio": "3040",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "299",
+    "receita_total": "847665",
+    "estoque_atual": "5",
+    "preco_medio": "2835",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "334",
+    "receita_total": "841680",
+    "estoque_atual": "430",
+    "preco_medio": "2520",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2706",
+    "receita_total": "840213",
+    "estoque_atual": "18",
+    "preco_medio": "310.5",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2994",
+    "receita_total": "838320",
+    "estoque_atual": "17",
+    "preco_medio": "280",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "284",
+    "receita_total": "817920",
+    "estoque_atual": "7",
+    "preco_medio": "2880",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2511",
+    "receita_total": "808542",
+    "estoque_atual": "13",
+    "preco_medio": "322",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2462",
+    "receita_total": "801381",
+    "estoque_atual": "19",
+    "preco_medio": "325.5",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "258",
+    "receita_total": "801090",
+    "estoque_atual": "16",
+    "preco_medio": "3105",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "311",
+    "receita_total": "797715",
+    "estoque_atual": "425",
+    "preco_medio": "2565",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2672",
+    "receita_total": "786904",
+    "estoque_atual": "19",
+    "preco_medio": "294.5",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2248",
+    "receita_total": "766568",
+    "estoque_atual": "6",
+    "preco_medio": "341",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "329",
+    "receita_total": "755055",
+    "estoque_atual": "217",
+    "preco_medio": "2295",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2659",
+    "receita_total": "753826.5",
+    "estoque_atual": "13",
+    "preco_medio": "283.5",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "302",
+    "receita_total": "733860",
+    "estoque_atual": "318",
+    "preco_medio": "2430",
+    "margem_media": "37.03999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3018",
+    "receita_total": "728847",
+    "estoque_atual": "18",
+    "preco_medio": "241.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2622",
+    "receita_total": "723672",
+    "estoque_atual": "12",
+    "preco_medio": "276",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "312",
+    "receita_total": "711360",
+    "estoque_atual": "289",
+    "preco_medio": "2280",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2625",
+    "receita_total": "708750",
+    "estoque_atual": "5",
+    "preco_medio": "270",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2538",
+    "receita_total": "708102",
+    "estoque_atual": "19",
+    "preco_medio": "279",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "324",
+    "receita_total": "699840",
+    "estoque_atual": "383",
+    "preco_medio": "2160",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3169",
+    "receita_total": "698764.5",
+    "estoque_atual": "11",
+    "preco_medio": "220.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3173",
+    "receita_total": "666330",
+    "estoque_atual": "7",
+    "preco_medio": "210",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3007",
+    "receita_total": "663043.5",
+    "estoque_atual": "5",
+    "preco_medio": "220.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "276",
+    "receita_total": "662400",
+    "estoque_atual": "14",
+    "preco_medio": "2400",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2422",
+    "receita_total": "639408",
+    "estoque_atual": "19",
+    "preco_medio": "264",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3128",
+    "receita_total": "624036",
+    "estoque_atual": "10",
+    "preco_medio": "199.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2694",
+    "receita_total": "622314",
+    "estoque_atual": "16",
+    "preco_medio": "231",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2572",
+    "receita_total": "621138",
+    "estoque_atual": "9",
+    "preco_medio": "241.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "1998",
+    "receita_total": "619380",
+    "estoque_atual": "6",
+    "preco_medio": "310",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2545",
+    "receita_total": "618435",
+    "estoque_atual": "11",
+    "preco_medio": "243",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2620",
+    "receita_total": "605220",
+    "estoque_atual": "20",
+    "preco_medio": "231",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2422",
+    "receita_total": "584913",
+    "estoque_atual": "19",
+    "preco_medio": "241.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "1967",
+    "receita_total": "584199",
+    "estoque_atual": "14",
+    "preco_medio": "297",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3001",
+    "receita_total": "582944.25",
+    "estoque_atual": "19",
+    "preco_medio": "194.25",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2246",
+    "receita_total": "576099",
+    "estoque_atual": "10",
+    "preco_medio": "256.5",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2282",
+    "receita_total": "575064",
+    "estoque_atual": "10",
+    "preco_medio": "252",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2814",
+    "receita_total": "574056",
+    "estoque_atual": "9",
+    "preco_medio": "204",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2725",
+    "receita_total": "572250",
+    "estoque_atual": "14",
+    "preco_medio": "210",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2476",
+    "receita_total": "571956",
+    "estoque_atual": "7",
+    "preco_medio": "231",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2245",
+    "receita_total": "565740",
+    "estoque_atual": "20",
+    "preco_medio": "252",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2466",
+    "receita_total": "562248",
+    "estoque_atual": "13",
+    "preco_medio": "228",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2592",
+    "receita_total": "559872",
+    "estoque_atual": "17",
+    "preco_medio": "216",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2325",
+    "receita_total": "558000",
+    "estoque_atual": "7",
+    "preco_medio": "240",
+    "margem_media": "41.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2790",
+    "receita_total": "556605",
+    "estoque_atual": "17",
+    "preco_medio": "199.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2648",
+    "receita_total": "556080",
+    "estoque_atual": "11",
+    "preco_medio": "210",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2590",
+    "receita_total": "551022.5",
+    "estoque_atual": "8",
+    "preco_medio": "212.75",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3181",
+    "receita_total": "548722.5",
+    "estoque_atual": "18",
+    "preco_medio": "172.5",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "266",
+    "receita_total": "542640",
+    "estoque_atual": "16",
+    "preco_medio": "2040",
+    "margem_media": "37.5"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2362",
+    "receita_total": "542079",
+    "estoque_atual": "10",
+    "preco_medio": "229.5",
+    "margem_media": "44.43999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2912",
+    "receita_total": "538720",
+    "estoque_atual": "13",
+    "preco_medio": "185",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2016",
+    "receita_total": "531216",
+    "estoque_atual": "20",
+    "preco_medio": "263.5",
+    "margem_media": "41.93999999999999772626324556767940521240234375"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3168",
+    "receita_total": "522720",
+    "estoque_atual": "7",
+    "preco_medio": "165",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2728",
+    "receita_total": "515592",
+    "estoque_atual": "17",
+    "preco_medio": "189",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2884",
+    "receita_total": "507584",
+    "estoque_atual": "20",
+    "preco_medio": "176",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2864",
+    "receita_total": "503348",
+    "estoque_atual": "7",
+    "preco_medio": "175.75",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2518",
+    "receita_total": "502341",
+    "estoque_atual": "10",
+    "preco_medio": "199.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2186",
+    "receita_total": "482013",
+    "estoque_atual": "7",
+    "preco_medio": "220.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2520",
+    "receita_total": "476280",
+    "estoque_atual": "14",
+    "preco_medio": "189",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2654",
+    "receita_total": "473739",
+    "estoque_atual": "20",
+    "preco_medio": "178.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2505",
+    "receita_total": "460920",
+    "estoque_atual": "6",
+    "preco_medio": "184",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2757",
+    "receita_total": "459040.5",
+    "estoque_atual": "11",
+    "preco_medio": "166.5",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2656",
+    "receita_total": "458160",
+    "estoque_atual": "6",
+    "preco_medio": "172.5",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2547",
+    "receita_total": "454639.5",
+    "estoque_atual": "19",
+    "preco_medio": "178.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3019",
+    "receita_total": "451340.5",
+    "estoque_atual": "12",
+    "preco_medio": "149.5",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2649",
+    "receita_total": "445032",
+    "estoque_atual": "9",
+    "preco_medio": "168",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2412",
+    "receita_total": "443808",
+    "estoque_atual": "11",
+    "preco_medio": "184",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2485",
+    "receita_total": "443572.5",
+    "estoque_atual": "7",
+    "preco_medio": "178.5",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "1854",
+    "receita_total": "441252",
+    "estoque_atual": "10",
+    "preco_medio": "238",
+    "margem_media": "46.42999999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2802",
+    "receita_total": "440614.5",
+    "estoque_atual": "10",
+    "preco_medio": "157.25",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2159",
+    "receita_total": "439356.5",
+    "estoque_atual": "18",
+    "preco_medio": "203.5",
+    "margem_media": "40.53999999999999914734871708787977695465087890625"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2319",
+    "receita_total": "438291",
+    "estoque_atual": "17",
+    "preco_medio": "189",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2653",
+    "receita_total": "437745",
+    "estoque_atual": "15",
+    "preco_medio": "165",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2806",
+    "receita_total": "432124",
+    "estoque_atual": "20",
+    "preco_medio": "154",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2892",
+    "receita_total": "425124",
+    "estoque_atual": "19",
+    "preco_medio": "147",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2384",
+    "receita_total": "419584",
+    "estoque_atual": "16",
+    "preco_medio": "176",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2602",
+    "receita_total": "418922",
+    "estoque_atual": "7",
+    "preco_medio": "161",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2903",
+    "receita_total": "413677.5",
+    "estoque_atual": "8",
+    "preco_medio": "142.5",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2946",
+    "receita_total": "412440",
+    "estoque_atual": "15",
+    "preco_medio": "140",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2706",
+    "receita_total": "411312",
+    "estoque_atual": "7",
+    "preco_medio": "152",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2865",
+    "receita_total": "409695",
+    "estoque_atual": "13",
+    "preco_medio": "143",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2762",
+    "receita_total": "397728",
+    "estoque_atual": "9",
+    "preco_medio": "144",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2634",
+    "receita_total": "395100",
+    "estoque_atual": "9",
+    "preco_medio": "150",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2504",
+    "receita_total": "394380",
+    "estoque_atual": "15",
+    "preco_medio": "157.5",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2626",
+    "receita_total": "393900",
+    "estoque_atual": "19",
+    "preco_medio": "150",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2314",
+    "receita_total": "388752",
+    "estoque_atual": "5",
+    "preco_medio": "168",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2428",
+    "receita_total": "388480",
+    "estoque_atual": "14",
+    "preco_medio": "160",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2369",
+    "receita_total": "379040",
+    "estoque_atual": "6",
+    "preco_medio": "160",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2453",
+    "receita_total": "377762",
+    "estoque_atual": "16",
+    "preco_medio": "154",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2322",
+    "receita_total": "373842",
+    "estoque_atual": "19",
+    "preco_medio": "161",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2581",
+    "receita_total": "371018.75",
+    "estoque_atual": "14",
+    "preco_medio": "143.75",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2818",
+    "receita_total": "369862.5",
+    "estoque_atual": "19",
+    "preco_medio": "131.25",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2543",
+    "receita_total": "366192",
+    "estoque_atual": "11",
+    "preco_medio": "144",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2549",
+    "receita_total": "363232.5",
+    "estoque_atual": "6",
+    "preco_medio": "142.5",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2453",
+    "receita_total": "360591",
+    "estoque_atual": "17",
+    "preco_medio": "147",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2901",
+    "receita_total": "358273.5",
+    "estoque_atual": "6",
+    "preco_medio": "123.5",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2267",
+    "receita_total": "357052.5",
+    "estoque_atual": "15",
+    "preco_medio": "157.5",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Soja Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3267",
+    "receita_total": "356919.75",
+    "estoque_atual": "20",
+    "preco_medio": "109.25",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3143",
+    "receita_total": "354216.1000000000349245965480804443359375",
+    "estoque_atual": "8",
+    "preco_medio": "112.7000000000000028421709430404007434844970703125",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "292",
+    "receita_total": "353320",
+    "estoque_atual": "224",
+    "preco_medio": "1210",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2768",
+    "receita_total": "352920",
+    "estoque_atual": "9",
+    "preco_medio": "127.5",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3193",
+    "receita_total": "352826.5",
+    "estoque_atual": "13",
+    "preco_medio": "110.5",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2609",
+    "receita_total": "352215",
+    "estoque_atual": "10",
+    "preco_medio": "135",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2586",
+    "receita_total": "351696",
+    "estoque_atual": "17",
+    "preco_medio": "136",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2779",
+    "receita_total": "350154",
+    "estoque_atual": "6",
+    "preco_medio": "126",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2593",
+    "receita_total": "350055",
+    "estoque_atual": "14",
+    "preco_medio": "135",
+    "margem_media": "43.3299999999999982946974341757595539093017578125"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2786",
+    "receita_total": "348250",
+    "estoque_atual": "5",
+    "preco_medio": "125",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2912",
+    "receita_total": "345800",
+    "estoque_atual": "5",
+    "preco_medio": "118.75",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2732",
+    "receita_total": "345598",
+    "estoque_atual": "7",
+    "preco_medio": "126.5",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "2710",
+    "receita_total": "345525",
+    "estoque_atual": "16",
+    "preco_medio": "127.5",
+    "margem_media": "46.6700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2496",
+    "receita_total": "343200",
+    "estoque_atual": "7",
+    "preco_medio": "137.5",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "327",
+    "receita_total": "341715",
+    "estoque_atual": "15",
+    "preco_medio": "1045",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2236",
+    "receita_total": "339872",
+    "estoque_atual": "16",
+    "preco_medio": "152",
+    "margem_media": "43.75"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2418",
+    "receita_total": "338520",
+    "estoque_atual": "12",
+    "preco_medio": "140",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Semente de Milho Híbrido AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2522",
+    "receita_total": "335426",
+    "estoque_atual": "12",
+    "preco_medio": "133",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "264",
+    "receita_total": "333960",
+    "estoque_atual": "5",
+    "preco_medio": "1265",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "284",
+    "receita_total": "328020",
+    "estoque_atual": "12",
+    "preco_medio": "1155",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Premium",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2457",
+    "receita_total": "324938.25",
+    "estoque_atual": "5",
+    "preco_medio": "132.25",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2804",
+    "receita_total": "322460",
+    "estoque_atual": "9",
+    "preco_medio": "115",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2695",
+    "receita_total": "320705",
+    "estoque_atual": "8",
+    "preco_medio": "119",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2425",
+    "receita_total": "315250",
+    "estoque_atual": "14",
+    "preco_medio": "130",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2292",
+    "receita_total": "311712",
+    "estoque_atual": "11",
+    "preco_medio": "136",
+    "margem_media": "40.61999999999999744204615126363933086395263671875"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "283",
+    "receita_total": "309177.5",
+    "estoque_atual": "131",
+    "preco_medio": "1092.5",
+    "margem_media": "45.25999999999999801048033987171947956085205078125"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2261",
+    "receita_total": "300713",
+    "estoque_atual": "6",
+    "preco_medio": "133",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2889",
+    "receita_total": "299011.5",
+    "estoque_atual": "20",
+    "preco_medio": "103.5",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Bio",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "270",
+    "receita_total": "297000",
+    "estoque_atual": "6",
+    "preco_medio": "1100",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Semente de Soja Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2767",
+    "receita_total": "289151.5",
+    "estoque_atual": "7",
+    "preco_medio": "104.5",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2283",
+    "receita_total": "287658",
+    "estoque_atual": "7",
+    "preco_medio": "126",
+    "margem_media": "53.57000000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "unidades_vendidas": "274",
+    "receita_total": "286330",
+    "estoque_atual": "305",
+    "preco_medio": "1045",
+    "margem_media": "45.4500000000000028421709430404007434844970703125"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2637",
+    "receita_total": "284268.6000000000349245965480804443359375",
+    "estoque_atual": "7",
+    "preco_medio": "107.7999999999999971578290569595992565155029296875",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Soja Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2844",
+    "receita_total": "283689",
+    "estoque_atual": "11",
+    "preco_medio": "99.75",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2992",
+    "receita_total": "278555.2000000000116415321826934814453125",
+    "estoque_atual": "9",
+    "preco_medio": "93.099999999999994315658113919198513031005859375",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2312",
+    "receita_total": "275128",
+    "estoque_atual": "17",
+    "preco_medio": "119",
+    "margem_media": "42.8599999999999994315658113919198513031005859375"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2651",
+    "receita_total": "272787.8999999999068677425384521484375",
+    "estoque_atual": "20",
+    "preco_medio": "102.900000000000005684341886080801486968994140625",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2308",
+    "receita_total": "270036",
+    "estoque_atual": "7",
+    "preco_medio": "117",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2453",
+    "receita_total": "267990.25",
+    "estoque_atual": "5",
+    "preco_medio": "109.25",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "1956",
+    "receita_total": "266994",
+    "estoque_atual": "16",
+    "preco_medio": "136.5",
+    "margem_media": "42.31000000000000227373675443232059478759765625"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2692",
+    "receita_total": "263143",
+    "estoque_atual": "13",
+    "preco_medio": "97.75",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2295",
+    "receita_total": "258187.5",
+    "estoque_atual": "10",
+    "preco_medio": "112.5",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Semente de Soja Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3017",
+    "receita_total": "257953.5",
+    "estoque_atual": "16",
+    "preco_medio": "85.5",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "3056",
+    "receita_total": "254564.799999999930150806903839111328125",
+    "estoque_atual": "20",
+    "preco_medio": "83.2999999999999971578290569595992565155029296875",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2104",
+    "receita_total": "254058",
+    "estoque_atual": "12",
+    "preco_medio": "120.75",
+    "margem_media": "43.47999999999999687361196265555918216705322265625"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Forte",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2329",
+    "receita_total": "247456.25",
+    "estoque_atual": "15",
+    "preco_medio": "106.25",
+    "margem_media": "44"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2445",
+    "receita_total": "239610",
+    "estoque_atual": "19",
+    "preco_medio": "98",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "3266",
+    "receita_total": "222088",
+    "estoque_atual": "13",
+    "preco_medio": "68",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3200",
+    "receita_total": "218400",
+    "estoque_atual": "10",
+    "preco_medio": "68.25",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2779",
+    "receita_total": "217317.80000000004656612873077392578125",
+    "estoque_atual": "7",
+    "preco_medio": "78.2000000000000028421709430404007434844970703125",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2776",
+    "receita_total": "207644.80000000004656612873077392578125",
+    "estoque_atual": "13",
+    "preco_medio": "74.7999999999999971578290569595992565155029296875",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Soja AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2247",
+    "receita_total": "202791.75",
+    "estoque_atual": "12",
+    "preco_medio": "90.25",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2682",
+    "receita_total": "200479.5",
+    "estoque_atual": "12",
+    "preco_medio": "74.75",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Semente de Soja Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2069",
+    "receita_total": "196555",
+    "estoque_atual": "7",
+    "preco_medio": "95",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "unidades_vendidas": "2222",
+    "receita_total": "195980.400000000023283064365386962890625",
+    "estoque_atual": "6",
+    "preco_medio": "88.2000000000000028421709430404007434844970703125",
+    "margem_media": "43.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Soja Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2420",
+    "receita_total": "195415",
+    "estoque_atual": "9",
+    "preco_medio": "80.75",
+    "margem_media": "52.63000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2569",
+    "receita_total": "192161.19999999995343387126922607421875",
+    "estoque_atual": "9",
+    "preco_medio": "74.7999999999999971578290569595992565155029296875",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2894",
+    "receita_total": "186952.400000000023283064365386962890625",
+    "estoque_atual": "10",
+    "preco_medio": "64.599999999999994315658113919198513031005859375",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3048",
+    "receita_total": "186537.60000000012223608791828155517578125",
+    "estoque_atual": "7",
+    "preco_medio": "61.2000000000000028421709430404007434844970703125",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2369",
+    "receita_total": "185255.7999999999883584678173065185546875",
+    "estoque_atual": "18",
+    "preco_medio": "78.2000000000000028421709430404007434844970703125",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2590",
+    "receita_total": "184926.00000000002910383045673370361328125",
+    "estoque_atual": "19",
+    "preco_medio": "71.400000000000005684341886080801486968994140625",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "3271",
+    "receita_total": "180722.75",
+    "estoque_atual": "9",
+    "preco_medio": "55.25",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2412",
+    "receita_total": "172216.80000000004656612873077392578125",
+    "estoque_atual": "8",
+    "preco_medio": "71.400000000000005684341886080801486968994140625",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2921",
+    "receita_total": "170878.5",
+    "estoque_atual": "8",
+    "preco_medio": "58.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2734",
+    "receita_total": "168824.5",
+    "estoque_atual": "13",
+    "preco_medio": "61.75",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2549",
+    "receita_total": "165685",
+    "estoque_atual": "17",
+    "preco_medio": "65",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2693",
+    "receita_total": "164811.59999999994761310517787933349609375",
+    "estoque_atual": "15",
+    "preco_medio": "61.2000000000000028421709430404007434844970703125",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "unidades_vendidas": "2281",
+    "receita_total": "163091.5",
+    "estoque_atual": "8",
+    "preco_medio": "71.5",
+    "margem_media": "46.14999999999999857891452847979962825775146484375"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2932",
+    "receita_total": "154809.60000000000582076609134674072265625",
+    "estoque_atual": "9",
+    "preco_medio": "52.7999999999999971578290569595992565155029296875",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2268",
+    "receita_total": "154224",
+    "estoque_atual": "13",
+    "preco_medio": "68",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2396",
+    "receita_total": "151547",
+    "estoque_atual": "9",
+    "preco_medio": "63.25",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3153",
+    "receita_total": "151344",
+    "estoque_atual": "12",
+    "preco_medio": "48",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2329",
+    "receita_total": "150453.39999999999417923390865325927734375",
+    "estoque_atual": "11",
+    "preco_medio": "64.599999999999994315658113919198513031005859375",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2600",
+    "receita_total": "150150",
+    "estoque_atual": "7",
+    "preco_medio": "57.75",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2582",
+    "receita_total": "149239.60000000000582076609134674072265625",
+    "estoque_atual": "18",
+    "preco_medio": "57.7999999999999971578290569595992565155029296875",
+    "margem_media": "55.88000000000000255795384873636066913604736328125"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2589",
+    "receita_total": "142395",
+    "estoque_atual": "12",
+    "preco_medio": "55",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2264",
+    "receita_total": "136972",
+    "estoque_atual": "8",
+    "preco_medio": "60.5",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2705",
+    "receita_total": "136332.00000000002910383045673370361328125",
+    "estoque_atual": "6",
+    "preco_medio": "50.39999999999999857891452847979962825775146484375",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "unidades_vendidas": "2318",
+    "receita_total": "133980.40000000005238689482212066650390625",
+    "estoque_atual": "16",
+    "preco_medio": "57.7999999999999971578290569595992565155029296875",
+    "margem_media": "48.530000000000001136868377216160297393798828125"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2396",
+    "receita_total": "132259.20000000004074536263942718505859375",
+    "estoque_atual": "17",
+    "preco_medio": "55.2000000000000028421709430404007434844970703125",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2356",
+    "receita_total": "123101",
+    "estoque_atual": "5",
+    "preco_medio": "52.25",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2693",
+    "receita_total": "122800.80000000001746229827404022216796875",
+    "estoque_atual": "15",
+    "preco_medio": "45.60000000000000142108547152020037174224853515625",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2542",
+    "receita_total": "118838.5",
+    "estoque_atual": "7",
+    "preco_medio": "46.75",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2732",
+    "receita_total": "109963",
+    "estoque_atual": "6",
+    "preco_medio": "40.25",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2200",
+    "receita_total": "108900",
+    "estoque_atual": "14",
+    "preco_medio": "49.5",
+    "margem_media": "54.5499999999999971578290569595992565155029296875"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2865",
+    "receita_total": "105288.75",
+    "estoque_atual": "13",
+    "preco_medio": "36.75",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2502",
+    "receita_total": "102081.599999999962165020406246185302734375",
+    "estoque_atual": "15",
+    "preco_medio": "40.7999999999999971578290569595992565155029296875",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2549",
+    "receita_total": "98136.5",
+    "estoque_atual": "20",
+    "preco_medio": "38.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Premium",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2961",
+    "receita_total": "95344.2000000000116415321826934814453125",
+    "estoque_atual": "18",
+    "preco_medio": "32.2000000000000028421709430404007434844970703125",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2866",
+    "receita_total": "95294.5",
+    "estoque_atual": "6",
+    "preco_medio": "33.25",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2923",
+    "receita_total": "92074.5",
+    "estoque_atual": "7",
+    "preco_medio": "31.5",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2035",
+    "receita_total": "87911.99999999997089616954326629638671875",
+    "estoque_atual": "13",
+    "preco_medio": "43.2000000000000028421709430404007434844970703125",
+    "margem_media": "54.1700000000000017053025658242404460906982421875"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Pampa",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2842",
+    "receita_total": "87533.599999999976716935634613037109375",
+    "estoque_atual": "16",
+    "preco_medio": "30.800000000000000710542735760100185871124267578125",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2413",
+    "receita_total": "84455",
+    "estoque_atual": "17",
+    "preco_medio": "35",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Bio",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2984",
+    "receita_total": "83552",
+    "estoque_atual": "18",
+    "preco_medio": "28",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Ouro",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "3294",
+    "receita_total": "83008.80000000001746229827404022216796875",
+    "estoque_atual": "15",
+    "preco_medio": "25.199999999999999289457264239899814128875732421875",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho AgroMax",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2858",
+    "receita_total": "76022.7999999999883584678173065185546875",
+    "estoque_atual": "11",
+    "preco_medio": "26.60000000000000142108547152020037174224853515625",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2437",
+    "receita_total": "72500.75",
+    "estoque_atual": "13",
+    "preco_medio": "29.75",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Cerrado",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2250",
+    "receita_total": "66150.000000000014551915228366851806640625",
+    "estoque_atual": "18",
+    "preco_medio": "29.39999999999999857891452847979962825775146484375",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Forte",
+    "categoria": "Sementes e Mudas",
+    "unidades_vendidas": "2482",
+    "receita_total": "59071.6000000000130967237055301666259765625",
+    "estoque_atual": "14",
+    "preco_medio": "23.800000000000000710542735760100185871124267578125",
+    "margem_media": "57.1400000000000005684341886080801486968994140625"
+  }
+]

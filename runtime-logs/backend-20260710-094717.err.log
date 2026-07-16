@@ -1,0 +1,87 @@
+INFO:     Started server process [15788]
+INFO:     Waiting for application startup.
+2026-07-10 09:47:19 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 09:47:19 | INFO     | luminaai.main                  | \U0001f31f LuminaAI v1.0.0 — Iniciando
+2026-07-10 09:47:19 | INFO     | luminaai.main                  |    Ambiente  : DEVELOPMENT
+2026-07-10 09:47:19 | INFO     | luminaai.main                  |    Debug     : False
+2026-07-10 09:47:19 | INFO     | luminaai.main                  |    Modelo IA : gpt-4o-mini
+2026-07-10 09:47:19 | INFO     | luminaai.main                  | ============================================================
+2026-07-10 09:47:19 | INFO     | luminaai.main                  | \u2705 PostgreSQL conectado e tabelas sincronizadas com sucesso
+2026-07-10 09:47:19 | INFO     | luminaai.scheduler             | \u23f0 Agendador iniciado com sucesso.
+2026-07-10 09:47:19 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronizando com SemanticCatalog e BKE... (tenant=a0eebc99)
+2026-07-10 09:47:19 | INFO     | luminaai.scheduler             | \u23f0 Agendador de sincronização iniciado.
+2026-07-10 09:47:19 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronização BKE/SemanticCatalog concluída: 5 conceitos processados.
+2026-07-10 09:47:19 | INFO     | luminaai.main                  | âœ… SemanticCatalog sincronizado: 5 conceitos carregados
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-07-10 09:47:25 | INFO     | luminaai.main                  | GET /health â†’ 200 | 0.58ms
+2026-07-10 09:47:45 | INFO     | luminaai.routers.auth          | Usuário autenticado com sucesso: email=ti@casadocampo.vet.br | tenant=a0eebc99 | role=ADMIN
+2026-07-10 09:47:45 | INFO     | luminaai.main                  | POST /api/v1/auth/login â†’ 200 | 235.06ms
+2026-07-10 09:47:45 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Qual o top 3 de vendedores que mais venderam juntando os mes...'
+2026-07-10 09:47:45 | INFO     | routers.query                  | Catálogo carregado | views_ativas=18 | tenant=a0eebc99
+2026-07-10 09:47:45 | INFO     | luminaai.data_platform.package_compatibility | [PackageCompatibility] MISS | key=3f078d157fa8... best_score=0.600
+2026-07-10 09:47:45 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Similaridade da pergunta: 0.22 | Blueprint: bp_solicitao_para_identif_v1
+2026-07-10 09:47:46 | INFO     | luminaai.ai.corporate_intelligence_engine | [CIE] Starting semantic processing: 'Qual o top 3 de vendedores que mais venderam juntando os meses 2, 3 e 4 de 2026?'
+2026-07-10 09:47:46 | INFO     | luminaai.ai.context_engine     | [CIE] Carregando contexto para o tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11...
+2026-07-10 09:47:46 | INFO     | luminaai.ai.intent_engine      | [CIE] Extracting raw intentions through structured LLM parse...
+2026-07-10 09:47:46 | WARNING  | services.ai_service            | [AIService] CIE indisponivel/falhou; acionando fallback deterministico de intencao. Motivo: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:47:46 | INFO     | luminaai.ai.csie               | [CSIE] [STATIC HIT] Resolvido via mapeamento estático | tempo=15.96ms score=0.95
+2026-07-10 09:47:46 | INFO     | luminaai.services.query_intelligence_engine | [AQD] Pergunta complexa detectada. Iniciando decomposiÃ§Ã£o em 2 tarefas analÃ­ticas.
+2026-07-10 09:47:46 | INFO     | luminaai.services.query_planner | Query Planner otimizou e removeu consulta redundante: composto_1
+2026-07-10 09:47:46 | INFO     | luminaai.services.query_planner | Plano de Consulta gerado | Principal=VW_VENDAS_MENSAIS | Complementares_Otimizadas=0 | Ordem=[['principal']]
+2026-07-10 09:47:46 | INFO     | luminaai.services.plan_validator | [Validator] Incompatibilidade detectada. Acionada re-decomposiÃ§Ã£o via AQD com sucesso.
+2026-07-10 09:47:46 | INFO     | luminaai.services.plan_validator | [Validator] Incompatibilidade detectada. Acionada re-decomposiÃ§Ã£o via AQD com sucesso.
+2026-07-10 09:47:46 | INFO     | luminaai.services.iar          | [IAR] Iniciando Intelligent Analytical Resolver para consulta...
+2026-07-10 09:47:46 | INFO     | luminaai.services.iar          | [IAR] Resolução do IAR concluída em 0 ms! Estratégia: Default Execution
+2026-07-10 09:47:46 | INFO     | luminaai.business.knowledge_engine | [BKE] Aplicando regras e validações corporativas...
+2026-07-10 09:47:46 | INFO     | luminaai.business.knowledge_engine | [BKE] Regras aplicadas com sucesso (tempo=0.04 ms). Métricas oficiais: []
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Buscando blueprint existente para a view: VW_VENDAS_MENSAIS (tenant=a0eebc99)...
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.blueprint_resolver | [BlueprintResolver] Nenhum blueprint correspondente encontrado na Data Platform.
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=BLUEPRINT | estrutura_id=subconsulta_para_analisa
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=BLUEPRINT | id=subconsulta_para_analisa
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=subconsulta_para_analisa | upstream=['unknown_view']
+2026-07-10 09:47:46 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura subconsulta_para_analisa | health=77.5
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=unknown_view
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=unknown_view
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=unknown_view | nós=3
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=unknown_view | upstream=['unknown_view']
+2026-07-10 09:47:46 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura unknown_view | health=77.5
+2026-07-10 09:47:46 | INFO     | luminaai.services.query_intelligence_engine | [BlueprintResolver] Novo Blueprint criado e persistido no banco de dados!
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução paralela/sequencial do blueprint...
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Iniciando execução da consulta: principal (view: VW_VENDAS_MENSAIS)...
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.data_access_layer | [DataAccessLayer] Solicitada leitura da view: VW_VENDAS_MENSAIS | Tenant: a0eebc99
+2026-07-10 09:47:46 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local demo mode - reading official mock data for view VW_VENDAS_MENSAIS
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.analytical_storage | [AnalyticalStorage] Local mock executed | view=VW_VENDAS_MENSAIS table=mock_oracle_vw_vendas_mensais rows=3 filters={'date_range': '2026-02-01 to 2026-04-30'}
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DATASET | estrutura_id=10f8a569-475b-4c34-8c70-95ce47dacb97
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DATASET | id=10f8a569-475b-4c34-8c70-95ce47dacb97
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=10f8a569-475b-4c34-8c70-95ce47dacb97 | upstream=['VW_VENDAS_MENSAIS']
+2026-07-10 09:47:47 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura 10f8a569-475b-4c34-8c70-95ce47dacb97 | health=77.5
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=DASHBOARD | estrutura_id=db1e1809-31ef-41d6-aa62-f540393a0f03
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=DASHBOARD | id=db1e1809-31ef-41d6-aa62-f540393a0f03
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=db1e1809-31ef-41d6-aa62-f540393a0f03 | upstream=['10f8a569-475b-4c34-8c70-95ce47dacb97']
+2026-07-10 09:47:47 | WARNING  | luminaai.data_platform.health_monitor | [HealthMonitor] 1 alerta(s) gerado(s) para estrutura db1e1809-31ef-41d6-aa62-f540393a0f03 | health=77.5
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Dataset analítico persistido e auditado com sucesso!
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.execution_engine | [ExecutionEngine] Sucesso na execução de principal | Registros obtidos: 3
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Analisando dados para geracao de insights...
+2026-07-10 09:47:47 | ERROR    | luminaai.ai.executive_analysis_engine | Erro ao gerar analise de dados com IA: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-proj-**************************ENAI. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.insight_layer | [InsightLayer] Insights de IA gerados com sucesso.
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Montando a estrutura visual (Dashboard Schema)...
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.dashboard_builder | [DashboardBuilder] Dashboard Schema gerado | Componentes: 1 | Layout: full | Semântica: ['icone_padrao']
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.analytics_engine | [AnalyticsEngine] Iniciando processamento matemático e estatístico...
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Iniciando renderização completa do layout para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.enterprise_component_engine.registry | [ComponentRegistry] Componente registrado: id=7b2bab98-2d1b-4ee1-b9a5-f6a2b45783b2 | name=Painel de Filtros | category=CONTROLS | type=FILTROS | tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.enterprise_component_engine.lifecycle | [ComponentLifecycle] Componente id=7b2bab98-2d1b-4ee1-b9a5-f6a2b45783b2 | Fase=MOUNT | Estado=Ready
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.enterprise_component_engine | [ECE] Renderização finalizada | componentes=1 | reusados=1 | tempo=1ms
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Iniciando montagem adaptável do painel para tenant=a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Iniciando cálculo tridimensional de posições...
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.interpreter | [BlueprintInterpreter] Hierarquia interpretada: 1 componentes ordenados por precedência
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.adaptive_dashboard_engine.grid_engine | [AdaptiveGridEngine] Posicionamento responsivo gerado para 5 breakpoints com sucesso
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.adaptive_dashboard_engine | [ADE] Layout de Dashboard montado com sucesso em 2.71ms | Componentes=1
+2026-07-10 09:47:47 | INFO     | luminaai.services.query_intelligence_engine | [RIS] QualificaÃ§Ã£o analÃ­tica completa executada! Trust Score: 84.5 | SLA Score: 100.0
+2026-07-10 09:47:47 | INFO     | luminaai.services.query_intelligence_engine | [PIPELINE LOGS] ExecuÃ§Ã£o concluÃ­da | Tempo Total: 1335ms | Tempo IA/SemÃ¢ntica: 817ms | Tempo Planner: 0ms | Tempo Validator: 34ms | Tempo Backend (Business + Resolver): 86ms | Tempo Data Platform (Execution + DAL): 61ms | Tempo Insights/Dashboard: 196ms
+2026-07-10 09:47:47 | INFO     | luminaai.ai.memory_context_engine | [MemoryContextEngine] Temporary context saved for user=b1eebc99
+2026-07-10 09:47:47 | INFO     | luminaai.main                  | POST /api/v1/query/ â†’ 200 | 1556.06ms
+2026-07-10 09:47:47 | INFO     | luminaai.data_platform.analytical_package_service | [AnalyticalPackageService] Package CRIADO | id=b6b658a4-73d8-40e2-8c11-19ca01fc4005 domain=VENDAS operation=SELECT entity=VENDEDOR
+2026-07-10 09:47:47 | INFO     | luminaai.services.query_intelligence_engine | [QIE] Analytical Package registrado com sucesso (MISS path)
+2026-07-10 09:47:47 | INFO     | luminaai.query_history_service | Historico persistido | user=b1eebc99 | view=3e65fc1b | tempo=1335ms

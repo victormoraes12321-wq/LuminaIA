@@ -1,0 +1,263 @@
+[
+  {
+    "id": "da906a43-2f9f-40b4-beae-a4fe808e8e93",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_89C758",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:08:29.526731+00:00",
+    "atualizado_em": "2026-07-09 16:08:29.526731+00:00"
+  },
+  {
+    "id": "c06bce9c-1383-497a-a1bc-40683ac3ea93",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_9408D2",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:08:30.394600+00:00",
+    "atualizado_em": "2026-07-09 16:08:30.394600+00:00"
+  },
+  {
+    "id": "5bfed4dd-3cc0-4daa-9a7e-97b80fd33d39",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_API_TEST",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:08:33.069474+00:00",
+    "atualizado_em": "2026-07-09 16:08:33.069474+00:00"
+  },
+  {
+    "id": "5f88b31f-86b3-4856-8f38-54b87a559e7f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_002",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:10:34.647329+00:00",
+    "atualizado_em": "2026-07-09 16:10:34.647329+00:00"
+  },
+  {
+    "id": "60baa45d-a57a-45b6-8c01-45849c114c34",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "PER_TODAY",
+    "concept_type": "PERIOD",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:22.445922+00:00",
+    "atualizado_em": "2026-07-09 16:13:22.445922+00:00"
+  },
+  {
+    "id": "61956ae1-5ad6-43ca-ad9c-8f21124e4386",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "DIM_002",
+    "concept_type": "DIMENSION",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:28.759976+00:00",
+    "atualizado_em": "2026-07-09 16:13:28.759976+00:00"
+  },
+  {
+    "id": "2845f21a-3dd7-4993-914d-9b7f2c538d4a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "DIM_006",
+    "concept_type": "DIMENSION",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:30.902478+00:00",
+    "atualizado_em": "2026-07-09 16:13:30.902478+00:00"
+  },
+  {
+    "id": "0c300080-80e5-4d9d-b12d-d64022e20aaa",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "PER_CURRENT_MONTH",
+    "concept_type": "PERIOD",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:30.989836+00:00",
+    "atualizado_em": "2026-07-09 16:13:30.989836+00:00"
+  },
+  {
+    "id": "ff5c90e9-25fd-4b12-a462-14ab723f2c5d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_F2192D",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:50.820807+00:00",
+    "atualizado_em": "2026-07-09 16:13:50.820807+00:00"
+  },
+  {
+    "id": "89626f4a-13f4-4036-8213-283cf6213c43",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_D18E81",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:13:51.671181+00:00",
+    "atualizado_em": "2026-07-09 16:13:51.671181+00:00"
+  },
+  {
+    "id": "ccfbe458-a550-43ca-ac68-f7aef89ff57a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_001",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:14:11.949647+00:00",
+    "atualizado_em": "2026-07-09 16:14:11.949647+00:00"
+  },
+  {
+    "id": "2e76cc86-b867-41ac-a49f-b57a8421bf7c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_E5EA67",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:35:27.428728+00:00",
+    "atualizado_em": "2026-07-09 16:35:27.428728+00:00"
+  },
+  {
+    "id": "9acfb64d-909a-47f2-a98b-8b0f7159aa09",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_231AB4",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:35:28.170104+00:00",
+    "atualizado_em": "2026-07-09 16:35:28.170104+00:00"
+  },
+  {
+    "id": "80ddecb0-b8b1-42e9-a069-cef4367c0861",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_9A435A",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:50:45.083450+00:00",
+    "atualizado_em": "2026-07-09 16:50:45.083450+00:00"
+  },
+  {
+    "id": "504011d5-9f94-4226-a4fe-ad044803a5b9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_59CF07",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:50:46.172236+00:00",
+    "atualizado_em": "2026-07-09 16:50:46.172236+00:00"
+  },
+  {
+    "id": "32e50f20-b112-4acd-932f-a99ae8f54430",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_9197F7",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:59:31.448311+00:00",
+    "atualizado_em": "2026-07-09 16:59:31.448311+00:00"
+  },
+  {
+    "id": "66d3b0a9-23d9-4dcf-b8e6-9fb8c2faf4cb",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_ABBF18",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 16:59:32.140480+00:00",
+    "atualizado_em": "2026-07-09 16:59:32.140480+00:00"
+  },
+  {
+    "id": "8ed2f58b-4a7f-4264-b497-ade2ed0087e8",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_A02F5F",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 17:07:20.642420+00:00",
+    "atualizado_em": "2026-07-09 17:07:20.642420+00:00"
+  },
+  {
+    "id": "adc6827f-0adf-45a8-9365-3a27aa4bd4a1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_78C34A",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 17:07:21.449894+00:00",
+    "atualizado_em": "2026-07-09 17:07:21.449894+00:00"
+  },
+  {
+    "id": "51ac4d63-acef-458e-94e2-31ec791bab5a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_006",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 17:17:39.684104+00:00",
+    "atualizado_em": "2026-07-09 17:17:39.684104+00:00"
+  },
+  {
+    "id": "54d28247-3ebd-4259-b488-7f4ab93d9ce9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "DIM_003",
+    "concept_type": "DIMENSION",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 17:17:39.713114+00:00",
+    "atualizado_em": "2026-07-09 17:17:39.713114+00:00"
+  },
+  {
+    "id": "89fd0735-72e8-4bff-8f63-229d966fee43",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "PER_LAST_90_DAYS",
+    "concept_type": "PERIOD",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-09 17:17:39.732694+00:00",
+    "atualizado_em": "2026-07-09 17:17:39.732694+00:00"
+  },
+  {
+    "id": "c2443bc5-1966-4e54-b248-82c82d481e34",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_843BB1",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 10:27:18.960589+00:00",
+    "atualizado_em": "2026-07-10 10:27:18.960589+00:00"
+  },
+  {
+    "id": "c25eda48-7041-4ced-b13f-f04fed01acb5",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_7178F7",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 10:27:19.923660+00:00",
+    "atualizado_em": "2026-07-10 10:27:19.923660+00:00"
+  },
+  {
+    "id": "5224f897-b3b3-4bbb-a2b4-0b7bda74e53d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_TEMP_CE8EBA",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 10:35:32.253049+00:00",
+    "atualizado_em": "2026-07-10 10:35:32.253049+00:00"
+  },
+  {
+    "id": "10cc9c00-7ad9-4bd9-ac28-b471f84717d9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_UNIT_190C43",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 10:35:33.009295+00:00",
+    "atualizado_em": "2026-07-10 10:35:33.009295+00:00"
+  },
+  {
+    "id": "488a3a61-1905-4222-bf26-71baf8dfacd4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_004",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 13:35:04.274886+00:00",
+    "atualizado_em": "2026-07-10 13:35:04.274886+00:00"
+  },
+  {
+    "id": "55837219-01c7-4cda-a2e8-904b4db2abef",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "MET_013",
+    "concept_type": "METRIC",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-10 17:44:08.366996+00:00",
+    "atualizado_em": "2026-07-10 17:44:08.366996+00:00"
+  },
+  {
+    "id": "fb59c071-bd3c-42c0-86d0-3704b73c73f3",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "concept_id": "DIM_007",
+    "concept_type": "DIMENSION",
+    "status": "ACTIVE",
+    "criado_em": "2026-07-11 11:48:41.460489+00:00",
+    "atualizado_em": "2026-07-11 11:48:41.460489+00:00"
+  }
+]

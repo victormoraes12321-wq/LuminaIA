@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # ── Backend Service (FastAPI) ─────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lumina-backend
+    restart: unless-stopped
+    expose:
+      - "8000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend-logs:/app/logs
+    networks:
+      - lumina-network
+
+  # ── Frontend Service (Next.js) ────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lumina-frontend
+    restart: unless-stopped
+    expose:
+      - "3000"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+    networks:
+      - lumina-network
+
+  # ── Nginx Reverse Proxy Service ───────────────────────────────
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: lumina-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - lumina-network
+
+networks:
+  lumina-network:
+    driver: bridge
+
+volumes:
+  backend-logs:
+    driver: local

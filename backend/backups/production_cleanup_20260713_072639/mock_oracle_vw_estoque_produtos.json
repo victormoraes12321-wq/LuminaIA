@@ -1,0 +1,3362 @@
+[
+  {
+    "produto": "Semente de Soja Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "20",
+    "estoque_minimo": "109",
+    "preco_custo": "38.25",
+    "preco_venda": "80.75",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Soja Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "12",
+    "estoque_minimo": "190",
+    "preco_custo": "40.5",
+    "preco_venda": "85.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Soja AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "6",
+    "estoque_minimo": "5",
+    "preco_custo": "42.75",
+    "preco_venda": "90.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Semente de Soja Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "17",
+    "estoque_minimo": "78",
+    "preco_custo": "45",
+    "preco_venda": "95",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Soja Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "7",
+    "estoque_minimo": "96",
+    "preco_custo": "47.25",
+    "preco_venda": "99.75",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Soja Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "8",
+    "estoque_minimo": "52",
+    "preco_custo": "49.5",
+    "preco_venda": "104.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Soja Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "17",
+    "estoque_minimo": "71",
+    "preco_custo": "51.75",
+    "preco_venda": "109.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "17",
+    "estoque_minimo": "147",
+    "preco_custo": "55.25",
+    "preco_venda": "119",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "8",
+    "estoque_minimo": "114",
+    "preco_custo": "58.5",
+    "preco_venda": "126",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "13",
+    "estoque_minimo": "43",
+    "preco_custo": "61.75",
+    "preco_venda": "133",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "8",
+    "estoque_minimo": "98",
+    "preco_custo": "65",
+    "preco_venda": "140",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "13",
+    "estoque_minimo": "34",
+    "preco_custo": "68.25",
+    "preco_venda": "147",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "12",
+    "estoque_minimo": "113",
+    "preco_custo": "71.5",
+    "preco_venda": "154",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Milho Híbrido Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "69",
+    "preco_custo": "74.75",
+    "preco_venda": "161",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "6",
+    "estoque_minimo": "146",
+    "preco_custo": "76.5",
+    "preco_venda": "178.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "12",
+    "estoque_minimo": "163",
+    "preco_custo": "81",
+    "preco_venda": "189",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "18",
+    "estoque_minimo": "47",
+    "preco_custo": "85.5",
+    "preco_venda": "199.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "11",
+    "estoque_minimo": "159",
+    "preco_custo": "90",
+    "preco_venda": "210",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "6",
+    "estoque_minimo": "144",
+    "preco_custo": "94.5",
+    "preco_venda": "220.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "50",
+    "preco_custo": "99",
+    "preco_venda": "231",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Algodão Transgênico Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "11",
+    "estoque_minimo": "93",
+    "preco_custo": "103.5",
+    "preco_venda": "241.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "5",
+    "estoque_minimo": "191",
+    "preco_custo": "25.5",
+    "preco_venda": "57.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "190",
+    "preco_custo": "27",
+    "preco_venda": "61.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "10",
+    "estoque_minimo": "25",
+    "preco_custo": "28.5",
+    "preco_venda": "64.599999999999994315658113919198513031005859375",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "13",
+    "estoque_minimo": "138",
+    "preco_custo": "30",
+    "preco_venda": "68",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "19",
+    "estoque_minimo": "190",
+    "preco_custo": "31.5",
+    "preco_venda": "71.400000000000005684341886080801486968994140625",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "13",
+    "estoque_minimo": "108",
+    "preco_custo": "33",
+    "preco_venda": "74.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Trigo Selecionado Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "18",
+    "estoque_minimo": "152",
+    "preco_custo": "34.5",
+    "preco_venda": "78.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "5",
+    "estoque_minimo": "131",
+    "preco_custo": "10.199999999999999289457264239899814128875732421875",
+    "preco_venda": "23.800000000000000710542735760100185871124267578125",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "12",
+    "estoque_minimo": "45",
+    "preco_custo": "10.800000000000000710542735760100185871124267578125",
+    "preco_venda": "25.199999999999999289457264239899814128875732421875",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "18",
+    "estoque_minimo": "40",
+    "preco_custo": "11.4000000000000003552713678800500929355621337890625",
+    "preco_venda": "26.60000000000000142108547152020037174224853515625",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "15",
+    "estoque_minimo": "55",
+    "preco_custo": "12",
+    "preco_venda": "28",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "7",
+    "estoque_minimo": "186",
+    "preco_custo": "12.5999999999999996447286321199499070644378662109375",
+    "preco_venda": "29.39999999999999857891452847979962825775146484375",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "13",
+    "estoque_minimo": "22",
+    "preco_custo": "13.199999999999999289457264239899814128875732421875",
+    "preco_venda": "30.800000000000000710542735760100185871124267578125",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mudas de Café Catuaí Vermelho Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "51",
+    "preco_custo": "13.800000000000000710542735760100185871124267578125",
+    "preco_venda": "32.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "15",
+    "estoque_minimo": "89",
+    "preco_custo": "18.699999999999999289457264239899814128875732421875",
+    "preco_venda": "40.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "20",
+    "estoque_minimo": "84",
+    "preco_custo": "19.800000000000000710542735760100185871124267578125",
+    "preco_venda": "43.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "4",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "9",
+    "estoque_minimo": "8",
+    "preco_custo": "20.89999999999999857891452847979962825775146484375",
+    "preco_venda": "45.60000000000000142108547152020037174224853515625",
+    "dias_cobertura": "1",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "11",
+    "estoque_minimo": "119",
+    "preco_custo": "22",
+    "preco_venda": "48",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "89",
+    "preco_custo": "23.10000000000000142108547152020037174224853515625",
+    "preco_venda": "50.39999999999999857891452847979962825775146484375",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "7",
+    "estoque_minimo": "9",
+    "preco_custo": "24.199999999999999289457264239899814128875732421875",
+    "preco_venda": "52.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Sorgo Granífero Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "18",
+    "estoque_minimo": "133",
+    "preco_custo": "25.300000000000000710542735760100185871124267578125",
+    "preco_venda": "55.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "15",
+    "estoque_minimo": "179",
+    "preco_custo": "21.25",
+    "preco_venda": "46.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "19",
+    "estoque_minimo": "193",
+    "preco_custo": "22.5",
+    "preco_venda": "49.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "11",
+    "estoque_minimo": "108",
+    "preco_custo": "23.75",
+    "preco_venda": "52.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "6",
+    "estoque_minimo": "3",
+    "preco_custo": "25",
+    "preco_venda": "55",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "17",
+    "estoque_minimo": "4",
+    "preco_custo": "26.25",
+    "preco_venda": "57.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "5",
+    "estoque_minimo": "172",
+    "preco_custo": "27.5",
+    "preco_venda": "60.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Arroz Irrigado Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "17",
+    "estoque_minimo": "44",
+    "preco_custo": "28.75",
+    "preco_venda": "63.25",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Forte",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "19",
+    "estoque_minimo": "199",
+    "preco_custo": "12.75",
+    "preco_venda": "29.75",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Ouro",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "15",
+    "estoque_minimo": "151",
+    "preco_custo": "13.5",
+    "preco_venda": "31.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria AgroMax",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "18",
+    "estoque_minimo": "48",
+    "preco_custo": "14.25",
+    "preco_venda": "33.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Bio",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "19",
+    "estoque_minimo": "75",
+    "preco_custo": "15",
+    "preco_venda": "35",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Cerrado",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "19",
+    "estoque_minimo": "27",
+    "preco_custo": "15.75",
+    "preco_venda": "36.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Pampa",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "14",
+    "estoque_minimo": "169",
+    "preco_custo": "16.5",
+    "preco_venda": "38.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Semente de Capim Pastagem Brachiaria Premium",
+    "categoria": "Sementes e Mudas",
+    "estoque_atual": "8",
+    "estoque_minimo": "108",
+    "preco_custo": "17.25",
+    "preco_venda": "40.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "7",
+    "estoque_minimo": "29",
+    "preco_custo": "1275",
+    "preco_venda": "2040",
+    "dias_cobertura": "10",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "383",
+    "estoque_minimo": "176",
+    "preco_custo": "1350",
+    "preco_venda": "2160",
+    "dias_cobertura": "431",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "289",
+    "estoque_minimo": "150",
+    "preco_custo": "1425",
+    "preco_venda": "2280",
+    "dias_cobertura": "338",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "18",
+    "estoque_minimo": "49",
+    "preco_custo": "1500",
+    "preco_venda": "2400",
+    "dias_cobertura": "24",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "430",
+    "estoque_minimo": "191",
+    "preco_custo": "1575",
+    "preco_venda": "2520",
+    "dias_cobertura": "470",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "66",
+    "estoque_minimo": "98",
+    "preco_custo": "1650",
+    "preco_venda": "2640",
+    "dias_cobertura": "73",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 04-14-08 Bag 1t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "20",
+    "estoque_minimo": "62",
+    "preco_custo": "1725",
+    "preco_venda": "2760",
+    "dias_cobertura": "22",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "217",
+    "estoque_minimo": "136",
+    "preco_custo": "1445",
+    "preco_venda": "2295",
+    "dias_cobertura": "241",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "318",
+    "estoque_minimo": "155",
+    "preco_custo": "1530",
+    "preco_venda": "2430",
+    "dias_cobertura": "384",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "425",
+    "estoque_minimo": "184",
+    "preco_custo": "1615",
+    "preco_venda": "2565",
+    "dias_cobertura": "499",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "5",
+    "estoque_minimo": "86",
+    "preco_custo": "1700",
+    "preco_venda": "2700",
+    "dias_cobertura": "5",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "6",
+    "estoque_minimo": "12",
+    "preco_custo": "1785",
+    "preco_venda": "2835",
+    "dias_cobertura": "7",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "13",
+    "estoque_minimo": "61",
+    "preco_custo": "1870",
+    "preco_venda": "2970",
+    "dias_cobertura": "14",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fertilizante NPK 20-00-20 Bag 1t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "33",
+    "preco_custo": "1955",
+    "preco_venda": "3105",
+    "dias_cobertura": "16",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "16",
+    "estoque_minimo": "130",
+    "preco_custo": "93.5",
+    "preco_venda": "157.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "19",
+    "estoque_minimo": "57",
+    "preco_custo": "99",
+    "preco_venda": "166.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "14",
+    "estoque_minimo": "191",
+    "preco_custo": "104.5",
+    "preco_venda": "175.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "19",
+    "estoque_minimo": "196",
+    "preco_custo": "110",
+    "preco_venda": "185",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "144",
+    "preco_custo": "115.5",
+    "preco_venda": "194.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "20",
+    "estoque_minimo": "173",
+    "preco_custo": "121",
+    "preco_venda": "203.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ureia Agrícola Premium SC 50kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "50",
+    "preco_custo": "126.5",
+    "preco_venda": "212.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "9",
+    "estoque_minimo": "68",
+    "preco_custo": "80.75",
+    "preco_venda": "136",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "6",
+    "estoque_minimo": "153",
+    "preco_custo": "85.5",
+    "preco_venda": "144",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "14",
+    "estoque_minimo": "113",
+    "preco_custo": "90.25",
+    "preco_venda": "152",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "10",
+    "estoque_minimo": "135",
+    "preco_custo": "95",
+    "preco_venda": "160",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "17",
+    "estoque_minimo": "35",
+    "preco_custo": "99.75",
+    "preco_venda": "168",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "6",
+    "estoque_minimo": "13",
+    "preco_custo": "104.5",
+    "preco_venda": "176",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Superfosfato Simples SC 50kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "14",
+    "estoque_minimo": "44",
+    "preco_custo": "109.25",
+    "preco_venda": "184",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "7",
+    "estoque_minimo": "79",
+    "preco_custo": "68",
+    "preco_venda": "119",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "19",
+    "estoque_minimo": "4",
+    "preco_custo": "72",
+    "preco_venda": "126",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "17",
+    "estoque_minimo": "40",
+    "preco_custo": "76",
+    "preco_venda": "133",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "19",
+    "estoque_minimo": "61",
+    "preco_custo": "80",
+    "preco_venda": "140",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "15",
+    "estoque_minimo": "92",
+    "preco_custo": "84",
+    "preco_venda": "147",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "15",
+    "estoque_minimo": "140",
+    "preco_custo": "88",
+    "preco_venda": "154",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Calcário Agrícola Dolemítico t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "17",
+    "estoque_minimo": "90",
+    "preco_custo": "92",
+    "preco_venda": "161",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "5",
+    "estoque_minimo": "42",
+    "preco_custo": "102",
+    "preco_venda": "178.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "6",
+    "estoque_minimo": "101",
+    "preco_custo": "108",
+    "preco_venda": "189",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "12",
+    "estoque_minimo": "85",
+    "preco_custo": "114",
+    "preco_venda": "199.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "5",
+    "preco_custo": "120",
+    "preco_venda": "210",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "5",
+    "estoque_minimo": "15",
+    "preco_custo": "126",
+    "preco_venda": "220.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "15",
+    "estoque_minimo": "18",
+    "preco_custo": "132",
+    "preco_venda": "231",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Gesso Agrícola Granulado t Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "12",
+    "estoque_minimo": "184",
+    "preco_custo": "138",
+    "preco_venda": "241.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "20",
+    "estoque_minimo": "116",
+    "preco_custo": "29.75",
+    "preco_venda": "55.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "17",
+    "estoque_minimo": "22",
+    "preco_custo": "31.5",
+    "preco_venda": "58.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "7",
+    "estoque_minimo": "101",
+    "preco_custo": "33.25",
+    "preco_venda": "61.75",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "48",
+    "preco_custo": "35",
+    "preco_venda": "65",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "13",
+    "estoque_minimo": "5",
+    "preco_custo": "36.75",
+    "preco_venda": "68.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "6",
+    "estoque_minimo": "200",
+    "preco_custo": "38.5",
+    "preco_venda": "71.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adubo Orgânico Compostado SC 40kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "11",
+    "estoque_minimo": "184",
+    "preco_custo": "40.25",
+    "preco_venda": "74.75",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Forte",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "15",
+    "estoque_minimo": "96",
+    "preco_custo": "153",
+    "preco_venda": "263.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Ouro",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "9",
+    "estoque_minimo": "57",
+    "preco_custo": "162",
+    "preco_venda": "279",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg AgroMax",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "12",
+    "estoque_minimo": "176",
+    "preco_custo": "171",
+    "preco_venda": "294.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Bio",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "20",
+    "estoque_minimo": "133",
+    "preco_custo": "180",
+    "preco_venda": "310",
+    "dias_cobertura": "4",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Cerrado",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "20",
+    "estoque_minimo": "197",
+    "preco_custo": "189",
+    "preco_venda": "325.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Pampa",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "14",
+    "estoque_minimo": "33",
+    "preco_custo": "198",
+    "preco_venda": "341",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Micronutrientes Quelatados SC 20kg Premium",
+    "categoria": "Fertilizantes e Adubos",
+    "estoque_atual": "14",
+    "estoque_minimo": "125",
+    "preco_custo": "207",
+    "preco_venda": "356.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "161",
+    "preco_custo": "272",
+    "preco_venda": "493",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "18",
+    "preco_custo": "288",
+    "preco_venda": "522",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "7",
+    "estoque_minimo": "6",
+    "preco_custo": "304",
+    "preco_venda": "551",
+    "dias_cobertura": "1",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "162",
+    "preco_custo": "320",
+    "preco_venda": "580",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "128",
+    "preco_custo": "336",
+    "preco_venda": "609",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "85",
+    "preco_custo": "352",
+    "preco_venda": "638",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Herbicida Glifosato Concentrado 20L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "20",
+    "estoque_minimo": "200",
+    "preco_custo": "368",
+    "preco_venda": "667",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "20",
+    "estoque_minimo": "158",
+    "preco_custo": "382.5",
+    "preco_venda": "697",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "110",
+    "preco_custo": "405",
+    "preco_venda": "738",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "143",
+    "preco_custo": "427.5",
+    "preco_venda": "779",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "6",
+    "estoque_minimo": "54",
+    "preco_custo": "450",
+    "preco_venda": "820",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "18",
+    "estoque_minimo": "95",
+    "preco_custo": "472.5",
+    "preco_venda": "861",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "15",
+    "estoque_minimo": "199",
+    "preco_custo": "495",
+    "preco_venda": "902",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Inseticida Integrado Lagartas 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "172",
+    "preco_custo": "517.5",
+    "preco_venda": "943",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "181",
+    "preco_custo": "510",
+    "preco_venda": "935",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "10",
+    "estoque_minimo": "33",
+    "preco_custo": "540",
+    "preco_venda": "990",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "305",
+    "estoque_minimo": "144",
+    "preco_custo": "570",
+    "preco_venda": "1045",
+    "dias_cobertura": "406",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "40",
+    "preco_custo": "600",
+    "preco_venda": "1100",
+    "dias_cobertura": "16",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "22",
+    "preco_custo": "630",
+    "preco_venda": "1155",
+    "dias_cobertura": "17",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "224",
+    "estoque_minimo": "129",
+    "preco_custo": "660",
+    "preco_venda": "1210",
+    "dias_cobertura": "280",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Fungicida Protetor Ferrugem 10L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "8",
+    "estoque_minimo": "44",
+    "preco_custo": "690",
+    "preco_venda": "1265",
+    "dias_cobertura": "11",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "18",
+    "estoque_minimo": "88",
+    "preco_custo": "127.5",
+    "preco_venda": "238",
+    "dias_cobertura": "4",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "10",
+    "estoque_minimo": "61",
+    "preco_custo": "135",
+    "preco_venda": "252",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "54",
+    "preco_custo": "142.5",
+    "preco_venda": "266",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "44",
+    "preco_custo": "150",
+    "preco_venda": "280",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "11",
+    "estoque_minimo": "44",
+    "preco_custo": "157.5",
+    "preco_venda": "294",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "6",
+    "estoque_minimo": "76",
+    "preco_custo": "165",
+    "preco_venda": "308",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Acaricida de Contato Frasco 1L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "17",
+    "estoque_minimo": "40",
+    "preco_custo": "172.5",
+    "preco_venda": "322",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "6",
+    "estoque_minimo": "140",
+    "preco_custo": "68",
+    "preco_venda": "127.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "7",
+    "estoque_minimo": "25",
+    "preco_custo": "72",
+    "preco_venda": "135",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "18",
+    "estoque_minimo": "135",
+    "preco_custo": "76",
+    "preco_venda": "142.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "12",
+    "estoque_minimo": "180",
+    "preco_custo": "80",
+    "preco_venda": "150",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "3",
+    "preco_custo": "84",
+    "preco_venda": "157.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "19",
+    "estoque_minimo": "40",
+    "preco_custo": "88",
+    "preco_venda": "165",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Adjuvante Espalhador Adesivo 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "20",
+    "estoque_minimo": "3",
+    "preco_custo": "92",
+    "preco_venda": "172.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "19",
+    "estoque_minimo": "170",
+    "preco_custo": "323",
+    "preco_venda": "586.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "5",
+    "estoque_minimo": "129",
+    "preco_custo": "342",
+    "preco_venda": "621",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "9",
+    "estoque_minimo": "49",
+    "preco_custo": "361",
+    "preco_venda": "655.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "158",
+    "preco_custo": "380",
+    "preco_venda": "690",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "27",
+    "preco_custo": "399",
+    "preco_venda": "724.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "17",
+    "estoque_minimo": "70",
+    "preco_custo": "418",
+    "preco_venda": "759",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Tratamento de Sementes Inseticida 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "131",
+    "preco_custo": "437",
+    "preco_venda": "793.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "18",
+    "estoque_minimo": "194",
+    "preco_custo": "178.5",
+    "preco_venda": "331.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "5",
+    "estoque_minimo": "106",
+    "preco_custo": "189",
+    "preco_venda": "351",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "15",
+    "estoque_minimo": "19",
+    "preco_custo": "199.5",
+    "preco_venda": "370.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "18",
+    "estoque_minimo": "194",
+    "preco_custo": "210",
+    "preco_venda": "390",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "7",
+    "estoque_minimo": "120",
+    "preco_custo": "220.5",
+    "preco_venda": "409.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "14",
+    "estoque_minimo": "109",
+    "preco_custo": "231",
+    "preco_venda": "429",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Desfolhante Regulador de Crescimento 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "16",
+    "estoque_minimo": "49",
+    "preco_custo": "241.5",
+    "preco_venda": "448.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Forte",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "6",
+    "estoque_minimo": "64",
+    "preco_custo": "442",
+    "preco_venda": "807.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Ouro",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "5",
+    "estoque_minimo": "49",
+    "preco_custo": "468",
+    "preco_venda": "855",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L AgroMax",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "13",
+    "estoque_minimo": "9",
+    "preco_custo": "494",
+    "preco_venda": "902.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Bio",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "10",
+    "estoque_minimo": "97",
+    "preco_custo": "520",
+    "preco_venda": "950",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Cerrado",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "15",
+    "estoque_minimo": "87",
+    "preco_custo": "546",
+    "preco_venda": "997.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Pampa",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "19",
+    "estoque_minimo": "47",
+    "preco_custo": "572",
+    "preco_venda": "1045",
+    "dias_cobertura": "21",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Fungicida Sistêmico Premium 5L Premium",
+    "categoria": "Defensivos e Químicos",
+    "estoque_atual": "131",
+    "estoque_minimo": "103",
+    "preco_custo": "598",
+    "preco_venda": "1092.5",
+    "dias_cobertura": "169",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "9",
+    "estoque_minimo": "48",
+    "preco_custo": "55.25",
+    "preco_venda": "97.75",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "14",
+    "estoque_minimo": "48",
+    "preco_custo": "58.5",
+    "preco_venda": "103.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "16",
+    "estoque_minimo": "148",
+    "preco_custo": "61.75",
+    "preco_venda": "109.25",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "176",
+    "preco_custo": "65",
+    "preco_venda": "115",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "11",
+    "estoque_minimo": "135",
+    "preco_custo": "68.25",
+    "preco_venda": "120.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "13",
+    "estoque_minimo": "66",
+    "preco_custo": "71.5",
+    "preco_venda": "126.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Corte Engorda SC 40kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "10",
+    "estoque_minimo": "108",
+    "preco_custo": "74.75",
+    "preco_venda": "132.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "133",
+    "preco_custo": "76.5",
+    "preco_venda": "136",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "179",
+    "preco_custo": "81",
+    "preco_venda": "144",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "16",
+    "estoque_minimo": "109",
+    "preco_custo": "85.5",
+    "preco_venda": "152",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "19",
+    "estoque_minimo": "85",
+    "preco_custo": "90",
+    "preco_venda": "160",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "33",
+    "preco_custo": "94.5",
+    "preco_venda": "168",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "17",
+    "estoque_minimo": "19",
+    "preco_custo": "99",
+    "preco_venda": "176",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Mineral Fósforo SC 30kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "18",
+    "estoque_minimo": "167",
+    "preco_custo": "103.5",
+    "preco_venda": "184",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "5",
+    "estoque_minimo": "120",
+    "preco_custo": "59.5",
+    "preco_venda": "106.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "15",
+    "estoque_minimo": "192",
+    "preco_custo": "63",
+    "preco_venda": "112.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "9",
+    "estoque_minimo": "52",
+    "preco_custo": "66.5",
+    "preco_venda": "118.75",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "6",
+    "estoque_minimo": "163",
+    "preco_custo": "70",
+    "preco_venda": "125",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "161",
+    "preco_custo": "73.5",
+    "preco_venda": "131.25",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "19",
+    "estoque_minimo": "148",
+    "preco_custo": "77",
+    "preco_venda": "137.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Bovino de Leite Lactação SC 40kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "11",
+    "estoque_minimo": "54",
+    "preco_custo": "80.5",
+    "preco_venda": "143.75",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "19",
+    "estoque_minimo": "194",
+    "preco_custo": "46.75",
+    "preco_venda": "83.2999999999999971578290569595992565155029296875",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "6",
+    "estoque_minimo": "37",
+    "preco_custo": "49.5",
+    "preco_venda": "88.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "15",
+    "estoque_minimo": "138",
+    "preco_custo": "52.25",
+    "preco_venda": "93.099999999999994315658113919198513031005859375",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "62",
+    "preco_custo": "55",
+    "preco_venda": "98",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "19",
+    "estoque_minimo": "87",
+    "preco_custo": "57.75",
+    "preco_venda": "102.900000000000005684341886080801486968994140625",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "8",
+    "estoque_minimo": "147",
+    "preco_custo": "60.5",
+    "preco_venda": "107.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Sal Mineralizado Pastagem Seca SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "77",
+    "preco_custo": "63.25",
+    "preco_venda": "112.7000000000000028421709430404007434844970703125",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "9",
+    "estoque_minimo": "34",
+    "preco_custo": "72.25",
+    "preco_venda": "127.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "5",
+    "estoque_minimo": "140",
+    "preco_custo": "76.5",
+    "preco_venda": "135",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "20",
+    "estoque_minimo": "133",
+    "preco_custo": "80.75",
+    "preco_venda": "142.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "11",
+    "estoque_minimo": "180",
+    "preco_custo": "85",
+    "preco_venda": "150",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "8",
+    "estoque_minimo": "199",
+    "preco_custo": "89.25",
+    "preco_venda": "157.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "16",
+    "estoque_minimo": "174",
+    "preco_custo": "93.5",
+    "preco_venda": "165",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Potros Crescimento Premium SC 30kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "17",
+    "preco_custo": "97.75",
+    "preco_venda": "172.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "69",
+    "preco_custo": "102",
+    "preco_venda": "178.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "15",
+    "estoque_minimo": "111",
+    "preco_custo": "108",
+    "preco_venda": "189",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "13",
+    "preco_custo": "114",
+    "preco_venda": "199.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "12",
+    "estoque_minimo": "95",
+    "preco_custo": "120",
+    "preco_venda": "210",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "6",
+    "estoque_minimo": "134",
+    "preco_custo": "126",
+    "preco_venda": "220.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "14",
+    "estoque_minimo": "139",
+    "preco_custo": "132",
+    "preco_venda": "231",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Suplemento Vitamínico Aves SC 20kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "5",
+    "estoque_minimo": "149",
+    "preco_custo": "138",
+    "preco_venda": "241.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "16",
+    "estoque_minimo": "30",
+    "preco_custo": "63.75",
+    "preco_venda": "110.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "19",
+    "estoque_minimo": "163",
+    "preco_custo": "67.5",
+    "preco_venda": "117",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "5",
+    "estoque_minimo": "196",
+    "preco_custo": "71.25",
+    "preco_venda": "123.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "10",
+    "estoque_minimo": "19",
+    "preco_custo": "75",
+    "preco_venda": "130",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "18",
+    "estoque_minimo": "42",
+    "preco_custo": "78.75",
+    "preco_venda": "136.5",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "8",
+    "estoque_minimo": "97",
+    "preco_custo": "82.5",
+    "preco_venda": "143",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ração Leitão Desmame SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "7",
+    "estoque_minimo": "183",
+    "preco_custo": "86.25",
+    "preco_venda": "149.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Forte",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "11",
+    "estoque_minimo": "165",
+    "preco_custo": "119",
+    "preco_venda": "204",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Ouro",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "20",
+    "estoque_minimo": "11",
+    "preco_custo": "126",
+    "preco_venda": "216",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg AgroMax",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "20",
+    "estoque_minimo": "72",
+    "preco_custo": "133",
+    "preco_venda": "228",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Bio",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "11",
+    "estoque_minimo": "193",
+    "preco_custo": "140",
+    "preco_venda": "240",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Cerrado",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "6",
+    "estoque_minimo": "116",
+    "preco_custo": "147",
+    "preco_venda": "252",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Pampa",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "13",
+    "estoque_minimo": "178",
+    "preco_custo": "154",
+    "preco_venda": "264",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Núcleo Mineral Confinamento SC 25kg Premium",
+    "categoria": "Nutrição Animal",
+    "estoque_atual": "16",
+    "estoque_minimo": "96",
+    "preco_custo": "161",
+    "preco_venda": "276",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "1",
+    "preco_custo": "102000",
+    "preco_venda": "165750",
+    "dias_cobertura": "45",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "19",
+    "estoque_minimo": "1",
+    "preco_custo": "108000",
+    "preco_venda": "175500",
+    "dias_cobertura": "66",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "2",
+    "preco_custo": "114000",
+    "preco_venda": "185250",
+    "dias_cobertura": "46",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "6",
+    "estoque_minimo": "1",
+    "preco_custo": "1.2E+5",
+    "preco_venda": "195000",
+    "dias_cobertura": "21",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "15",
+    "estoque_minimo": "2",
+    "preco_custo": "126000",
+    "preco_venda": "204750",
+    "dias_cobertura": "62",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "12",
+    "estoque_minimo": "1",
+    "preco_custo": "132000",
+    "preco_venda": "214500",
+    "dias_cobertura": "47",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pivô Central de Irrigação 50ha Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "17",
+    "estoque_minimo": "1",
+    "preco_custo": "138000",
+    "preco_venda": "224250",
+    "dias_cobertura": "65",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "18",
+    "estoque_minimo": "3",
+    "preco_custo": "3825",
+    "preco_venda": "6630",
+    "dias_cobertura": "24",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "457",
+    "estoque_minimo": "175",
+    "preco_custo": "4050",
+    "preco_venda": "7020",
+    "dias_cobertura": "681",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "399",
+    "estoque_minimo": "162",
+    "preco_custo": "4275",
+    "preco_venda": "7410",
+    "dias_cobertura": "580",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "16",
+    "estoque_minimo": "23",
+    "preco_custo": "4500",
+    "preco_venda": "7800",
+    "dias_cobertura": "20",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "10",
+    "preco_custo": "4725",
+    "preco_venda": "8190",
+    "dias_cobertura": "13",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "16",
+    "estoque_minimo": "30",
+    "preco_custo": "4950",
+    "preco_venda": "8580",
+    "dias_cobertura": "20",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Irrigação por Gotejamento 1ha Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "347",
+    "estoque_minimo": "156",
+    "preco_custo": "5175",
+    "preco_venda": "8970",
+    "dias_cobertura": "454",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "17",
+    "estoque_minimo": "50",
+    "preco_custo": "2380",
+    "preco_venda": "4165",
+    "dias_cobertura": "22",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "171",
+    "estoque_minimo": "104",
+    "preco_custo": "2520",
+    "preco_venda": "4410",
+    "dias_cobertura": "255",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "246",
+    "estoque_minimo": "128",
+    "preco_custo": "2660",
+    "preco_venda": "4655",
+    "dias_cobertura": "338",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "5",
+    "estoque_minimo": "49",
+    "preco_custo": "2800",
+    "preco_venda": "4900",
+    "dias_cobertura": "6",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "5",
+    "estoque_minimo": "72",
+    "preco_custo": "2940",
+    "preco_venda": "5145",
+    "dias_cobertura": "6",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "28",
+    "estoque_minimo": "91",
+    "preco_custo": "3080",
+    "preco_venda": "5390",
+    "dias_cobertura": "30",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Bomba Centrífuga Trifásica 15HP Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "17",
+    "estoque_minimo": "55",
+    "preco_custo": "3220",
+    "preco_venda": "5635",
+    "dias_cobertura": "18",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "20",
+    "estoque_minimo": "79",
+    "preco_custo": "29.75",
+    "preco_venda": "57.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "188",
+    "preco_custo": "31.5",
+    "preco_venda": "61.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "10",
+    "estoque_minimo": "83",
+    "preco_custo": "33.25",
+    "preco_venda": "64.599999999999994315658113919198513031005859375",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "6",
+    "estoque_minimo": "101",
+    "preco_custo": "35",
+    "preco_venda": "68",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "14",
+    "estoque_minimo": "21",
+    "preco_custo": "36.75",
+    "preco_venda": "71.400000000000005684341886080801486968994140625",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "10",
+    "estoque_minimo": "160",
+    "preco_custo": "38.5",
+    "preco_venda": "74.7999999999999971578290569595992565155029296875",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Aspersor de Impacto Latão Unid Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "12",
+    "estoque_minimo": "79",
+    "preco_custo": "40.25",
+    "preco_venda": "78.2000000000000028421709430404007434844970703125",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "96",
+    "preco_custo": "127.5",
+    "preco_venda": "229.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "7",
+    "estoque_minimo": "12",
+    "preco_custo": "135",
+    "preco_venda": "243",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "6",
+    "estoque_minimo": "109",
+    "preco_custo": "142.5",
+    "preco_venda": "256.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "20",
+    "estoque_minimo": "51",
+    "preco_custo": "150",
+    "preco_venda": "270",
+    "dias_cobertura": "3",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "17",
+    "estoque_minimo": "43",
+    "preco_custo": "157.5",
+    "preco_venda": "283.5",
+    "dias_cobertura": "2",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "20",
+    "estoque_minimo": "23",
+    "preco_custo": "165",
+    "preco_venda": "297",
+    "dias_cobertura": "4",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Mangueira PEBD Irrigação Rolo 100m Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "9",
+    "estoque_minimo": "39",
+    "preco_custo": "172.5",
+    "preco_venda": "310.5",
+    "dias_cobertura": "1",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "6",
+    "estoque_minimo": "80",
+    "preco_custo": "1530",
+    "preco_venda": "2720",
+    "dias_cobertura": "7",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "11",
+    "estoque_minimo": "61",
+    "preco_custo": "1620",
+    "preco_venda": "2880",
+    "dias_cobertura": "14",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "68",
+    "estoque_minimo": "87",
+    "preco_custo": "1710",
+    "preco_venda": "3040",
+    "dias_cobertura": "88",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "146",
+    "estoque_minimo": "111",
+    "preco_custo": "1800",
+    "preco_venda": "3200",
+    "dias_cobertura": "179",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "7",
+    "estoque_minimo": "53",
+    "preco_custo": "1890",
+    "preco_venda": "3360",
+    "dias_cobertura": "9",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "18",
+    "estoque_minimo": "6",
+    "preco_custo": "1980",
+    "preco_venda": "3520",
+    "dias_cobertura": "22",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Filtro de Areia Limpeza de Água Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "19",
+    "estoque_minimo": "40",
+    "preco_custo": "2070",
+    "preco_venda": "3680",
+    "dias_cobertura": "26",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "12",
+    "estoque_minimo": "31",
+    "preco_custo": "2975",
+    "preco_venda": "5270",
+    "dias_cobertura": "14",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "299",
+    "estoque_minimo": "134",
+    "preco_custo": "3150",
+    "preco_venda": "5580",
+    "dias_cobertura": "460",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "13",
+    "estoque_minimo": "10",
+    "preco_custo": "3325",
+    "preco_venda": "5890",
+    "dias_cobertura": "18",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "49",
+    "estoque_minimo": "89",
+    "preco_custo": "3500",
+    "preco_venda": "6200",
+    "dias_cobertura": "58",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "139",
+    "estoque_minimo": "102",
+    "preco_custo": "3675",
+    "preco_venda": "6510",
+    "dias_cobertura": "187",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "52",
+    "estoque_minimo": "84",
+    "preco_custo": "3850",
+    "preco_venda": "6820",
+    "dias_cobertura": "67",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Painel Eletrônico Controle Pivô Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "9",
+    "estoque_minimo": "12",
+    "preco_custo": "4025",
+    "preco_venda": "7130",
+    "dias_cobertura": "10",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Forte",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "12",
+    "estoque_minimo": "64",
+    "preco_custo": "4420",
+    "preco_venda": "7735",
+    "dias_cobertura": "15",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Ouro",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "5",
+    "estoque_minimo": "28",
+    "preco_custo": "4680",
+    "preco_venda": "8190",
+    "dias_cobertura": "7",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick AgroMax",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "253",
+    "estoque_minimo": "126",
+    "preco_custo": "4940",
+    "preco_venda": "8645",
+    "dias_cobertura": "365",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Bio",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "14",
+    "estoque_minimo": "40",
+    "preco_custo": "5200",
+    "preco_venda": "9100",
+    "dias_cobertura": "15",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Cerrado",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "278",
+    "estoque_minimo": "150",
+    "preco_custo": "5460",
+    "preco_venda": "9555",
+    "dias_cobertura": "313",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Pampa",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "13",
+    "estoque_minimo": "55",
+    "preco_custo": "5720",
+    "preco_venda": "10010",
+    "dias_cobertura": "18",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Kit Tubulação Alumínio Acoplamento Quick Premium",
+    "categoria": "Equipamentos e Irrigação",
+    "estoque_atual": "19",
+    "estoque_minimo": "68",
+    "preco_custo": "5980",
+    "preco_venda": "10465",
+    "dias_cobertura": "24",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "15",
+    "estoque_minimo": "1",
+    "preco_custo": "153000",
+    "preco_venda": "246500",
+    "dias_cobertura": "53",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "18",
+    "estoque_minimo": "1",
+    "preco_custo": "162000",
+    "preco_venda": "261000",
+    "dias_cobertura": "72",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "20",
+    "estoque_minimo": "1",
+    "preco_custo": "171000",
+    "preco_venda": "275500",
+    "dias_cobertura": "76",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "18",
+    "estoque_minimo": "1",
+    "preco_custo": "1.8E+5",
+    "preco_venda": "2.9E+5",
+    "dias_cobertura": "71",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "9",
+    "estoque_minimo": "1",
+    "preco_custo": "189000",
+    "preco_venda": "304500",
+    "dias_cobertura": "38",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "19",
+    "estoque_minimo": "1",
+    "preco_custo": "198000",
+    "preco_venda": "319000",
+    "dias_cobertura": "72",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Trator Cabinada 110CV Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "12",
+    "estoque_minimo": "1",
+    "preco_custo": "207000",
+    "preco_venda": "333500",
+    "dias_cobertura": "46",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "12",
+    "estoque_minimo": "1",
+    "preco_custo": "272000",
+    "preco_venda": "408000",
+    "dias_cobertura": "49",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "10",
+    "estoque_minimo": "1",
+    "preco_custo": "288000",
+    "preco_venda": "432000",
+    "dias_cobertura": "37",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "7",
+    "estoque_minimo": "1",
+    "preco_custo": "304000",
+    "preco_venda": "456000",
+    "dias_cobertura": "26",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "6",
+    "estoque_minimo": "1",
+    "preco_custo": "3.2E+5",
+    "preco_venda": "4.8E+5",
+    "dias_cobertura": "25",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "18",
+    "estoque_minimo": "1",
+    "preco_custo": "336000",
+    "preco_venda": "504000",
+    "dias_cobertura": "67",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "15",
+    "estoque_minimo": "1",
+    "preco_custo": "352000",
+    "preco_venda": "528000",
+    "dias_cobertura": "52",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Colheitadeira de Grãos Multicereais Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "16",
+    "estoque_minimo": "1",
+    "preco_custo": "368000",
+    "preco_venda": "552000",
+    "dias_cobertura": "63",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "6",
+    "estoque_minimo": "2",
+    "preco_custo": "127500",
+    "preco_venda": "208250",
+    "dias_cobertura": "27",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "13",
+    "estoque_minimo": "1",
+    "preco_custo": "135000",
+    "preco_venda": "220500",
+    "dias_cobertura": "56",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "12",
+    "estoque_minimo": "1",
+    "preco_custo": "142500",
+    "preco_venda": "232750",
+    "dias_cobertura": "41",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "13",
+    "estoque_minimo": "1",
+    "preco_custo": "1.5E+5",
+    "preco_venda": "245000",
+    "dias_cobertura": "53",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "9",
+    "estoque_minimo": "1",
+    "preco_custo": "157500",
+    "preco_venda": "257250",
+    "dias_cobertura": "33",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "18",
+    "estoque_minimo": "1",
+    "preco_custo": "165000",
+    "preco_venda": "269500",
+    "dias_cobertura": "69",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Pulverizador Autopropelido 2000L Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "18",
+    "estoque_minimo": "1",
+    "preco_custo": "172500",
+    "preco_venda": "281750",
+    "dias_cobertura": "65",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "5",
+    "estoque_minimo": "1",
+    "preco_custo": "40800",
+    "preco_venda": "69700",
+    "dias_cobertura": "7",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "15",
+    "estoque_minimo": "1",
+    "preco_custo": "43200",
+    "preco_venda": "73800",
+    "dias_cobertura": "24",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "15",
+    "estoque_minimo": "1",
+    "preco_custo": "45600",
+    "preco_venda": "77900",
+    "dias_cobertura": "19",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "6",
+    "estoque_minimo": "1",
+    "preco_custo": "48000",
+    "preco_venda": "82000",
+    "dias_cobertura": "9",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "10",
+    "estoque_minimo": "1",
+    "preco_custo": "50400",
+    "preco_venda": "86100",
+    "dias_cobertura": "12",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "15",
+    "estoque_minimo": "2",
+    "preco_custo": "52800",
+    "preco_venda": "90200",
+    "dias_cobertura": "18",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Semeadora Adubadora Mecânica 9 Linhas Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "7",
+    "estoque_minimo": "1",
+    "preco_custo": "55200",
+    "preco_venda": "94300",
+    "dias_cobertura": "10",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "175",
+    "estoque_minimo": "110",
+    "preco_custo": "15300",
+    "preco_venda": "26350",
+    "dias_cobertura": "238",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "7",
+    "estoque_minimo": "58",
+    "preco_custo": "16200",
+    "preco_venda": "27900",
+    "dias_cobertura": "9",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "6",
+    "estoque_minimo": "59",
+    "preco_custo": "17100",
+    "preco_venda": "29450",
+    "dias_cobertura": "8",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "83",
+    "estoque_minimo": "86",
+    "preco_custo": "18000",
+    "preco_venda": "31000",
+    "dias_cobertura": "115",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "427",
+    "estoque_minimo": "193",
+    "preco_custo": "18900",
+    "preco_venda": "32550",
+    "dias_cobertura": "450",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "5",
+    "estoque_minimo": "44",
+    "preco_custo": "19800",
+    "preco_venda": "34100",
+    "dias_cobertura": "6",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Grade Aradora Controle Remoto 16 Discos Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "87",
+    "estoque_minimo": "100",
+    "preco_custo": "20700",
+    "preco_venda": "35650",
+    "dias_cobertura": "101",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "310",
+    "estoque_minimo": "153",
+    "preco_custo": "10200",
+    "preco_venda": "18275",
+    "dias_cobertura": "375",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "237",
+    "estoque_minimo": "141",
+    "preco_custo": "10800",
+    "preco_venda": "19350",
+    "dias_cobertura": "263",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "10",
+    "estoque_minimo": "64",
+    "preco_custo": "11400",
+    "preco_venda": "20425",
+    "dias_cobertura": "13",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "424",
+    "estoque_minimo": "178",
+    "preco_custo": "12000",
+    "preco_venda": "21500",
+    "dias_cobertura": "537",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "207",
+    "estoque_minimo": "123",
+    "preco_custo": "12600",
+    "preco_venda": "22575",
+    "dias_cobertura": "265",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "12",
+    "estoque_minimo": "48",
+    "preco_custo": "13200",
+    "preco_venda": "23650",
+    "dias_cobertura": "16",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Ensiladeira Acoplada para Milho/Capim Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "11",
+    "estoque_minimo": "55",
+    "preco_custo": "13800",
+    "preco_venda": "24725",
+    "dias_cobertura": "15",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "325",
+    "estoque_minimo": "144",
+    "preco_custo": "3825",
+    "preco_venda": "6715",
+    "dias_cobertura": "473",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "359",
+    "estoque_minimo": "149",
+    "preco_custo": "4050",
+    "preco_venda": "7110",
+    "dias_cobertura": "548",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "316",
+    "estoque_minimo": "143",
+    "preco_custo": "4275",
+    "preco_venda": "7505",
+    "dias_cobertura": "447",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "314",
+    "estoque_minimo": "166",
+    "preco_custo": "4500",
+    "preco_venda": "7900",
+    "dias_cobertura": "327",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "13",
+    "estoque_minimo": "57",
+    "preco_custo": "4725",
+    "preco_venda": "8295",
+    "dias_cobertura": "14",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "6",
+    "estoque_minimo": "43",
+    "preco_custo": "4950",
+    "preco_venda": "8690",
+    "dias_cobertura": "8",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Roçadeira Hidráulica Agrícola Pro Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "357",
+    "estoque_minimo": "174",
+    "preco_custo": "5175",
+    "preco_venda": "9085",
+    "dias_cobertura": "382",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Forte",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "469",
+    "estoque_minimo": "189",
+    "preco_custo": "8075",
+    "preco_venda": "14025",
+    "dias_cobertura": "590",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Ouro",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "149",
+    "estoque_minimo": "119",
+    "preco_custo": "8550",
+    "preco_venda": "14850",
+    "dias_cobertura": "166",
+    "status_alerta": "ALERTA"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas AgroMax",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "501",
+    "estoque_minimo": "196",
+    "preco_custo": "9025",
+    "preco_venda": "15675",
+    "dias_cobertura": "639",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Bio",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "20",
+    "estoque_minimo": "6",
+    "preco_custo": "9500",
+    "preco_venda": "16500",
+    "dias_cobertura": "24",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Cerrado",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "324",
+    "estoque_minimo": "169",
+    "preco_custo": "9975",
+    "preco_venda": "17325",
+    "dias_cobertura": "336",
+    "status_alerta": "ESTÁVEL"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Pampa",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "10",
+    "estoque_minimo": "52",
+    "preco_custo": "10450",
+    "preco_venda": "18150",
+    "dias_cobertura": "11",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  },
+  {
+    "produto": "Carreta Agrícola Metálica 6 Toneladas Premium",
+    "categoria": "Máquinas e Tratores",
+    "estoque_atual": "8",
+    "estoque_minimo": "21",
+    "preco_custo": "10925",
+    "preco_venda": "18975",
+    "dias_cobertura": "10",
+    "status_alerta": "ESTOQUE CRÍTICO"
+  }
+]

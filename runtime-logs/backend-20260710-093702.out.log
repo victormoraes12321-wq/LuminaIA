@@ -1,0 +1,36 @@
+INFO:     127.0.0.1:52829 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52834 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52836 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52834 - "POST /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49268 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49268 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55666 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62264 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62267 - "OPTIONS /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65503 - "GET /api/v1/auth/session HTTP/1.1" 401 Unauthorized
+INFO:     192.168.18.103:61206 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
+INFO:     192.168.18.103:56412 - "OPTIONS /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:51057 - "OPTIONS /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:51328 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61206 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:51057 - "OPTIONS /api/v1/query HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61206 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:51057 - "OPTIONS /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:61206 - "POST /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:63744 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:63744 - "POST /api/v1/query/ HTTP/1.1" 500 Internal Server Error
+INFO:     192.168.18.103:52329 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
+INFO:     192.168.18.103:52329 - "GET /api/v1/query/history HTTP/1.1" 200 OK
+INFO:     192.168.18.103:59340 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK
+INFO:     192.168.18.103:59340 - "POST /api/v1/query HTTP/1.1" 307 Temporary Redirect
+INFO:     192.168.18.103:59340 - "POST /api/v1/query/ HTTP/1.1" 500 Internal Server Error
+INFO:     192.168.18.103:58207 - "OPTIONS /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:51127 - "OPTIONS /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:54327 - "OPTIONS /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:49669 - "OPTIONS /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:53683 - "GET /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     192.168.18.103:49777 - "GET /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:62652 - "GET /api/v1/dashboard-studio/instances HTTP/1.1" 200 OK
+INFO:     192.168.18.103:56884 - "GET /api/v1/dashboard-studio/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59522 - "OPTIONS /api/v1/query/ HTTP/1.1" 200 OK
+INFO:     192.168.18.103:59523 - "OPTIONS /api/v1/query/ HTTP/1.1" 200 OK
