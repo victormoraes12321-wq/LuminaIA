@@ -2,6 +2,8 @@
 
 Data: 2026-07-09
 
+Atualizacao incremental: 2026-07-17. A certificacao completa abaixo permanece como baseline historico; as correcoes e validacoes recentes estao resumidas em [Estado atual do sistema](current-status.md).
+
 ## Objetivo
 
 Executar uma validacao completa do LuminaAI por meio de testes automatizados, auditorias locais e homologacao tecnica, preservando arquitetura, funcionalidades, dados, contratos e regras de negocio existentes.
@@ -118,6 +120,21 @@ As validacoes abaixo dependem de ambiente dedicado, infraestrutura real ou massa
 | Existem falhas criticas abertas? | Nao. |
 | Existem pendencias obrigatorias de ambiente? | Sim, apenas validacoes operacionais externas ao workspace local. |
 | O nivel Enterprise minimo de 95% foi atingido? | Sim, score tecnico 98/100. |
+
+## Addendum 2026-07-17
+
+Validacao incremental apos correcoes de perguntas criticas, continuidade, descontos, encoding e sessao local:
+
+| Validacao | Resultado |
+| --- | --- |
+| `python -m py_compile` em arquivos alterados do backend | OK |
+| `npm run build` | OK |
+| Geracao de API/inventario de codigo | OK |
+| E2E Playwright em `http://127.0.0.1:3000/login` | OK |
+| Login, sessao, pergunta e renderizacao de dashboard | OK |
+| Verificacao de ausencia de mojibake renderizado | OK |
+
+Esta rodada nao substitui a certificacao completa de 2026-07-09; ela documenta a validacao focada nas correcoes recentes.
 
 ## Comandos Executados
 

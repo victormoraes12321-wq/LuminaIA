@@ -50,6 +50,9 @@ def to_float(val: Any) -> float:
 
 
 _VALUE_KEY_PRIORITY = (
+    "ticket_medio",
+    "desconto_total",
+    "desconto_medio",
     "receita_total",
     "faturamento_realizado",
     "valor_total",
@@ -107,6 +110,28 @@ _NUMERIC_EXCLUDED_TERMS = (
     "tp_",
     "pp_",
 )
+
+_DISPLAY_LABELS = {
+    "indicador": "Indicador",
+    "valor": "Valor",
+    "valor_formatado": "Valor formatado",
+    "observacao": "Observação",
+    "faturamento_total": "Faturamento total",
+    "ticket_medio": "Ticket médio",
+    "desconto_total": "Desconto total",
+    "desconto_medio": "Desconto médio",
+    "valor_total": "Valor total",
+    "quantidade": "Quantidade",
+    "preco_unitario": "Preço unitário",
+    "periodo": "Período",
+}
+
+
+def _humanize_key(key: str) -> str:
+    normalized = str(key).strip().lower()
+    if normalized in _DISPLAY_LABELS:
+        return _DISPLAY_LABELS[normalized]
+    return normalized.replace("_", " ").title()
 
 
 def _is_metric_key(key: str, value: Any) -> bool:
@@ -295,7 +320,7 @@ def transform_chart_data(rows: list[dict[str, Any]], chart_type: ChartType) -> d
         data_values = [r[col] for r in rows]
 
         dataset = {
-            "label": col.replace("_", " ").title(),
+            "label": _humanize_key(col),
             "data": data_values,
             "borderColor": color["border"],
             "backgroundColor": color["bg_light"] if chart_type in (ChartType.LINE, ChartType.AREA) else color["bg"],
@@ -443,7 +468,7 @@ def transform_table_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
     # 1. Cria definiÃ§Ã£o de cabeÃ§alho dinÃ¢mico baseado nos tipos dos campos da primeira linha
     columns = []
     for k in keys:
-        label = k.replace("_", " ").title()
+        label = _humanize_key(k)
         key_lower = str(k).lower()
         col_type = "string"
         width = None
@@ -451,7 +476,7 @@ def transform_table_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
         val = rows[0][k]
         if is_numeric_value(val):
             # Formata moeda se remeter a termos financeiros
-            if any(term in key_lower for term in ("valor", "faturamento", "receita", "ticket", "preco", "custo", "comissao", "ptotal", "lucro")):
+            if any(term in key_lower for term in ("valor", "faturamento", "receita", "ticket", "desconto", "preco", "custo", "comissao", "ptotal", "lucro")):
                 col_type = "currency"
             elif any(term in key_lower for term in ("margem", "percentual", "taxa")):
                 col_type = "number"
@@ -497,7 +522,7 @@ def transform_table_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
         for k, v in r.items():
             key_lower = str(k).lower()
             # Injeta representaÃ§Ã£o em formato de moeda nacional
-            if is_numeric_value(v) and any(term in key_lower for term in ("valor", "faturamento", "receita", "ticket", "preco", "custo", "comissao", "ptotal", "lucro")):
+            if is_numeric_value(v) and any(term in key_lower for term in ("valor", "faturamento", "receita", "ticket", "desconto", "preco", "custo", "comissao", "ptotal", "lucro")):
                 val_f = to_float(v)
                 p_row[f"{k}_formatado"] = f"R$ {val_f:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
             elif is_numeric_value(v) and any(term in key_lower for term in ("margem", "percentual", "taxa")):
@@ -558,7 +583,7 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
     VALUE_COLS = ("VALOR", "VALUE", "VAL")
     FORMAT_COLS = ("VALOR_FORMATADO", "FORMATADO", "VALUE_FORMATADO")
     TREND_COLS = ("TENDENCIA", "TREND")
-    LABEL_TREND_COLS = ("TREND_LABEL", "TREND_VALUE", "VARIACOES", "VARIAÃ‡ÃƒO", "VARIACAO", "COMPARATIVO_ANTERIOR")
+    LABEL_TREND_COLS = ("TREND_LABEL", "TREND_VALUE", "VARIACOES", "VARIAÇÃO", "VARIACAO", "VARIAÃ‡ÃƒO", "COMPARATIVO_ANTERIOR")
 
     metric_key = next((k for k in keys if k.upper() in METRIC_COLS), None)
     value_key = next((k for k in keys if k.upper() in VALUE_COLS), None)
@@ -597,7 +622,7 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
             if format_key and r[format_key]:
                 val_formatado = str(r[format_key])
             else:
-                if any(term in metrica_nome.lower() for term in ("valor", "receita", "faturamento", "ticket", "comissao")):
+                if any(term in metrica_nome.lower() for term in ("valor", "receita", "faturamento", "ticket", "desconto", "comissao")):
                     val_formatado = f"R$ {val_cru:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
                 elif "%" in metrica_nome or any(term in metrica_nome.lower() for term in ("percent", "margem", "taxa", "churn")):
                     val_formatado = f"{val_cru:.1f}%"
@@ -614,7 +639,7 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
                     t_val = "down"
 
             # RÃ³tulo de variaÃ§Ã£o (ex: +15% vs ano anterior)
-            t_label = "vs. perÃ­odo anterior"
+            t_label = "vs. período anterior"
             t_value = 0.0
             if label_trend_key and r[label_trend_key]:
                 t_label = str(r[label_trend_key])
@@ -639,7 +664,7 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
         return {
             "kpis": kpis,
-            "periodo": "VisÃ£o Executiva Atual",
+            "periodo": "Visão Executiva Atual",
             "gerado_em": datetime.date.today().isoformat(),
         }
     else:
@@ -677,7 +702,7 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
             if any(term in k for term in ("percent", "margem", "taxa", "churn")):
                 unit = "percent"
                 value_formatado = f"{atual:.1f}%"
-            elif any(term in k for term in ("valor", "receita", "faturamento", "ticket", "ptotal")):
+            elif any(term in k for term in ("valor", "receita", "faturamento", "ticket", "desconto", "ptotal")):
                 unit = "BRL"
                 value_formatado = f"R$ {atual:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
             elif any(term in k for term in ("nps", "score")):
@@ -690,20 +715,20 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
             kpis.append({
                 "id": k,
-                "label": k.replace("_", " ").title(),
+                "label": _humanize_key(k),
                 "value": atual,
                 "value_formatado": value_formatado,
                 "unit": unit,
                 "trend": get_trend(atual, anterior),
                 "trend_value": trend_val,
-                "trend_label": "vs. perÃ­odo anterior" if unit != "percent" else "vs. perÃ­odo anterior (pp)",
+                "trend_label": "vs. período anterior" if unit != "percent" else "vs. período anterior (pp)",
                 "icon": detect_icon(k),
                 "sparkline": sparkline,
             })
 
         return {
             "kpis": kpis,
-            "periodo": "VisÃ£o Executiva Atual",
+            "periodo": "Visão Executiva Atual",
             "gerado_em": datetime.date.today().isoformat(),
         }
 
@@ -764,8 +789,8 @@ def transform_scatter_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
         return {
             "datasets": datasets,
-            "eixo_x_label": x_key.replace("_", " ").title(),
-            "eixo_y_label": y_key.replace("_", " ").title(),
+            "eixo_x_label": _humanize_key(x_key),
+            "eixo_y_label": _humanize_key(y_key),
             "resumo": {
                 "total_pontos": len(rows),
                 "segmentos": list(segments.keys()),
@@ -786,8 +811,8 @@ def transform_scatter_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 "pointRadius": 6,
                 "pointHoverRadius": 9,
             }],
-            "eixo_x_label": x_key.replace("_", " ").title(),
-            "eixo_y_label": y_key.replace("_", " ").title(),
+            "eixo_x_label": _humanize_key(x_key),
+            "eixo_y_label": _humanize_key(y_key),
             "resumo": {
                 "total_pontos": len(rows),
             },

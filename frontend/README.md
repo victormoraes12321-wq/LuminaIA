@@ -21,6 +21,8 @@ Frontend Next.js responsavel por autenticacao de tela, chat, renderizacao de res
 - `types/`: contratos TypeScript.
 - `lib/`: helpers, adapter runtime e exportacao.
 - `proxy.ts`: protecao de rotas com JWT/cookie.
+- `lib/textEncoding.ts`: reparo defensivo de texto vindo da API ou de payloads legados.
+- `lib/utils.ts`: resolve a base da API preservando `localhost`/`127.0.0.1` para manter cookie local.
 
 ## Rodar Localmente
 
@@ -42,3 +44,9 @@ npm run test:load
 ## Contratos
 
 O frontend consome `QueryResponse` e `DashboardRuntimePayload`. Ele nao calcula regra de negocio; apenas renderiza payloads entregues pelo backend.
+
+## Conversa E Sessao
+
+- `useLuminaQuery` envia `session_id`, historico recente e `parent_id` para continuidade no mesmo chat.
+- `resetConversation` limpa mensagens, erro e grafo; e usado pelo clique na logo do sistema.
+- Em desenvolvimento local, abrir o frontend por `localhost` ou `127.0.0.1` deve manter a API no mesmo host para o cookie HttpOnly funcionar.

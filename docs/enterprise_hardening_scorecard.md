@@ -2,6 +2,8 @@
 
 Data: 2026-07-09
 
+Atualizacao incremental: 2026-07-17. Baseline completo permanece 98%; ver [Estado atual do sistema](current-status.md).
+
 ## Score
 
 Score tecnico atual: 98%
@@ -27,6 +29,10 @@ Score tecnico atual: 98%
 - Template SQL de `EXPLAIN ANALYZE` criado para as consultas principais.
 - Suite de certificacao Enterprise criada para validar contratos criticos, separacao arquitetural, seguranca JWT, Dashboard Studio, documentacao e gates operacionais.
 - Cobertura visual Playwright ampliada com perfil mobile alem de desktop, tablet e ultrawide.
+- Caminho deterministico adicionado para perguntas criticas de vendas, descontos e rankings.
+- Continuidade de conversa corrigida com `session_id`, historico recente e `parent_id`.
+- Host loopback da API corrigido para preservar cookie local entre `localhost` e `127.0.0.1`.
+- Reparo defensivo de encoding aplicado no frontend e labels humanizados no backend.
 
 ## Evidencias De Validacao
 
@@ -39,6 +45,7 @@ Score tecnico atual: 98%
 - Visual/responsivo: `16 passed` em Playwright cobrindo `/login`, `/dashboard`, `/dashboard/studio` e admin em desktop/tablet/mobile/ultrawide.
 - Load smoke local: `50 ok`, `0 failed`, `avgMs=20`, `p95Ms=58` contra `http://127.0.0.1:8000/health`.
 - Import cycles: `runtime_cycles=0`.
+- Validacao incremental 2026-07-17: `npm run build` OK, `python -m py_compile` OK, docs automaticas regeneradas e E2E Playwright OK por `http://127.0.0.1:3000/login`.
 
 ## Riscos Remanescentes Aceitos
 

@@ -450,6 +450,15 @@ class AnalyticalStorage:
         if metric == "ticket_medio" and revenue:
             divisor = f"COUNT(DISTINCT {order_id})" if order_id else "NULLIF(SUM(1), 0)"
             return f"(SUM({revenue}) / NULLIF({divisor}, 0))", "TICKET_MEDIO"
+        if metric in {"desconto_total", "desconto", "total_desconto"} and revenue and quantity:
+            unit_price = self._first_existing_column(columns, ("p_unit_", "p_unit", "preco_unitario", "preco_medio"))
+            if unit_price:
+                return f"SUM(GREATEST(ROUND((({quantity} * {unit_price}) - {revenue})::numeric, 2), 0::numeric))", "DESCONTO_TOTAL"
+        if metric in {"desconto_medio", "desconto_medio_pedido"} and revenue and quantity:
+            unit_price = self._first_existing_column(columns, ("p_unit_", "p_unit", "preco_unitario", "preco_medio"))
+            divisor = f"COUNT(DISTINCT {order_id})" if order_id else "NULLIF(SUM(1), 0)"
+            if unit_price:
+                return f"(SUM(GREATEST(ROUND((({quantity} * {unit_price}) - {revenue})::numeric, 2), 0::numeric)) / NULLIF({divisor}, 0))", "DESCONTO_MEDIO"
         if metric == "lucro_bruto":
             if profit:
                 return f"SUM({profit})", "LUCRO_BRUTO"
@@ -483,6 +492,8 @@ class AnalyticalStorage:
             "receita_total": ("receita_total", "faturamento", "faturamento_realizado", "valor_vendido"),
             "unidades_vendidas": ("unidades_vendidas", "quantidade_vendida", "quantidade"),
             "ticket_medio": ("ticket_medio",),
+            "desconto_total": ("desconto_total", "desconto"),
+            "desconto_medio": ("desconto_medio", "desconto"),
         }
         for candidate in synonyms.get(requested, (requested,)):
             alias = alias_by_key.get(_safe_identifier(candidate))
@@ -544,6 +555,8 @@ class AnalyticalStorage:
                     "receita_total": ("receita_total", "valor_vendido", "venda_valor", "ptotal_", "ptotal"),
                     "unidades_vendidas": ("unidades_vendidas", "quantidade_vendida", "venda_quantidade", "qtde_"),
                     "ticket_medio": ("ticket_medio", "valor_medio"),
+                    "desconto_total": ("desconto_total", "desconto", "valor_desconto"),
+                    "desconto_medio": ("desconto_medio", "desconto"),
                 }.get(order_metric, (order_metric,)),
             )
             if order_col:

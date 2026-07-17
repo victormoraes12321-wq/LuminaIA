@@ -38,6 +38,12 @@ Pergunta
 -> Response Builder
 ```
 
+## Guardrail Deterministico
+
+Perguntas criticas de vendas com periodo claro podem ser respondidas antes da etapa generativa por um caminho deterministico no `NewQueryOrchestrator`. Esse guardrail existe para evitar erro em indicadores operacionais essenciais, como faturamento, ticket medio, desconto e rankings. A IA continua responsavel por interpretacao e contexto; calculos e SQL permanecem no backend.
+
+Quando a pergunta seguinte nao informa periodo, o historico da conversa pode fornecer o periodo anterior por `session_id` e `parent_id`.
+
 ## Modos De Resposta
 
 - Resposta Rapida: modo operacional no frontend, prioriza objetividade.
@@ -53,3 +59,4 @@ Pergunta
 - A IA depende do contexto fornecido por catalogos, Business Layer e pacotes existentes.
 - A IA nao deve inventar indicadores fora do conhecimento disponivel.
 - Interpretacoes de baixa confianca devem solicitar refinamento/confirmacao conforme fluxo implementado.
+- Perguntas prioritarias de vendas devem manter regressao automatizada/deterministica antes de alteracoes no prompt.

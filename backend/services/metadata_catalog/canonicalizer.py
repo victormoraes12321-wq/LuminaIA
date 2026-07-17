@@ -1,5 +1,6 @@
 import logging
 import time
+import unicodedata
 from typing import List, Dict, Any, Optional
 from models.new_pipeline_contracts import (
     SemanticPlan, CanonicalPlan, CanonicalFilter, SemanticFilter,
@@ -31,6 +32,8 @@ class SemanticCanonicalizer:
 
         # ── Pré-processamento e auto-correção analítica de planos incompletos/flutuantes ──
         query_lower = semantic_plan.goal.lower() if semantic_plan.goal else ""
+        query_folded = unicodedata.normalize("NFKD", query_lower)
+        query_folded = "".join(ch for ch in query_folded if not unicodedata.combining(ch))
         
         # Injeção para a Curva ABC
         if "curva abc" in query_lower:
@@ -46,7 +49,7 @@ class SemanticCanonicalizer:
                 semantic_plan.metrics.append("Receita")
                 
         # Injeção para Ticket Médio
-        if any(x in query_lower for x in ("ticket m", "ticket medio", "ticket médio")):
+        if any(x in query_folded for x in ("ticket m", "ticket medio")):
             if not semantic_plan.entities:
                 semantic_plan.entities = []
             if "Venda" not in semantic_plan.entities:
@@ -54,6 +57,16 @@ class SemanticCanonicalizer:
             semantic_plan.metrics = ["Ticket Médio"]
 
         # Auto-deduz entidades de acordo com as métricas ou palavras-chave na pergunta
+        if "desconto" in query_folded:
+            if not semantic_plan.entities:
+                semantic_plan.entities = []
+            if "Venda" not in semantic_plan.entities:
+                semantic_plan.entities.append("Venda")
+            if "medio" in query_folded or "media" in query_folded:
+                semantic_plan.metrics = ["Desconto Medio"]
+            elif not semantic_plan.metrics:
+                semantic_plan.metrics = ["Desconto"]
+
         temp_entities = list(semantic_plan.entities or [])
         if not temp_entities:
             for met in (semantic_plan.metrics or []):
@@ -162,9 +175,17 @@ class SemanticCanonicalizer:
                 "Valor Parcela": "Financeiro.Valor Parcela",
                 "valor_parcela": "Financeiro.Valor Parcela",
                 "Ticket Médio": "Venda.Ticket Médio",
+                "Ticket Medio": "Venda.Ticket Médio",
                 "ticket_medio": "Venda.Ticket Médio"
             }
             
+            metric_mapping.update({
+                "Desconto": "Venda.Desconto",
+                "desconto": "Venda.Desconto",
+                "Desconto Medio": "Venda.Desconto Medio",
+                "desconto_medio": "Venda.Desconto Medio",
+            })
+
             if resolved_name in metric_mapping:
                 canonical_metric = metric_mapping[resolved_name]
                 concepts_found.append(f"Metric.{canonical_metric}")

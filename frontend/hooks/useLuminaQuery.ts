@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { generateId, truncate, getApiBase } from '@/lib/utils'
+import { repairObjectText, repairTextEncoding } from '@/lib/textEncoding'
 import { useAuth } from '@/context/AuthContext'
 import type {
   ChatMessage,
@@ -38,6 +39,13 @@ interface FavoriteApiItem {
   query_id: string
 }
 
+function createConversationSessionId() {
+  if (typeof globalThis.crypto?.randomUUID === 'function') {
+    return `lumina-${globalThis.crypto.randomUUID()}`
+  }
+  return `lumina-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
 // â”€â”€ Return Type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface UseLuminaQueryReturn {
@@ -65,7 +73,7 @@ export interface UseLuminaQueryReturn {
   toggleFavorite: (response: QueryResponse, titulo?: string) => void
   /** Check if a query_id is already favorited */
   isFavorite: (queryId: string) => boolean
-  /** Carrega o histÃ³rico recente do PostgreSQL */
+  /** Carrega o histórico recente do PostgreSQL */
   fetchHistory: () => Promise<void>
   /** Carrega a lista de favoritos do PostgreSQL */
   fetchFavorites: () => Promise<void>
@@ -75,6 +83,10 @@ export interface UseLuminaQueryReturn {
   changeMode: (mode: QueryMode) => void
   /** The active conversation graph */
   conversationGraph: ConversationGraph
+  /** Stable backend conversation session id for the current chat */
+  sessionId: string
+  /** Reset the visible chat and start a new backend conversation session */
+  resetConversation: () => void
   /** Intercept visual commands locally */
   classify_and_handle_ui_command: (pergunta: string) => boolean
   /** Backtrack to a previous conversation node */
@@ -95,6 +107,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     nodes: {},
     current_node_id: null,
   })
+  const [sessionId, setSessionId] = useState(createConversationSessionId)
   const [injectedQuery, setInjectedQuery] = useState('')
   const [mode, setMode] = useState<QueryMode>(() => {
     if (typeof window !== 'undefined') {
@@ -116,9 +129,24 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
   // Keep a ref to abort ongoing requests if unmounted
   const abortRef = useRef<AbortController | null>(null)
 
+  const resetConversation = useCallback(() => {
+    abortRef.current?.abort()
+    abortRef.current = null
+    setLoading(false)
+    setError(null)
+    setMessages([])
+    setLastResponse(null)
+    setConversationGraph({
+      nodes: {},
+      current_node_id: null,
+    })
+    setInjectedQuery('')
+    setSessionId(createConversationSessionId())
+  }, [])
+
   // â”€â”€ Hydration Methods â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  // Busca histÃ³rico de pesquisas salvo no PostgreSQL
+  // Busca histórico de pesquisas salvo no PostgreSQL
   const fetchHistory = useCallback(async () => {
     if (!token) return
     try {
@@ -133,7 +161,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         return
       }
       if (res.ok) {
-        const data = await res.json() as HistoryApiItem[]
+        const data = repairObjectText(await res.json()) as HistoryApiItem[]
         const formatted: HistoryItem[] = data.map((item) => ({
           id: item.id,
           pergunta: item.pergunta,
@@ -144,7 +172,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         setHistory(formatted)
       }
     } catch (err) {
-      console.error('Erro ao hidratar histÃ³rico:', err)
+      console.error('Erro ao hidratar histórico:', err)
     }
   }, [token, logout])
 
@@ -163,7 +191,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         return
       }
       if (res.ok) {
-        const data = await res.json() as FavoriteApiItem[]
+        const data = repairObjectText(await res.json()) as FavoriteApiItem[]
         const formatted: FavoriteItem[] = data.map((item) => ({
           id: item.id,
           titulo: item.titulo,
@@ -179,7 +207,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     }
   }, [token, logout])
 
-  // Executa a hidrataÃ§Ã£o na montagem e sempre que o token mudar
+  // Executa a hidratação na montagem e sempre que o token mudar
   useEffect(() => {
     if (token) {
       void Promise.resolve().then(() => {
@@ -465,7 +493,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
 
     // Abort previous in-flight request if any
     abortRef.current?.abort()
-    abortRef.current = new AbortController()
+    const controller = new AbortController()
+    abortRef.current = controller
 
     setLoading(true)
     setError(null)
@@ -488,10 +517,10 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
 
     try {
       if (!token || !user) {
-        throw new Error('VocÃª nÃ£o estÃ¡ autenticado no sistema.')
+        throw new Error('Você não está autenticado no sistema.')
       }
 
-      // Mapeia o histÃ³rico recente do chat (limita a 10 mensagens)
+      // Mapeia o histórico recente do chat (limita a 10 mensagens)
       const chatHistory = messages
         .filter(msg => msg.role === 'user' || msg.role === 'assistant')
         .slice(-10)
@@ -510,16 +539,17 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         body: JSON.stringify({
           pergunta: trimmed,
           tenant_id: user.tenant_id,
+          session_id: sessionId,
           history: chatHistory,
           mode: mode,
           parent_id: conversationGraph.current_node_id,
         }),
-        signal: abortRef.current.signal,
+        signal: controller.signal,
       })
 
       if (res.status === 401) {
         void logout()
-        throw new Error('SessÃ£o expirada. Por favor, faÃ§a login novamente.')
+        throw new Error('Sessão expirada. Por favor, faça login novamente.')
       }
 
       if (!res.ok) {
@@ -527,12 +557,14 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
           error: { message: `Erro HTTP ${res.status}` },
         }))
         throw new Error(
-          (errBody as { error?: { message?: string } }).error?.message ??
-            `HTTP ${res.status}`,
+          repairTextEncoding(
+            (errBody as { error?: { message?: string } }).error?.message ??
+              `HTTP ${res.status}`,
+          ),
         )
       }
 
-      const data: QueryResponse = await res.json()
+      const data = repairObjectText(await res.json()) as QueryResponse
       setLastResponse(data)
 
       // Registra o novo nó no grafo analítico da conversa
@@ -581,7 +613,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
 
       // â”€â”€ Build assistant narrative â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       const formatViewName = (name?: string | null) => {
-        if (!name) return 'AnÃ¡lise de Vendas'
+        if (!name) return 'Análise de Vendas'
         let clean = name.replace(/^VW_/i, '')
         clean = clean.replace(/_/g, ' ')
         return clean.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
@@ -591,14 +623,15 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
 
       if (data.view_name) {
         // Prefer business explanations returned by the backend; only fall back to a generic report message.
-        const fallbackReportText = `Aqui estÃ¡ o relatÃ³rio detalhado para a ${formatViewName(data.view_name)}. VocÃª pode visualizar os dados consolidados na tabela e no grÃ¡fico interativo abaixo.`
-        assistantText = data.mensagem ?? data.resposta_direta ?? data.ia_analise ?? fallbackReportText
+        const fallbackReportText = `Aqui está o relatório detalhado para a ${formatViewName(data.view_name)}. Você pode visualizar os dados consolidados na tabela e no gráfico interativo abaixo.`
+        assistantText = repairTextEncoding(data.mensagem ?? data.resposta_direta ?? data.ia_analise ?? fallbackReportText)
       } else {
-        assistantText =
+        assistantText = repairTextEncoding(
           data.mensagem ??
           data.resposta_direta ??
-          'NÃ£o encontrei uma anÃ¡lise correspondente Ã  sua pergunta. ' +
-            'Tente reformular com mais detalhes ou use termos como "vendas", "clientes", "KPIs".'
+          'Não encontrei uma análise correspondente à sua pergunta. ' +
+            'Tente reformular com mais detalhes ou use termos como "vendas", "clientes", "KPIs".',
+        )
       }
 
       const assistantMsg: ChatMessage = {
@@ -640,9 +673,12 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
       }
       setMessages(prev => [...prev, errMsg])
     } finally {
+      if (abortRef.current === controller) {
+        abortRef.current = null
+      }
       setLoading(false)
     }
-  }, [loading, logout, messages, mode, token, user])
+  }, [classify_and_handle_ui_command, conversationGraph, loading, logout, messages, mode, sessionId, token, user])
 
   // â”€â”€ Favorites â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -736,6 +772,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     mode,
     changeMode,
     conversationGraph,
+    sessionId,
+    resetConversation,
     classify_and_handle_ui_command,
     backtrackToNode,
   }

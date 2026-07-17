@@ -129,7 +129,7 @@ def test_sql_generator_parametrized_compilation():
     
     assert "SELECT SUM(VW_VENDAS_LM.ptotal_), VW_CLIENTES_CAD_LM.nome_cidade" in sql
     assert "FROM VW_VENDAS_LM" in sql
-    assert "INNER JOIN VW_CLIENTES_CAD_LM ON VW_VENDAS_LM.codcliente_::text = VW_CLIENTES_CAD_LM.codigo::text" in sql
+    assert "INNER JOIN VW_CLIENTES_CAD_LM ON coalesce(nullif(ltrim(VW_VENDAS_LM.codcliente_::text, '0'), ''), '0') = coalesce(nullif(ltrim(VW_CLIENTES_CAD_LM.codigo::text, '0'), ''), '0')" in sql
     assert "WHERE VW_CLIENTES_CAD_LM.uf = :param_0" in sql
     assert "GROUP BY VW_CLIENTES_CAD_LM.nome_cidade" in sql
     assert "ORDER BY VW_CLIENTES_CAD_LM.nome_cidade DESC" in sql

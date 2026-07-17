@@ -98,6 +98,7 @@ export default function DashboardPage() {
     mode,
     changeMode,
     conversationGraph,
+    resetConversation,
     backtrackToNode,
   } = useLuminaQuery()
 
@@ -143,6 +144,7 @@ export default function DashboardPage() {
         favorites={favorites}
         onSelectHistory={handleSidebarHistory}
         onSelectFavorite={handleSidebarFavorite}
+        onLogoClick={resetConversation}
       />
 
       {/* ── Main Content ─────────────────────────────────────── */}

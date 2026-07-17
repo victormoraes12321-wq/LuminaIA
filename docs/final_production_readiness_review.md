@@ -2,6 +2,8 @@
 
 Data: 2026-07-09
 
+Atualizacao incremental: 2026-07-17. Ver tambem [Estado atual do sistema](current-status.md).
+
 ## Parecer Executivo
 
 O LuminaAI esta aprovado tecnicamente para entrada em producao controlada.
@@ -24,6 +26,20 @@ Score Enterprise final: 98/100.
 | Qualidade | Removidos artefatos gerados `frontend/lint-report.json` e `frontend/eslint-report.json` | Auditorias sem ruido |
 | Encoding | Corrigido mojibake em 10 arquivos de codigo/UI/logs sem alterar dados persistidos | Melhor legibilidade e UX |
 | Validacao | Load smoke mantido contra `/health` com contador concorrente correto | Relatorio de carga confiavel |
+
+## Addendum 2026-07-17
+
+Correcoes recentes adicionadas ao estado atual:
+
+| Area | Correcao | Resultado |
+| --- | --- | --- |
+| Query | Caminho deterministico para faturamento, ticket medio, descontos e rankings com periodo claro | Reduz respostas erradas em perguntas criticas |
+| Conversa | `session_id`, historico recente e `parent_id` preservados | Melhora continuidade e heranca de periodo |
+| Ranking | Exclusao de `PADRAO` e `LAGES E LOPES LTDA` quando aplicavel | Evita retornar cadastro tecnico/loja interna como ranking externo |
+| Frontend | Reparo defensivo de encoding e labels humanizados | Textos com acentos deixam de aparecer quebrados |
+| Sessao local | API preserva host loopback do navegador | Login funciona por `localhost` e `127.0.0.1` |
+
+Validado com `npm run build`, `python -m py_compile`, geracao de docs automaticas e E2E Playwright por `127.0.0.1`.
 
 ## Evidencias De Validacao
 

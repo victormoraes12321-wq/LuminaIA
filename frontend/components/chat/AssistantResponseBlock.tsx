@@ -27,6 +27,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { exportToCSV, exportToExcel, exportToPDF } from '@/lib/exportUtils'
 import { InlineDashboardRuntime } from '@/components/chat/InlineDashboardRuntime'
 import { ClarificationPanel } from '@/components/chat/ClarificationPanel'
+import { repairTextEncoding } from '@/lib/textEncoding'
 import { isChartDataTable } from '@/types/lumina'
 import type { AnyChartData, BIAnomaly, ChartDataClarification, ChatMessage, QueryResponse } from '@/types/lumina'
 
@@ -297,7 +298,8 @@ export function AssistantResponseBlock({
   isFavorited,
   onSendQuery
 }: AssistantResponseBlockProps) {
-  const { sections, isStructured } = parseBIAnalysis(msg.content)
+  const displayContent = repairTextEncoding(msg.content)
+  const { sections, isStructured } = parseBIAnalysis(displayContent)
   const [activeTab, setActiveTab] = useState<'visual' | 'table'>('visual')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -392,7 +394,7 @@ export function AssistantResponseBlock({
   }, [chartDataWithTrend, showOutliers, response])
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(msg.content)
+    navigator.clipboard.writeText(displayContent)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -588,7 +590,7 @@ export function AssistantResponseBlock({
         {/* ── 2. Resumo Executivo (Max 5 lines) ── */}
         <div className="space-y-2">
           <p className="text-sm md:text-base leading-relaxed text-zinc-200 line-clamp-5 hover:line-clamp-none transition-all duration-300 cursor-help whitespace-pre-wrap break-words">
-            {isStructured ? parseMarkdownBold(sections.resumo) : parseMarkdownBold(msg.content)}
+            {isStructured ? parseMarkdownBold(sections.resumo) : parseMarkdownBold(displayContent)}
           </p>
         </div>
 

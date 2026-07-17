@@ -2,7 +2,7 @@
 
 /**
  * ============================================================
- * LUMINA AI â€” DashboardRuntimeAdapter
+ * LUMINA AI - DashboardRuntimeAdapter
  * ============================================================
  * Bridges the existing QueryResponse (useLuminaQuery) format
  * with the new DashboardRuntimePayload (ADE/ECE) format.
@@ -18,6 +18,7 @@
  */
 
 import type { QueryResponse, ChartType } from '@/types/lumina';
+import { repairObjectText, repairTextEncoding } from '@/lib/textEncoding';
 import type {
   DashboardRuntimePayload,
   RuntimeWidget,
@@ -27,9 +28,7 @@ import type {
   TrustCenterData,
 } from '@/types/dashboard-runtime';
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-// CHART TYPE â†’ ECE TYPE MAPPING
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// CHART TYPE -> ECE TYPE MAPPING
 
 const CHART_TYPE_TO_ECE: Record<ChartType, ECEComponentType> = {
   BAR:     'BAR_CHART',
@@ -44,9 +43,7 @@ const CHART_TYPE_TO_ECE: Record<ChartType, ECEComponentType> = {
   FUNNEL:  'FUNNEL_CHART',
 };
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // DEFAULT GRID POSITIONS FOR LEGACY RESPONSES
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /**
  * Generates a simple vertical stack layout for N widgets.
@@ -268,9 +265,9 @@ export function adaptQueryResponseToRuntimePayload(
     generated_at: new Date().toISOString(),
   };
 
-  // Extract trust center from response if available, else build a realistic simulation
-  const rawTrustCenter = response.trust_center as TrustCenterData | undefined;
-  const trustCenter = rawTrustCenter || generateFallbackTrustCenter(response, dashboardId);
+  // Legacy endpoints may return a partial trust_center. Keep its signal, but
+  // complete the runtime contract so rendering never depends on optional fields.
+  const trustCenter = normalizeTrustCenter(response, dashboardId);
 
   return {
     dashboard_id: dashboardId,
@@ -300,7 +297,7 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
   return {
     trust_badge: {
       status: 'VERIFIED',
-      origem: `Oracle ERP â†’ ${viewName}`,
+      origem: `Oracle ERP -> ${viewName}`,
       tempo_desde_sync: '42 minutos',
       proxima_sincronizacao: nextSync.toISOString(),
       proxima_sincronizacao_restante: '18 min',
@@ -308,12 +305,12 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
       health_score: 97.2,
     },
     data_lineage: [
-      { etapa: 'ERP', nome: 'Oracle ERP', detalhes: 'Banco de ProduÃ§Ã£o Transacional', status: 'COMPLETED' },
-      { etapa: 'VIEW', nome: viewName, detalhes: 'View analÃ­tica de faturamento e vendas', status: 'COMPLETED' },
-      { etapa: 'DATA_PLATFORM', nome: 'Lumina Data Platform', detalhes: 'SincronizaÃ§Ã£o analÃ­tica e staging', status: 'COMPLETED' },
-      { etapa: 'ANALYTICAL_PACKAGE', nome: 'Legacy Package Adapter', detalhes: 'InteligÃªncia analÃ­tica compatÃ­vel', status: 'REUSED' },
-      { etapa: 'RUNTIME_DATASET', nome: `Dataset ${queryId.slice(0, 8)}`, detalhes: 'Carga de consulta em tempo de execuÃ§Ã£o', status: 'COMPLETED' },
-      { etapa: 'DASHBOARD', nome: 'Dashboard Instance', detalhes: 'Layout e renderizaÃ§Ã£o visual', status: 'COMPLETED' },
+      { etapa: 'ERP', nome: 'Oracle ERP', detalhes: 'Banco de Produção Transacional', status: 'COMPLETED' },
+      { etapa: 'VIEW', nome: viewName, detalhes: 'View analítica de faturamento e vendas', status: 'COMPLETED' },
+      { etapa: 'DATA_PLATFORM', nome: 'Lumina Data Platform', detalhes: 'Sincronização analítica e staging', status: 'COMPLETED' },
+      { etapa: 'ANALYTICAL_PACKAGE', nome: 'Legacy Package Adapter', detalhes: 'Inteligência analítica compatível', status: 'REUSED' },
+      { etapa: 'RUNTIME_DATASET', nome: `Dataset ${queryId.slice(0, 8)}`, detalhes: 'Carga de consulta em tempo de execução', status: 'COMPLETED' },
+      { etapa: 'DASHBOARD', nome: 'Dashboard Instance', detalhes: 'Layout e renderização visual', status: 'COMPLETED' },
     ],
     version_center: {
       view_version: 'v1.0.0',
@@ -326,7 +323,7 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
       semantic_catalog_version: 'v2.0.0',
       created_at: lastSync.toISOString(),
       updated_at: now.toISOString(),
-      compatibility: 'COMPATÃVEL',
+      compatibility: 'COMPATÍVEL',
     },
     sync_center: {
       ultima_sync: lastSync.toISOString(),
@@ -360,7 +357,7 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
       cache_status: 'HIT',
       last_cache_update: lastSync.toISOString(),
       cache_version: 'v4.0.0',
-      economia_estimada: '85% de CPU/MemÃ³ria economizados',
+      economia_estimada: '85% de CPU/Memória economizados',
     },
     health_center: {
       scores: {
@@ -383,20 +380,20 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
     confidence_score: {
       score: confidenceScore,
       stars: stars,
-      justificativa: 'Consulta segura, todos os serviÃ§os analÃ­ticos operando em alta performance e versÃµes compatÃ­veis.',
+      justificativa: 'Consulta segura, todos os serviços analíticos operando em alta performance e versões compatíveis.',
     },
     diagnostics: {
       status: 'NORMAL',
       servico_afetado: 'Nenhum',
       impacto: 'Nenhum',
       causa_provavel: 'Sem falhas detectadas.',
-      sugestao_investigacao: 'Todos os serviÃ§os operam normalmente.',
+      sugestao_investigacao: 'Todos os serviços operam normalmente.',
     },
     timeline: [
-      { passo: 1, etapa: 'ERP', nome: 'Oracle ERP', tempo: 'ConexÃ£o Direta', status: 'SUCCESS', health: 100, versao: 'v1.0.0' },
+      { passo: 1, etapa: 'ERP', nome: 'Oracle ERP', tempo: 'Conexão Direta', status: 'SUCCESS', health: 100, versao: 'v1.0.0' },
       { passo: 2, etapa: 'VIEW', nome: viewName, tempo: '40ms', status: 'SUCCESS', health: 98, versao: 'v1.0.0' },
       { passo: 3, etapa: 'DATA_PLATFORM', nome: 'Lumina Data Platform', tempo: 'Incremental', status: 'SUCCESS', health: 98, versao: 'v1.0.0' },
-      { passo: 4, etapa: 'ANALYTICAL_PACKAGE', nome: 'Legacy Package Adapter', tempo: 'Reuso sÃ­ncrono', status: 'REUSED', health: 95, versao: 'v1.0.0' },
+      { passo: 4, etapa: 'ANALYTICAL_PACKAGE', nome: 'Legacy Package Adapter', tempo: 'Reuso síncrono', status: 'REUSED', health: 95, versao: 'v1.0.0' },
       { passo: 5, etapa: 'RUNTIME_DATASET', nome: `Dataset ${queryId.slice(0, 8)}`, tempo: '80ms', status: 'SUCCESS', health: 98, versao: 'v1.0.0' },
     ],
     audit_trail: {
@@ -438,12 +435,55 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
   };
 }
 
+function normalizeTrustCenter(response: QueryResponse, queryId: string): TrustCenterData {
+  const fallback = generateFallbackTrustCenter(response, queryId);
+  const raw = repairObjectText(response.trust_center) as Partial<TrustCenterData> & Record<string, unknown> | undefined;
+  if (!raw || typeof raw !== 'object') return fallback;
+
+  const rawConfidence = raw.confidence_score;
+  const confidenceScore =
+    typeof rawConfidence === 'number'
+      ? Math.round(rawConfidence <= 1 ? rawConfidence * 100 : rawConfidence)
+      : fallback.trust_badge.confidence_score;
+
+  const source = typeof raw.source === 'string' ? repairTextEncoding(raw.source) : fallback.trust_badge.origem;
+
+  return {
+    ...fallback,
+    ...raw,
+    trust_badge: {
+      ...fallback.trust_badge,
+      ...(raw.trust_badge && typeof raw.trust_badge === 'object' ? raw.trust_badge : {}),
+      origem: (raw.trust_badge as { origem?: string } | undefined)?.origem ?? source,
+      confidence_score: (raw.trust_badge as { confidence_score?: number } | undefined)?.confidence_score ?? confidenceScore,
+    },
+    confidence_score: {
+      ...fallback.confidence_score,
+      ...(raw.confidence_score && typeof raw.confidence_score === 'object' ? raw.confidence_score : {}),
+      score: (raw.confidence_score && typeof raw.confidence_score === 'object'
+        ? (raw.confidence_score as { score?: number }).score
+        : undefined) ?? confidenceScore,
+    },
+    data_lineage: Array.isArray(raw.data_lineage) ? raw.data_lineage : fallback.data_lineage,
+    version_center: raw.version_center && typeof raw.version_center === 'object' ? raw.version_center : fallback.version_center,
+    sync_center: raw.sync_center && typeof raw.sync_center === 'object' ? raw.sync_center : fallback.sync_center,
+    performance_center: raw.performance_center && typeof raw.performance_center === 'object' ? raw.performance_center : fallback.performance_center,
+    cache_center: raw.cache_center && typeof raw.cache_center === 'object' ? raw.cache_center : fallback.cache_center,
+    health_center: raw.health_center && typeof raw.health_center === 'object' ? raw.health_center : fallback.health_center,
+    diagnostics: raw.diagnostics && typeof raw.diagnostics === 'object' ? raw.diagnostics : fallback.diagnostics,
+    timeline: Array.isArray(raw.timeline) ? raw.timeline : fallback.timeline,
+    audit_trail: raw.audit_trail && typeof raw.audit_trail === 'object' ? raw.audit_trail : fallback.audit_trail,
+    pop_report: raw.pop_report && typeof raw.pop_report === 'object' ? raw.pop_report : fallback.pop_report,
+    ris_audit: raw.ris_audit && typeof raw.ris_audit === 'object' ? raw.ris_audit : fallback.ris_audit,
+  } as TrustCenterData;
+}
+
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // HELPERS
 // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function formatViewName(name?: string | null): string {
-  if (!name) return 'AnÃ¡lise';
+  if (!name) return 'Análise';
   return name
     .replace(/^VW_/i, '')
     .replace(/_/g, ' ')

@@ -68,17 +68,35 @@ Usuario -> Frontend -> API Query -> Query Intelligence Engine -> IA/CIE
 -> Transformacao/BI/Runtime Payload -> Frontend -> Dashboard -> Usuario
 ```
 
+## Fluxo Deterministico Para Perguntas Criticas
+
+O `NewQueryOrchestrator` possui um caminho deterministico para perguntas operacionais criticas quando ha periodo explicito ou periodo herdado da conversa. Esse caminho evita respostas ambiguas para os indicadores mais sensiveis de vendas:
+
+- Faturamento do mes e do mes anterior.
+- Ticket medio.
+- Total de desconto e desconto medio.
+- Venda por vendedor e maior vendedor.
+- Ranking/top clientes com exclusao da loja interna quando aplicavel.
+
+Regras relevantes:
+
+- Vendedor tecnico `PADRAO` nao participa do ranking de vendedores.
+- Cliente/loja interna `LAGES E LOPES LTDA` nao participa de top/ranking de clientes externos.
+- Desconto e derivado de forma deterministica por item sobre a view de vendas.
+- Continuidade de conversa pode herdar periodo por `session_id`, historico recente e `parent_id`.
+
 ## Fluxo De Dados
 
 1. Usuario envia pergunta pelo chat.
-2. Frontend chama `/api/v1/query/` com JWT.
+2. Frontend chama `/api/v1/query/` com JWT/cookie, `session_id`, historico recente e `parent_id` quando ha grafo de conversa.
 3. Backend valida sessao, tenant, escopo e senha obrigatoria.
-4. IA identifica intencao e/ou CIE estrutura Business Intent, visual strategy e blueprint.
-5. Planner e Validator normalizam plano, filtros, datas, metricas e view alvo.
-6. Backend executa dados via clone PostgreSQL/mock/Oracle conforme configuracao.
-7. Data Transformer e BI Engine montam dados de grafico, KPIs e inteligencia BI.
-8. Data Platform pode gerar blueprint, runtime payload, trust center e telemetria.
-9. Frontend renderiza resposta e dashboard runtime.
+4. Para perguntas criticas com periodo claro, o orquestrador pode executar o caminho deterministico.
+5. Para perguntas abertas, IA identifica intencao e/ou CIE estrutura Business Intent, visual strategy e blueprint.
+6. Planner e Validator normalizam plano, filtros, datas, metricas e view alvo.
+7. Backend executa dados via clone PostgreSQL/mock/Oracle conforme configuracao.
+8. Data Transformer humaniza labels e monta dados de grafico, KPIs e inteligencia BI.
+9. Data Platform pode gerar blueprint, runtime payload, trust center e telemetria.
+10. Frontend repara textos potencialmente corrompidos, adapta payloads legados e renderiza resposta/dashboard runtime.
 
 ## Fluxo Do Scheduler E Sync
 
@@ -101,5 +119,6 @@ O scheduler inicia no lifespan do FastAPI e chama tarefas de sincronizacao. O Sy
 ## Limites E Observacoes
 
 - Ha rotas duplicadas `/api/v1/api/v1/query` por compatibilidade, mantidas intencionalmente.
+- Em ambiente local, o frontend preserva o mesmo host loopback usado no navegador (`localhost` ou `127.0.0.1`) ao montar a base da API, evitando perda de cookie de sessao.
 - Docker compose nao foi validado localmente por ausencia do binario Docker.
 - RLS nativo em banco nao foi identificado; isolamento ocorre na camada de aplicacao.

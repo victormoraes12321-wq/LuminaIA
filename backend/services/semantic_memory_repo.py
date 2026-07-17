@@ -44,10 +44,11 @@ async def create_semantic_memory_record(
 ) -> None:
     """Cria e persiste um novo registro de aprendizado semântico."""
     try:
+        objeto_resolvido_clean = json.loads(json.dumps(objeto_resolvido, default=str))
         new_mem = SemanticMemory(
             tenant_id=tenant_id,
             expressao=text_clean,
-            objeto_resolvido=objeto_resolvido,
+            objeto_resolvido=objeto_resolvido_clean,
             score=score,
             confianca=confianca,
             origem=origem

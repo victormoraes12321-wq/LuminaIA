@@ -32,3 +32,10 @@ O projeto separa entrada HTTP, DTOs, modelos, services e UI. Routers devem ser f
 
 - Nao remover contratos existentes sem fase de migracao.
 - Manter rotas legadas documentadas enquanto clientes antigos existirem.
+- Preservar adaptadores defensivos para payloads legados, incluindo reparo de encoding e normalizacao de Trust Center.
+
+## Regras De Apresentacao
+
+- Frontend pode reparar texto/encoding, mas nao recalcular metricas de negocio.
+- Backend deve entregar labels humanizados quando possivel.
+- Campos tecnicos novos devem ser documentados e, quando visiveis ao usuario, mapeados para nomes legiveis.

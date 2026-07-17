@@ -5,10 +5,22 @@
 ```text
 Usuario digita pergunta
 -> ChatInterface
--> useLuminaQuery
+-> useLuminaQuery (session_id + history + parent_id)
 -> POST /api/v1/query/
 -> Query Intelligence Engine
 -> AI Service / Corporate Intelligence Engine
+```
+
+## Usuario -> Caminho Deterministico
+
+```text
+Pergunta critica com periodo claro
+-> useLuminaQuery
+-> NewQueryOrchestrator
+-> SQL deterministico em view de vendas
+-> data_transformer
+-> QueryResponse
+-> Dashboard runtime/tabela
 ```
 
 ## IA -> Planner
@@ -46,6 +58,7 @@ Dados executados
 -> bi_engine
 -> dashboard_payload_builder/trust center
 -> QueryResponse JSON
+-> reparo de encoding no frontend
 -> AssistantResponseBlock/DashboardRuntimeEngine
 ```
 

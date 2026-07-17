@@ -42,3 +42,5 @@ Veja `.env.example`. Variaveis obrigatorias incluem `DATABASE_URL`, `SECRET_KEY`
 - JWT usa PyJWT.
 - Health check: `GET /health`.
 - Dockerfile usa Gunicorn + Uvicorn Worker.
+- Perguntas criticas de vendas possuem caminho deterministico em `services/new_query_orchestrator.py`.
+- `services/data_transformer.py` humaniza labels tecnicos e formata campos financeiros para exibicao.

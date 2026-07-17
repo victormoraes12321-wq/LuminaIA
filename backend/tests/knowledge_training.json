@@ -1,0 +1,26 @@
+[
+  {
+    "question": "quanto vendemos hoje",
+    "expected_metrics": ["MET_001"],
+    "expected_period": "PER_TODAY"
+  },
+  {
+    "question": "quanto faturamos",
+    "expected_metrics": ["MET_002"]
+  },
+  {
+    "question": "lucro bruto este mes",
+    "expected_metrics": ["MET_003"],
+    "expected_period": "PER_CURRENT_MONTH"
+  },
+  {
+    "question": "ranking de vendedores",
+    "expected_metrics": ["MET_013"],
+    "expected_dimensions": ["DIM_002"]
+  },
+  {
+    "question": "produtos mais vendidos",
+    "expected_metrics": ["MET_006"],
+    "expected_dimensions": ["DIM_003"]
+  }
+]

@@ -21,6 +21,7 @@ import { EHeatmapChart } from '@/components/charts/EHeatmapChart'
 import { ETreemapChart } from '@/components/charts/ETreemapChart'
 import { EFunnelChart } from '@/components/charts/EFunnelChart'
 import { DataTable } from '@/components/charts/DataTable'
+import { repairTextEncoding } from '@/lib/textEncoding'
 import {
   isChartDataBar,
   isChartDataKPI,
@@ -65,7 +66,7 @@ function getMinHeight(chartType: ChartType): string {
 // ── No Data Fallback ───────────────────────────────────────────
 
 const formatSummaryValue = (key: string, val: string | number): string => {
-  if (typeof val !== 'number') return String(val)
+  if (typeof val !== 'number') return repairTextEncoding(String(val))
   const keyUpper = key.toUpperCase()
   if (keyUpper.includes('VALOR') || keyUpper.includes('TICKET') || keyUpper.includes('RECEITA') || keyUpper.includes('FATURAMENTO') || keyUpper.includes('COMISSAO')) {
     return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -113,7 +114,7 @@ function RespostaDireta({ texto }: { texto: string }) {
           color: 'rgb(var(--text-secondary))',
         }}
       >
-        {texto}
+          {repairTextEncoding(texto)}
       </div>
     </motion.div>
   )
@@ -394,7 +395,7 @@ export function DynamicRenderer({ chartType, chartData, className, title, visual
             {Object.entries(typedData.resumo).slice(0, 4).map(([key, val]) => (
               <div key={key} className="flex items-center gap-1.5">
                 <span className="text-[10px] uppercase tracking-wider" style={{ color: 'rgb(var(--text-muted))' }}>
-                  {key.replace(/_/g, ' ')}
+                  {repairTextEncoding(key.replace(/_/g, ' '))}
                 </span>
                 <span className="text-xs font-semibold" style={{ color: 'rgb(var(--text-secondary))' }}>
                   {formatSummaryValue(key, val)}

@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import { Search, ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react'
 import { formatCurrency, formatDate, cn } from '@/lib/utils'
+import { repairTextEncoding } from '@/lib/textEncoding'
 import { StatusBadge } from '@/components/ui/Badge'
 import type { ChartDataTable, TableColumn } from '@/types/lumina'
 
@@ -17,12 +18,12 @@ function CellValue({ col, value }: { col: TableColumn; value: unknown }) {
     case 'currency':
       return (
         <span className="font-mono text-xs font-semibold" style={{ color: 'rgb(var(--text-primary))' }}>
-          {typeof value === 'number' ? formatCurrency(value) : String(value)}
+          {typeof value === 'number' ? formatCurrency(value) : repairTextEncoding(String(value))}
         </span>
       )
 
     case 'badge':
-      return <StatusBadge status={String(value)} />
+      return <StatusBadge status={repairTextEncoding(String(value))} />
 
     case 'date':
       return (
@@ -47,14 +48,14 @@ function CellValue({ col, value }: { col: TableColumn; value: unknown }) {
     case 'number':
       return (
         <span className="font-mono text-xs" style={{ color: 'rgb(var(--text-primary))' }}>
-          {typeof value === 'number' ? value.toLocaleString('pt-BR') : String(value)}
+          {typeof value === 'number' ? value.toLocaleString('pt-BR') : repairTextEncoding(String(value))}
         </span>
       )
 
     default:
       return (
         <span className="text-xs" style={{ color: 'rgb(var(--text-secondary))' }}>
-          {String(value)}
+          {repairTextEncoding(String(value))}
         </span>
       )
   }
@@ -182,7 +183,7 @@ export function DataTable({ data }: DataTableProps) {
                   onClick={() => col.sortable && handleSort(col.key)}
                 >
                   <div className="flex items-center gap-1.5">
-                    {col.label}
+                    {repairTextEncoding(col.label)}
                     {col.sortable && (
                       <ArrowUpDown
                         size={11}

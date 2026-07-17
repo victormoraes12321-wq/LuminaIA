@@ -50,6 +50,21 @@
 - Atualizar schemas e testes.
 - Preservar modos operacional, analitico e executivo.
 
+## Como Evoluir Perguntas Criticas
+
+- Antes de alterar prompts, resolver ou orquestrador, validar as perguntas prioritarias listadas em `docs/current-status.md`.
+- Nao remover o caminho deterministico do `NewQueryOrchestrator` sem substituir por testes equivalentes.
+- Preservar exclusoes de negocio para `PADRAO` e `LAGES E LOPES LTDA`.
+- Garantir continuidade por `session_id`, historico recente e `parent_id`.
+- Se adicionar novo label tecnico, humanizar em `data_transformer.py` ou no contrato apropriado.
+
+## Como Atualizar Documentacao
+
+- Rodar `backend\venv\Scripts\python.exe scripts\generate_docs_reference.py` a partir da raiz para atualizar API e inventario.
+- Atualizar `docs/current-status.md` quando houver correcao funcional validada.
+- Registrar mudancas em `CHANGELOG.md`.
+- Manter relatorios historicos como baseline quando nao forem reexecutados integralmente.
+
 ## Compatibilidade
 
 - Nao remover campos de resposta sem migracao.

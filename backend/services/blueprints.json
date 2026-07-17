@@ -32094,13 +32094,227 @@
         "tempo_ia_acumulado_ms": 0.0,
         "tokens_economizados": 0
       }
+    },
+    {
+      "id": "bp_performance_comercial_da_c58_v1",
+      "intent_id": "performance_comercial_da",
+      "version": 1,
+      "nome_consulta": "Performance comercial da nova view de teste.",
+      "objetivo": "Performance comercial da nova view de teste.",
+      "tipo_analise": "SELECT",
+      "view_catalog_id": "8d659566-abc7-4c37-8a23-bc307eebba9d",
+      "view_name": "VW_TEST_DATAPLATFORM",
+      "metrics": [
+        "receita_total"
+      ],
+      "group_by": [],
+      "filters": {
+        "date_range": "2026-07-01 to 2026-07-31",
+        "products": [],
+        "customers": [],
+        "regions": []
+      },
+      "visualization_type": "BAR",
+      "layout": {
+        "order": [
+          "dashboard_render"
+        ]
+      },
+      "exemplos_perguntas": [
+        "como estão os testes na data platform?"
+      ],
+      "versionamento": {
+        "id": "bp_performance_comercial_da_c58_v1",
+        "versao": 1,
+        "data_criacao": "2026-07-16T14:32:56.200116",
+        "autor": "IA (LuminaAI Planner)",
+        "historico": [],
+        "dependencias": [
+          "VW_TEST_DATAPLATFORM"
+        ],
+        "permissoes": [
+          "admin",
+          "user",
+          "manager"
+        ],
+        "ultima_utilizacao": null,
+        "quantidade_utilizacoes": 0,
+        "tempo_acumulado_ms": 0.0,
+        "tempo_ia_acumulado_ms": 0.0,
+        "tokens_economizados": 0
+      }
+    },
+    {
+      "id": "daily_sales_v2",
+      "intent_id": "daily_sales",
+      "version": 2,
+      "nome_consulta": "Resumo de Vendas Diárias (EvoluÃ­do v2)",
+      "objetivo": "Obter faturamento, quantidade de pedidos e ticket médio do dia atual",
+      "tipo_analise": "AGGREGATION",
+      "view_catalog_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380101",
+      "view_name": "VW_VENDAS",
+      "metrics": [
+        "receita_total",
+        "quantidade_pedidos",
+        "ticket_medio"
+      ],
+      "group_by": [
+        "vendedor_nome"
+      ],
+      "filters": {
+        "date_range": "2026-07-03 to 2026-07-03"
+      },
+      "visualization_type": "KPI",
+      "layout": {
+        "order": [
+          "kpi_cards",
+          "revenue_trend"
+        ]
+      },
+      "exemplos_perguntas": [
+        "quanto vendeu hoje",
+        "quanto faturamos hoje",
+        "resumo de vendas de hoje",
+        "receita de hoje",
+        "como foram as vendas hoje",
+        "quanto vendeu hoje por vendedor"
+      ],
+      "versionamento": {
+        "id": "daily_sales_v2",
+        "versao": 2,
+        "data_criacao": "2026-07-16T14:35:33.721746",
+        "autor": "IA (LuminaAI Planner)",
+        "historico": [
+          "EvoluÃ­do a partir de bp_daily_sales_v1"
+        ],
+        "dependencias": [
+          "VW_VENDAS"
+        ],
+        "permissoes": [
+          "admin",
+          "user",
+          "manager"
+        ],
+        "ultima_utilizacao": null,
+        "quantidade_utilizacoes": 0,
+        "tempo_acumulado_ms": 0.0,
+        "tempo_ia_acumulado_ms": 0.0,
+        "tokens_economizados": 0
+      }
+    },
+    {
+      "id": "bp_performance_comercial_da_c59_v1",
+      "intent_id": "performance_comercial_da",
+      "version": 1,
+      "nome_consulta": "Performance comercial da nova view de teste.",
+      "objetivo": "Performance comercial da nova view de teste.",
+      "tipo_analise": "SELECT",
+      "view_catalog_id": "8d659566-abc7-4c37-8a23-bc307eebba9d",
+      "view_name": "VW_TEST_DATAPLATFORM",
+      "metrics": [
+        "receita_total"
+      ],
+      "group_by": [],
+      "filters": {
+        "date_range": "2026-07-01 to 2026-07-31",
+        "products": [],
+        "customers": [],
+        "regions": []
+      },
+      "visualization_type": "BAR",
+      "layout": {
+        "order": [
+          "dashboard_render"
+        ]
+      },
+      "exemplos_perguntas": [
+        "como estão os testes na data platform?"
+      ],
+      "versionamento": {
+        "id": "bp_performance_comercial_da_c59_v1",
+        "versao": 1,
+        "data_criacao": "2026-07-16T15:07:13.407976",
+        "autor": "IA (LuminaAI Planner)",
+        "historico": [],
+        "dependencias": [
+          "VW_TEST_DATAPLATFORM"
+        ],
+        "permissoes": [
+          "admin",
+          "user",
+          "manager"
+        ],
+        "ultima_utilizacao": null,
+        "quantidade_utilizacoes": 0,
+        "tempo_acumulado_ms": 0.0,
+        "tempo_ia_acumulado_ms": 0.0,
+        "tokens_economizados": 0
+      }
+    },
+    {
+      "id": "daily_sales_v2",
+      "intent_id": "daily_sales",
+      "version": 2,
+      "nome_consulta": "Resumo de Vendas Diárias (EvoluÃ­do v2)",
+      "objetivo": "Obter faturamento, quantidade de pedidos e ticket médio do dia atual",
+      "tipo_analise": "AGGREGATION",
+      "view_catalog_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380101",
+      "view_name": "VW_VENDAS",
+      "metrics": [
+        "receita_total",
+        "quantidade_pedidos",
+        "ticket_medio"
+      ],
+      "group_by": [
+        "vendedor_nome"
+      ],
+      "filters": {
+        "date_range": "2026-07-03 to 2026-07-03"
+      },
+      "visualization_type": "KPI",
+      "layout": {
+        "order": [
+          "kpi_cards",
+          "revenue_trend"
+        ]
+      },
+      "exemplos_perguntas": [
+        "quanto vendeu hoje",
+        "quanto faturamos hoje",
+        "resumo de vendas de hoje",
+        "receita de hoje",
+        "como foram as vendas hoje",
+        "quanto vendeu hoje por vendedor"
+      ],
+      "versionamento": {
+        "id": "daily_sales_v2",
+        "versao": 2,
+        "data_criacao": "2026-07-16T15:12:00.216519",
+        "autor": "IA (LuminaAI Planner)",
+        "historico": [
+          "EvoluÃ­do a partir de bp_daily_sales_v1"
+        ],
+        "dependencias": [
+          "VW_VENDAS"
+        ],
+        "permissoes": [
+          "admin",
+          "user",
+          "manager"
+        ],
+        "ultima_utilizacao": null,
+        "quantidade_utilizacoes": 0,
+        "tempo_acumulado_ms": 0.0,
+        "tempo_ia_acumulado_ms": 0.0,
+        "tokens_economizados": 0
+      }
     }
   ],
   "global_metrics": {
-    "execucoes_com_ia": 610,
-    "execucoes_sem_ia": 265,
-    "tempo_total_com_ia_ms": 2546405.0,
-    "tempo_total_sem_ia_ms": 1538040.0,
-    "tokens_economizados_total": 397500
+    "execucoes_com_ia": 612,
+    "execucoes_sem_ia": 280,
+    "tempo_total_com_ia_ms": 2602651.0,
+    "tempo_total_sem_ia_ms": 1666314.0,
+    "tokens_economizados_total": 420000
   }
 }

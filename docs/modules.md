@@ -11,6 +11,15 @@ Este documento descreve os modulos principais. Para inventario completo de arqui
 - Dependencias: `ai_service`, `query_planner`, `plan_validator`, Data Platform, transformers e routers.
 - Limitacoes: ainda mantem compatibilidade com fluxo legado e arquivo `services/blueprints.json`.
 
+## New Query Orchestrator
+
+- Localizacao: `backend/services/new_query_orchestrator.py`.
+- Objetivo: orquestrar o pipeline novo de consulta e aplicar um caminho deterministico para perguntas criticas de vendas quando houver periodo claro.
+- Entradas: pergunta, tenant, usuario, `session_id`, historico recente, `parent_id` e estado do grafo de conversa.
+- Saidas: resposta direta, dados transformados, trust center, telemetria, historico/grafo e payload compativel com o frontend.
+- Regras criticas: faturamento, ticket medio, descontos, maior vendedor, top cliente, exclusao de `PADRAO` e `LAGES E LOPES LTDA` quando aplicavel.
+- Continuidade: perguntas subsequentes podem herdar periodo de mensagens anteriores.
+
 ## Corporate Intelligence Engine
 
 - Localizacao: `backend/services/ai/`.
@@ -59,6 +68,12 @@ Este documento descreve os modulos principais. Para inventario completo de arqui
 - Entradas: `DashboardRuntimePayload` ou `QueryResponse` legado.
 - Saidas: dashboard responsivo, trust center, grid, cross-filter e fullscreen.
 - Limitacoes: nao calcula regra de negocio.
+
+## Text Encoding E Humanizacao
+
+- Frontend: `frontend/lib/textEncoding.ts` repara mojibake antes de renderizar textos de API, historico, favoritos, mensagens e runtime.
+- Backend: `backend/services/data_transformer.py` humaniza labels tecnicos como `observacao`, `ticket_medio`, `desconto_medio` e `valor_formatado`.
+- Objetivo: garantir leitura correta na tela sem alterar calculos, SQL ou regras de negocio.
 
 ## Cache
 

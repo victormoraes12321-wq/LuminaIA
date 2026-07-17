@@ -93,6 +93,22 @@ export function getApiBase(): string {
     const hostname = window.location.hostname
     const configuredUrl = process.env.NEXT_PUBLIC_API_URL
     const isLanAccess = hostname && !['localhost', '127.0.0.1', '::1'].includes(hostname)
+    const isLoopbackAccess = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(hostname)
+
+    if (configuredUrl && isLoopbackAccess) {
+      try {
+        const parsed = new URL(configuredUrl)
+        const configuredHost = parsed.hostname
+        const configuredIsLoopback = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(configuredHost)
+
+        if (configuredIsLoopback && configuredHost !== hostname) {
+          parsed.hostname = hostname
+          return parsed.toString().replace(/\/$/, '')
+        }
+      } catch {
+        // Fall through to the regular configured URL handling.
+      }
+    }
 
     if (configuredUrl && !(isLanAccess && /\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(configuredUrl))) {
       return configuredUrl
@@ -107,4 +123,3 @@ export function getApiBase(): string {
   }
   return 'http://127.0.0.1:8000'
 }
-

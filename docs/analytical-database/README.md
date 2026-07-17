@@ -44,6 +44,10 @@ O banco analitico usa PostgreSQL com SQLAlchemy async no backend. Ele armazena t
 
 O Sync Engine atualiza/clona views conforme configuracao de tenant. O Scheduler dispara tarefas em background. Health e lineage sao recalculados por CatalogAPI/HealthMonitor quando aplicavel.
 
+## Views Criticas De Vendas
+
+As perguntas prioritarias de faturamento, ticket medio, desconto e ranking usam a view de vendas disponivel ao backend, atualmente `vw_vendas_lm`, junto das views cadastrais de vendedor/cliente quando ha ranking. As regras atuais desconsideram `PADRAO` como vendedor tecnico e `LAGES E LOPES LTDA` como loja interna em top/ranking de clientes externos.
+
 ## Limitacoes
 
 - RLS nativo de PostgreSQL nao foi identificado no codigo; o isolamento ocorre via aplicacao.

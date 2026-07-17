@@ -2,7 +2,7 @@
 
 LuminaAI e uma plataforma Enterprise de Business Intelligence com IA, backend FastAPI, frontend Next.js e Data Platform analitica para catalogo, blueprints, pacotes analiticos, runtime de dashboards e governanca multi-tenant.
 
-Esta documentacao representa o estado atual do sistema apos as auditorias e correcoes executadas ate 2026-07-09.
+Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes incrementais executadas ate 2026-07-17. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
 
 ## Estado Atual
 
@@ -10,7 +10,16 @@ Esta documentacao representa o estado atual do sistema apos as auditorias e corr
 - Frontend: Next.js 16, React 19, dashboard runtime, Dashboard Studio, componentes ECharts/Recharts e testes visuais Playwright.
 - IA: Corporate Intelligence Engine modular, Query Intelligence Engine, planner, validator, blueprint builder, package matcher, visual strategy e response builder.
 - Data Platform: Metadata Catalog, Semantic Catalog, Blueprint Repository, Analytical Packages, Sync Engine, Scheduler, Live Dashboard Runtime, Trust Center e engines de performance/seguranca.
-- Validacao final local: backend `303 passed`, certificacao Enterprise `7 passed`, frontend lint/build OK, Playwright `16 passed`, load smoke `50 ok`, `runtime_cycles=0`.
+- Validacao completa historica em 2026-07-09: backend `303 passed`, certificacao Enterprise `7 passed`, frontend lint/build OK, Playwright `16 passed`, load smoke `50 ok`, `runtime_cycles=0`.
+- Validacao incremental em 2026-07-17: `python -m py_compile` nos arquivos alterados, `npm run build`, geracao de docs automaticas e E2E Playwright de login/pergunta/renderizacao por `http://127.0.0.1:3000`.
+
+## Correcoes Recentes
+
+- Perguntas criticas de faturamento, ticket medio, desconto, venda por vendedor e rankings possuem caminho deterministico quando ha periodo claro.
+- Continuidade de conversa usa `session_id`, historico recente e `parent_id`; perguntas curtas podem herdar o periodo anterior.
+- Rankings excluem cadastros internos/tecnicos quando a regra de negocio exige: vendedor `PADRAO` e cliente/loja `LAGES E LOPES LTDA`.
+- Textos vindos da API e da UI passam por reparo defensivo de encoding antes da renderizacao.
+- O frontend preserva o host loopback (`localhost` ou `127.0.0.1`) na API para evitar perda de cookie de sessao.
 
 ## Arquitetura Oficial
 
@@ -31,6 +40,7 @@ IA
 ## Documentacao Oficial
 
 - [Indice da documentacao](docs/README.md)
+- [Estado atual do sistema](docs/current-status.md)
 - [Arquitetura](docs/architecture.md)
 - [Modulos](docs/modules.md)
 - [APIs](docs/api-reference.md)

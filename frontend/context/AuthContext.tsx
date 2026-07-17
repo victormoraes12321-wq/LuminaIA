@@ -4,6 +4,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import type { ApiErrorResponse } from '@/types/lumina'
 import { COOKIE_SESSION_TOKEN } from '@/lib/authSession'
 import { getApiBase } from '@/lib/utils'
+import { repairTextEncoding } from '@/lib/textEncoding'
 
 export interface UserSession {
   id: string
@@ -110,11 +111,11 @@ async function clearAuthCookie(): Promise<void> {
 function buildAuthFetchErrorMessage(err: unknown): string {
   if (err instanceof TypeError && /fetch/i.test(err.message)) {
     return (
-      `Nao consegui conectar ao backend em ${getApiBase()}. ` +
+      `Não consegui conectar ao backend em ${getApiBase()}. ` +
       'Verifique se o LuminaAI foi iniciado pelo script start-luminaai.ps1.'
     )
   }
-  return err instanceof Error ? err.message : 'Erro ao realizar login.'
+  return err instanceof Error ? repairTextEncoding(err.message) : 'Erro ao realizar login.'
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -193,15 +194,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (!res.ok) {
         const errData: ApiErrorResponse = await res.json().catch(() => ({
           success: false,
-          error: { code: res.status, message: 'Falha na autenticacao' },
+          error: { code: res.status, message: 'Falha na autenticação' },
         }))
-        throw new Error(errData.error?.message ?? 'Credenciais invalidas.')
+        throw new Error(repairTextEncoding(errData.error?.message ?? 'Credenciais inválidas.'))
       }
 
       const data = await res.json() as LoginPayload
       const payload = decodeJwt(data.access_token)
       if (!payload) {
-        throw new Error('Token JWT invalido retornado pelo servidor.')
+        throw new Error('Token JWT inválido retornado pelo servidor.')
       }
 
       const newSession = sessionFromPayload(payload, email)
@@ -239,10 +240,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const errData = await res.json().catch(() => ({
           error: { message: 'Erro ao alterar a senha' },
         }))
-        throw new Error(errData.error?.message ?? 'Erro ao alterar a senha.')
+        throw new Error(repairTextEncoding(errData.error?.message ?? 'Erro ao alterar a senha.'))
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao alterar a senha.')
+      setError(err instanceof Error ? repairTextEncoding(err.message) : 'Erro ao alterar a senha.')
       throw err
     } finally {
       setLoading(false)

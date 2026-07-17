@@ -26,3 +26,5 @@ Centralizar significado de negocio, KPIs, formulas, governanca e validacao. A IA
 - Nao duplicar regra de negocio no frontend.
 - Nao permitir que a IA invente KPI fora do catalogo/regra disponivel.
 - Registrar mudancas em governanca quando endpoint oferecer suporte.
+- Documentar explicitamente exclusoes de negocio usadas em ranking, como vendedor tecnico `PADRAO` e loja interna `LAGES E LOPES LTDA`.
+- Quando a view nao tiver coluna explicita de desconto, manter a derivacao documentada no backend e validada por regressao.

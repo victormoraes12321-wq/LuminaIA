@@ -178,14 +178,16 @@ async def main():
                     fresh_orchestrator = NewQueryOrchestrator()
                     res = await fresh_orchestrator.run_pipeline(
                         pergunta=pergunta,
-                        tenant_id=tenant_id
+                        tenant_id=tenant_id,
+                        session_id=f"stress_session_{idx}_{modalidade}"
                     )
                 else:
                     # Fresh Orchestration do zero
                     fresh_orchestrator = NewQueryOrchestrator()
                     res = await fresh_orchestrator.run_pipeline(
                         pergunta=pergunta,
-                        tenant_id=tenant_id
+                        tenant_id=tenant_id,
+                        session_id=f"stress_session_{idx}_{modalidade}"
                     )
                 
                 # Coleta o trace debug JSON mais recente correspondente a essa pergunta
@@ -206,12 +208,12 @@ async def main():
                             pass
                 
                 # Validação comportamental do resultado
-                semantic_plan = debug_data.get("semantic_plan", {})
-                canonical_plan = debug_data.get("canonical_plan", {})
-                execution_plan = debug_data.get("execution_plan", {})
-                sql_data = debug_data.get("sql", {})
+                semantic_plan = debug_data.get("semantic_plan") or {} if isinstance(debug_data, dict) else {}
+                canonical_plan = debug_data.get("canonical_plan") or {} if isinstance(debug_data, dict) else {}
+                execution_plan = debug_data.get("execution_plan") or {} if isinstance(debug_data, dict) else {}
+                sql_data = debug_data.get("sql") or {} if isinstance(debug_data, dict) else {}
                 sql_exec = sql_data.get("raw_sql") if isinstance(sql_data, dict) else str(sql_data)
-                rows = debug_data.get("sample_rows", [])
+                rows = debug_data.get("sample_rows") or [] if isinstance(debug_data, dict) else []
                 rows_count = len(rows)
                 intent_detected = semantic_plan.get("intent")
                 vis_detected = canonical_plan.get("suggested_visualization")

@@ -97,7 +97,7 @@ async def test_explainability_engine_avoids_hallucination():
         entities=["Venda"], metrics=[], dimensions=[]
     )
     
-    explanation = await engine.generate_explanation(
+    explanation, _ = await engine.generate_explanation(
         query="Qual o faturamento?",
         plan=plan,
         dataset=[{"ptotal_": 5000}],

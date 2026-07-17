@@ -34,6 +34,8 @@ copy .env.example .env.local
 npm run dev
 ```
 
+Em ambiente local, use o mesmo host no navegador e na API. O frontend ajusta automaticamente `NEXT_PUBLIC_API_URL` quando o acesso e loopback, preservando `localhost` ou `127.0.0.1` para manter o cookie HttpOnly de sessao.
+
 ## Validacao Inicial
 
 ```powershell
@@ -44,3 +46,5 @@ cd ..\frontend
 npm run lint
 npm run build
 ```
+
+Para teste funcional rapido, abrir `/login`, autenticar, acessar `/dashboard` e perguntar `Faturamento e ticket medio em 06/2026`. A resposta deve renderizar sem mojibake e com labels humanizados.

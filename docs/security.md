@@ -5,6 +5,8 @@
 - JWT e gerado/validado em `backend/services/auth_service.py` com PyJWT.
 - Login/logout/sessao em `backend/routers/auth.py`.
 - Frontend usa `frontend/proxy.ts` para proteger rotas e redirecionar usuario conforme token/senha obrigatoria.
+- Em desenvolvimento local, a API deve manter o mesmo host loopback do navegador (`localhost` ou `127.0.0.1`) para o cookie HttpOnly ser enviado corretamente.
+- `Authorization: Bearer __lumina_cookie_session__` e tratado como sentinela para permitir que o backend leia o token real do cookie.
 
 ## Multi Tenant
 
@@ -28,6 +30,7 @@
 
 - `backend/services/context_guard.py` valida consultas e parametros contra termos proibidos/injecao/escopo.
 - IA recebe contexto estruturado, mas execucao passa por planner/validator/backend.
+- Perguntas criticas de vendas passam por caminho deterministico no backend quando possivel, reduzindo dependencia de texto generativo para calculos sensiveis.
 
 ## OWASP E Headers
 

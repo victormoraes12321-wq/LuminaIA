@@ -90,6 +90,8 @@ def _enrich_semantic_aliases(row: dict[str, Any]) -> dict[str, Any]:
         "LUCRO_BRUTO": ("LUCRO_BRUTO", "LUCRO", "VALOR_LUCRO"),
         "MARGEM_LUCRO": ("MARGEM_LUCRO", "MARGEM_MEDIA", "MARGEM", "MARGEM_BRUTA"),
         "MARGEM_MEDIA": ("MARGEM_MEDIA", "MARGEM_LUCRO", "MARGEM", "MARGEM_BRUTA"),
+        "DESCONTO_TOTAL": ("DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC"),
+        "DESCONTO_MEDIO": ("DESCONTO_MEDIO", "DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC"),
     }
     for alias, candidates in semantic_sources.items():
         value = _first_present(enriched, candidates)
@@ -109,6 +111,9 @@ _METRIC_COLUMN_ALIASES: dict[str, tuple[str, tuple[str, ...]]] = {
     "pedidos_qtd": ("COUNT_DISTINCT", ("PEDIDO_", "PEDIDO", "NOTA_", "NOTA", "NUMERO_NFE")),
     "clientes_distintos": ("COUNT_DISTINCT", ("CODCLIENTE_", "CODCLIENTE", "CODIGO_CLIENTE", "CLIENTE_ID", "CD_CLIENTE")),
     "ticket_medio": ("AVG", ("RECEITA_TOTAL", "VALOR_TOTAL", "PTOTAL_", "PTOTAL")),
+    "desconto_total": ("SUM", ("DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
+    "desconto": ("SUM", ("DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
+    "desconto_medio": ("AVG", ("DESCONTO_MEDIO", "DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
     "preco_unitario": ("AVG", ("PRECO_UNITARIO", "PRECO_MEDIO", "P_UNIT_", "P_UNIT")),
     "lucro_bruto": ("SUM", ("LUCRO_BRUTO", "LUCRO", "VALOR_LUCRO")),
     "margem_lucro": ("AVG", ("MARGEM_LUCRO", "MARGEM_MEDIA", "MARGEM", "MARGEM_BRUTA")),
@@ -157,6 +162,22 @@ def _metric_select_expression(metric_name: str, real_columns: list[str], table_p
         order_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["quantidade_pedidos"][1])
         if value_col and order_col:
             return f"(SUM({table_prefix}{value_col}) / NULLIF(COUNT(DISTINCT {table_prefix}{order_col}), 0)) AS TICKET_MEDIO", "TICKET_MEDIO"
+    if clean_metric in {"desconto_total", "desconto", "desconto_medio"}:
+        discount_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["desconto_total"][1])
+        if discount_col:
+            alias = "DESCONTO_MEDIO" if clean_metric == "desconto_medio" else "DESCONTO_TOTAL"
+            aggregate = "AVG" if clean_metric == "desconto_medio" else "SUM"
+            return f"{aggregate}({table_prefix}{discount_col}) AS {alias}", alias
+        value_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["receita_total"][1])
+        quantity_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["unidades_vendidas"][1])
+        unit_price_col = _resolve_existing_column(real_columns, ("P_UNIT_", "P_UNIT", "PRECO_UNITARIO", "PRECO_MEDIO"))
+        order_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["quantidade_pedidos"][1])
+        if value_col and quantity_col and unit_price_col:
+            discount_expr = f"GREATEST(ROUND((({table_prefix}{quantity_col} * {table_prefix}{unit_price_col}) - {table_prefix}{value_col})::numeric, 2), 0::numeric)"
+            if clean_metric == "desconto_medio":
+                divisor = f"COUNT(DISTINCT {table_prefix}{order_col})" if order_col else "NULLIF(COUNT(*), 0)"
+                return f"(SUM({discount_expr}) / NULLIF({divisor}, 0)) AS DESCONTO_MEDIO", "DESCONTO_MEDIO"
+            return f"SUM({discount_expr}) AS DESCONTO_TOTAL", "DESCONTO_TOTAL"
     if clean_metric == "lucro_bruto":
         profit_col = _resolve_existing_column(real_columns, _METRIC_COLUMN_ALIASES["lucro_bruto"][1])
         if profit_col:
@@ -215,6 +236,8 @@ def _order_alias_from_metrics(metric_aliases: list[str], requested_metric: str |
         "receita_total": ("receita_total", "faturamento", "faturamento_realizado", "valor_vendido"),
         "unidades_vendidas": ("unidades_vendidas", "quantidade_vendida", "quantidade"),
         "ticket_medio": ("ticket_medio",),
+        "desconto_total": ("desconto_total", "desconto"),
+        "desconto_medio": ("desconto_medio", "desconto"),
     }
     for candidate in synonyms.get(requested, (requested,)):
         alias = alias_by_key.get(_normalize_metric_key(candidate))

@@ -15,17 +15,6 @@ Observacoes:
 | `GET` | `/api/v1/analytical-packages/{package_id}` | Analytical Packages | Detalhe de um Analytical Package | JWT/Depends |
 | `POST` | `/api/v1/analytical-packages/{package_id}/deprecate` | Analytical Packages | Deprecar um Analytical Package manualmente | JWT/Depends |
 | `GET` | `/api/v1/analytical-packages/{package_id}/instances` | Analytical Packages | Historico de execucoes de um Package | JWT/Depends |
-| `POST` | `/api/v1/api/v1/query/` |  Query Engine | Consulta Inteligente via Motor de Intencao | JWT/Depends |
-| `POST` | `/api/v1/api/v1/query/cache/clear` |  Query Engine | Limpar Cache Plataforma | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/cache/stats` |  Query Engine | Obter Estatisticas Cache | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/favorites` |  Query Engine | Listar consultas favoritadas (Hidratacao) | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/history` |  Query Engine | Listar historico de pesquisas (Hidratacao) | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/intelligence` |  Query Engine | Obter Metricas Inteligencia | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/performance/center` |  Query Engine | Obter Relatorio Performance | JWT/Depends |
-| `POST` | `/api/v1/api/v1/query/performance/optimize` |  Query Engine | Otimizar Recursos Sistema | JWT/Depends |
-| `POST` | `/api/v1/api/v1/query/security/backup` |  Query Engine | Criar Backup Seguro | JWT/Depends |
-| `GET` | `/api/v1/api/v1/query/security/center` |  Query Engine | Obter Relatorio Seguranca | JWT/Depends |
-| `POST` | `/api/v1/api/v1/query/security/restore` |  Query Engine | Restaurar Backup Seguro | JWT/Depends |
 | `POST` | `/api/v1/auth/change-password` |  Autenticacao | Alteracao de Senha Obrigatoria | JWT/Depends |
 | `POST` | `/api/v1/auth/login` |  Autenticacao | Login de Usuario | Publica ou sessao |
 | `POST` | `/api/v1/auth/logout` |  Autenticacao | Encerrar sessao | JWT/Depends |
@@ -77,16 +66,27 @@ Observacoes:
 | `GET` | `/api/v1/query/cache/stats` |  Query Engine | Obter Estatisticas Cache | JWT/Depends |
 | `GET` | `/api/v1/query/favorites` |  Query Engine | Listar consultas favoritadas (Hidratacao) | JWT/Depends |
 | `GET` | `/api/v1/query/history` |  Query Engine | Listar historico de pesquisas (Hidratacao) | JWT/Depends |
+| `POST` | `/api/v1/query/inspector/replay` |  Query Engine | Run Inspector Replay | JWT/Depends |
+| `GET` | `/api/v1/query/inspector/trace/{trace_id}` |  Query Engine | Get Inspector Trace Detail | JWT/Depends |
+| `GET` | `/api/v1/query/inspector/traces` |  Query Engine | Get Inspector Traces | JWT/Depends |
 | `GET` | `/api/v1/query/intelligence` |  Query Engine | Obter Metricas Inteligencia | JWT/Depends |
 | `GET` | `/api/v1/query/performance/center` |  Query Engine | Obter Relatorio Performance | JWT/Depends |
 | `POST` | `/api/v1/query/performance/optimize` |  Query Engine | Otimizar Recursos Sistema | JWT/Depends |
 | `POST` | `/api/v1/query/security/backup` |  Query Engine | Criar Backup Seguro | JWT/Depends |
 | `GET` | `/api/v1/query/security/center` |  Query Engine | Obter Relatorio Seguranca | JWT/Depends |
 | `POST` | `/api/v1/query/security/restore` |  Query Engine | Restaurar Backup Seguro | JWT/Depends |
+| `GET` | `/api/v1/svr/` |  Semantic Version Registry | Get Version Center | JWT/Depends |
+| `POST` | `/api/v1/svr/concepts/deprecate` |  Semantic Version Registry | Deprecate Concept Version | JWT/Depends |
+| `POST` | `/api/v1/svr/concepts/register` |  Semantic Version Registry | Register Concept | JWT/Depends |
+| `GET` | `/api/v1/svr/concepts/{concept_id}/history` |  Semantic Version Registry | Get Concept History | JWT/Depends |
+| `POST` | `/api/v1/svr/migration/evaluate` |  Semantic Version Registry | Evaluate Migration | JWT/Depends |
+| `GET` | `/api/v1/tenant/ai-status` |  Configuracoes do Tenant | Status do AI Credential Manager (Admin-Only) | JWT/Depends |
+| `GET` | `/api/v1/tenant/aim-status` |  Configuracoes do Tenant | Status do AI Invocation Manager (Admin-Only) | JWT/Depends |
 | `GET` | `/api/v1/tenant/audit-logs` |  Configuracoes do Tenant | Obter logs de auditoria de consultas (Admin-Only) | JWT/Depends |
 | `GET` | `/api/v1/tenant/settings` |  Configuracoes do Tenant | Obter Configuracoes Atuais (Admin-Only) | JWT/Depends |
 | `PUT` | `/api/v1/tenant/settings` |  Configuracoes do Tenant | Atualizar Configuracoes do Tenant (Admin-Only) | JWT/Depends |
 | `POST` | `/api/v1/tenant/sync-now` |  Configuracoes do Tenant | Forcar Sincronizacao Imediata (Admin-Only) | JWT/Depends |
+| `GET` | `/api/v1/tenant/sync-progress` |  Configuracoes do Tenant | Consultar Progresso da Sincronizacao (Admin-Only) | JWT/Depends |
 | `POST` | `/api/v1/tenant/test-ai` |  Configuracoes do Tenant | Testar Conexao de IA (Admin-Only) | JWT/Depends |
 | `POST` | `/api/v1/tenant/test-oracle` |  Configuracoes do Tenant | Testar Conexao Oracle (Admin-Only) | JWT/Depends |
 | `POST` | `/api/v1/tenant/test-postgres-clone` |  Configuracoes do Tenant | Testar Conexao PostgreSQL do Clone (Admin-Only) | JWT/Depends |
@@ -157,127 +157,6 @@ Observacoes:
   - `package_id` em `path` (obrigatorio)
   - `limit` em `query` (opcional)
 - Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200, 422
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `POST /api/v1/api/v1/query/`
-
-- Nome: `processar_consulta_api_v1_api_v1_query__post`
-- Objetivo: Consulta Inteligente via Motor de Intencao
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: QueryRequest
-- Codigos HTTP documentados: 200, 422
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `POST /api/v1/api/v1/query/cache/clear`
-
-- Nome: `limpar_cache_plataforma_api_v1_api_v1_query_cache_clear_post`
-- Objetivo: Limpar Cache Plataforma
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/cache/stats`
-
-- Nome: `obter_estatisticas_cache_api_v1_api_v1_query_cache_stats_get`
-- Objetivo: Obter Estatisticas Cache
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/favorites`
-
-- Nome: `get_query_favorites_api_v1_api_v1_query_favorites_get`
-- Objetivo: Listar consultas favoritadas (Hidratacao)
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/history`
-
-- Nome: `get_query_history_api_v1_api_v1_query_history_get`
-- Objetivo: Listar historico de pesquisas (Hidratacao)
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/intelligence`
-
-- Nome: `obter_metricas_inteligencia_api_v1_api_v1_query_intelligence_get`
-- Objetivo: Obter Metricas Inteligencia
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/performance/center`
-
-- Nome: `obter_relatorio_performance_api_v1_api_v1_query_performance_center_get`
-- Objetivo: Obter Relatorio Performance
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `POST /api/v1/api/v1/query/performance/optimize`
-
-- Nome: `otimizar_recursos_sistema_api_v1_api_v1_query_performance_optimize_post`
-- Objetivo: Otimizar Recursos Sistema
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `POST /api/v1/api/v1/query/security/backup`
-
-- Nome: `criar_backup_seguro_api_v1_api_v1_query_security_backup_post`
-- Objetivo: Criar Backup Seguro
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `GET /api/v1/api/v1/query/security/center`
-
-- Nome: `obter_relatorio_seguranca_api_v1_api_v1_query_security_center_get`
-- Objetivo: Obter Relatorio Seguranca
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: sem corpo de requisicao.
-- Codigos HTTP documentados: 200
-- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
-- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
-
-### `POST /api/v1/api/v1/query/security/restore`
-
-- Nome: `restaurar_backup_seguro_api_v1_api_v1_query_security_restore_post`
-- Objetivo: Restaurar Backup Seguro
-- Tags:  Query Engine
-- Parametros: nenhum parametro explicito no schema.
-- Payload: object
 - Codigos HTTP documentados: 200, 422
 - Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
 - Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
@@ -882,6 +761,40 @@ Observacoes:
 - Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
 - Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
 
+### `POST /api/v1/query/inspector/replay`
+
+- Nome: `run_inspector_replay_api_v1_query_inspector_replay_post`
+- Objetivo: Run Inspector Replay
+- Tags:  Query Engine
+- Parametros: nenhum parametro explicito no schema.
+- Payload: object
+- Codigos HTTP documentados: 200, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/query/inspector/trace/{trace_id}`
+
+- Nome: `get_inspector_trace_detail_api_v1_query_inspector_trace__trace_id__get`
+- Objetivo: Get Inspector Trace Detail
+- Tags:  Query Engine
+- Parametros:
+  - `trace_id` em `path` (obrigatorio)
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/query/inspector/traces`
+
+- Nome: `get_inspector_traces_api_v1_query_inspector_traces_get`
+- Objetivo: Get Inspector Traces
+- Tags:  Query Engine
+- Parametros: nenhum parametro explicito no schema.
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
 ### `GET /api/v1/query/intelligence`
 
 - Nome: `obter_metricas_inteligencia_api_v1_query_intelligence_get`
@@ -948,6 +861,84 @@ Observacoes:
 - Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
 - Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
 
+### `GET /api/v1/svr/`
+
+- Nome: `get_version_center_api_v1_svr__get`
+- Objetivo: Get Version Center
+- Tags:  Semantic Version Registry
+- Parametros: nenhum parametro explicito no schema.
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `POST /api/v1/svr/concepts/deprecate`
+
+- Nome: `deprecate_concept_version_api_v1_svr_concepts_deprecate_post`
+- Objetivo: Deprecate Concept Version
+- Tags:  Semantic Version Registry
+- Parametros: nenhum parametro explicito no schema.
+- Payload: ConceptDeprecateRequest
+- Codigos HTTP documentados: 200, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `POST /api/v1/svr/concepts/register`
+
+- Nome: `register_concept_api_v1_svr_concepts_register_post`
+- Objetivo: Register Concept
+- Tags:  Semantic Version Registry
+- Parametros: nenhum parametro explicito no schema.
+- Payload: ConceptRegisterRequest
+- Codigos HTTP documentados: 201, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/svr/concepts/{concept_id}/history`
+
+- Nome: `get_concept_history_api_v1_svr_concepts__concept_id__history_get`
+- Objetivo: Get Concept History
+- Tags:  Semantic Version Registry
+- Parametros:
+  - `concept_id` em `path` (obrigatorio)
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `POST /api/v1/svr/migration/evaluate`
+
+- Nome: `evaluate_migration_api_v1_svr_migration_evaluate_post`
+- Objetivo: Evaluate Migration
+- Tags:  Semantic Version Registry
+- Parametros: nenhum parametro explicito no schema.
+- Payload: MigrationEvaluateRequest
+- Codigos HTTP documentados: 200, 422
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/tenant/ai-status`
+
+- Nome: `get_ai_credential_status_api_v1_tenant_ai_status_get`
+- Objetivo: Status do AI Credential Manager (Admin-Only)
+- Tags:  Configuracoes do Tenant
+- Parametros: nenhum parametro explicito no schema.
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/tenant/aim-status`
+
+- Nome: `get_ai_invocation_status_api_v1_tenant_aim_status_get`
+- Objetivo: Status do AI Invocation Manager (Admin-Only)
+- Tags:  Configuracoes do Tenant
+- Parametros: nenhum parametro explicito no schema.
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
 ### `GET /api/v1/tenant/audit-logs`
 
 - Nome: `get_tenant_audit_logs_api_v1_tenant_audit_logs_get`
@@ -985,6 +976,17 @@ Observacoes:
 
 - Nome: `trigger_tenant_sync_api_v1_tenant_sync_now_post`
 - Objetivo: Forcar Sincronizacao Imediata (Admin-Only)
+- Tags:  Configuracoes do Tenant
+- Parametros: nenhum parametro explicito no schema.
+- Payload: sem corpo de requisicao.
+- Codigos HTTP documentados: 200
+- Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
+- Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+### `GET /api/v1/tenant/sync-progress`
+
+- Nome: `get_tenant_sync_progress_api_v1_tenant_sync_progress_get`
+- Objetivo: Consultar Progresso da Sincronizacao (Admin-Only)
 - Tags:  Configuracoes do Tenant
 - Parametros: nenhum parametro explicito no schema.
 - Payload: sem corpo de requisicao.

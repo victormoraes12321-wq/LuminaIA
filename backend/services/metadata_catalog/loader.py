@@ -100,6 +100,11 @@ def load_corporate_catalog() -> CorporateCatalog:
             data_type=ColumnDataType.NUMERIC, business_entity="Venda", is_dimension=False, is_metric=True,
             filterable=True, groupable=False, sortable=True, chartable=True, supported_aggregations=[AggregationType.SUM, AggregationType.AVG, AggregationType.MIN, AggregationType.MAX]
         ),
+        "p_unit_": ColumnMetadata(
+            physical_name="p_unit_", friendly_name="Preco Unitario", description="Preco unitario praticado no item da venda",
+            data_type=ColumnDataType.NUMERIC, business_entity="Venda", is_dimension=False, is_metric=True,
+            filterable=True, groupable=False, sortable=True, chartable=True, supported_aggregations=[AggregationType.SUM, AggregationType.AVG, AggregationType.MIN, AggregationType.MAX]
+        ),
         "dtemissao_": ColumnMetadata(
             physical_name="dtemissao_", friendly_name="Data Emissão", description="Data de emissão da nota fiscal",
             data_type=ColumnDataType.TIMESTAMP, business_entity="Venda", is_dimension=True, is_metric=False,
@@ -328,9 +333,9 @@ def load_corporate_catalog() -> CorporateCatalog:
         "Venda": BusinessEntityMetadata(
             name="Venda",
             views=["VW_VENDAS_LM"],
-            columns=["VW_VENDAS_LM.nota_", "VW_VENDAS_LM.ptotal_", "VW_VENDAS_LM.qtde_", "VW_VENDAS_LM.dtemissao_"],
+            columns=["VW_VENDAS_LM.nota_", "VW_VENDAS_LM.pedido_", "VW_VENDAS_LM.ptotal_", "VW_VENDAS_LM.p_unit_", "VW_VENDAS_LM.qtde_", "VW_VENDAS_LM.dtemissao_"],
             relationships=["Cliente", "Produto", "Vendedor"],
-            metrics=["ptotal_", "qtde_"],
+            metrics=["ptotal_", "qtde_", "p_unit_"],
             dimensions=["dtemissao_", "nota_"]
         ),
         "Vendedor": BusinessEntityMetadata(
@@ -421,6 +426,33 @@ def load_corporate_catalog() -> CorporateCatalog:
             physical_column="ptotal_",
             physical_view="VW_VENDAS_LM",
             unit="BRL"
+        ),
+        "Desconto": MetricMetadata(
+            canonical_name="Desconto",
+            description="Valor total de desconto derivado da diferenca entre preco bruto (quantidade vezes preco unitario) e valor faturado",
+            metric_type="Currency",
+            supported_aggregations=[AggregationType.SUM],
+            physical_column="ptotal_",
+            physical_view="VW_VENDAS_LM",
+            unit="BRL"
+        ),
+        "Desconto MÃ©dio": MetricMetadata(
+            canonical_name="Desconto MÃ©dio",
+            description="Desconto medio por pedido derivado da diferenca entre preco bruto (quantidade vezes preco unitario) e valor faturado",
+            metric_type="Currency",
+            supported_aggregations=[AggregationType.AVG],
+            physical_column="ptotal_",
+            physical_view="VW_VENDAS_LM",
+            unit="BRL"
+        ),
+        "Desconto Medio": MetricMetadata(
+            canonical_name="Desconto Medio",
+            description="Desconto medio por pedido derivado da diferenca entre preco bruto (quantidade vezes preco unitario) e valor faturado",
+            metric_type="Currency",
+            supported_aggregations=[AggregationType.AVG],
+            physical_column="ptotal_",
+            physical_view="VW_VENDAS_LM",
+            unit="BRL"
         )
     }
 
@@ -461,9 +493,17 @@ def load_corporate_catalog() -> CorporateCatalog:
         AliasMetadata(alias="valor total", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="revenue", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="billing", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="desconto", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="descontos", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="total desconto", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="total de desconto", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="desconto total", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="nosso desconto", canonical_name="Desconto", category="Metric"),
+        AliasMetadata(alias="desconto medio", canonical_name="Desconto Medio", category="Metric"),
+        AliasMetadata(alias="desconto médio", canonical_name="Desconto Medio", category="Metric"),
         AliasMetadata(alias="venda", canonical_name="Venda", category="Entity"),
         AliasMetadata(alias="vendas", canonical_name="Venda", category="Entity"),
-        
+
         # Aliases de Cliente
         AliasMetadata(alias="comprador", canonical_name="Cliente", category="Entity"),
         AliasMetadata(alias="compradores", canonical_name="Cliente", category="Entity"),
@@ -486,7 +526,13 @@ def load_corporate_catalog() -> CorporateCatalog:
         AliasMetadata(alias="sku", canonical_name="Produto", category="Entity"),
         AliasMetadata(alias="skus", canonical_name="Produto", category="Entity"),
         AliasMetadata(alias="mercadoria", canonical_name="Produto", category="Entity"),
-        AliasMetadata(alias="mercadorias", canonical_name="Produto", category="Entity")
+        AliasMetadata(alias="mercadorias", canonical_name="Produto", category="Entity"),
+
+        # Aliases de Filial / Loja (mapeados para Cidade Cliente)
+        AliasMetadata(alias="filial", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="filiais", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="loja", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="lojas", canonical_name="Cidade", category="Dimension")
     ]
     aliases = {a.alias: a for a in aliases_list}
 

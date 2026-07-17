@@ -2,19 +2,19 @@
 
 /**
  * ============================================================
- * LUMINA AI â€” Dashboard Runtime Engine
+ * LUMINA AI - Dashboard Runtime Engine
  * ============================================================
  * THE central orchestrator for the entire dashboard rendering
  * pipeline.
  *
  * Responsibilities:
- * âœ… Accepts a DashboardRuntimePayload (from backend ADE/ECE)
- * âœ… Renders widgets on a responsive 12-column CSS Grid
- * âœ… Manages fullscreen expansion state
- * âœ… Shows loading skeleton / error states
- * âœ… Exposes Smart Refresh indicator (SSE)
- * âœ… Wraps in CrossFilterProvider for cross-component filtering
- * âœ… Emits performance metrics in development
+ * - Accepts a DashboardRuntimePayload (from backend ADE/ECE)
+ * - Renders widgets on a responsive 12-column CSS Grid
+ * - Manages fullscreen expansion state
+ * - Shows loading skeleton / error states
+ * - Exposes Smart Refresh indicator (SSE)
+ * - Wraps in CrossFilterProvider for cross-component filtering
+ * - Emits performance metrics in development
  *
  * Rule: NEVER calculates business logic.
  * Rule: NEVER queries the database directly.
@@ -77,8 +77,8 @@ function SSEIndicator({ connected }: { connected: boolean }) {
         borderColor: 'rgb(var(--border) / 0.55)',
         color: 'rgb(var(--text-muted))',
       }}
-      title={connected ? 'AtualizaÃ§Ã£o automÃ¡tica ativa' : 'AtualizaÃ§Ã£o automÃ¡tica desconectada'}
-      aria-label={connected ? 'ConexÃ£o ativa' : 'ConexÃ£o inativa'}
+      title={connected ? 'Atualização automática ativa' : 'Atualização automática desconectada'}
+      aria-label={connected ? 'Conexão ativa' : 'Conexão inativa'}
     >
       {connected
         ? <Wifi className="h-2.5 w-2.5" />
@@ -145,7 +145,7 @@ function DashboardHeader({
             title="Clique para ver a Linhagem de Dados e Status do Sistema"
           >
             <ShieldCheck className={cn("h-3.5 w-3.5 shrink-0", colorClass)} />
-            <span style={{ color: 'rgb(var(--text-primary))' }}>ConfianÃ§a: {payload.trust_center.confidence_score.score}%</span>
+            <span style={{ color: 'rgb(var(--text-primary))' }}>Confiança: {payload.trust_center.confidence_score.score}%</span>
             <span style={{ color: 'rgb(var(--text-muted))' }}>|</span>
             <span className="truncate hidden sm:inline" style={{ color: 'rgb(var(--text-secondary))' }}>{payload.trust_center.trust_badge.origem}</span>
           </button>

@@ -32,8 +32,8 @@ def test_resolve_aliases():
     assert canon_plan.status == ExecutionStatus.READY
     # Alias "compradores" resolvido para "Cliente"
     assert "Cliente" in canon_plan.entities
-    # Alias "faturamento" resolvido para "Venda.receita_total"
-    assert "Venda.receita_total" in canon_plan.metrics
+    # Alias "faturamento" resolvido para "Venda.Receita"
+    assert "Venda.Receita" in canon_plan.metrics
 
 def test_resolve_entities():
     canonicalizer = SemanticCanonicalizer()
@@ -74,9 +74,9 @@ def test_resolve_metrics():
     canon_plan = canonicalizer.canonicalize(sem_plan)
     
     assert canon_plan.status == ExecutionStatus.READY
-    assert "Venda.receita_total" in canon_plan.metrics
-    assert "Venda.quantidade" in canon_plan.metrics
-    assert "Produto.estoque" in canon_plan.metrics
+    assert "Venda.Receita" in canon_plan.metrics
+    assert "Venda.Quantidade" in canon_plan.metrics
+    assert "Produto.Estoque" in canon_plan.metrics
 
 def test_resolve_dimensions():
     canonicalizer = SemanticCanonicalizer()

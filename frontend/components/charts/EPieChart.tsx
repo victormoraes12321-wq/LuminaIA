@@ -1,8 +1,8 @@
 'use client'
 
 /**
- * EPieChart â€” GrÃ¡fico de Rosca (Donut) Interativo com Apache ECharts
- * Recursos: rotaÃ§Ã£o animada na entrada, legenda interativa clicÃ¡vel,
+ * EPieChart - Gráfico de Rosca (Donut) Interativo com Apache ECharts
+ * Recursos: rotação animada na entrada, legenda interativa clicável,
  * tooltip com percentual e valor absoluto, label no centro com total,
  * efeito de destaque ao hover, auto-reflow e auto-layout responsivo.
  */
@@ -37,7 +37,7 @@ export function EPieChart({ data, height = 320 }: EPieChartProps) {
   const { chartRef, containerRef, width } = useEChartsReflow()
   const theme = useEChartTheme()
 
-  // 1. Agrupamento em Top 6 + Outros para evitar dezenas de fatias e sobreposiÃ§Ã£o de legendas
+  // 1. Agrupamento em Top 6 + Outros para evitar dezenas de fatias e sobreposição de legendas
   const processedData = useMemo(() => {
     const rawLabels = Array.isArray(data?.labels) ? data.labels : []
     const rawValues = Array.isArray(data?.values) ? data.values : []
@@ -148,7 +148,7 @@ export function EPieChart({ data, height = 320 }: EPieChartProps) {
             <span style="color:${theme.textMuted};font-weight:600">${p.name}</span>
           </div>
           <div style="color:${theme.textPrimary};font-size:16px;font-weight:700">${value.toLocaleString('pt-BR')}</div>
-          <div style="color:${theme.textMuted};font-size:11px">ParticipaÃ§Ã£o: ${pct.toFixed(1)}%</div>`
+          <div style="color:${theme.textMuted};font-size:11px">Participação: ${pct.toFixed(1)}%</div>`
         },
       },
       legend: legendConfig,
@@ -180,7 +180,7 @@ export function EPieChart({ data, height = 320 }: EPieChartProps) {
       ],
       series: [
         {
-          name: 'ParticipaÃ§Ã£o',
+          name: 'Participação',
           type: 'pie',
           radius: isCompact ? ['40%', '65%'] : ['45%', '72%'],
           center: pieCenter,

@@ -20,11 +20,24 @@ npm run build
 npm run test:visual
 ```
 
+Para mudancas pequenas em orquestrador/frontend de chat, executar no minimo:
+
+```powershell
+python -m py_compile backend\services\new_query_orchestrator.py backend\services\metadata_catalog\resolver.py backend\services\data_transformer.py
+
+cd frontend
+npm run build
+```
+
+Depois validar manualmente ou via Playwright uma pergunta critica no dashboard.
+
 ## Atualizacoes
 
 - Atualizar dependencias em janela controlada.
 - Rodar `npm audit` e `pip check`.
 - Validar import cycles com `scripts/import_cycle_check.py`.
+- Regenerar documentacao automatica com `backend\venv\Scripts\python.exe scripts\generate_docs_reference.py`.
+- Atualizar `docs/current-status.md` e `CHANGELOG.md` quando houver correcao funcional.
 
 ## Monitoramento
 

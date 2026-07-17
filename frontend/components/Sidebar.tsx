@@ -60,9 +60,13 @@ function ChartTypeIcon({ type, size = 13 }: { type: ChartType | null; size?: num
 
 // ── Logo ───────────────────────────────────────────────────────
 
-function LuminaLogo() {
+function LuminaLogo({ onClick }: { onClick?: () => void }) {
   return (
-    <Link href="/dashboard" className="flex items-center gap-2.5 px-5 py-5 hover:opacity-90 transition-opacity cursor-pointer">
+    <Link
+      href="/dashboard"
+      onClick={onClick}
+      className="flex items-center gap-2.5 px-5 py-5 hover:opacity-90 transition-opacity cursor-pointer"
+    >
       {/* Icon mark */}
       <div className="relative w-8 h-8 flex-shrink-0">
         <div className="w-8 h-8 rounded-xl bg-lumina-gradient flex items-center justify-center shadow-lumina">
@@ -193,6 +197,8 @@ interface SidebarProps {
   favorites?: FavoriteItem[]
   onSelectHistory?: (pergunta: string) => void
   onSelectFavorite?: (titulo: string) => void
+  onLogoClick?: () => void
+  activePage?: string
 }
 
 export function Sidebar({
@@ -200,6 +206,7 @@ export function Sidebar({
   favorites = [],
   onSelectHistory = () => {},
   onSelectFavorite = () => {},
+  onLogoClick,
 }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { user, logout } = useAuth()
@@ -208,7 +215,12 @@ export function Sidebar({
   const renderSidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <LuminaLogo />
+      <LuminaLogo
+        onClick={() => {
+          onLogoClick?.()
+          setMobileOpen(false)
+        }}
+      />
 
       {/* Divisor superior */}
       <div className="mx-4 mb-4" style={{ height: 1, background: 'rgb(var(--border) / 0.5)' }} />

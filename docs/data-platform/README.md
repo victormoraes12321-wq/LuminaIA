@@ -33,3 +33,5 @@ Plano validado -> Business Layer -> Data Platform
 - Nao escrever SQL em blueprints.
 - Usar tenant em todas as operacoes persistidas.
 - Manter packages versionados e auditaveis.
+- Quando uma metrica critica precisar de regra deterministica, documentar no orquestrador/resolver e cobrir no checklist de perguntas prioritarias.
+- Humanizar labels tecnicos antes de entregar payload para o frontend quando o dado vier de transformacao generica.

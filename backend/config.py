@@ -130,6 +130,18 @@ class Settings(BaseSettings):
 
     # ── Validadores ───────────────────────────────────────────
 
+    @field_validator("DEBUG", mode="before")
+    @classmethod
+    def validate_debug_flag(cls, v: object) -> object:
+        """Aceita aliases comuns de ambiente sem quebrar o bootstrap."""
+        if isinstance(v, str):
+            normalized = v.lower().strip()
+            if normalized in {"release", "prod", "production"}:
+                return False
+            if normalized in {"debug", "dev", "development"}:
+                return True
+        return v
+
     @field_validator("ENVIRONMENT")
     @classmethod
     def validate_environment(cls, v: str) -> str:

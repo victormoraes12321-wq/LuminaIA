@@ -68,12 +68,28 @@ async def test_orchestrator_integration_simple_query(mock_analyze):
     mock_analyze.assert_called_once()
 
 @pytest.mark.asyncio
+@patch("services.metadata_catalog.executor.database_executor.execute_query")
 @patch("services.metadata_catalog.intent_engine.CorporateIntentEngine.analyze_query")
-async def test_orchestrator_continuity_semantic_patch(mock_analyze):
+async def test_orchestrator_continuity_semantic_patch(mock_analyze, mock_execute):
     """
     Valida a aplicação de patches semânticos (SemanticPatch) sobre o plano anterior
     em caso de continuidade analítica de conversa.
     """
+    mock_execute.return_value = {
+        "status": "READY",
+        "columns": ["valor_total"],
+        "types": {"valor_total": "float"},
+        "values": [{"valor_total": 100.0}],
+        "row_count": 1,
+        "execution_time_ms": 1.0,
+        "db_time_ms": 1.0,
+        "explain": "N/A",
+        "explain_analyze": "N/A",
+        "origin": "database",
+        "cache": False,
+        "trace_id": "dummy-trace-id",
+        "warnings": []
+    }
     orchestrator = NewQueryOrchestrator()
     session_id = str(uuid.uuid4())
     
@@ -102,9 +118,18 @@ async def test_orchestrator_continuity_semantic_patch(mock_analyze):
     mock_analyze.return_value = IntentEngineOutput(
         is_continuity=True,
         status=ExecutionStatus.READY,
+        plan=SemanticPlan(
+            status=ExecutionStatus.INVALID,
+            intent=IntentType.KPI,
+            goal="",
+            entities=[],
+            metrics=[],
+            dimensions=[],
+            filters=[]
+        ),
         patches=[
             SemanticPatch(operation="ADD_FILTER", field="Estado", value="MG"),
-            SemanticPatch(operation="CHANGE_LIMIT", value=5)
+            SemanticPatch(operation="CHANGE_LIMIT", value="5")
         ]
     )
     

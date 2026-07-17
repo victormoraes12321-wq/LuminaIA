@@ -28,6 +28,7 @@ import type {
   RuntimeWidget,
 } from '@/types/dashboard-runtime';
 import { getApiBase } from '@/lib/utils';
+import { repairObjectText, repairTextEncoding } from '@/lib/textEncoding';
 import { useSSEEvents } from './useSSEEvents';
 
 // ─────────────────────────────────────────────
@@ -192,11 +193,14 @@ export function useDashboardRuntime({
 
         if (!res.ok) {
           const err = await res.json().catch(() => ({ detail: 'Erro desconhecido' }));
-          dispatch({ type: 'SET_ERROR', error: err.detail ?? 'Erro ao carregar dashboard' });
+          dispatch({
+            type: 'SET_ERROR',
+            error: repairTextEncoding(err.detail ?? 'Erro ao carregar dashboard'),
+          });
           return;
         }
 
-        const payload: DashboardRuntimePayload = await res.json();
+        const payload = repairObjectText(await res.json()) as DashboardRuntimePayload;
         dispatch({ type: 'SET_PAYLOAD', payload });
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
@@ -218,7 +222,7 @@ export function useDashboardRuntime({
 
   const handleSSERefresh = useCallback((event: SSERefreshEvent) => {
     if (event.event_type === 'data_refresh' && event.widgets) {
-      dispatch({ type: 'SMART_REFRESH', widgets: event.widgets });
+      dispatch({ type: 'SMART_REFRESH', widgets: repairObjectText(event.widgets) });
     } else if (event.event_type === 'layout_refresh') {
       // Full reload needed for layout changes
       if (currentDashboardIdRef.current) {

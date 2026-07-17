@@ -1,6 +1,7 @@
 ﻿# Auditoria Arquitetural Enterprise - LuminaAI
 
 Data: 2026-07-09
+Atualizacao incremental: 2026-07-17. Ver tambem [Estado atual do sistema](current-status.md).
 Escopo: Backend, Frontend, IA, Business Knowledge Engine, Data Platform, Blueprint Repository, Analytical Packages, Dashboard Runtime, Dashboard Studio, Cache, Seguranca, Infra e testes automatizados.
 
 ## Sumario Executivo
@@ -85,6 +86,10 @@ Dashboard Studio: templates, instances, versionamento, rollback, duplicacao, fav
 | Alta | Ciclos de importacao runtime zerados | Reduz acoplamento fragil e melhora previsibilidade de inicializacao |
 | Media | `node_modules` limpo apos instalacao controlada do plugin ESLint | Remove pacotes extraneous e melhora determinismo local |
 | Media | Script de load smoke alinhado ao endpoint `/health` e contador concorrente corrigido | Evita falsos negativos e relatorios de carga com quantidade incorreta de requests |
+| Alta | Caminho deterministico para perguntas criticas de vendas, desconto e ranking | Reduz risco de respostas incorretas em indicadores operacionais |
+| Alta | Continuidade do chat com `session_id`, historico e `parent_id` | Corrige mudanca/perda de contexto em perguntas subsequentes |
+| Alta | API local preserva host `localhost`/`127.0.0.1` | Corrige perda de cookie de sessao em desenvolvimento |
+| Media | Reparo defensivo de encoding e labels humanizados | Remove mojibake visivel e melhora confiabilidade da apresentacao |
 
 ## Arquivos Alterados
 

@@ -1,5 +1,7 @@
 # Walkthrough — Data Platform, Analytics Engine & Business Knowledge Engine (LuminaAI)
 
+> Atualizacao 2026-07-17: este walkthrough descreve a evolucao arquitetural da Data Platform, Analytics Engine, BKE e CIE. Para status operacional, validacoes recentes, perguntas criticas e correcoes de continuidade/encoding, consulte [docs/current-status.md](docs/current-status.md). Numeros historicos de testes abaixo nao substituem a certificacao oficial de 2026-07-09 nem a validacao incremental de 2026-07-17.
+
 ## 1. Módulos Implementados
 
 ### A. Sync Engine (Motor de Sincronização)
@@ -93,7 +95,7 @@ O Corporate Intelligence Engine (CIE) reestrutura completamente a camada de Inte
 
 ## 4. Cobertura de Testes Automatizados
 
-A suíte de testes do LuminaAI conta com **206 testes ativos**, todos executando com sucesso (100% verde):
+A cobertura abaixo registra uma fase historica de expansao do sistema. O baseline oficial posterior documentado em `docs/production_test_certification_report.md` e de `303 passed` no backend completo, certificacao Enterprise `7 passed`, Playwright `16 passed` e load smoke `50 ok`. Em 2026-07-17 foram executadas validacoes incrementais focadas nas correcoes recentes.
 
 1. **Testes do Corporate Intelligence Engine (`tests/test_corporate_intelligence_engine.py`)**:
    - 9 testes unitários e de integração detalhados validando cada um dos 12 submotores do CIE e a orquestração da fachada.
@@ -103,7 +105,16 @@ A suíte de testes do LuminaAI conta com **206 testes ativos**, todos executando
    - 47 testes validando hashes de compatibilidade sem período, deprecamento automático por score, cache L1 tenant-isolated e versionamento.
 4. **Testes do Analytics Engine Suite (`tests/test_analytics_engine_suite.py`)**:
    - 20 testes unitários e de integração validando contas matemáticas, ABC, regressão slope linear e payloads JSON.
-5. **Testes do Sync Scheduler & Sync Engine**:
-   - 15 testes verificando locks globais, janelas locais de fuso horário, staging atômico e switches de rename.
-6. **Suíte Geral e Regressões**:
-   - Total de **206 Passed / 206 ✅** em execuções de testes do backend.
+5. **Testes de Inteligência Semântica baseados em Conhecimento (`tests/test_knowledge_training.py`)**:
+   - 5 testes automatizados parametrizados que validam a inteligência semântica do sistema diretamente no `CSIE`, lendo as perguntas e respostas esperadas a partir de [knowledge_training.json](file:///c:/Users/wccto11ti1/Desktop/Sistema%20IA%20Empresa/backend/tests/knowledge_training.json). Isso move o paradigma de testar queries SQL físicas (frágeis a mudanças) para testar a inteligência de negócios do sistema.
+6. **Suite Geral e Regressões**:
+   - Usar `docs/current-status.md` e `docs/production_test_certification_report.md` como fonte atual de evidencias executadas.
+
+---
+
+## 5. Próximos Passos & Engenharia de Conhecimento
+
+Para atingir o objetivo de **99% de acerto nas perguntas reais**, o pipeline de evolução do LuminaAI focará na Engenharia de Conhecimento através dos seguintes pilares estratégicos:
+* **Cobertura Semântica do Catálogo**: Monitoramento e alerta ativo de buracos em entidades, métricas, dimensões, filtros e aliases diretamente no `Metadata Resolver`.
+* **Mapeamento Automático de Perguntas Não Respondidas**: Criação de rotinas de auditoria no `Orchestrator` para catalogar falhas estruturais (como termos desconhecidos de gírias do negócio: ex. *"venda bruta"* ou *"valor vendido"*) na tabela de aprendizado semântico para aprimoramento incremental contínuo.
+* **Sinalização de Métricas Órfãs ou Sem Relacionamento**: Alerta preventivo caso entidades ou métricas cadastradas não possuam caminhos de junção (Joins) válidos no catálogo de metadados.

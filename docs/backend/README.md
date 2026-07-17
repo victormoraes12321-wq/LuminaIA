@@ -32,6 +32,19 @@
 
 Services centralizam regra de aplicacao. Routers devem ser finos e delegar execucao.
 
+### Consulta Inteligente
+
+- `new_query_orchestrator.py`: orquestra o novo pipeline e possui caminho deterministico para perguntas criticas de vendas.
+- `metadata_catalog/resolver.py`: resolve metricas, dimensoes, joins e expressoes canonicas.
+- `data_transformer.py`: normaliza linhas, formata moeda/percentuais e humaniza labels para exibicao.
+
+Regras de negocio recentes:
+
+- `PADRAO` e ignorado em ranking de vendedores.
+- `LAGES E LOPES LTDA` e ignorado em ranking/top cliente externo.
+- Desconto e derivado por item quando a view nao fornece coluna explicita.
+- Periodo pode ser herdado do historico da conversa quando a pergunta seguinte nao informa nova data.
+
 ## Middlewares E Erros
 
 - CORS configurado por `settings.CORS_ORIGINS`.
