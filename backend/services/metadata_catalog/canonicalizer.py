@@ -140,21 +140,22 @@ class SemanticCanonicalizer:
                 logger.warning(f"[Canonicalizer] Falha: Entidade '{ent}' não suportada. Tempo: {elapsed:.2f}ms")
                 return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
             
+            canonical_name = canonical_ent_meta.name
             trace_list.append({
                 "semantic_term": ent,
                 "matched_alias": resolved_alias.alias if resolved_alias else None,
-                "canonical_name": resolved_name,
+                "canonical_name": canonical_name,
                 "type": "Entity",
                 "source": "Corporate Knowledge Catalog",
                 "confidence": "EXACT_ALIAS" if resolved_alias else "CATALOG_DIRECT"
             })
             
             if resolved_alias:
-                aliases_resolved.append(f"{ent} -> {resolved_name}")
-            concepts_found.append(f"Entity.{resolved_name}")
+                aliases_resolved.append(f"{ent} -> {canonical_name}")
+            concepts_found.append(f"Entity.{canonical_name}")
             
-            if resolved_name not in canonical_entities:
-                canonical_entities.append(resolved_name)
+            if canonical_name not in canonical_entities:
+                canonical_entities.append(canonical_name)
 
         # ── Validação D: Resolução de Métricas ──
         canonical_metrics = []
@@ -167,7 +168,14 @@ class SemanticCanonicalizer:
             metric_mapping = {
                 "Receita": "Venda.Receita",
                 "Faturamento": "Venda.Receita",
+                "faturamento_total": "Venda.Receita",
                 "receita_total": "Venda.Receita",
+                "Faturamento Bruto": "Venda.Receita",
+                "faturamento_bruto": "Venda.Receita",
+                "faturamento bruto": "Venda.Receita",
+                "Faturamento Líquido": "Venda.Receita",
+                "faturamento_liquido": "Venda.Receita",
+                "faturamento liquido": "Venda.Receita",
                 "Quantidade": "Venda.Quantidade",
                 "quantidade": "Venda.Quantidade",
                 "Estoque": "Produto.Estoque",
@@ -176,7 +184,10 @@ class SemanticCanonicalizer:
                 "valor_parcela": "Financeiro.Valor Parcela",
                 "Ticket Médio": "Venda.Ticket Médio",
                 "Ticket Medio": "Venda.Ticket Médio",
-                "ticket_medio": "Venda.Ticket Médio"
+                "ticket_medio": "Venda.Ticket Médio",
+                "Preço Médio": "Venda.p_unit_",
+                "preco_medio": "Venda.p_unit_",
+                "Preco Medio": "Venda.p_unit_",
             }
             
             metric_mapping.update({
@@ -186,7 +197,20 @@ class SemanticCanonicalizer:
                 "desconto_medio": "Venda.Desconto Medio",
             })
 
-            if resolved_name in metric_mapping:
+            if "." in resolved_name or resolved_name in metric_mapping.values():
+                canonical_metric = resolved_name
+                concepts_found.append(f"Metric.{canonical_metric}")
+                trace_list.append({
+                    "semantic_term": metric,
+                    "matched_alias": resolved_alias.alias if resolved_alias else None,
+                    "canonical_name": canonical_metric,
+                    "type": "Metric",
+                    "source": "Canonical Metric Passthrough",
+                    "confidence": "DIRECT_QUALIFIED"
+                })
+                if canonical_metric not in canonical_metrics:
+                    canonical_metrics.append(canonical_metric)
+            elif resolved_name in metric_mapping:
                 canonical_metric = metric_mapping[resolved_name]
                 concepts_found.append(f"Metric.{canonical_metric}")
                 trace_list.append({

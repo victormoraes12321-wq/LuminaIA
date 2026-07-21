@@ -17,7 +17,7 @@ import json
 import logging
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Query
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -653,11 +653,12 @@ async def trigger_tenant_sync(
     background_tasks: BackgroundTasks,
     current_user: Annotated[User, Depends(check_admin_role)],
     db: Annotated[AsyncSession, Depends(get_db)],
+    force_full: bool = Query(False, description="Força carga completa (100% dos dados) ignorando filtro incremental"),
 ) -> dict[str, Any]:
     """
     Executa a rotina de sincronização imediatamente em segundo plano.
     """
-    logger.info("Sincronização manual solicitada pelo Admin: %s", current_user.email)
+    logger.info("Sincronização manual solicitada pelo Admin: %s (force_full=%s)", current_user.email, force_full)
     
     from models.tenant import Tenant
     from sqlalchemy import select
@@ -712,7 +713,7 @@ async def trigger_tenant_sync(
         from services.sync_service import sync_tenant_database
         try:
             async with get_db_context() as session:
-                await sync_tenant_database(current_user.tenant_id, session)
+                await sync_tenant_database(current_user.tenant_id, session, force_full=force_full)
         except Exception as exc:
             logger.error("Erro na sincronização manual em background: %s", exc)
 

@@ -1,47 +1,27 @@
-INFO:     Started server process [18956]
+INFO:     Started server process [7636]
 INFO:     Waiting for application startup.
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | ============================================================
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | \U0001f31f LuminaAI v1.0.0 — Iniciando
-2026-07-18 10:24:14 | INFO     | luminaai.main                  |    Ambiente  : DEVELOPMENT
-2026-07-18 10:24:14 | INFO     | luminaai.main                  |    Debug     : False
-2026-07-18 10:24:14 | INFO     | luminaai.main                  |    Modelo IA : gpt-4o-mini
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | ============================================================
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | \u2705 PostgreSQL conectado e tabelas sincronizadas com sucesso
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | [AICM] Startup validation status: READY
-2026-07-18 10:24:14 | INFO     | luminaai.scheduler             | \u23f0 Agendador iniciado com sucesso.
-2026-07-18 10:24:14 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronizando com SemanticCatalog e BKE... (tenant=a0eebc99)
-2026-07-18 10:24:14 | INFO     | luminaai.scheduler             | \u23f0 Agendador de sincronização iniciado.
-2026-07-18 10:24:14 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronização BKE/SemanticCatalog concluída: 5 conceitos processados.
-2026-07-18 10:24:14 | INFO     | luminaai.main                  | \u2705 SemanticCatalog sincronizado: 5 conceitos carregados
-2026-07-18 10:24:15 | INFO     | luminaai.services.metadata_catalog.loader | Iniciando carregamento do Corporate Knowledge Catalog (CKC)...
-2026-07-18 10:24:15 | INFO     | luminaai.services.metadata_catalog.catalog | Instância global do Corporate Knowledge Catalog atualizada com sucesso.
-2026-07-18 10:24:15 | INFO     | luminaai.services.metadata_catalog.loader | Corporate Knowledge Catalog (CKC) carregado e inicializado com sucesso!
-2026-07-18 10:24:15 | INFO     | luminaai.main                  | \u2705 Corporate Knowledge Catalog (CKC) carregado com sucesso no startup
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | ============================================================
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | \U0001f31f LuminaAI v1.0.0 — Iniciando
+2026-07-21 13:15:12 | INFO     | luminaai.main                  |    Ambiente  : DEVELOPMENT
+2026-07-21 13:15:12 | INFO     | luminaai.main                  |    Debug     : False
+2026-07-21 13:15:12 | INFO     | luminaai.main                  |    Modelo IA : gpt-4o-mini
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | ============================================================
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | \u2705 PostgreSQL conectado e tabelas sincronizadas com sucesso
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | [AICM] Startup validation status: READY
+2026-07-21 13:15:12 | INFO     | luminaai.scheduler             | \u23f0 Agendador iniciado com sucesso.
+2026-07-21 13:15:12 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronizando com SemanticCatalog e BKE... (tenant=a0eebc99)
+2026-07-21 13:15:12 | INFO     | luminaai.scheduler             | \u23f0 Agendador de sincronização iniciado.
+2026-07-21 13:15:12 | INFO     | luminaai.services.semantic_layer | [SemanticLayer] Sincronização BKE/SemanticCatalog concluída: 5 conceitos processados.
+2026-07-21 13:15:12 | INFO     | luminaai.main                  | \u2705 SemanticCatalog sincronizado: 5 conceitos carregados
+2026-07-21 13:15:13 | INFO     | luminaai.services.metadata_catalog.loader | Iniciando carregamento do Corporate Knowledge Catalog (CKC)...
+2026-07-21 13:15:13 | INFO     | luminaai.services.metadata_catalog.catalog | Instância global do Corporate Knowledge Catalog atualizada com sucesso.
+2026-07-21 13:15:13 | INFO     | luminaai.services.metadata_catalog.loader | Corporate Knowledge Catalog (CKC) carregado e inicializado com sucesso!
+2026-07-21 13:15:13 | INFO     | luminaai.main                  | \u2705 Corporate Knowledge Catalog (CKC) carregado com sucesso no startup
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2026-07-18 10:24:18 | INFO     | luminaai.main                  | GET /health \u2192 200 | 2.37ms
-2026-07-18 10:24:30 | INFO     | luminaai.main                  | GET /health \u2192 200 | 1.90ms
-2026-07-18 10:25:06 | INFO     | luminaai.main                  | GET /api/v1/auth/session \u2192 200 | 213.23ms
-2026-07-18 10:25:07 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 0.63ms
-2026-07-18 10:25:07 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 3.09ms
-2026-07-18 10:25:07 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 430.86ms
-2026-07-18 10:25:08 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 910.10ms
-2026-07-18 10:25:22 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 2.46ms
-2026-07-18 10:25:22 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 13.64ms
-2026-07-18 10:25:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 128.37ms
-2026-07-18 10:25:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 17.46ms
-2026-07-18 10:25:31 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 32.14ms
-2026-07-18 10:25:31 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 30.24ms
-2026-07-18 10:25:31 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 47.06ms
-2026-07-18 10:25:31 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 41.52ms
-2026-07-18 10:25:53 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ \u2192 200 | 0.55ms
-2026-07-18 10:25:53 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Ranking de vendas por vendedor no mês de Junho de 2026'
-2026-07-18 10:25:53 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 10:25:53 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 10:25:56 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_14b5493a' adicionado à árvore conversacional.
-2026-07-18 10:25:56 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 3205.16ms
-2026-07-18 10:31:41 | INFO     | luminaai.main                  | POST /api/v1/auth/logout \u2192 200 | 4.98ms
-2026-07-18 10:31:42 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
+2026-07-21 13:15:17 | INFO     | luminaai.main                  | GET /health \u2192 200 | 1.39ms
+2026-07-21 13:15:23 | INFO     | luminaai.main                  | GET /health \u2192 200 | 0.73ms
+2026-07-21 13:15:34 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
 Traceback (most recent call last):
   File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
     yield session
@@ -54,161 +34,485 @@ Traceback (most recent call last):
   File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\dependencies.py", line 55, in get_current_user
     raise credentials_exception
 fastapi.exceptions.HTTPException: 401: Credenciais inválidas ou token expirado.
-2026-07-18 10:31:42 | WARNING  | luminaai.main                  | HTTP 401 em GET /api/v1/auth/session: Credenciais inválidas ou token expirado.
-2026-07-18 10:31:42 | WARNING  | luminaai.main                  | GET /api/v1/auth/session \u2192 401 | 64.89ms
-2026-07-18 10:31:42 | INFO     | luminaai.main                  | POST /api/v1/auth/logout \u2192 200 | 1.44ms
-2026-07-18 10:33:15 | INFO     | luminaai.main                  | OPTIONS /api/v1/auth/login \u2192 200 | 0.66ms
-2026-07-18 10:33:16 | INFO     | luminaai.routers.auth          | Usuário autenticado com sucesso: email=ti@casadocampo.vet.br | tenant=a0eebc99 | role=ADMIN
-2026-07-18 10:33:16 | INFO     | luminaai.main                  | POST /api/v1/auth/login \u2192 200 | 581.35ms
-2026-07-18 10:33:17 | INFO     | luminaai.main                  | GET /api/v1/auth/session \u2192 200 | 13.61ms
-2026-07-18 10:33:17 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 28.31ms
-2026-07-18 10:33:17 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 30.75ms
-2026-07-18 10:33:32 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='faturamento toal mes 06/2026'
-2026-07-18 10:33:32 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 10:33:32 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 10:33:33 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_635586b0' adicionado à árvore conversacional.
-2026-07-18 10:33:33 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1289.44ms
-2026-07-18 10:38:46 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ \u2192 200 | 0.81ms
-2026-07-18 10:38:46 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='ranking por vendedor no mês de junho de 2026, quero em forma...'
-2026-07-18 10:38:46 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 10:38:46 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 10:38:48 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_34bf7ab7' adicionado à árvore conversacional.
-2026-07-18 10:38:48 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1893.46ms
-2026-07-18 10:39:03 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 1.20ms
-2026-07-18 10:39:03 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 7.30ms
-2026-07-18 10:39:03 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
-2026-07-18 10:39:03 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 32.97ms
-2026-07-18 10:39:03 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
-2026-07-18 10:39:03 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 14.83ms
-2026-07-18 10:39:40 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/c43a00c7-0854-434b-92c5-5c04e6f516de \u2192 200 | 1.17ms
-2026-07-18 10:39:40 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Snapshot v3 criado para estrutura: VW_VENDAS_LM
-2026-07-18 10:39:40 | INFO     | luminaai.routers.catalog       | View do catálogo atualizada: view=VW_VENDAS_LM | tenant=a0eebc99 | ativo=True
-2026-07-18 10:39:40 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=VW_VENDAS_LM
-2026-07-18 10:39:40 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=VW_VENDAS_LM
-2026-07-18 10:39:40 | INFO     | luminaai.data_platform.lineage_service | [LineageService] Registrando lineage | tenant=a0eebc99 | estrutura=VW_VENDAS_LM | nós=3
-2026-07-18 10:39:40 | INFO     | luminaai.data_platform.dependency_graph | [DependencyGraph] Registrando dependências | tenant=a0eebc99 | estrutura=VW_VENDAS_LM | upstream=['VENDAS_LM']
-2026-07-18 10:39:41 | INFO     | luminaai.main                  | PUT /api/v1/catalog/c43a00c7-0854-434b-92c5-5c04e6f516de \u2192 200 | 259.32ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 0.82ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 1.65ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 0.74ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 11.62ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 44.46ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 54.25ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 31.96ms
-2026-07-18 10:39:43 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 30.36ms
-2026-07-18 10:40:03 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='ranking de vendas por vendedor no mes de junho de 2026'
-2026-07-18 10:40:03 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 10:40:03 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 10:40:04 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_20aaedea' adicionado à árvore conversacional.
-2026-07-18 10:40:05 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1741.52ms
-2026-07-18 10:51:44 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 2.24ms
-2026-07-18 10:51:44 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 0.98ms
-2026-07-18 10:51:44 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
-2026-07-18 10:51:44 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 9.90ms
-2026-07-18 10:51:44 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
-2026-07-18 10:51:44 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 10.58ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 2.12ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 1.91ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 4.56ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 4.42ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 29.90ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 50.17ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 44.09ms
-2026-07-18 10:52:32 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 29.78ms
-2026-07-18 11:01:16 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 2.59ms
-2026-07-18 11:01:16 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.69ms
-2026-07-18 11:01:16 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 20.53ms
-2026-07-18 11:01:16 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 7.01ms
-2026-07-18 11:01:23 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-ai \u2192 200 | 1.67ms
-2026-07-18 11:01:23 | INFO     | luminaai.routers.tenant        | Executando teste de conexao IA solicitado pelo Admin: ti@casadocampo.vet.br
-2026-07-18 11:01:25 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-ai \u2192 200 | 2406.79ms
-2026-07-18 11:02:06 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 33.85ms
-2026-07-18 11:02:06 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 33.77ms
-2026-07-18 11:02:06 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 39.22ms
-2026-07-18 11:02:06 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 38.04ms
-2026-07-18 11:02:56 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ \u2192 200 | 0.94ms
-2026-07-18 11:02:56 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='faturamento do mes de julho'
-2026-07-18 11:02:56 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:02:56 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:02:57 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_d4854a96' adicionado à árvore conversacional.
-2026-07-18 11:02:57 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1030.44ms
-2026-07-18 11:03:58 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='faturamento bruto do mês 06/2026'
-2026-07-18 11:03:58 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:03:58 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:03:59 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_8998b6fb' adicionado à árvore conversacional.
-2026-07-18 11:03:59 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 997.38ms
-2026-07-18 11:04:17 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='faturamento liquido do mês 06/2026'
-2026-07-18 11:04:17 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:04:17 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:04:18 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_b6fc6d62' adicionado à árvore conversacional.
-2026-07-18 11:04:18 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1073.67ms
-2026-07-18 11:09:36 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='ticket medio mes de junho 2026'
-2026-07-18 11:09:36 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:09:36 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:09:37 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_1efe8255' adicionado à árvore conversacional.
-2026-07-18 11:09:37 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1038.81ms
-2026-07-18 11:10:41 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Valor de venda Rb no mes de julho de 2026'
-2026-07-18 11:10:41 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:10:41 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:10:41 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Analisando query: 'Valor de venda Rb no mes de julho de 2026' para tenant: a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Query processada. Status: MISSING_INFORMATION. Continuidade: False
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Iniciando canonicalização do plano. Trace ID: bf9ccb69-ad05-475f-9fad-58442892746b
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Sucesso! Status: READY. Tempo: 1.15ms. Aliases resolvidos: 2. Conceitos encontrados: 5.
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Iniciando resolução física. Trace ID: bf9ccb69-ad05-475f-9fad-58442892746b
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Venda' resolvida para a view 'VW_VENDAS_LM' (Score: 100.0%)
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.resolver | [Resolver] Poupando dimensão de data Venda.dtemissao_ no agrupamento de RANKING/AGGREGATION/KPI.
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Sucesso! Resolvido em 3.07ms. Views: 1, JOINs: 0, Caminhos avaliados: 0.
-2026-07-18 11:10:46 | INFO     | luminaai.services.metadata_catalog.executor | [DatabaseExecutor] Iniciando execução física no banco. Trace ID: bf9ccb69-ad05-475f-9fad-58442892746b
-2026-07-18 11:10:49 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_b6e8306b' adicionado à árvore conversacional.
-2026-07-18 11:10:49 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 8143.90ms
-2026-07-18 11:12:08 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='faturamento mes de junho de 2026'
-2026-07-18 11:12:08 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
-2026-07-18 11:12:08 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
-2026-07-18 11:12:09 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_9a25b324' adicionado à árvore conversacional.
-2026-07-18 11:12:09 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1005.27ms
-2026-07-18 11:13:04 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.53ms
-2026-07-18 11:13:04 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.88ms
-2026-07-18 11:13:04 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 10.17ms
-2026-07-18 11:13:04 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 10.27ms
-2026-07-18 11:13:17 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-oracle \u2192 200 | 0.55ms
-2026-07-18 11:13:17 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Oracle solicitado pelo Admin: ti@casadocampo.vet.br
-2026-07-18 11:13:22 | WARNING  | luminaai.routers.tenant        | Teste Oracle falhou para o admin ti@casadocampo.vet.br | code=ORACLE_TCP_TIMEOUT | detail=TCP timeout while connecting to Oracle listener.
-2026-07-18 11:13:22 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
+2026-07-21 13:15:34 | WARNING  | luminaai.main                  | HTTP 401 em GET /api/v1/auth/session: Credenciais inválidas ou token expirado.
+2026-07-21 13:15:34 | WARNING  | luminaai.main                  | GET /api/v1/auth/session \u2192 401 | 29.15ms
+2026-07-21 13:15:34 | INFO     | luminaai.main                  | POST /api/v1/auth/logout \u2192 200 | 1.77ms
+2026-07-21 13:15:37 | INFO     | luminaai.main                  | OPTIONS /api/v1/auth/login \u2192 200 | 0.84ms
+2026-07-21 13:15:37 | INFO     | luminaai.routers.auth          | Usuário autenticado com sucesso: email=ti@casadocampo.vet.br | tenant=a0eebc99 | role=ADMIN
+2026-07-21 13:15:37 | INFO     | luminaai.main                  | POST /api/v1/auth/login \u2192 200 | 349.57ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/auth/session \u2192 200 | 57.55ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 0.75ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 5.23ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-preferences/default \u2192 200 | 11.97ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/history \u2192 200 | 22.25ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/dashboard-preferences/default \u2192 200 | 22.58ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/favorites \u2192 200 | 21.34ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 141.09ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 189.06ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 23.40ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 98.92ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/dashboard-preferences/default \u2192 200 | 323.87ms
+2026-07-21 13:15:47 | INFO     | luminaai.main                  | GET /api/v1/dashboard-preferences/default \u2192 200 | 15.79ms
+2026-07-21 13:15:53 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.73ms
+2026-07-21 13:15:53 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 11.33ms
+2026-07-21 13:15:53 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 87.52ms
+2026-07-21 13:15:53 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 37.48ms
+2026-07-21 13:15:59 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-ai \u2192 200 | 0.48ms
+2026-07-21 13:15:59 | INFO     | luminaai.routers.tenant        | Executando teste de conexao IA solicitado pelo Admin: ti@casadocampo.vet.br
+2026-07-21 13:16:01 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-ai \u2192 200 | 1706.55ms
+2026-07-21 13:16:33 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-oracle \u2192 200 | 0.55ms
+2026-07-21 13:16:33 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Oracle solicitado pelo Admin: ti@casadocampo.vet.br
+2026-07-21 13:16:33 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:16:34 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-oracle \u2192 200 | 423.11ms
+2026-07-21 13:16:35 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.62ms
+2026-07-21 13:16:35 | INFO     | luminaai.routers.tenant        | Configurações do Tenant LuminaAI Demo Corp atualizadas com sucesso pelo Admin ti@casadocampo.vet.br
+2026-07-21 13:16:35 | INFO     | luminaai.main                  | PUT /api/v1/tenant/settings \u2192 200 | 38.47ms
+2026-07-21 13:16:35 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 5.66ms
+2026-07-21 13:16:38 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-postgres-clone \u2192 200 | 0.49ms
+2026-07-21 13:16:38 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Postgres Clone solicitado pelo Admin: ti@casadocampo.vet.br
+2026-07-21 13:16:38 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-postgres-clone \u2192 200 | 101.58ms
+2026-07-21 13:16:41 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/sync-now \u2192 200 | 0.51ms
+2026-07-21 13:16:41 | INFO     | luminaai.routers.tenant        | Sincronização manual solicitada pelo Admin: ti@casadocampo.vet.br (force_full=False)
+2026-07-21 13:16:41 | INFO     | luminaai.main                  | POST /api/v1/tenant/sync-now \u2192 200 | 6.61ms
+2026-07-21 13:16:41 | INFO     | luminaai.services.sync         | Iniciando sincronização para o tenant LuminaAI Demo Corp via SyncEngine...
+2026-07-21 13:16:41 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/sync-progress \u2192 200 | 0.51ms
+2026-07-21 13:16:41 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.68ms
+2026-07-21 13:16:41 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:16:42 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDAS_LM | Oracle: DONWMS.VW_VENDAS_LM | Tabela: vw_vendas_lm
+2026-07-21 13:16:42 | WARNING  | luminaai.data_platform.sync_engine | [SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): coluna vw_vendas_lm.filial_ não existe. Forçando carga completa (Full sync).
+2026-07-21 13:16:42 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_VENDAS_LM
+2026-07-21 13:16:42 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 12.56ms
+2026-07-21 13:16:44 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 12.62ms
+2026-07-21 13:16:45 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.79ms
+2026-07-21 13:16:46 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.39ms
+2026-07-21 13:16:47 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.75ms
+2026-07-21 13:16:48 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.63ms
+2026-07-21 13:16:50 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.09ms
+2026-07-21 13:16:51 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 11.67ms
+2026-07-21 13:16:52 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.36ms
+2026-07-21 13:16:53 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.23ms
+2026-07-21 13:16:54 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.37ms
+2026-07-21 13:16:56 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.66ms
+2026-07-21 13:16:57 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.67ms
+2026-07-21 13:16:58 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.31ms
+2026-07-21 13:16:59 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.48ms
+2026-07-21 13:17:00 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.75ms
+2026-07-21 13:17:02 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.51ms
+2026-07-21 13:17:03 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 11.63ms
+2026-07-21 13:17:04 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 9.05ms
+2026-07-21 13:17:05 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 9.04ms
+2026-07-21 13:17:06 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.03ms
+2026-07-21 13:17:08 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 14.16ms
+2026-07-21 13:17:09 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 11.51ms
+2026-07-21 13:17:10 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.23ms
+2026-07-21 13:17:11 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 12.72ms
+2026-07-21 13:17:12 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.08ms
+2026-07-21 13:17:14 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.95ms
+2026-07-21 13:17:15 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 15.92ms
+2026-07-21 13:17:16 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.44ms
+2026-07-21 13:17:17 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.37ms
+2026-07-21 13:17:18 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.95ms
+2026-07-21 13:17:20 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.99ms
+2026-07-21 13:17:21 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.10ms
+2026-07-21 13:17:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.11ms
+2026-07-21 13:17:23 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 39.41ms
+2026-07-21 13:17:24 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 72.49ms
+2026-07-21 13:17:26 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 46.18ms
+2026-07-21 13:17:27 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.34ms
+2026-07-21 13:17:28 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.86ms
+2026-07-21 13:17:29 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 12.27ms
+2026-07-21 13:17:30 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 45.08ms
+2026-07-21 13:17:32 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 9.70ms
+2026-07-21 13:17:33 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 116.78ms
+2026-07-21 13:17:34 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.76ms
+2026-07-21 13:17:35 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.88ms
+2026-07-21 13:17:36 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 23.35ms
+2026-07-21 13:17:38 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.22ms
+2026-07-21 13:17:39 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.59ms
+2026-07-21 13:17:40 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.22ms
+2026-07-21 13:17:41 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 38.29ms
+2026-07-21 13:17:42 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 85.80ms
+2026-07-21 13:17:44 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.06ms
+2026-07-21 13:17:45 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.15ms
+2026-07-21 13:17:46 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 19.08ms
+2026-07-21 13:17:47 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.07ms
+2026-07-21 13:17:48 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.63ms
+2026-07-21 13:17:50 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.52ms
+2026-07-21 13:17:51 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 12.63ms
+2026-07-21 13:17:52 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.47ms
+2026-07-21 13:17:53 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 11.30ms
+2026-07-21 13:17:54 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.88ms
+2026-07-21 13:17:56 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 64.09ms
+2026-07-21 13:17:57 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.06ms
+2026-07-21 13:17:58 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.45ms
+2026-07-21 13:17:59 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.13ms
+2026-07-21 13:18:00 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 2.99ms
+2026-07-21 13:18:02 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.76ms
+2026-07-21 13:18:03 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.96ms
+2026-07-21 13:18:04 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 99.16ms
+2026-07-21 13:18:05 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.93ms
+2026-07-21 13:18:06 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 36.59ms
+2026-07-21 13:18:08 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 18.24ms
+2026-07-21 13:18:09 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.32ms
+2026-07-21 13:18:10 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.25ms
+2026-07-21 13:18:11 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 120.50ms
+2026-07-21 13:18:12 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.79ms
+2026-07-21 13:18:14 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.47ms
+2026-07-21 13:18:15 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.87ms
+2026-07-21 13:18:16 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.33ms
+2026-07-21 13:18:17 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.61ms
+2026-07-21 13:18:18 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.65ms
+2026-07-21 13:18:20 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.03ms
+2026-07-21 13:18:21 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 82.71ms
+2026-07-21 13:18:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.64ms
+2026-07-21 13:18:23 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.88ms
+2026-07-21 13:18:24 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 17.13ms
+2026-07-21 13:18:26 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.83ms
+2026-07-21 13:18:27 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.46ms
+2026-07-21 13:18:28 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 9.92ms
+2026-07-21 13:18:29 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.63ms
+2026-07-21 13:18:30 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.00ms
+2026-07-21 13:18:32 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.68ms
+2026-07-21 13:18:33 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.92ms
+2026-07-21 13:18:34 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 25.97ms
+2026-07-21 13:18:35 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 27.13ms
+2026-07-21 13:18:36 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 17.52ms
+2026-07-21 13:18:38 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.86ms
+2026-07-21 13:18:39 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.68ms
+2026-07-21 13:18:40 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.33ms
+2026-07-21 13:18:41 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.32ms
+2026-07-21 13:18:42 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 27.77ms
+2026-07-21 13:18:44 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.15ms
+2026-07-21 13:18:45 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 70.03ms
+2026-07-21 13:18:46 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.08ms
+2026-07-21 13:18:47 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 10.65ms
+2026-07-21 13:18:48 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.50ms
+2026-07-21 13:18:50 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.56ms
+2026-07-21 13:18:50 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDAS_LM chaveada com sucesso! Linhas: 585983
+2026-07-21 13:18:50 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:18:50 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_TEST_DATAPLATFORM | Oracle: VW_TEST_DATAPLATFORM | Tabela: vw_test_dataplatform
+2026-07-21 13:18:50 | ERROR    | luminaai.data_platform.sync_engine | [SyncEngine] View VW_TEST_DATAPLATFORM não encontrada ou inacessível no ERP Oracle.
+2026-07-21 13:18:50 | ERROR    | luminaai.services.sync         | Falha ao ler ou sincronizar dados da view VW_TEST_DATAPLATFORM: View VW_TEST_DATAPLATFORM inválida no ERP: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+2026-07-21 13:18:50 | ERROR    | luminaai.services.sync         | \u274c Falha na sincronização do tenant LuminaAI Demo Corp
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\sync_engine.py", line 416, in _sync_single_view
+    await oracle_cursor.execute(f"SELECT * FROM {oracle_view_identifier} WHERE 1=0")
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\oracledb\cursor.py", line 953, in execute
+    await self._impl.execute(self)
+  File "src\\oracledb\\impl/thin/cursor.pyx", line 264, in execute
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 807, in _process_single_message
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 808, in oracledb.thin_impl.BaseAsyncProtocol._process_single_message
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 786, in _process_message
+oracledb.exceptions.DatabaseError: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\sync_service.py", line 340, in sync_tenant_database
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\sync_service.py", line 279, in sync_tenant_database
+    imported = await sync_engine._sync_single_view(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\sync_engine.py", line 420, in _sync_single_view
+    raise RuntimeError(f"View {view_name} inválida no ERP: {str(erp_exc)}")
+RuntimeError: View VW_TEST_DATAPLATFORM inválida no ERP: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+2026-07-21 13:18:51 | ERROR    | database                       | Erro no context manager do banco — rollback realizado
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\sync_engine.py", line 416, in _sync_single_view
+    await oracle_cursor.execute(f"SELECT * FROM {oracle_view_identifier} WHERE 1=0")
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\oracledb\cursor.py", line 953, in execute
+    await self._impl.execute(self)
+  File "src\\oracledb\\impl/thin/cursor.pyx", line 264, in execute
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 807, in _process_single_message
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 808, in oracledb.thin_impl.BaseAsyncProtocol._process_single_message
+  File "src\\oracledb\\impl/thin/protocol.pyx", line 786, in _process_message
+oracledb.exceptions.DatabaseError: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 126, in get_db_context
+    yield session
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\tenant.py", line 716, in run_sync_in_background
+    await sync_tenant_database(current_user.tenant_id, session, force_full=force_full)
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\sync_service.py", line 381, in sync_tenant_database
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\sync_service.py", line 340, in sync_tenant_database
+    raise exc
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\sync_service.py", line 279, in sync_tenant_database
+    imported = await sync_engine._sync_single_view(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\services\data_platform\sync_engine.py", line 420, in _sync_single_view
+    raise RuntimeError(f"View {view_name} inválida no ERP: {str(erp_exc)}")
+RuntimeError: View VW_TEST_DATAPLATFORM inválida no ERP: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+2026-07-21 13:18:51 | ERROR    | luminaai.routers.tenant        | Erro na sincronização manual em background: View VW_TEST_DATAPLATFORM inválida no ERP: ORA-00942: a tabela ou view não existe
+Help: https://docs.oracle.com/error-help/db/ora-00942/
+2026-07-21 13:18:51 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.76ms
+2026-07-21 13:18:51 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 8.95ms
+2026-07-21 13:18:57 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 3.12ms
+2026-07-21 13:18:57 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/ \u2192 200 | 3.95ms
+2026-07-21 13:18:57 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
+2026-07-21 13:18:57 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 20.22ms
+2026-07-21 13:18:57 | INFO     | luminaai.routers.catalog       | Listando catálogo de views do tenant: a0eebc99
+2026-07-21 13:18:57 | INFO     | luminaai.main                  | GET /api/v1/catalog/ \u2192 200 | 15.15ms
+2026-07-21 13:19:01 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/0b8e6a7c-a0a7-4266-bc41-bfe590716c90 \u2192 200 | 0.44ms
+2026-07-21 13:19:01 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Snapshot v5 criado para estrutura: VW_PERFORMANCE_VENDEDORES
+2026-07-21 13:19:01 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=VW_PERFORMANCE_VENDEDORES
+2026-07-21 13:19:01 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=VW_PERFORMANCE_VENDEDORES
+2026-07-21 13:19:01 | INFO     | luminaai.routers.catalog       | View deletada do catálogo: id=0b8e6a7c-a0a7-4266-bc41-bfe590716c90 | tenant=a0eebc99 | autor=ti@casadocampo.vet.br
+2026-07-21 13:19:01 | INFO     | luminaai.main                  | DELETE /api/v1/catalog/0b8e6a7c-a0a7-4266-bc41-bfe590716c90 \u2192 204 | 66.09ms
+2026-07-21 13:19:05 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/bc1f81df-3dff-40b7-a2a3-baa6f998ca41 \u2192 200 | 0.89ms
+2026-07-21 13:19:05 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Snapshot v1 criado para estrutura: VW_TEST_DATAPLATFORM
+2026-07-21 13:19:05 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=VW_TEST_DATAPLATFORM
+2026-07-21 13:19:05 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=VW_TEST_DATAPLATFORM
+2026-07-21 13:19:05 | INFO     | luminaai.routers.catalog       | View deletada do catálogo: id=bc1f81df-3dff-40b7-a2a3-baa6f998ca41 | tenant=a0eebc99 | autor=ti@casadocampo.vet.br
+2026-07-21 13:19:05 | INFO     | luminaai.main                  | DELETE /api/v1/catalog/bc1f81df-3dff-40b7-a2a3-baa6f998ca41 \u2192 204 | 47.53ms
+2026-07-21 13:19:08 | INFO     | luminaai.main                  | OPTIONS /api/v1/catalog/3eae329a-683b-44df-81eb-6aff1be24804 \u2192 200 | 0.43ms
+2026-07-21 13:19:08 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Snapshot v5 criado para estrutura: VW_VENDAS_CONTEXTO_GERAL
+2026-07-21 13:19:08 | INFO     | luminaai.data_platform.catalog_api | [CatalogAPI] register | tipo=VIEW | estrutura_id=VW_VENDAS_CONTEXTO_GERAL
+2026-07-21 13:19:08 | INFO     | luminaai.data_platform.metadata_catalog | [MetadataCatalog] Registrando entidade | tenant=a0eebc99 | tipo=VIEW | id=VW_VENDAS_CONTEXTO_GERAL
+2026-07-21 13:19:08 | INFO     | luminaai.routers.catalog       | View deletada do catálogo: id=3eae329a-683b-44df-81eb-6aff1be24804 | tenant=a0eebc99 | autor=ti@casadocampo.vet.br
+2026-07-21 13:19:08 | INFO     | luminaai.main                  | DELETE /api/v1/catalog/3eae329a-683b-44df-81eb-6aff1be24804 \u2192 204 | 35.03ms
+2026-07-21 13:19:28 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 25.92ms
+2026-07-21 13:19:28 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 13.09ms
+2026-07-21 13:19:32 | INFO     | luminaai.routers.tenant        | Sincronização manual solicitada pelo Admin: ti@casadocampo.vet.br (force_full=False)
+2026-07-21 13:19:32 | INFO     | luminaai.main                  | POST /api/v1/tenant/sync-now \u2192 200 | 9.56ms
+2026-07-21 13:19:32 | INFO     | luminaai.services.sync         | Iniciando sincronização para o tenant LuminaAI Demo Corp via SyncEngine...
+2026-07-21 13:19:33 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:19:33 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 13.99ms
+2026-07-21 13:19:33 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDAS_LM | Oracle: DONWMS.VW_VENDAS_LM | Tabela: vw_vendas_lm
+2026-07-21 13:19:34 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.32ms
+2026-07-21 13:19:35 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 2.83ms
+2026-07-21 13:19:36 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 5.19ms
+2026-07-21 13:19:36 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga INCREMENTAL para VW_VENDAS_LM a partir de 2026-07-19 00:00:00
+2026-07-21 13:19:37 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDAS_LM chaveada com sucesso! Linhas: 1750
+2026-07-21 13:19:37 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.30ms
+2026-07-21 13:19:37 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:37 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_CLIENTES_CAD_LM | Oracle: DONWMS.VW_CLIENTES_CAD_LM | Tabela: vw_clientes_cad_lm
+2026-07-21 13:19:38 | WARNING  | luminaai.data_platform.sync_engine | [SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): coluna vw_clientes_cad_lm.codigo não existe. Forçando carga completa (Full sync).
+2026-07-21 13:19:38 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_CLIENTES_CAD_LM
+2026-07-21 13:19:38 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_CLIENTES_CAD_LM chaveada com sucesso! Linhas: 4049
+2026-07-21 13:19:38 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:38 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_FORNECEDOR_CAD_LM | Oracle: DONWMS.VW_FORNECEDOR_CAD_LM | Tabela: vw_fornecedor_cad_lm
+2026-07-21 13:19:38 | WARNING  | luminaai.data_platform.sync_engine | [SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): coluna vw_fornecedor_cad_lm.fornecedor não existe. Forçando carga completa (Full sync).
+2026-07-21 13:19:38 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_FORNECEDOR_CAD_LM
+2026-07-21 13:19:39 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 11.82ms
+2026-07-21 13:19:39 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_FORNECEDOR_CAD_LM chaveada com sucesso! Linhas: 10485
+2026-07-21 13:19:39 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:39 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDEDOR_CAD_LM | Oracle: DONWMS.VW_VENDEDOR_CAD_LM | Tabela: vw_vendedor_cad_lm
+2026-07-21 13:19:39 | WARNING  | luminaai.data_platform.sync_engine | [SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): coluna vw_vendedor_cad_lm.codi_filial não existe. Forçando carga completa (Full sync).
+2026-07-21 13:19:39 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_VENDEDOR_CAD_LM
+2026-07-21 13:19:40 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDEDOR_CAD_LM chaveada com sucesso! Linhas: 51
+2026-07-21 13:19:40 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:40 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_PRODUTOS_CAD_LM | Oracle: DONWMS.VW_PRODUTOS_CAD_LM | Tabela: vw_produtos_cad_lm
+2026-07-21 13:19:40 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.97ms
+2026-07-21 13:19:40 | WARNING  | luminaai.data_platform.sync_engine | [SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): coluna vw_produtos_cad_lm.codigo não existe. Forçando carga completa (Full sync).
+2026-07-21 13:19:40 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_PRODUTOS_CAD_LM
+2026-07-21 13:19:41 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.72ms
+2026-07-21 13:19:42 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.40ms
+2026-07-21 13:19:43 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_PRODUTOS_CAD_LM chaveada com sucesso! Linhas: 12337
+2026-07-21 13:19:43 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:43 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendas_lm | 0 itens removidos
+2026-07-21 13:19:43 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_clientes_cad_lm | 0 itens removidos
+2026-07-21 13:19:43 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_fornecedor_cad_lm | 0 itens removidos
+2026-07-21 13:19:43 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendedor_cad_lm | 0 itens removidos
+2026-07-21 13:19:43 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_produtos_cad_lm | 0 itens removidos
+2026-07-21 13:19:43 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 9.30ms
+2026-07-21 13:19:43 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 8.39ms
+2026-07-21 13:19:50 | INFO     | luminaai.routers.tenant        | Sincronização manual solicitada pelo Admin: ti@casadocampo.vet.br (force_full=False)
+2026-07-21 13:19:50 | INFO     | luminaai.main                  | POST /api/v1/tenant/sync-now \u2192 200 | 8.03ms
+2026-07-21 13:19:50 | INFO     | luminaai.services.sync         | Iniciando sincronização para o tenant LuminaAI Demo Corp via SyncEngine...
+2026-07-21 13:19:50 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.61ms
+2026-07-21 13:19:50 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:19:50 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDAS_LM | Oracle: DONWMS.VW_VENDAS_LM | Tabela: vw_vendas_lm
+2026-07-21 13:19:51 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.92ms
+2026-07-21 13:19:52 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.11ms
+2026-07-21 13:19:53 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga INCREMENTAL para VW_VENDAS_LM a partir de 2026-07-19 00:00:00
+2026-07-21 13:19:53 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.07ms
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDAS_LM chaveada com sucesso! Linhas: 1750
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_CLIENTES_CAD_LM | Oracle: DONWMS.VW_CLIENTES_CAD_LM | Tabela: vw_clientes_cad_lm
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_CLIENTES_CAD_LM
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_CLIENTES_CAD_LM chaveada com sucesso! Linhas: 4049
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_FORNECEDOR_CAD_LM | Oracle: DONWMS.VW_FORNECEDOR_CAD_LM | Tabela: vw_fornecedor_cad_lm
+2026-07-21 13:19:54 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_FORNECEDOR_CAD_LM
+2026-07-21 13:19:55 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 17.11ms
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_FORNECEDOR_CAD_LM chaveada com sucesso! Linhas: 10485
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDEDOR_CAD_LM | Oracle: DONWMS.VW_VENDEDOR_CAD_LM | Tabela: vw_vendedor_cad_lm
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_VENDEDOR_CAD_LM
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDEDOR_CAD_LM chaveada com sucesso! Linhas: 51
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:56 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.47ms
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_PRODUTOS_CAD_LM | Oracle: DONWMS.VW_PRODUTOS_CAD_LM | Tabela: vw_produtos_cad_lm
+2026-07-21 13:19:56 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_PRODUTOS_CAD_LM
+2026-07-21 13:19:57 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.58ms
+2026-07-21 13:19:58 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.18ms
+2026-07-21 13:19:58 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_PRODUTOS_CAD_LM chaveada com sucesso! Linhas: 12337
+2026-07-21 13:19:58 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:19:58 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendas_lm | 0 itens removidos
+2026-07-21 13:19:58 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_clientes_cad_lm | 0 itens removidos
+2026-07-21 13:19:58 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_fornecedor_cad_lm | 0 itens removidos
+2026-07-21 13:19:58 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendedor_cad_lm | 0 itens removidos
+2026-07-21 13:19:58 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_produtos_cad_lm | 0 itens removidos
+2026-07-21 13:19:59 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.61ms
+2026-07-21 13:19:59 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 7.70ms
+2026-07-21 13:20:06 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Oracle solicitado pelo Admin: ti@casadocampo.vet.br
+2026-07-21 13:20:06 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:20:07 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-oracle \u2192 200 | 311.92ms
+2026-07-21 13:20:09 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Postgres Clone solicitado pelo Admin: ti@casadocampo.vet.br
+2026-07-21 13:20:09 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-postgres-clone \u2192 200 | 118.10ms
+2026-07-21 13:20:11 | INFO     | luminaai.routers.tenant        | Sincronização manual solicitada pelo Admin: ti@casadocampo.vet.br (force_full=False)
+2026-07-21 13:20:11 | INFO     | luminaai.main                  | POST /api/v1/tenant/sync-now \u2192 200 | 7.22ms
+2026-07-21 13:20:11 | INFO     | luminaai.services.sync         | Iniciando sincronização para o tenant LuminaAI Demo Corp via SyncEngine...
+2026-07-21 13:20:11 | INFO     | luminaai.services.oracle       | Tentando conexão Thin assíncrona (via SID) com Oracle: 10.253.7.2:1521 (User=CCAMPO)
+2026-07-21 13:20:11 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.70ms
+2026-07-21 13:20:11 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDAS_LM | Oracle: DONWMS.VW_VENDAS_LM | Tabela: vw_vendas_lm
+2026-07-21 13:20:12 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.46ms
+2026-07-21 13:20:13 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.71ms
+2026-07-21 13:20:14 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga INCREMENTAL para VW_VENDAS_LM a partir de 2026-07-19 00:00:00
+2026-07-21 13:20:14 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.82ms
+2026-07-21 13:20:16 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.13ms
+2026-07-21 13:20:16 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDAS_LM chaveada com sucesso! Linhas: 1750
+2026-07-21 13:20:16 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:20:16 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_CLIENTES_CAD_LM | Oracle: DONWMS.VW_CLIENTES_CAD_LM | Tabela: vw_clientes_cad_lm
+2026-07-21 13:20:16 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_CLIENTES_CAD_LM
+2026-07-21 13:20:17 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_CLIENTES_CAD_LM chaveada com sucesso! Linhas: 4049
+2026-07-21 13:20:17 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:20:17 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_FORNECEDOR_CAD_LM | Oracle: DONWMS.VW_FORNECEDOR_CAD_LM | Tabela: vw_fornecedor_cad_lm
+2026-07-21 13:20:17 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_FORNECEDOR_CAD_LM
+2026-07-21 13:20:17 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 3.18ms
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_FORNECEDOR_CAD_LM chaveada com sucesso! Linhas: 10485
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_VENDEDOR_CAD_LM | Oracle: DONWMS.VW_VENDEDOR_CAD_LM | Tabela: vw_vendedor_cad_lm
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_VENDEDOR_CAD_LM
+2026-07-21 13:20:18 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 7.29ms
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_VENDEDOR_CAD_LM chaveada com sucesso! Linhas: 51
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Sincronizando view: VW_PRODUTOS_CAD_LM | Oracle: DONWMS.VW_PRODUTOS_CAD_LM | Tabela: vw_produtos_cad_lm
+2026-07-21 13:20:18 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] Executando carga COMPLETA (Full) para VW_PRODUTOS_CAD_LM
+2026-07-21 13:20:19 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 4.29ms
+2026-07-21 13:20:20 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 8.50ms
+2026-07-21 13:20:20 | INFO     | luminaai.data_platform.sync_engine | [SyncEngine] View VW_PRODUTOS_CAD_LM chaveada com sucesso! Linhas: 12337
+2026-07-21 13:20:20 | INFO     | luminaai.data_platform.history_service | [HistoryService] Gravando log histórico | tenant=a0eebc99 | tipo=DATASET | acao=VERSION_UP
+2026-07-21 13:20:20 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendas_lm | 0 itens removidos
+2026-07-21 13:20:20 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_clientes_cad_lm | 0 itens removidos
+2026-07-21 13:20:21 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_fornecedor_cad_lm | 0 itens removidos
+2026-07-21 13:20:21 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_vendedor_cad_lm | 0 itens removidos
+2026-07-21 13:20:21 | INFO     | luminaai.services.cache_service | [ICP] INVALIDADO (Pattern) | a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11:vw_produtos_cad_lm | 0 itens removidos
+2026-07-21 13:20:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/sync-progress \u2192 200 | 6.09ms
+2026-07-21 13:20:22 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 8.77ms
+2026-07-21 13:21:56 | INFO     | luminaai.main                  | GET /api/v1/auth/session \u2192 200 | 7.46ms
+2026-07-21 13:21:56 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 4.86ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 52.93ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 55.34ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/dashboard-preferences/default \u2192 200 | 52.69ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/query/history \u2192 200 | 38.02ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/query/favorites \u2192 200 | 27.04ms
+2026-07-21 13:22:12 | INFO     | luminaai.main                  | GET /api/v1/dashboard-preferences/default \u2192 200 | 22.83ms
+2026-07-21 13:22:17 | INFO     | luminaai.main                  | OPTIONS /api/v1/query/ \u2192 200 | 0.43ms
+2026-07-21 13:22:17 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Faturamento do mês Preferências da resposta: base de valor l...'
+2026-07-21 13:22:17 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:22:17 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:22:18 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_0dfd10e3' adicionado à árvore conversacional.
+2026-07-21 13:22:18 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 923.31ms
+2026-07-21 13:22:49 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Quem é o vendedor líder em faturamento? Preferências da resp...'
+2026-07-21 13:22:49 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:22:49 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:22:49 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Analisando query: 'Quem é o vendedor líder em faturamento? Preferências da resposta: base de valor líquido; visualização em gráfico.' para tenant: a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Query processada. Status: READY. Continuidade: False
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Iniciando canonicalização do plano. Trace ID: 8710c658-4e59-4ff3-adc2-2319c6f43d88
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Sucesso! Status: READY. Tempo: 0.43ms. Aliases resolvidos: 4. Conceitos encontrados: 5.
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Iniciando resolução física. Trace ID: 8710c658-4e59-4ff3-adc2-2319c6f43d88
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Vendedor' resolvida para a view 'VW_VENDEDOR_CAD_LM' (Score: 50.0%)
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Venda' resolvida para a view 'VW_VENDAS_LM' (Score: 50.0%)
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Sucesso! Resolvido em 1.50ms. Views: 2, JOINs: 1, Caminhos avaliados: 1.
+2026-07-21 13:22:54 | INFO     | luminaai.services.metadata_catalog.executor | [DatabaseExecutor] Iniciando execução física no banco. Trace ID: 8710c658-4e59-4ff3-adc2-2319c6f43d88
+2026-07-21 13:23:03 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_e79bcc55' adicionado à árvore conversacional.
+2026-07-21 13:23:03 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 13614.36ms
+2026-07-21 13:23:32 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Ranking de vendedores no mês de Julho Preferências da respos...'
+2026-07-21 13:23:32 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:23:32 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:23:32 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Analisando query: 'Ranking de vendedores no mês de Julho Preferências da resposta: base de valor líquido; visualização em gráfico.' para tenant: a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Query processada. Status: READY. Continuidade: False
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Iniciando canonicalização do plano. Trace ID: 9d9775df-9ca2-4c7d-81f8-ac4ed75150be
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Sucesso! Status: READY. Tempo: 0.64ms. Aliases resolvidos: 3. Conceitos encontrados: 6.
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Iniciando resolução física. Trace ID: 9d9775df-9ca2-4c7d-81f8-ac4ed75150be
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Vendedor' resolvida para a view 'VW_VENDAS_LM' (Score: 66.67%)
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.resolver | [Resolver] Poupando dimensão de data Venda.dtemissao_ no agrupamento de RANKING/AGGREGATION/KPI.
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Sucesso! Resolvido em 1.66ms. Views: 2, JOINs: 1, Caminhos avaliados: 1.
+2026-07-21 13:23:35 | INFO     | luminaai.services.metadata_catalog.executor | [DatabaseExecutor] Iniciando execução física no banco. Trace ID: 9d9775df-9ca2-4c7d-81f8-ac4ed75150be
+2026-07-21 13:23:36 | WARNING  | luminaai.services.transformer  | Lista de registros vazia enviada para transformação.
+2026-07-21 13:23:36 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_557940f8' adicionado à árvore conversacional.
+2026-07-21 13:23:36 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 4065.50ms
+2026-07-21 13:23:54 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Ranking de vendedores no Mes de julho de 2026 Preferências d...'
+2026-07-21 13:23:54 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:23:54 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:23:55 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_8c11fbab' adicionado à árvore conversacional.
+2026-07-21 13:23:55 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1075.48ms
+2026-07-21 13:24:19 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Vendas RB por vendedor Preferências da resposta: base de val...'
+2026-07-21 13:24:19 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:24:19 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:24:19 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Analisando query: 'Vendas RB por vendedor Preferências da resposta: base de valor líquido; visualização em gráfico.' para tenant: a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Query processada. Status: READY. Continuidade: False
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Iniciando canonicalização do plano. Trace ID: 9d518cee-92a8-49cb-9994-dd3db519e3ed
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Sucesso! Status: READY. Tempo: 0.99ms. Aliases resolvidos: 4. Conceitos encontrados: 5.
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Iniciando resolução física. Trace ID: 9d518cee-92a8-49cb-9994-dd3db519e3ed
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Venda' resolvida para a view 'VW_VENDAS_LM' (Score: 50.0%)
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Vendedor' resolvida para a view 'VW_VENDEDOR_CAD_LM' (Score: 50.0%)
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Sucesso! Resolvido em 2.75ms. Views: 2, JOINs: 1, Caminhos avaliados: 1.
+2026-07-21 13:24:22 | INFO     | luminaai.services.metadata_catalog.executor | [DatabaseExecutor] Iniciando execução física no banco. Trace ID: 9d518cee-92a8-49cb-9994-dd3db519e3ed
+2026-07-21 13:24:30 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_b8af2cb9' adicionado à árvore conversacional.
+2026-07-21 13:24:30 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 10768.85ms
+2026-07-21 13:25:03 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Vendas RB por vendedor no mes de Julho de 2026 Preferências ...'
+2026-07-21 13:25:03 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:25:03 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:25:04 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_1e21bb9c' adicionado à árvore conversacional.
+2026-07-21 13:25:04 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1144.57ms
+2026-07-21 13:25:59 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Financeiro em aberto do mês de julho de 2026 separado por ve...'
+2026-07-21 13:25:59 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:25:59 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:26:00 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_6421f537' adicionado à árvore conversacional.
+2026-07-21 13:26:00 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1274.67ms
+2026-07-21 13:26:16 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Top clientesjulho de 2026 Preferências da resposta: base de ...'
+2026-07-21 13:26:16 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:26:16 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:26:16 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Analisando query: 'Top clientesjulho de 2026 Preferências da resposta: base de valor líquido; visualização em gráfico.' para tenant: a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.intent_engine | [IntentEngine] Query processada. Status: READY. Continuidade: False
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Iniciando canonicalização do plano. Trace ID: daa068fc-98d7-41da-acca-5248fa7e1dd6
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.canonicalizer | [Canonicalizer] Sucesso! Status: READY. Tempo: 0.71ms. Aliases resolvidos: 4. Conceitos encontrados: 6.
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Iniciando resolução física. Trace ID: daa068fc-98d7-41da-acca-5248fa7e1dd6
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Cliente' resolvida para a view 'VW_VENDAS_LM' (Score: 66.67%)
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Entidade 'Venda' resolvida para a view 'VW_VENDAS_LM' (Score: 66.67%)
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.resolver | [MetadataResolver] Sucesso! Resolvido em 2.66ms. Views: 2, JOINs: 1, Caminhos avaliados: 1.
+2026-07-21 13:26:20 | INFO     | luminaai.services.metadata_catalog.executor | [DatabaseExecutor] Iniciando execução física no banco. Trace ID: daa068fc-98d7-41da-acca-5248fa7e1dd6
+2026-07-21 13:26:25 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_8b4914ae' adicionado à árvore conversacional.
+2026-07-21 13:26:25 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 8900.02ms
+2026-07-21 13:26:29 | INFO     | routers.query                  | [QUERY] Query recebida | user=b1eebc99 (ADMIN) | tenant=a0eebc99 | pergunta='Top clientes Julho de 2026 Preferências da resposta: base de...'
+2026-07-21 13:26:29 | INFO     | routers.query                  | Catálogo carregado | views_ativas=5 | tenant=a0eebc99
+2026-07-21 13:26:29 | INFO     | routers.query                  | [Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...
+2026-07-21 13:26:30 | INFO     | luminaai.services.metadata_catalog.conversation_graph | [ConversationGraph] Novo nó 'node_970aff31' adicionado à árvore conversacional.
+2026-07-21 13:26:30 | INFO     | luminaai.main                  | POST /api/v1/query/ \u2192 200 | 1303.30ms
+2026-07-21 13:26:50 | INFO     | luminaai.main                  | POST /api/v1/auth/logout \u2192 200 | 2.28ms
+2026-07-21 13:26:50 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
 Traceback (most recent call last):
   File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
     yield session
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\routing.py", line 301, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\tenant.py", line 436, in test_oracle_connection
-    raise HTTPException(
-fastapi.exceptions.HTTPException: 400: O servidor Oracle nao respondeu na porta informada. Verifique VPN/rede, firewall, listener Oracle e se o host/porta estao acessiveis a partir desta maquina.
-2026-07-18 11:13:22 | WARNING  | luminaai.main                  | HTTP 400 em POST /api/v1/tenant/test-oracle: O servidor Oracle nao respondeu na porta informada. Verifique VPN/rede, firewall, listener Oracle e se o host/porta estao acessiveis a partir desta maquina.
-2026-07-18 11:13:22 | WARNING  | luminaai.main                  | POST /api/v1/tenant/test-oracle \u2192 400 | 5019.04ms
-2026-07-18 11:13:31 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Oracle solicitado pelo Admin: ti@casadocampo.vet.br
-2026-07-18 11:13:36 | WARNING  | luminaai.routers.tenant        | Teste Oracle falhou para o admin ti@casadocampo.vet.br | code=ORACLE_TCP_TIMEOUT | detail=TCP timeout while connecting to Oracle listener.
-2026-07-18 11:13:36 | ERROR    | database                       | Erro na transação do banco de dados — rollback realizado
-Traceback (most recent call last):
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\database.py", line 100, in get_db
-    yield session
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\routing.py", line 301, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\routing.py", line 212, in run_endpoint_function
-    return await dependant.call(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\tenant.py", line 436, in test_oracle_connection
-    raise HTTPException(
-fastapi.exceptions.HTTPException: 400: O servidor Oracle nao respondeu na porta informada. Verifique VPN/rede, firewall, listener Oracle e se o host/porta estao acessiveis a partir desta maquina.
-2026-07-18 11:13:36 | WARNING  | luminaai.main                  | HTTP 400 em POST /api/v1/tenant/test-oracle: O servidor Oracle nao respondeu na porta informada. Verifique VPN/rede, firewall, listener Oracle e se o host/porta estao acessiveis a partir desta maquina.
-2026-07-18 11:13:36 | WARNING  | luminaai.main                  | POST /api/v1/tenant/test-oracle \u2192 400 | 5038.20ms
-2026-07-18 11:13:48 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/settings \u2192 200 | 0.95ms
-2026-07-18 11:13:48 | INFO     | luminaai.routers.tenant        | Configurações do Tenant LuminaAI Demo Corp atualizadas com sucesso pelo Admin ti@casadocampo.vet.br
-2026-07-18 11:13:48 | INFO     | luminaai.main                  | PUT /api/v1/tenant/settings \u2192 200 | 42.68ms
-2026-07-18 11:13:48 | INFO     | luminaai.main                  | GET /api/v1/tenant/settings \u2192 200 | 7.39ms
-2026-07-18 11:14:08 | INFO     | luminaai.main                  | OPTIONS /api/v1/tenant/test-postgres-clone \u2192 200 | 0.42ms
-2026-07-18 11:14:08 | INFO     | luminaai.routers.tenant        | Executando teste de conexão Postgres Clone solicitado pelo Admin: ti@casadocampo.vet.br
-2026-07-18 11:14:08 | INFO     | luminaai.main                  | POST /api/v1/tenant/test-postgres-clone \u2192 200 | 142.56ms
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\routing.py", line 291, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 638, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\routers\dependencies.py", line 55, in get_current_user
+    raise credentials_exception
+fastapi.exceptions.HTTPException: 401: Credenciais inválidas ou token expirado.
+2026-07-21 13:26:50 | WARNING  | luminaai.main                  | HTTP 401 em GET /api/v1/auth/session: Credenciais inválidas ou token expirado.
+2026-07-21 13:26:50 | WARNING  | luminaai.main                  | GET /api/v1/auth/session \u2192 401 | 7.88ms
+2026-07-21 13:26:50 | INFO     | luminaai.main                  | POST /api/v1/auth/logout \u2192 200 | 1.32ms

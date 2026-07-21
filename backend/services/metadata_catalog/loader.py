@@ -487,6 +487,11 @@ def load_corporate_catalog() -> CorporateCatalog:
         # Aliases de Venda / Faturamento
         AliasMetadata(alias="faturamento", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="faturamento total", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="faturamento bruto", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="faturamento bruto total", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="faturamento liquido", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="faturamento líquido", canonical_name="Receita", category="Metric"),
+        AliasMetadata(alias="faturamento liquido total", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="receita", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="receita total", canonical_name="Receita", category="Metric"),
         AliasMetadata(alias="valor venda", canonical_name="Receita", category="Metric"),
@@ -527,6 +532,18 @@ def load_corporate_catalog() -> CorporateCatalog:
         AliasMetadata(alias="skus", canonical_name="Produto", category="Entity"),
         AliasMetadata(alias="mercadoria", canonical_name="Produto", category="Entity"),
         AliasMetadata(alias="mercadorias", canonical_name="Produto", category="Entity"),
+
+        # Aliases de Geografia (Estado / Cidade)
+        AliasMetadata(alias="estado", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="estados", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="uf", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="ufs", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="regiao", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="regioes", canonical_name="Estado", category="Dimension"),
+        AliasMetadata(alias="cidade", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="cidades", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="municipio", canonical_name="Cidade", category="Dimension"),
+        AliasMetadata(alias="municipios", canonical_name="Cidade", category="Dimension"),
 
         # Aliases de Filial / Loja (mapeados para Cidade Cliente)
         AliasMetadata(alias="filial", canonical_name="Cidade", category="Dimension"),

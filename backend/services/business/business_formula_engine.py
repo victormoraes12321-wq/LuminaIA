@@ -248,6 +248,28 @@ class BusinessFormulaEngine:
         """Retorna o dicionário padrão com as especificações das 23 fórmulas de BI."""
         return [
             {
+                "nome": "Faturamento Bruto",
+                "formula": "sum(ptotal_)",
+                "entradas": [{"nome": "vendas_brutas", "tipo": "list[float]"}],
+                "saidas": [{"nome": "faturamento_bruto", "tipo": "float"}],
+                "pre_requisitos": [],
+                "dependencias": [],
+                "validacoes": [],
+            },
+            {
+                "nome": "Faturamento Líquido",
+                "formula": "faturamento_bruto - devolucoes - descontos",
+                "entradas": [
+                    {"nome": "faturamento_bruto", "tipo": "float"},
+                    {"nome": "devolucoes", "tipo": "float"},
+                    {"nome": "descontos", "tipo": "float"},
+                ],
+                "saidas": [{"nome": "faturamento_liquido", "tipo": "float"}],
+                "pre_requisitos": [],
+                "dependencias": ["faturamento_bruto"],
+                "validacoes": [],
+            },
+            {
                 "nome": "Receita",
                 "formula": "sum(vendas_aprovadas)",
                 "entradas": [{"nome": "vendas_aprovadas", "tipo": "list[float]"}],

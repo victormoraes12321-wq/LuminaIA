@@ -48,15 +48,16 @@ export function ClarificationPanel({
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -15 }}
-      className={cn(
-        'w-full max-w-2xl mx-auto overflow-hidden border bg-zinc-950/80 dark:bg-zinc-950/90 backdrop-blur-md rounded-2xl shadow-xl p-6 border-zinc-800/80',
-        className
-      )}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        className={cn(
+          'w-full max-w-xl max-h-[85vh] overflow-y-auto border bg-zinc-950/95 border-zinc-800/90 rounded-2xl shadow-2xl p-6 relative backdrop-blur-xl',
+          className
+        )}
+      >
       <div className="flex items-start gap-4">
         <div className="p-3 rounded-xl bg-lumina-500/10 border border-lumina-500/20 text-lumina-400 flex-shrink-0">
           {isAmbiguous ? <HelpCircle size={20} /> : <AlertCircle size={20} />}
@@ -146,5 +147,6 @@ export function ClarificationPanel({
         </div>
       </div>
     </motion.div>
+    </div>
   );
 }

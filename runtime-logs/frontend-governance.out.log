@@ -97,3 +97,13 @@
  GET /healthz 200 in 9ms (next.js: 3ms, application-code: 6ms)
  GET /healthz 200 in 20ms (next.js: 6ms, application-code: 15ms)
  GET /healthz 200 in 19ms (next.js: 6ms, application-code: 13ms)
+ GET /healthz 200 in 25ms (next.js: 5ms, application-code: 19ms)
+ GET /healthz 200 in 70ms (next.js: 46ms, application-code: 24ms)
+ GET /healthz 200 in 22ms (next.js: 11ms, application-code: 12ms)
+ GET /healthz 200 in 41ms (next.js: 8ms, application-code: 32ms)
+ GET /healthz 200 in 33ms (next.js: 20ms, application-code: 13ms)
+ GET /healthz 200 in 27ms (next.js: 9ms, application-code: 17ms)
+ GET /healthz 200 in 26ms (next.js: 16ms, application-code: 9ms)
+ GET /healthz 200 in 22ms (next.js: 4ms, application-code: 18ms)
+ GET /healthz 200 in 14ms (next.js: 9ms, application-code: 5ms)
+[?25h

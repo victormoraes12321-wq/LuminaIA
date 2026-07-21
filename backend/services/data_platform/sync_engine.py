@@ -172,7 +172,7 @@ class SyncEngine:
         finally:
             await _close_oracle_resource(cursor)
 
-    async def run_sync(self, tenant_id: uuid.UUID | str) -> uuid.UUID:
+    async def run_sync(self, tenant_id: uuid.UUID | str, *, force_full: bool = False) -> uuid.UUID:
         """
         Inicia a sincronização de todas as views ativas do tenant em background.
         Registra a execução na fila sync_queue e executa o fluxo com segurança.
@@ -186,14 +186,14 @@ class SyncEngine:
 
         # Dispara a sincronização
         job_id = uuid.uuid4()
-        asyncio.create_task(self._execute_sync_job(job_id, tenant_key, lock))
+        asyncio.create_task(self._execute_sync_job(job_id, tenant_key, lock, force_full=force_full))
         return job_id
 
-    async def _execute_sync_job(self, job_id: uuid.UUID, tenant_id: uuid.UUID, lock: asyncio.Lock) -> None:
+    async def _execute_sync_job(self, job_id: uuid.UUID, tenant_id: uuid.UUID, lock: asyncio.Lock, *, force_full: bool = False) -> None:
         """Executa a sincronização completa da fila sob proteção do Lock."""
         async with lock:
             start_time = time.perf_counter()
-            logger.info("[SyncEngine] Iniciando Job de sincronização %s para tenant %s", job_id, tenant_id)
+            logger.info("[SyncEngine] Iniciando Job de sincronização %s para tenant %s (force_full=%s)", job_id, tenant_id, force_full)
 
             # 1. Registra o início na Fila de Sincronização
             async with get_db_context() as db_session:
@@ -262,6 +262,7 @@ class SyncEngine:
                             view_catalog_id=view.id,
                             oracle_conn=oracle_conn,
                             pg_conn=pg_conn,
+                            force_full=force_full,
                         )
                         total_records += imported
                         warnings.append(f"View {view_name} atualizada com sucesso. {imported} registros.")

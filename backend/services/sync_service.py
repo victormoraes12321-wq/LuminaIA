@@ -68,7 +68,9 @@ def _get_sync_config(sync_config) -> dict:
         except Exception:
             pass
     return {}
-async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSession) -> None:
+
+
+async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSession, *, force_full: bool = False) -> None:
     """
     Sincroniza o banco de dados Oracle de produção com a base de dados PostgreSQL clonada local.
     Copia todas as views ativas do catálogo do tenant utilizando o SyncEngine com staging tables e atomicidade.
@@ -88,7 +90,6 @@ async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSess
     # 2. Controle de concorrência para proteger o banco Oracle de múltiplas conexões simultâneas
     async with _active_syncs_lock:
         if tenant_key in _active_syncs:
-            logger.warning("Sincronização já em execução para o tenant %s (%s). Abortando.", tenant_name, tenant_key)
             raise RuntimeError("Sincronização já em andamento para esta empresa.")
         _active_syncs.add(tenant_key)
         
@@ -156,6 +157,21 @@ async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSess
         await db_session.commit()
 
         # 5. Inicia as conexões utilizando os imports patcheados nos testes
+
+        # 4. Inicializa o Fila de Sincronização
+        job_id = uuid.uuid4()
+        job = SyncQueue(
+            id=job_id,
+            tenant_id=tenant_key,
+            status="RUNNING",
+            quantidade_views=len(views),
+            quantidade_registros=0,
+            resultado="Sincronização iniciada",
+        )
+        db_session.add(job)
+        await db_session.commit()
+
+        # 5. Inicia as conexões utilizando os imports patcheados nos testes
         oracle_conn = None
         pg_conn = None
         total_records = 0
@@ -164,14 +180,13 @@ async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSess
         errors = []
         warnings = []
         start_time = time.perf_counter()
-
         try:
             logger.info("Iniciando sincronização para o tenant %s via SyncEngine...", tenant_name)
             
             # Conexão Oracle (fonte)
             oracle_details = decrypt_connection_details(tenant.oracle_conn)
             oracle_conn = await get_oracle_connection(oracle_details)
-            oracle_conn.call_timeout = 60000
+            oracle_conn.call_timeout = 600000  # 10 minutos para cargas volumosas
             
             # Conexão PostgreSQL Clone (destino)
             pg_details = decrypt_connection_details(tenant.clone_db_conn)
@@ -268,6 +283,7 @@ async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSess
                         oracle_conn=oracle_conn,
                         pg_conn=pg_conn,
                         progress_callback=on_view_progress,
+                        force_full=force_full,
                     )
                     total_records += imported
                     await _set_sync_progress(

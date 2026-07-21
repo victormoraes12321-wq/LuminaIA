@@ -230,7 +230,7 @@ async def test_integrity_service_checks(test_client, auth_headers):
     assert len(relatorio["inconsistencies"]) >= 1
     
     # O mismatch do hash_integridade deve ter sido pego!
-    mismatch = next((inc for inc in relatorio["inconsistencies"] if inc["tipo"] == "HASH_MISMATCH"), None)
+    mismatch = next((inc for inc in relatorio["inconsistencies"] if inc["tipo"] == "HASH_MISMATCH" and inc["alvo"] == view_name_err), None)
     assert mismatch is not None
     assert mismatch["alvo"] == view_name_err
 

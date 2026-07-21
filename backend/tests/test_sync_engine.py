@@ -197,7 +197,7 @@ class TestSyncEngine:
         engine = SyncEngine()
         
         # Simula um job lento que mantém o lock ocupado
-        async def slow_job(job_id, tenant_id, lock):
+        async def slow_job(job_id, tenant_id, lock, **kwargs):
             async with lock:
                 await asyncio.sleep(2)
         engine._execute_sync_job = slow_job
