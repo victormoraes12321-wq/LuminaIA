@@ -18,7 +18,13 @@ import {
   X,
   FileSpreadsheet,
   FileText,
-  Grid
+  Grid,
+  Clock3,
+  Database,
+  ShieldCheck,
+  Wrench,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DynamicRenderer } from '@/components/DynamicRenderer'
@@ -30,6 +36,7 @@ import { ClarificationPanel } from '@/components/chat/ClarificationPanel'
 import { repairTextEncoding } from '@/lib/textEncoding'
 import { isChartDataTable } from '@/types/lumina'
 import type { AnyChartData, BIAnomaly, ChartDataClarification, ChatMessage, QueryResponse } from '@/types/lumina'
+import { useAuth } from '@/context/AuthContext'
 
 // ── Markdown Parser for Bold Text ──────────────────────────────
 function parseMarkdownBold(text: string): React.ReactNode[] {
@@ -298,6 +305,7 @@ export function AssistantResponseBlock({
   isFavorited,
   onSendQuery
 }: AssistantResponseBlockProps) {
+  const { user } = useAuth()
   const displayContent = repairTextEncoding(msg.content)
   const { sections, isStructured } = parseBIAnalysis(displayContent)
   const [activeTab, setActiveTab] = useState<'visual' | 'table'>('visual')
@@ -306,6 +314,7 @@ export function AssistantResponseBlock({
   const [drillDownKey, setDrillDownKey] = useState<string | null>(null)
   const [showTrendLine, setShowTrendLine] = useState(false)
   const [showOutliers, setShowOutliers] = useState(false)
+  const [showAdminDiagnostics, setShowAdminDiagnostics] = useState(false)
 
   const response = msg.queryResponse
   const uniqueId = `response-block-${msg.id}`
@@ -527,6 +536,32 @@ export function AssistantResponseBlock({
           </div>
         </div>
 
+        {response?.data_status && (
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] no-print">
+            <span className="inline-flex items-center gap-1.5 text-zinc-400">
+              <Database size={12} className="text-cyan-400" />
+              {repairTextEncoding(response.data_status.source_label)}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-zinc-400">
+              <Clock3 size={12} />
+              {response.data_status.synced_at
+                ? `Atualizado em ${new Date(response.data_status.synced_at).toLocaleString('pt-BR')}`
+                : 'Horário de atualização indisponível'}
+            </span>
+            {response.validation_summary && (
+              <span className={cn(
+                'inline-flex items-center gap-1.5 font-semibold',
+                response.validation_summary.status === 'PASSED' ? 'text-emerald-400' : 'text-red-400',
+              )}>
+                <ShieldCheck size={12} />
+                {response.validation_summary.status === 'PASSED'
+                  ? `${response.validation_summary.checks_passed} verificações aprovadas`
+                  : `${response.validation_summary.checks_failed} verificações falharam`}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* ── 0. Erro de Consistência (Single Source of Truth) ── */}
         {consistencyErrors.length > 0 && (
           <div className="bg-red-950/20 border border-red-500/30 rounded-3xl p-6 flex flex-col gap-3">
@@ -708,6 +743,42 @@ export function AssistantResponseBlock({
                 className="w-full"
               />
             </ErrorBoundary>
+          </div>
+        )}
+
+        {!!response?.interaction_options?.length && (
+          <div className="flex flex-wrap items-center gap-2 no-print">
+            {response.interaction_options.map(option => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => onSendQuery(option.prompt)}
+                className="px-3 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900/40 text-xs text-zinc-300 hover:text-white hover:border-indigo-700 transition-colors"
+              >
+                {repairTextEncoding(option.label)}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {user?.role === 'ADMIN' && response?.admin_diagnostics && (
+          <div className="border border-zinc-800 rounded-xl overflow-hidden no-print">
+            <button
+              type="button"
+              onClick={() => setShowAdminDiagnostics(value => !value)}
+              className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left hover:bg-zinc-900/40 transition-colors"
+            >
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-300">
+                <Wrench size={13} className="text-indigo-400" />
+                Diagnóstico técnico da resposta
+              </span>
+              {showAdminDiagnostics ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </button>
+            {showAdminDiagnostics && (
+              <pre className="max-h-96 overflow-auto border-t border-zinc-800 p-4 text-[11px] leading-relaxed text-zinc-400 whitespace-pre-wrap break-words">
+                {JSON.stringify(response.admin_diagnostics, null, 2)}
+              </pre>
+            )}
           </div>
         )}
 

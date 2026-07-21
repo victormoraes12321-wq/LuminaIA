@@ -7,7 +7,7 @@ import unicodedata
 from decimal import Decimal
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 from openai import AsyncOpenAI
 
 from models.new_pipeline_contracts import (
@@ -21,6 +21,9 @@ from services.metadata_catalog import (
 )
 from services.security_and_normalization_engine import EmptyDatasetAnomalyError
 from services.ai_credential_manager import ai_credential_manager
+from services.financial_source_discovery import financial_source_discovery
+from services.metric_registry import core_sales_metric_audit
+from services.sales_value_breakdown import sales_value_breakdown
 from database import get_db_context
 from sqlalchemy import select, text
 
@@ -47,6 +50,15 @@ class NewQueryOrchestrator:
         self.generator = SQLGenerator()
         self.validator = SecurityValidator()
 
+    def _erp_sales_filter_sql(self, alias: str = "", filial: Any | None = None) -> str:
+        return sales_value_breakdown.commercial_filter_sql(alias, filial)
+
+    def _erp_sales_filter_binds(self, filial: Any | None = None) -> Dict[str, Any]:
+        return sales_value_breakdown.default_binds(filial)
+
+    def _erp_sales_filter_label(self, filial: Any | None = None) -> str:
+        return sales_value_breakdown.commercial_filter_label(filial)
+
     def _format_brl(self, value: Any) -> str:
         try:
             amount = Decimal(str(value or 0)).quantize(Decimal("0.01"))
@@ -55,9 +67,245 @@ class NewQueryOrchestrator:
         raw = f"{amount:,.2f}"
         return "R$ " + raw.replace(",", "X").replace(".", ",").replace("X", ".")
 
+    def _discount_source_is_explicit(self, source: Dict[str, Any]) -> bool:
+        return str(source.get("desconto_fonte_tipo") or "") == "coluna_explicita"
+
+    def _discount_source_observation(self, source: Dict[str, Any]) -> str:
+        source_text = str(source.get("desconto_fonte_observacao") or "").strip()
+        if source_text:
+            return source_text
+        return (
+            "A view vw_vendas_lm nao possui coluna explicita de desconto; "
+            "o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+        )
+
+    def _discount_source_warning(self, source: Dict[str, Any]) -> Optional[str]:
+        if self._discount_source_is_explicit(source):
+            return None
+        return (
+            "A view VW_VENDAS_LM nao traz uma coluna real de desconto. "
+            "O valor exibido foi apenas uma derivacao por qtde_ * p_unit_ - ptotal_; "
+            "com os dados atuais essa derivacao retorna zero e nao comprova que o ERP nao tenha descontos."
+        )
+
+    def _has_rb_term(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "venda rb",
+                "vendas rb",
+                "saida rb",
+                "saidas rb",
+                "rb",
+            )
+        )
+
+    def _has_devolucao_term(self, normalized: str) -> bool:
+        return any(term in normalized for term in ("devolucao", "devolucoes", "devolvido", "devolvida"))
+
+    def _has_profit_term(self, normalized: str) -> bool:
+        return any(term in normalized for term in ("lucro", "margem"))
+
+    def _has_unbilled_sales_term(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "nao faturada",
+                "nao faturadas",
+                "nao faturado",
+                "nao faturados",
+                "não faturada",
+                "não faturadas",
+                "pendente de faturamento",
+                "pendentes de faturamento",
+                "a faturar",
+                "sem faturar",
+            )
+        )
+
+    def _value_basis_from_text(self, normalized: str) -> str:
+        wants_both = any(term in normalized for term in ("liquido e bruto", "bruto e liquido", "os dois", "ambos"))
+        if wants_both:
+            return "ambos"
+        if any(term in normalized for term in ("bruto", "bruta")):
+            return "bruto"
+        if any(term in normalized for term in ("liquido", "liquida", "comercial")):
+            return "liquido"
+        return "liquido"
+
+    def _primary_metric_for_query(self, normalized: str, *, by_discount: bool = False) -> str:
+        if by_discount:
+            return "desconto_total"
+        if self._has_devolucao_term(normalized):
+            return "devolucao"
+        if self._has_rb_term(normalized):
+            return "saida_rb"
+        if self._value_basis_from_text(normalized) == "bruto":
+            return "total_bruto"
+        return "faturamento_comercial"
+
+    def _include_operational_details(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "detalhado",
+                "detalhada",
+                "detalhe",
+                "detalhes",
+                "completo",
+                "completa",
+                "todos os valores",
+                "todas as vendas",
+                "todos os tipos",
+                "rb",
+                "devolucao",
+                "devolucoes",
+                "bonificada",
+                "bonificadas",
+                "transferencia",
+                "transferencias",
+                "remessa",
+                "uso e consumo",
+            )
+        )
+
+    def _include_discount_details(self, normalized: str) -> bool:
+        return any(term in normalized for term in ("desconto", "descontos"))
+
+    def _pedido_total_key_for_metric(self, metric_key: str) -> str:
+        return {
+            "faturamento_comercial": "pedidos_comerciais_total",
+            "saida_rb": "pedidos_saida_rb_total",
+            "devolucao": "pedidos_devolucao_total",
+            "venda_bonificada": "pedidos_bonificados_total",
+            "transferencias": "pedidos_transferencias_total",
+            "outras_vendas": "pedidos_outras_vendas_total",
+            "remessa_uso_consumo": "pedidos_remessa_uso_consumo_total",
+            "outros_movimentos": "pedidos_outros_total",
+            "total_bruto": "pedidos_total_periodo",
+            "total_movimentos_view": "pedidos_movimentos_view_periodo",
+        }.get(metric_key, "pedidos_total_periodo")
+
+    def _pedido_filial_key_for_metric(self, metric_key: str) -> str:
+        return {
+            "faturamento_comercial": "pedidos_comerciais",
+            "saida_rb": "pedidos_saida_rb",
+            "devolucao": "pedidos_devolucao",
+            "venda_bonificada": "pedidos_bonificados",
+            "transferencias": "pedidos_transferencias",
+            "outras_vendas": "pedidos_outras_vendas",
+            "remessa_uso_consumo": "pedidos_remessa_uso_consumo",
+            "outros_movimentos": "pedidos_outros",
+            "total_bruto": "pedidos_total",
+            "total_movimentos_view": "pedidos_movimentos_view",
+        }.get(metric_key, "pedidos_total")
+
+    def _metric_label(self, metric_key: str) -> str:
+        if metric_key == "desconto_total":
+            return "Desconto"
+        return sales_value_breakdown.CATEGORY_LABELS.get(metric_key, metric_key.replace("_", " ").title())
+
+    def _schema_chart_types_from_text(self, normalized: str, *, ranking_kind: Optional[str]) -> List[str]:
+        explicit_table = any(term in normalized for term in ("tabela", "planilha", "listagem"))
+        explicit_chart = any(term in normalized for term in ("grafico", "grafica", "dashboard visual", "visual"))
+        wants_both = any(term in normalized for term in ("grafico e tabela", "tabela e grafico", "planilha e grafico", "os dois", "ambos"))
+
+        chart_type = "BAR"
+        if any(term in normalized for term in ("pizza", "donut", "rosca")):
+            chart_type = "PIE"
+        elif any(term in normalized for term in ("linha", "evolucao", "evolução")):
+            chart_type = "LINE"
+
+        if wants_both:
+            return ["TABLE", chart_type]
+        if explicit_chart and not explicit_table:
+            return [chart_type]
+        return ["TABLE"]
+
+    def _has_explicit_visualization_request(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "tabela",
+                "planilha",
+                "listagem",
+                "grafico",
+                "grafica",
+                "barras",
+                "pizza",
+                "donut",
+                "rosca",
+                "linha",
+                "visual",
+            )
+        )
+
+    def _visualization_type_for_schema(self, chart_type: str) -> VisualizationType:
+        mapping = {
+            "TABLE": VisualizationType.TABLE,
+            "BAR": VisualizationType.BAR,
+            "LINE": VisualizationType.LINE,
+            "PIE": VisualizationType.PIE,
+            "DONUT": VisualizationType.DONUT,
+            "SCATTER": VisualizationType.SCATTER,
+            "HEATMAP": VisualizationType.HEATMAP,
+            "KPI": VisualizationType.KPI_CARD,
+            "KPI_CARD": VisualizationType.KPI_CARD,
+        }
+        return mapping.get(chart_type, VisualizationType.TABLE)
+
+    def _normalize_response_mode(self, mode: str | None) -> str:
+        clean = str(mode or "analytical").strip().lower().replace("-", "_").replace(" ", "_")
+        if clean in {"quick", "fast", "rapido", "rapida", "operational", "operacional", "mode_1"}:
+            return "operational"
+        if clean in {"executive", "executivo", "advisor", "consultor", "premium", "mode_3"}:
+            return "executive"
+        return "analytical"
+
+    def _apply_response_mode(
+        self,
+        response_text: str,
+        *,
+        mode: str | None,
+        row_count: int,
+        warnings: List[str],
+    ) -> str:
+        response_mode = self._normalize_response_mode(mode)
+        if response_mode == "operational":
+            first_sentence = response_text.split(". ")[0].strip()
+            return first_sentence + ("." if first_sentence and not first_sentence.endswith(".") else "")
+        if response_mode == "executive":
+            additions = [f"Leitura executiva: foram retornadas {row_count} linha(s) para auditoria."]
+            if warnings:
+                additions.append("Ponto de atenção: ha limitacao de fonte em pelo menos uma métrica solicitada.")
+            return response_text + " " + " ".join(additions)
+        return response_text
+
     def _core_summary_topics(self, pergunta: str) -> set[str]:
         normalized = self._normalize_query_text(pergunta)
         topics: set[str] = set()
+        has_vendor_term = any(term in normalized for term in ("vendedor", "vendendor", "vendedores", "vendedora"))
+        has_client_term = any(term in normalized for term in ("cliente", "clientes"))
+        has_discount_term = any(term in normalized for term in ("desconto", "descontos"))
+        has_rb_term = self._has_rb_term(normalized)
+        has_devolucao_term = self._has_devolucao_term(normalized)
+        has_unsupported_metric = self._has_profit_term(normalized) or self._has_unbilled_sales_term(normalized)
+        wants_vendor_ranking = has_vendor_term and self._wants_ranked_output(normalized, "vendedor")
+        wants_client_ranking = has_client_term and self._wants_ranked_output(normalized, "cliente")
+        wants_vendor_top = has_vendor_term and self._wants_top_output(normalized, "vendedor")
+        wants_client_top = has_client_term and self._wants_top_output(normalized, "cliente")
+        if (
+            has_vendor_term
+            and (has_rb_term or has_devolucao_term)
+            and not wants_vendor_top
+            and re.search(r"\b(qnt|qt|qto|quanto|quantas|vendas?|vendeu)\b", normalized)
+        ):
+            wants_vendor_ranking = True
+
+        if self._has_profit_term(normalized):
+            topics.add("lucro")
+        if self._has_unbilled_sales_term(normalized):
+            topics.add("vendas_nao_faturadas")
 
         if any(term in normalized for term in (
             "faturamento",
@@ -74,29 +322,291 @@ class NewQueryOrchestrator:
             "vendas total",
             "vendas do mes",
             "vendas no mes",
-        )):
+            "vendas por filial",
+            "venda por filial",
+            "vendas por loja",
+            "venda por loja",
+            "vendas por unidade",
+            "venda por unidade",
+        )) and not (wants_vendor_ranking or wants_client_ranking or wants_vendor_top or wants_client_top):
             topics.add("faturamento")
+        if has_rb_term and not (wants_vendor_ranking or wants_client_ranking or wants_vendor_top or wants_client_top):
+            topics.add("rb")
+        if has_devolucao_term and not (wants_vendor_ranking or wants_client_ranking or wants_vendor_top or wants_client_top):
+            topics.add("devolucao")
         if any(term in normalized for term in ("ticket", "tiket", "tiquete", "valor medio")):
             topics.add("ticket")
-        if any(term in normalized for term in ("desconto", "descontos")):
+        if has_discount_term and not (wants_vendor_ranking or wants_client_ranking or wants_vendor_top or wants_client_top):
             topics.add("desconto")
-        has_vendor_term = any(term in normalized for term in ("vendedor", "vendendor", "vendedores", "vendedora"))
-        if has_vendor_term and any(term in normalized for term in (
-            "mais vendeu",
-            "maior venda",
-            "vendeu mais",
-            "lider",
-            "campeao",
-            "melhor vendedor",
-            "quem vendeu mais",
-            "ranking",
-            "top",
+        if any(term in normalized for term in (
+            "ver documentos",
+            "detalhe os pedidos",
+            "detalhar os pedidos",
+            "pedidos e notas",
+            "notas que compoem",
+            "documentos que compoem",
+            "rastreabilidade",
         )):
-            topics.add("top_vendedor")
-        if "cliente" in normalized and any(term in normalized for term in ("mais comprou", "mais compraram", "top", "ranking", "maior cliente", "maior compra")):
+            topics.add("documentos")
+
+        if wants_vendor_ranking:
+            if has_discount_term:
+                topics.add("ranking_vendedores_desconto")
+            elif has_devolucao_term and not has_rb_term:
+                topics.add("ranking_vendedores_devolucao")
+            elif has_rb_term:
+                topics.add("ranking_vendedores_rb")
+            elif not has_unsupported_metric:
+                topics.add("ranking_vendedores")
+        elif wants_vendor_top:
+            if has_discount_term:
+                topics.add("top_vendedor_desconto")
+            elif has_devolucao_term and not has_rb_term:
+                topics.add("top_vendedor_devolucao")
+            elif has_rb_term:
+                topics.add("top_vendedor_rb")
+            elif not has_unsupported_metric:
+                topics.add("top_vendedor")
+
+        if wants_client_ranking:
+            topics.add("ranking_clientes")
+        elif wants_client_top:
             topics.add("top_cliente")
 
         return topics
+
+    def _ranking_limit_from_text(self, normalized: str) -> Optional[int]:
+        top_match = re.search(r"\btop\s*(\d{1,3})\b", normalized)
+        if top_match:
+            return max(1, min(int(top_match.group(1)), 500))
+
+        leading_match = re.search(
+            r"\b(\d{1,3})\s+(?:primeiros|primeiras|maiores|melhores|principais)\b",
+            normalized,
+        )
+        if leading_match:
+            return max(1, min(int(leading_match.group(1)), 500))
+
+        return None
+
+    def _wants_unbounded_ranking(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "todos",
+                "todas",
+                "com todos",
+                "com todas",
+                "sem limite",
+                "completo",
+                "completa",
+                "lista completa",
+            )
+        )
+
+    def _ranking_limit_for_dimension(self, normalized: str, dimension: str) -> Optional[int]:
+        explicit_limit = self._ranking_limit_from_text(normalized)
+        if explicit_limit is not None:
+            return explicit_limit
+        if self._wants_unbounded_ranking(normalized):
+            return None
+        if dimension == "cliente":
+            return 50
+        return None
+
+    def _filial_from_text(self, pergunta: str) -> Optional[str]:
+        normalized = self._normalize_query_text(pergunta)
+        patterns = (
+            r"\b(?:filial|loja|unidade)\s*(?:n(?:o|umero)?\.?\s*)?[:#-]?\s*(\d{1,3})\b",
+            r"\b(?:da|de|na|no)\s+(?:filial|loja|unidade)\s*(\d{1,3})\b",
+        )
+        for pattern in patterns:
+            match = re.search(pattern, normalized)
+            if not match:
+                continue
+            return sales_value_breakdown.normalize_filial(match.group(1))
+        return None
+
+    def _filial_scope_label(self, filial: Optional[str]) -> str:
+        return f"filial {filial}" if filial else "todas as filiais"
+
+    def _wants_ranked_output(self, normalized: str, dimension: str) -> bool:
+        plural = f"{dimension}es" if dimension == "vendedor" else f"{dimension}s"
+        if self._ranking_limit_from_text(normalized) is not None:
+            return True
+        if any(term in normalized for term in (
+            "ranking",
+            "rank",
+            "lista",
+            "listar",
+            "todos",
+            "todas",
+            "cada",
+            "completo",
+            "completa",
+            f"por {dimension}",
+            f"por {plural}",
+            f"{plural} por",
+            f"todos os {plural}",
+            f"todas as {plural}",
+            f"todos {plural}",
+            f"{plural} que mais",
+        )):
+            return True
+        if "top" in normalized and plural in normalized:
+            return True
+        return False
+
+    def _wants_top_output(self, normalized: str, dimension: str) -> bool:
+        if self._wants_ranked_output(normalized, dimension):
+            return False
+        if any(term in normalized for term in (
+            "mais vendeu",
+            "maior venda",
+            "vendeu mais",
+            "maior desconto",
+            "mais desconto",
+            "lider",
+            "campeao",
+            f"melhor {dimension}",
+            f"qual {dimension}",
+            f"quem foi o {dimension}",
+            f"quem e o {dimension}",
+            f"top {dimension}",
+            "primeiro lugar",
+            "1 lugar",
+        )):
+            return True
+        if dimension == "cliente" and any(term in normalized for term in ("mais comprou", "mais compraram", "maior cliente", "maior compra")):
+            return True
+        return False
+
+    def _has_explicit_core_metric_term(self, normalized: str) -> bool:
+        metric_terms = (
+            "faturamento",
+            "receita",
+            "ticket",
+            "desconto",
+            "rb",
+            "saida rb",
+            "devolucao",
+            "devolucoes",
+            "bonificada",
+            "transferencia",
+            "lucro",
+            "margem",
+            "nao faturada",
+            "nao faturadas",
+            "nao faturado",
+            "nao faturados",
+        )
+        if any(term in normalized for term in metric_terms):
+            return True
+        return bool(re.search(r"\bvendas?\b", normalized))
+
+    def _looks_like_metric_followup(self, normalized: str) -> bool:
+        if any(
+            term in normalized
+            for term in (
+                "isso",
+                "esse dado",
+                "essa informacao",
+                "esse valor",
+                "esse ranking",
+                "essa lista",
+                "mesmo dado",
+                "mesma informacao",
+                "mesmo",
+                "mesma",
+                "agora",
+                "separa",
+                "separar",
+                "detalha",
+                "detalhe",
+            )
+        ):
+            return True
+        return bool(
+            re.fullmatch(
+                r"(?:e\s+)?(?:por\s+)?(?:vendedor|vendedores|cliente|clientes|filial|filiais|loja|lojas|unidade|unidades)",
+                normalized.strip(),
+            )
+        )
+
+    def _has_explicit_dimension_term(self, normalized: str) -> bool:
+        return any(
+            term in normalized
+            for term in (
+                "vendedor",
+                "vendedores",
+                "vendedora",
+                "cliente",
+                "clientes",
+                "filial",
+                "filiais",
+                "loja",
+                "unidade",
+            )
+        )
+
+    def _dimension_suffix_from_context_text(self, content: str) -> str:
+        normalized = self._normalize_query_text(content)
+        if any(term in normalized for term in ("vendedor", "vendedores", "vendedora")):
+            return " por vendedor"
+        if any(term in normalized for term in ("cliente", "clientes")):
+            return " por cliente"
+        if any(term in normalized for term in ("filial", "filiais", "loja", "unidade")):
+            return " por filial"
+        return ""
+
+    def _metric_suffix_from_context_text(self, content: str) -> str:
+        normalized = self._normalize_query_text(content)
+        if self._has_unbilled_sales_term(normalized):
+            return " vendas ainda nao faturadas"
+        if self._has_profit_term(normalized):
+            return " lucro"
+        if self._has_devolucao_term(normalized):
+            return " devolucao"
+        if self._has_rb_term(normalized):
+            return " vendas RB"
+        if "desconto" in normalized:
+            return " desconto"
+        if any(term in normalized for term in ("ticket", "tiket", "tiquete")):
+            return " ticket medio"
+        if any(term in normalized for term in ("faturamento", "receita")) or re.search(r"\bvendas?\b", normalized):
+            return " faturamento"
+        return ""
+
+    def _question_with_inherited_metric(
+        self,
+        pergunta: str,
+        history: Optional[List[Dict[str, str]]],
+    ) -> str:
+        normalized = self._normalize_query_text(pergunta)
+        has_explicit_metric = self._has_explicit_core_metric_term(normalized)
+        has_explicit_dimension = self._has_explicit_dimension_term(normalized)
+        if has_explicit_metric and has_explicit_dimension:
+            return pergunta
+        if not self._looks_like_metric_followup(normalized):
+            return pergunta
+
+        metric_suffix = ""
+        dimension_suffix = ""
+        for message in reversed(history or []):
+            content = str((message or {}).get("content") or "")
+            if not metric_suffix and not has_explicit_metric:
+                metric_suffix = self._metric_suffix_from_context_text(content)
+            if not dimension_suffix and not has_explicit_dimension:
+                dimension_suffix = self._dimension_suffix_from_context_text(content)
+            if (metric_suffix or has_explicit_metric) and (dimension_suffix or has_explicit_dimension):
+                break
+
+        contextual_question = pergunta
+        if dimension_suffix:
+            contextual_question = f"{contextual_question}{dimension_suffix}"
+        if metric_suffix:
+            contextual_question = f"{contextual_question} de{metric_suffix}"
+        return contextual_question
 
     def _is_core_summary_query(self, pergunta: str) -> bool:
         topics = self._core_summary_topics(pergunta)
@@ -107,17 +617,35 @@ class NewQueryOrchestrator:
 
         normalized = self._normalize_query_text(pergunta)
         single_topic = next(iter(topics))
-        if single_topic in {"faturamento", "ticket", "desconto", "top_vendedor"}:
+        if single_topic in {
+            "faturamento",
+            "ticket",
+            "desconto",
+            "rb",
+            "devolucao",
+            "lucro",
+            "vendas_nao_faturadas",
+            "top_vendedor",
+            "top_vendedor_desconto",
+            "top_vendedor_rb",
+            "top_vendedor_devolucao",
+            "ranking_vendedores",
+            "ranking_vendedores_desconto",
+            "ranking_vendedores_rb",
+            "ranking_vendedores_devolucao",
+            "ranking_clientes",
+        }:
             return True
         if single_topic == "top_cliente":
             return "ranking" not in normalized
         return False
 
     def _question_with_inherited_period(self, pergunta: str, history: Optional[List[Dict[str, str]]]) -> str:
-        if self._month_range_from_text(pergunta) is not None:
-            return pergunta
-        if not self._core_summary_topics(pergunta):
-            return pergunta
+        contextual_question = self._question_with_inherited_metric(pergunta, history)
+        if self._month_range_from_text(contextual_question) is not None:
+            return contextual_question
+        if not self._core_summary_topics(contextual_question):
+            return contextual_question
 
         for message in reversed(history or []):
             content = str((message or {}).get("content") or "")
@@ -135,9 +663,474 @@ class NewQueryOrchestrator:
                 inherited = start_date.strftime("%d/%m/%Y")
             else:
                 inherited = start_date.strftime("%m/%Y")
-            return f"{pergunta} em {inherited}"
+            return f"{contextual_question} em {inherited}"
 
-        return pergunta
+        return contextual_question
+
+    def _question_with_inherited_context(self, pergunta: str, history: Optional[List[Dict[str, str]]]) -> str:
+        contextual_question = self._question_with_inherited_period(pergunta, history)
+        normalized = self._normalize_query_text(contextual_question)
+        if self._filial_from_text(contextual_question) is not None:
+            return contextual_question
+        if any(term in normalized for term in ("todas as filiais", "todas filiais", "todas as lojas", "todas lojas")):
+            return contextual_question
+        if not self._looks_like_metric_followup(normalized):
+            return contextual_question
+
+        for message in reversed(history or []):
+            if str((message or {}).get("role") or "") != "user":
+                continue
+            inherited_filial = self._filial_from_text(str((message or {}).get("content") or ""))
+            if inherited_filial is not None:
+                return f"{contextual_question} na filial {inherited_filial}"
+        return contextual_question
+
+    def _decimal_value(self, value: Any) -> Decimal:
+        try:
+            return Decimal(str(value or 0))
+        except Exception:
+            return Decimal("0")
+
+    def _format_breakdown_ranking_row(
+        self,
+        row: Dict[str, Any],
+        dimension_key: str,
+        *,
+        primary_key: str,
+    ) -> Dict[str, Any]:
+        ranking_primary_key = f"ranking_{primary_key}"
+        primary_value = self._decimal_value(row.get(ranking_primary_key, row.get(primary_key)))
+        filial_value = self._decimal_value(row.get(primary_key))
+        ranking_discount_total = self._decimal_value(row.get("ranking_desconto_total", row.get("desconto_total")))
+        filial_discount_total = self._decimal_value(row.get("desconto_total"))
+        filial = str(row.get("filial") or "Sem filial")
+        formatted: Dict[str, Any] = {
+            "posicao": int(row.get("posicao") or 0),
+            dimension_key: str(row.get(dimension_key) or "Nao identificado"),
+            "filial": filial,
+            "valor_total": float(primary_value),
+            "valor_formatado": self._format_brl(primary_value),
+            "valor_filial": float(filial_value),
+            "valor_filial_formatado": self._format_brl(filial_value),
+        }
+
+        for key in sales_value_breakdown.CATEGORY_VALUE_KEYS:
+            formatted[key] = float(self._decimal_value(row.get(key)))
+            formatted[f"{key}_total"] = float(self._decimal_value(row.get(f"ranking_{key}", row.get(key))))
+
+        formatted.update(
+            {
+                "total_bruto": float(self._decimal_value(row.get("total_bruto"))),
+                "total_movimentos_view": float(self._decimal_value(row.get("total_movimentos_view"))),
+                "faturamento_comercial_total": float(self._decimal_value(row.get("ranking_faturamento_comercial"))),
+                "total_bruto_total": float(self._decimal_value(row.get("ranking_total_bruto"))),
+                "total_movimentos_view_total": float(self._decimal_value(row.get("ranking_total_movimentos_view"))),
+                "pedidos_comerciais": int(row.get("pedidos_comerciais") or 0),
+                "pedidos_saida_rb": int(row.get("pedidos_saida_rb") or 0),
+                "pedidos_devolucao": int(row.get("pedidos_devolucao") or 0),
+                "pedidos_bonificados": int(row.get("pedidos_bonificados") or 0),
+                "pedidos_transferencias": int(row.get("pedidos_transferencias") or 0),
+                "pedidos_outras_vendas": int(row.get("pedidos_outras_vendas") or 0),
+                "pedidos_remessa_uso_consumo": int(row.get("pedidos_remessa_uso_consumo") or 0),
+                "pedidos_outros": int(row.get("pedidos_outros") or 0),
+                "pedidos_total": int(row.get("pedidos_total") or 0),
+                "pedidos_movimentos_view": int(row.get("pedidos_movimentos_view") or 0),
+                "pedidos_comerciais_total": int(row.get("ranking_pedidos_comerciais") or 0),
+                "pedidos_saida_rb_total": int(row.get("ranking_pedidos_saida_rb") or 0),
+                "pedidos_devolucao_total": int(row.get("ranking_pedidos_devolucao") or 0),
+                "pedidos_bonificados_total": int(row.get("ranking_pedidos_bonificados") or 0),
+                "pedidos_transferencias_total": int(row.get("ranking_pedidos_transferencias") or 0),
+                "pedidos_outras_vendas_total": int(row.get("ranking_pedidos_outras_vendas") or 0),
+                "pedidos_remessa_uso_consumo_total": int(row.get("ranking_pedidos_remessa_uso_consumo") or 0),
+                "pedidos_outros_total": int(row.get("ranking_pedidos_outros") or 0),
+                "pedidos_total_periodo": int(row.get("ranking_pedidos_total") or 0),
+                "pedidos_movimentos_view_periodo": int(row.get("ranking_pedidos_movimentos_view") or 0),
+                "desconto_comercial": float(self._decimal_value(row.get("desconto_comercial"))),
+                "desconto_total": float(filial_discount_total),
+                "desconto_total_periodo": float(ranking_discount_total),
+                "desconto_formatado": self._format_brl(ranking_discount_total),
+                "desconto_fonte_tipo": str(row.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita"),
+                "desconto_fonte_coluna": row.get("desconto_fonte_coluna"),
+                "desconto_fonte_confianca": str(row.get("desconto_fonte_confianca") or "baixa"),
+                "desconto_fonte_observacao": self._discount_source_observation(row),
+            }
+        )
+        return formatted
+
+    def _sorted_filial_labels(self, labels: set[str]) -> List[str]:
+        def sort_key(label: str) -> tuple[int, str]:
+            try:
+                return int(label), label
+            except ValueError:
+                return 999999, label
+
+        return sorted(labels, key=sort_key)
+
+    def _filial_column_suffix(self, filial: Any) -> str:
+        normalized = self._normalize_query_text(str(filial or "sem_filial"))
+        suffix = re.sub(r"[^a-z0-9]+", "_", normalized).strip("_")
+        return suffix or "sem_filial"
+
+    def _pivot_ranking_rows_by_dimension(
+        self,
+        rows: List[Dict[str, Any]],
+        dimension_key: str,
+        *,
+        primary_key: str,
+        include_operational_details: bool = False,
+        include_discount_details: bool = False,
+        include_count_details: bool = True,
+    ) -> List[Dict[str, Any]]:
+        if not rows:
+            return []
+
+        filial_labels = self._sorted_filial_labels({str(row.get("filial") or "Sem filial") for row in rows})
+        grouped: Dict[str, Dict[str, Any]] = {}
+        for row in rows:
+            dimension_value = str(row.get(dimension_key) or "Nao identificado")
+            group = grouped.setdefault(
+                dimension_value,
+                {
+                    "posicao": int(row.get("posicao") or 0),
+                    "rows": [],
+                },
+            )
+            group["posicao"] = min(group["posicao"] or int(row.get("posicao") or 0), int(row.get("posicao") or 0))
+            group["rows"].append(row)
+
+        metric_keys: tuple[str, ...] = (primary_key,) if primary_key != "desconto_total" else ("desconto_total",)
+        if include_operational_details:
+            metric_keys = tuple(dict.fromkeys((*metric_keys, *sales_value_breakdown.CATEGORY_VALUE_KEYS, "total_bruto", "total_movimentos_view")))
+        if include_discount_details:
+            metric_keys = tuple(dict.fromkeys((*metric_keys, "desconto_comercial", "desconto_total")))
+        count_keys: tuple[str, ...] = ()
+        if include_count_details:
+            count_keys = tuple(dict.fromkeys((self._pedido_filial_key_for_metric(primary_key), "pedidos_total")))
+        pivoted_rows: List[Dict[str, Any]] = []
+
+        for dimension_value, group in sorted(grouped.items(), key=lambda item: (item[1]["posicao"], item[0])):
+            branch_rows = list(group["rows"])
+            representative = branch_rows[0]
+            by_filial = {str(row.get("filial") or "Sem filial"): row for row in branch_rows}
+            filiais_com_movimento = [filial for filial in filial_labels if filial in by_filial]
+
+            output: Dict[str, Any] = {
+                "posicao": int(group["posicao"] or 0),
+                dimension_key: dimension_value,
+                "filiais_com_movimento": ", ".join(filiais_com_movimento),
+            }
+
+            for filial_label in filial_labels:
+                branch = by_filial.get(filial_label, {})
+                prefix = f"filial_{self._filial_column_suffix(filial_label)}"
+                for metric_key in metric_keys:
+                    output[f"{prefix}_{metric_key}"] = float(self._decimal_value(branch.get(metric_key)))
+                for count_key in count_keys:
+                    output[f"{prefix}_{count_key}"] = int(branch.get(count_key) or 0)
+
+            fallback_faturamento = sum((self._decimal_value(row.get("faturamento_comercial")) for row in branch_rows), Decimal("0"))
+            fallback_total_bruto = sum((self._decimal_value(row.get("total_bruto")) for row in branch_rows), Decimal("0"))
+            fallback_total_movimentos = sum((self._decimal_value(row.get("total_movimentos_view")) for row in branch_rows), Decimal("0"))
+            fallback_desconto_comercial = sum((self._decimal_value(row.get("desconto_comercial")) for row in branch_rows), Decimal("0"))
+            fallback_desconto_total = sum((self._decimal_value(row.get("desconto_total")) for row in branch_rows), Decimal("0"))
+            fallback_primary = sum((self._decimal_value(row.get(primary_key)) for row in branch_rows), Decimal("0"))
+
+            faturamento_total = self._decimal_value(representative.get("faturamento_comercial_total")) or fallback_faturamento
+            total_bruto_total = self._decimal_value(representative.get("total_bruto_total")) or fallback_total_bruto
+            total_movimentos_view_total = self._decimal_value(representative.get("total_movimentos_view_total")) or fallback_total_movimentos
+            desconto_comercial_total = self._decimal_value(representative.get("ranking_desconto_comercial")) or fallback_desconto_comercial
+            desconto_total_periodo = self._decimal_value(representative.get("desconto_total_periodo")) or fallback_desconto_total
+            pedidos_comerciais_total = int(representative.get("pedidos_comerciais_total") or sum(int(row.get("pedidos_comerciais") or 0) for row in branch_rows))
+            pedidos_total_periodo = int(representative.get("pedidos_total_periodo") or sum(int(row.get("pedidos_total") or 0) for row in branch_rows))
+            pedidos_movimentos_view_periodo = int(
+                representative.get("pedidos_movimentos_view_periodo")
+                or sum(int(row.get("pedidos_movimentos_view") or 0) for row in branch_rows)
+            )
+            primary_total = (
+                desconto_total_periodo
+                if primary_key == "desconto_total"
+                else self._decimal_value(representative.get(f"{primary_key}_total")) or fallback_primary
+            )
+            primary_pedidos_total_key = self._pedido_total_key_for_metric(primary_key)
+            primary_pedidos_total = int(
+                representative.get(primary_pedidos_total_key)
+                or sum(int(row.get(self._pedido_filial_key_for_metric(primary_key)) or 0) for row in branch_rows)
+            )
+
+            output["valor_total"] = float(primary_total)
+            output["valor_total_formatado"] = self._format_brl(primary_total)
+            output[primary_pedidos_total_key] = primary_pedidos_total
+            if include_operational_details:
+                output.update(
+                    {
+                        "faturamento_comercial_total": float(faturamento_total),
+                        "total_bruto_total": float(total_bruto_total),
+                        "total_movimentos_view_total": float(total_movimentos_view_total),
+                        "pedidos_comerciais_total": pedidos_comerciais_total,
+                        "pedidos_total_periodo": pedidos_total_periodo,
+                        "pedidos_movimentos_view_periodo": pedidos_movimentos_view_periodo,
+                    }
+                )
+            if include_discount_details:
+                output.update(
+                    {
+                        "desconto_comercial_total": float(desconto_comercial_total),
+                        "desconto_total_periodo": float(desconto_total_periodo),
+                        "desconto_fonte_tipo": str(representative.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita"),
+                        "desconto_fonte_coluna": representative.get("desconto_fonte_coluna"),
+                        "desconto_fonte_confianca": str(representative.get("desconto_fonte_confianca") or "baixa"),
+                        "desconto_fonte_observacao": self._discount_source_observation(representative),
+                    }
+                )
+            pivoted_rows.append(output)
+
+        return pivoted_rows
+
+    def _period_value_breakdown_rows(
+        self,
+        totals: Dict[str, Any],
+        filial_totals: List[Dict[str, Any]],
+        *,
+        filial: Optional[str],
+        value_basis: str = "liquido",
+        include_operational_details: bool = False,
+    ) -> List[Dict[str, Any]]:
+        rows: List[Dict[str, Any]] = []
+        value_basis = value_basis if value_basis in {"liquido", "bruto", "ambos"} else "liquido"
+
+        def make_row(source: Dict[str, Any], filial_label: str, tipo_linha: str) -> Dict[str, Any]:
+            faturamento = self._decimal_value(source.get("faturamento_comercial"))
+            total_bruto = self._decimal_value(source.get("total_bruto"))
+            if value_basis == "bruto":
+                valor_principal = total_bruto
+                pedidos_principais = int(source.get("pedidos_total") or 0)
+                tipo_valor = "Total bruto sem transferencias"
+            else:
+                valor_principal = faturamento
+                pedidos_principais = int(source.get("pedidos_comerciais") or 0)
+                tipo_valor = "Faturamento comercial"
+            row: Dict[str, Any] = {
+                "filial": filial_label,
+                "tipo_linha": tipo_linha,
+                "tipo_valor": tipo_valor if value_basis != "ambos" else "Faturamento comercial e total bruto sem transferencias",
+                "valor": float(valor_principal),
+                "valor_formatado": self._format_brl(valor_principal),
+                "pedidos": pedidos_principais,
+                "pedidos_comerciais": int(source.get("pedidos_comerciais") or 0),
+                "pedidos_total": int(source.get("pedidos_total") or 0),
+                "observacao": self._erp_sales_filter_label(filial) if tipo_linha == "Total geral" else "Valores separados por filial; transferencias ficam em coluna propria e fora do total bruto.",
+            }
+            if value_basis in {"liquido", "ambos"}:
+                row["faturamento_comercial"] = float(faturamento)
+            if value_basis in {"bruto", "ambos"}:
+                row["total_bruto"] = float(total_bruto)
+            if include_operational_details:
+                for key in sales_value_breakdown.CATEGORY_VALUE_KEYS:
+                    row[key] = float(self._decimal_value(source.get(key)))
+                row["total_bruto"] = float(total_bruto)
+                row["total_movimentos_view"] = float(self._decimal_value(source.get("total_movimentos_view")))
+            return row
+
+        for filial_row in filial_totals:
+            filial_label = str(filial_row.get("filial") or "Sem filial")
+            rows.append(make_row(filial_row, filial_label, "Filial"))
+        if filial is None:
+            rows.append(make_row(totals, "Total geral", "Total geral"))
+        return rows
+
+    def _period_category_breakdown_rows(
+        self,
+        totals: Dict[str, Any],
+        filial_totals: List[Dict[str, Any]],
+        *,
+        filial: Optional[str],
+        category_key: str,
+    ) -> List[Dict[str, Any]]:
+        rows: List[Dict[str, Any]] = []
+        pedido_key = self._pedido_filial_key_for_metric(category_key)
+        label = self._metric_label(category_key)
+        for filial_label, tipo_linha, source in self._period_source_rows(totals, filial_totals, filial=filial):
+            value = self._decimal_value(source.get(category_key))
+            rows.append(
+                {
+                    "indicador": label,
+                    "filial": filial_label,
+                    "tipo_linha": tipo_linha,
+                    "tipo_valor": category_key,
+                    "valor": float(value),
+                    "valor_formatado": self._format_brl(value),
+                    "pedidos": int(source.get(pedido_key) or 0),
+                    "observacao": f"{label} separado por filial.",
+                }
+            )
+        return rows
+
+    def _period_source_rows(
+        self,
+        totals: Dict[str, Any],
+        filial_totals: List[Dict[str, Any]],
+        *,
+        filial: Optional[str],
+    ) -> List[tuple[str, str, Dict[str, Any]]]:
+        rows: List[tuple[str, str, Dict[str, Any]]] = []
+        for filial_row in filial_totals:
+            rows.append((str(filial_row.get("filial") or "Sem filial"), "Filial", filial_row))
+        if filial is None:
+            rows.append(("Total geral", "Total geral", totals))
+        return rows
+
+    def _period_ticket_breakdown_rows(
+        self,
+        totals: Dict[str, Any],
+        filial_totals: List[Dict[str, Any]],
+        *,
+        filial: Optional[str],
+    ) -> List[Dict[str, Any]]:
+        rows: List[Dict[str, Any]] = []
+        for filial_label, tipo_linha, source in self._period_source_rows(totals, filial_totals, filial=filial):
+            faturamento = self._decimal_value(source.get("faturamento_comercial"))
+            total_bruto = self._decimal_value(source.get("total_bruto"))
+            pedidos_comerciais = int(source.get("pedidos_comerciais") or 0)
+            pedidos_total = int(source.get("pedidos_total") or 0)
+            ticket_comercial = faturamento / Decimal(pedidos_comerciais) if pedidos_comerciais else Decimal("0")
+            ticket_bruto = total_bruto / Decimal(pedidos_total) if pedidos_total else Decimal("0")
+            rows.append(
+                {
+                    "indicador": "Ticket medio",
+                    "filial": filial_label,
+                    "tipo_linha": tipo_linha,
+                    "ticket_medio_comercial": float(ticket_comercial),
+                    "ticket_medio_comercial_formatado": self._format_brl(ticket_comercial),
+                    "ticket_medio_bruto": float(ticket_bruto),
+                    "ticket_medio_bruto_formatado": self._format_brl(ticket_bruto),
+                    "faturamento_comercial": float(faturamento),
+                    "total_bruto": float(total_bruto),
+                    "pedidos_comerciais": pedidos_comerciais,
+                    "pedidos_total": pedidos_total,
+                    "observacao": "Ticket comercial usa tipos 2/61; ticket bruto exclui transferencias e mantem transferencias em coluna propria.",
+                }
+            )
+        return rows
+
+    def _period_discount_breakdown_rows(
+        self,
+        totals: Dict[str, Any],
+        filial_totals: List[Dict[str, Any]],
+        *,
+        filial: Optional[str],
+    ) -> List[Dict[str, Any]]:
+        rows: List[Dict[str, Any]] = []
+        for filial_label, tipo_linha, source in self._period_source_rows(totals, filial_totals, filial=filial):
+            desconto_comercial = self._decimal_value(source.get("desconto_comercial"))
+            desconto_total = self._decimal_value(source.get("desconto_total"))
+            pedidos_comerciais = int(source.get("pedidos_comerciais") or 0)
+            pedidos_total = int(source.get("pedidos_total") or 0)
+            desconto_medio_comercial = desconto_comercial / Decimal(pedidos_comerciais) if pedidos_comerciais else Decimal("0")
+            desconto_medio_total = desconto_total / Decimal(pedidos_total) if pedidos_total else Decimal("0")
+            rows.append(
+                {
+                    "indicador": "Desconto",
+                    "filial": filial_label,
+                    "tipo_linha": tipo_linha,
+                    "desconto_comercial": float(desconto_comercial),
+                    "desconto_comercial_formatado": self._format_brl(desconto_comercial),
+                    "desconto_medio_comercial": float(desconto_medio_comercial),
+                    "desconto_medio_comercial_formatado": self._format_brl(desconto_medio_comercial),
+                    "desconto_total": float(desconto_total),
+                    "desconto_total_formatado": self._format_brl(desconto_total),
+                    "desconto_medio_total": float(desconto_medio_total),
+                    "desconto_medio_total_formatado": self._format_brl(desconto_medio_total),
+                    "pedidos_comerciais": pedidos_comerciais,
+                    "pedidos_total": pedidos_total,
+                    "desconto_fonte_tipo": str(source.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita"),
+                    "desconto_fonte_coluna": source.get("desconto_fonte_coluna"),
+                    "desconto_fonte_confianca": str(source.get("desconto_fonte_confianca") or "baixa"),
+                    "desconto_fonte_observacao": self._discount_source_observation(source),
+                    "observacao": self._discount_source_observation(source),
+                }
+            )
+        return rows
+
+    def _decorate_rows_with_indicator(self, rows: List[Dict[str, Any]], indicador: str) -> List[Dict[str, Any]]:
+        return [
+            {
+                "indicador": indicador,
+                **row,
+                "observacao": "Valores separados por filial e tipo de movimento.",
+            }
+            for row in rows
+        ]
+
+    def _distinct_count(self, rows: List[Dict[str, Any]], key: str) -> int:
+        return len({str(row.get(key) or "") for row in rows if row.get(key)})
+
+    def _scope_suffix(self, filial: Optional[str]) -> str:
+        return f" na filial {filial}" if filial else " em todas as filiais"
+
+    async def _fetch_vendor_ranking(
+        self,
+        session: Any,
+        binds: Dict[str, Any],
+        *,
+        limit: Optional[int],
+        by_discount: bool = False,
+        primary_key: str = "faturamento_comercial",
+        include_operational_details: bool = False,
+        include_discount_details: bool = False,
+        filial: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        ranking_value_key = "faturamento_comercial" if by_discount else primary_key
+        detailed_rows = await sales_value_breakdown.fetch_vendor_ranking(
+            session,
+            binds,
+            limit=limit,
+            by_discount=by_discount,
+            ranking_value_key=ranking_value_key,
+            filial=filial,
+        )
+        primary_key = "desconto_total" if by_discount else primary_key
+        branch_rows = [
+            self._format_breakdown_ranking_row(row, "vendedor", primary_key=primary_key)
+            for row in detailed_rows
+        ]
+        return self._pivot_ranking_rows_by_dimension(
+            branch_rows,
+            "vendedor",
+            primary_key=primary_key,
+            include_operational_details=include_operational_details,
+            include_discount_details=include_discount_details or by_discount,
+        )
+
+    async def _fetch_client_ranking(
+        self,
+        session: Any,
+        binds: Dict[str, Any],
+        *,
+        limit: Optional[int],
+        primary_key: str = "faturamento_comercial",
+        include_operational_details: bool = False,
+        include_discount_details: bool = False,
+        filial: Optional[str] = None,
+    ) -> List[Dict[str, Any]]:
+        detailed_rows = await sales_value_breakdown.fetch_client_ranking(
+            session,
+            binds,
+            limit=limit,
+            ranking_value_key=primary_key,
+            filial=filial,
+        )
+        branch_rows = [
+            self._format_breakdown_ranking_row(row, "cliente", primary_key=primary_key)
+            for row in detailed_rows
+        ]
+        return self._pivot_ranking_rows_by_dimension(
+            branch_rows,
+            "cliente",
+            primary_key=primary_key,
+            include_operational_details=include_operational_details,
+            include_discount_details=include_discount_details,
+        )
+
 
     async def _execute_core_summary_query(
         self,
@@ -148,170 +1141,504 @@ class NewQueryOrchestrator:
         start_time: float,
         debug_data: Dict[str, Any],
         conversation_graph_manager: Any,
+        mode: str = "analytical",
     ) -> Dict[str, Any]:
         start_date_raw, end_date_raw = self._month_range_from_text(pergunta) or ("", "")
         start_date = date.fromisoformat(start_date_raw)
         end_date = date.fromisoformat(end_date_raw)
         topics = self._core_summary_topics(pergunta)
+        normalized_query = self._normalize_query_text(pergunta)
+        vendor_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "vendedor")
+        client_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "cliente")
+        selected_filial = self._filial_from_text(pergunta)
+        scope_text = self._scope_suffix(selected_filial)
+        value_basis = self._value_basis_from_text(normalized_query)
+        include_operational_details = self._include_operational_details(normalized_query)
+        include_discount_details = self._include_discount_details(normalized_query)
+        primary_sales_key = self._primary_metric_for_query(normalized_query)
+        unsupported_warnings: List[str] = []
+        financial_source_report: Dict[str, Any] | None = None
 
         summary_rows: List[Dict[str, Any]] = []
-        binds = {"start_date": start_date, "end_date": end_date}
+        binds = {
+            "start_date": start_date,
+            "end_date": end_date,
+            "end_exclusive": end_date + timedelta(days=1),
+            **self._erp_sales_filter_binds(selected_filial),
+        }
+        ranking_rows: List[Dict[str, Any]] = []
+        document_rows: List[Dict[str, Any]] = []
+        ranking_kind: Optional[str] = None
 
         async with get_db_context() as session:
-            totals_result = await session.execute(
-                text(
-                    """
-                    SELECT
-                        COALESCE(SUM(ptotal_), 0) AS faturamento_total,
-                        COUNT(DISTINCT pedido_) AS pedidos,
-                        COALESCE(SUM(GREATEST(ROUND(((qtde_ * p_unit_) - ptotal_)::numeric, 2), 0::numeric)), 0) AS desconto_total
-                    FROM vw_vendas_lm
-                    WHERE dtemissao_ BETWEEN :start_date AND :end_date
-                    """
-                ),
+            period_totals = await sales_value_breakdown.fetch_period_totals(
+                session,
                 binds,
+                filial=selected_filial,
             )
-            totals = dict(totals_result.mappings().first() or {})
-            faturamento_total = Decimal(str(totals.get("faturamento_total") or 0))
-            pedidos = int(totals.get("pedidos") or 0)
-            desconto_total = Decimal(str(totals.get("desconto_total") or 0))
+            period_filial_totals = await sales_value_breakdown.fetch_period_totals_by_filial(
+                session,
+                binds,
+                filial=selected_filial,
+            )
+            if "documentos" in topics:
+                document_rows = await sales_value_breakdown.fetch_document_details(
+                    session,
+                    binds,
+                    filial=selected_filial,
+                    category_key=primary_sales_key,
+                    limit=500,
+                )
+            if "lucro" in topics or "vendas_nao_faturadas" in topics:
+                try:
+                    financial_source_report = await financial_source_discovery.discover_postgres(session)
+                except Exception as exc:
+                    financial_source_report = {
+                        "version": "discovery_failed",
+                        "error": {"type": type(exc).__name__, "message": str(exc)},
+                    }
+                if "lucro" in topics:
+                    unsupported_warnings.append(
+                        financial_source_discovery.source_warning(financial_source_report, "lucro")
+                    )
+                if "vendas_nao_faturadas" in topics:
+                    unsupported_warnings.append(
+                        financial_source_discovery.source_warning(financial_source_report, "vendas_nao_faturadas")
+                    )
+            faturamento_total = self._decimal_value(period_totals.get("faturamento_comercial"))
+            total_bruto = self._decimal_value(period_totals.get("total_bruto"))
+            pedidos = int(period_totals.get("pedidos_comerciais") or 0)
+            pedidos_total = int(period_totals.get("pedidos_total") or 0)
+            desconto_total = self._decimal_value(period_totals.get("desconto_comercial"))
+            desconto_total_bruto = self._decimal_value(period_totals.get("desconto_total"))
             ticket_medio = faturamento_total / Decimal(pedidos) if pedidos else Decimal("0")
+            ticket_medio_bruto = total_bruto / Decimal(pedidos_total) if pedidos_total else Decimal("0")
             desconto_medio = desconto_total / Decimal(pedidos) if pedidos else Decimal("0")
+            desconto_medio_bruto = desconto_total_bruto / Decimal(pedidos_total) if pedidos_total else Decimal("0")
 
             top_vendor = None
+            top_vendor_rows: List[Dict[str, Any]] = []
+            top_vendor_discount = None
+            top_discount_rows: List[Dict[str, Any]] = []
+            top_vendor_rb = None
+            top_vendor_rb_rows: List[Dict[str, Any]] = []
+            top_vendor_devolucao = None
+            top_vendor_devolucao_rows: List[Dict[str, Any]] = []
             if "top_vendedor" in topics:
-                vendor_result = await session.execute(
-                    text(
-                        """
-                        SELECT v.nome_ved AS vendedor, COALESCE(SUM(lm.ptotal_), 0) AS valor_total
-                        FROM vw_vendas_lm lm
-                        INNER JOIN vw_vendedor_cad_lm v
-                          ON coalesce(nullif(ltrim(lm.rca_::text, '0'), ''), '0')
-                           = coalesce(nullif(ltrim(v.codi_ved::text, '0'), ''), '0')
-                        WHERE lm.dtemissao_ BETWEEN :start_date AND :end_date
-                          AND UPPER(COALESCE(v.nome_ved, '')) <> 'PADRAO'
-                        GROUP BY v.nome_ved
-                        ORDER BY valor_total DESC
-                        LIMIT 1
-                        """
-                    ),
+                top_vendor_rows = await self._fetch_vendor_ranking(
+                    session,
                     binds,
+                    limit=1,
+                    by_discount=False,
+                    primary_key=primary_sales_key,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
                 )
-                top_vendor = dict(vendor_result.mappings().first() or {})
+                top_vendor = top_vendor_rows[0] if top_vendor_rows else {}
+            if "top_vendedor_desconto" in topics:
+                top_discount_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=1,
+                    by_discount=True,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=True,
+                    filial=selected_filial,
+                )
+                top_vendor_discount = top_discount_rows[0] if top_discount_rows else None
+            if "top_vendedor_rb" in topics:
+                top_vendor_rb_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=1,
+                    by_discount=False,
+                    primary_key="saida_rb",
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
+                top_vendor_rb = top_vendor_rb_rows[0] if top_vendor_rb_rows else {}
+            if "top_vendedor_devolucao" in topics:
+                top_vendor_devolucao_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=1,
+                    by_discount=False,
+                    primary_key="devolucao",
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
+                top_vendor_devolucao = top_vendor_devolucao_rows[0] if top_vendor_devolucao_rows else {}
+
+            if "ranking_vendedores" in topics:
+                ranking_kind = "vendedores"
+                ranking_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=vendor_ranking_limit,
+                    by_discount=False,
+                    primary_key=primary_sales_key,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
+            elif "ranking_vendedores_desconto" in topics:
+                ranking_kind = "vendedores_desconto"
+                ranking_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=vendor_ranking_limit,
+                    by_discount=True,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=True,
+                    filial=selected_filial,
+                )
+            elif "ranking_vendedores_rb" in topics:
+                ranking_kind = "vendedores_rb"
+                ranking_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=vendor_ranking_limit,
+                    by_discount=False,
+                    primary_key="saida_rb",
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
+            elif "ranking_vendedores_devolucao" in topics:
+                ranking_kind = "vendedores_devolucao"
+                ranking_rows = await self._fetch_vendor_ranking(
+                    session,
+                    binds,
+                    limit=vendor_ranking_limit,
+                    by_discount=False,
+                    primary_key="devolucao",
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
 
             top_client = None
+            top_client_rows: List[Dict[str, Any]] = []
             if "top_cliente" in topics:
-                client_result = await session.execute(
-                    text(
-                        """
-                        SELECT c.nome AS cliente, COALESCE(SUM(lm.ptotal_), 0) AS valor_total
-                        FROM vw_vendas_lm lm
-                        INNER JOIN vw_clientes_cad_lm c
-                          ON coalesce(nullif(ltrim(lm.codcliente_::text, '0'), ''), '0')
-                           = coalesce(nullif(ltrim(c.codigo::text, '0'), ''), '0')
-                        WHERE lm.dtemissao_ BETWEEN :start_date AND :end_date
-                          AND UPPER(COALESCE(c.nome, '')) <> 'LAGES E LOPES LTDA'
-                        GROUP BY c.nome
-                        ORDER BY valor_total DESC
-                        LIMIT 1
-                        """
-                    ),
+                client_primary_key = primary_sales_key if primary_sales_key in {*sales_value_breakdown.CATEGORY_VALUE_KEYS, "total_bruto"} else "faturamento_comercial"
+                top_client_rows = await self._fetch_client_ranking(
+                    session,
                     binds,
+                    limit=1,
+                    primary_key=client_primary_key,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
                 )
-                top_client = dict(client_result.mappings().first() or {})
-
-        if "faturamento" in topics:
-            summary_rows.append({
-                "indicador": "Faturamento total",
-                "valor": float(faturamento_total),
-                "valor_formatado": self._format_brl(faturamento_total),
-                "observacao": "Total de vendas no período informado.",
-            })
-        if "ticket" in topics:
-            summary_rows.append({
-                "indicador": "Ticket médio",
-                "valor": float(ticket_medio),
-                "valor_formatado": self._format_brl(ticket_medio),
-                "observacao": f"Calculado por {pedidos} pedidos distintos.",
-            })
-        if "desconto" in topics:
-            summary_rows.append({
-                "indicador": "Desconto total",
-                "valor": float(desconto_total),
-                "valor_formatado": self._format_brl(desconto_total),
-                "observacao": "Derivado de quantidade vezes preço unitário menos valor faturado.",
-            })
-            summary_rows.append({
-                "indicador": "Desconto médio",
-                "valor": float(desconto_medio),
-                "valor_formatado": self._format_brl(desconto_medio),
-                "observacao": f"Calculado por {pedidos} pedidos distintos.",
-            })
-        if top_vendor:
-            summary_rows.append({
-                "indicador": "Vendedor com maior venda",
-                "valor": float(top_vendor.get("valor_total") or 0),
-                "valor_formatado": self._format_brl(top_vendor.get("valor_total") or 0),
-                "observacao": str(top_vendor.get("vendedor") or "Não identificado"),
-            })
-        if top_client:
-            summary_rows.append({
-                "indicador": "Cliente com maior compra",
-                "valor": float(top_client.get("valor_total") or 0),
-                "valor_formatado": self._format_brl(top_client.get("valor_total") or 0),
-                "observacao": str(top_client.get("cliente") or "Não identificado"),
-            })
+                top_client = top_client_rows[0] if top_client_rows else {}
+            if "ranking_clientes" in topics:
+                ranking_kind = "clientes"
+                client_primary_key = primary_sales_key if primary_sales_key in {*sales_value_breakdown.CATEGORY_VALUE_KEYS, "total_bruto"} else "faturamento_comercial"
+                ranking_rows = await self._fetch_client_ranking(
+                    session,
+                    binds,
+                    limit=client_ranking_limit,
+                    primary_key=client_primary_key,
+                    include_operational_details=include_operational_details,
+                    include_discount_details=include_discount_details,
+                    filial=selected_filial,
+                )
 
         period_label = f"{start_date.isoformat()} a {end_date.isoformat()}"
-        parts = []
-        if "faturamento" in topics:
-            parts.append(f"faturamento total de {self._format_brl(faturamento_total)}")
+        response_text = ""
+        discount_warning = self._discount_source_warning(period_totals)
+        discount_query_requested = any("desconto" in topic for topic in topics)
+
+        if ranking_kind:
+            summary_rows = ranking_rows
+            effective_ranking_limit = client_ranking_limit if ranking_kind == "clientes" else vendor_ranking_limit
+            displayed = f"top {effective_ranking_limit}" if effective_ranking_limit else "todos"
+            if ranking_kind == "vendedores":
+                total_rows = self._distinct_count(ranking_rows, "vendedor")
+                response_text = (
+                    f"Ranking de vendedores no período {period_label}{scope_text}: "
+                    f"{total_rows} vendedor(es) retornado(s) ({displayed}), detalhados por filial."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Líder: {first['vendedor']} ({self._format_brl(first.get('valor_total'))})."
+                response_text += " O cadastro técnico PADRAO foi desconsiderado apenas no ranking de vendedores."
+            elif ranking_kind == "vendedores_desconto":
+                total_rows = self._distinct_count(ranking_rows, "vendedor")
+                response_text = (
+                    f"Ranking de vendedores por desconto no período {period_label}{scope_text}: "
+                    f"{total_rows} vendedor(es) retornado(s) ({displayed}), detalhados por filial."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Maior desconto: {first['vendedor']} ({self._format_brl(first.get('valor_total'))})."
+                else:
+                    if discount_warning:
+                        response_text += " Nao ha coluna explicita de desconto para montar ranking; a derivacao atual retornou zero."
+                    else:
+                        response_text += " Não houve desconto registrado para montar ranking nesse período."
+                response_text += " O cadastro técnico PADRAO foi desconsiderado apenas no ranking de vendedores."
+            elif ranking_kind == "vendedores_rb":
+                total_rows = self._distinct_count(ranking_rows, "vendedor")
+                response_text = (
+                    f"Ranking de vendedores por Saida RB no período {period_label}{scope_text}: "
+                    f"{total_rows} vendedor(es) retornado(s) ({displayed}), detalhados por filial."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Maior valor de RB: {first['vendedor']} ({self._format_brl(first.get('valor_total'))})."
+                else:
+                    response_text += " Nao houve Saida RB registrada para montar ranking nesse período."
+                response_text += " O cadastro técnico PADRAO foi desconsiderado apenas no ranking de vendedores."
+            elif ranking_kind == "vendedores_devolucao":
+                total_rows = self._distinct_count(ranking_rows, "vendedor")
+                response_text = (
+                    f"Ranking de vendedores por Devolucao no periodo {period_label}{scope_text}: "
+                    f"{total_rows} vendedor(es) retornado(s) ({displayed}), detalhados por filial."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Maior valor de devolucao: {first['vendedor']} ({self._format_brl(first.get('valor_total'))})."
+                else:
+                    response_text += " Nao houve Devolucao registrada para montar ranking nesse periodo."
+                response_text += " O cadastro tecnico PADRAO foi desconsiderado apenas no ranking de vendedores."
+            elif ranking_kind == "clientes":
+                total_rows = self._distinct_count(ranking_rows, "cliente")
+                response_text = (
+                    f"Ranking de clientes no período {period_label}{scope_text}: "
+                    f"{total_rows} cliente(s) retornado(s) ({displayed}), detalhados por filial."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Líder: {first['cliente']} ({self._format_brl(first.get('valor_total'))})."
+                response_text += " O cliente interno LAGES E LOPES LTDA foi desconsiderado apenas no ranking de clientes."
+
+        if not ranking_kind and "faturamento" in topics:
+            summary_rows = self._period_value_breakdown_rows(
+                period_totals,
+                period_filial_totals,
+                filial=selected_filial,
+                value_basis=value_basis,
+                include_operational_details=include_operational_details,
+            )
+        if not ranking_kind and "rb" in topics:
+            summary_rows.extend(
+                self._period_category_breakdown_rows(
+                    period_totals,
+                    period_filial_totals,
+                    filial=selected_filial,
+                    category_key="saida_rb",
+                )
+            )
+        if not ranking_kind and "devolucao" in topics:
+            summary_rows.extend(
+                self._period_category_breakdown_rows(
+                    period_totals,
+                    period_filial_totals,
+                    filial=selected_filial,
+                    category_key="devolucao",
+                )
+            )
         if "ticket" in topics:
-            parts.append(f"ticket médio de {self._format_brl(ticket_medio)}")
+            summary_rows.extend(
+                self._period_ticket_breakdown_rows(
+                    period_totals,
+                    period_filial_totals,
+                    filial=selected_filial,
+                )
+            )
         if "desconto" in topics:
-            parts.append(f"desconto total de {self._format_brl(desconto_total)} e desconto médio de {self._format_brl(desconto_medio)}")
-        if top_vendor:
+            summary_rows.extend(
+                self._period_discount_breakdown_rows(
+                    period_totals,
+                    period_filial_totals,
+                    filial=selected_filial,
+                )
+            )
+        if not ranking_kind and top_vendor:
+            summary_rows.extend(self._decorate_rows_with_indicator(top_vendor_rows or [top_vendor], "Vendedor com maior venda"))
+        if not ranking_kind and top_vendor_discount:
+            summary_rows.extend(self._decorate_rows_with_indicator(top_discount_rows or [top_vendor_discount], "Vendedor com maior desconto"))
+        if not ranking_kind and top_vendor_rb:
+            summary_rows.extend(self._decorate_rows_with_indicator(top_vendor_rb_rows or [top_vendor_rb], "Vendedor com maior RB"))
+        if not ranking_kind and top_vendor_devolucao:
+            summary_rows.extend(self._decorate_rows_with_indicator(top_vendor_devolucao_rows or [top_vendor_devolucao], "Vendedor com maior devolucao"))
+        if not ranking_kind and top_client:
+            summary_rows.extend(self._decorate_rows_with_indicator(top_client_rows or [top_client], "Cliente com maior compra"))
+        parts = []
+        if not ranking_kind and "faturamento" in topics:
+            if value_basis == "bruto":
+                faturamento_part = f"total bruto sem transferencias{scope_text} de {self._format_brl(total_bruto)}"
+            elif value_basis == "ambos":
+                faturamento_part = (
+                    f"faturamento comercial{scope_text} de {self._format_brl(faturamento_total)} "
+                    f"e total bruto sem transferencias de {self._format_brl(total_bruto)}"
+                )
+            else:
+                faturamento_part = f"faturamento comercial{scope_text} de {self._format_brl(faturamento_total)}"
+            parts.append(
+                f"{faturamento_part}; tabela separada por filial"
+            )
+        if not ranking_kind and "rb" in topics:
+            rb_value = self._decimal_value(period_totals.get("saida_rb"))
+            rb_orders = int(period_totals.get("pedidos_saida_rb") or 0)
+            parts.append(f"Saida RB{scope_text} de {self._format_brl(rb_value)} em {rb_orders} pedido(s)")
+        if not ranking_kind and "devolucao" in topics:
+            devolucao_value = self._decimal_value(period_totals.get("devolucao"))
+            devolucao_orders = int(period_totals.get("pedidos_devolucao") or 0)
+            parts.append(f"Devolucao{scope_text} de {self._format_brl(devolucao_value)} em {devolucao_orders} pedido(s)")
+        if not ranking_kind and "ticket" in topics:
+            parts.append(f"ticket médio{scope_text} de {self._format_brl(ticket_medio)}")
+        if not ranking_kind and "desconto" in topics:
+            if discount_warning:
+                parts.append(
+                    f"desconto real indisponivel na view; derivacao atual{scope_text} retornou "
+                    f"{self._format_brl(desconto_total)} e media de {self._format_brl(desconto_medio)}"
+                )
+            else:
+                parts.append(f"desconto total{scope_text} de {self._format_brl(desconto_total)} e desconto médio de {self._format_brl(desconto_medio)}")
+        if not ranking_kind and top_vendor:
             parts.append(f"vendedor com maior venda: {top_vendor.get('vendedor')} ({self._format_brl(top_vendor.get('valor_total') or 0)})")
-        if top_client:
+        if not ranking_kind and top_vendor_discount:
+            parts.append(f"vendedor com maior desconto: {top_vendor_discount.get('vendedor')} ({self._format_brl(top_vendor_discount.get('valor_total') or 0)})")
+        if not ranking_kind and top_vendor_rb:
+            parts.append(f"vendedor com maior RB: {top_vendor_rb.get('vendedor')} ({self._format_brl(top_vendor_rb.get('valor_total') or 0)})")
+        if not ranking_kind and top_vendor_devolucao:
+            parts.append(f"vendedor com maior devolucao: {top_vendor_devolucao.get('vendedor')} ({self._format_brl(top_vendor_devolucao.get('valor_total') or 0)})")
+        if not ranking_kind and top_client:
             parts.append(f"cliente com maior compra: {top_client.get('cliente')} ({self._format_brl(top_client.get('valor_total') or 0)})")
-        response_text = f"Resumo do período {period_label}: " + "; ".join(parts) + "."
-        if "top_vendedor" in topics:
+        if not ranking_kind and unsupported_warnings:
+            parts.extend(unsupported_warnings)
+        if not ranking_kind and parts:
+            response_text = f"Resumo do período {period_label}: " + "; ".join(parts) + "."
+        elif not ranking_kind and "top_vendedor_desconto" in topics and discount_warning:
+            response_text = (
+                f"Nao ha coluna explicita de desconto na view para identificar o vendedor com maior desconto "
+                f"no periodo {period_label}{scope_text}; a derivacao atual retornou zero."
+            )
+        elif not ranking_kind:
+            response_text = f"Não foram encontrados dados suficientes para responder no período {period_label}."
+        if discount_query_requested and discount_warning:
+            response_text += f" Atencao: {discount_warning}"
+        if not ranking_kind and ("top_vendedor" in topics or "top_vendedor_desconto" in topics or "top_vendedor_rb" in topics or "top_vendedor_devolucao" in topics):
             response_text += " O cadastro técnico PADRAO foi desconsiderado apenas no ranking de vendedores."
-        if "top_cliente" in topics:
+        if not ranking_kind and "top_cliente" in topics:
             response_text += " O cliente interno LAGES E LOPES LTDA foi desconsiderado apenas no ranking de clientes."
+
+        if "documentos" in topics:
+            summary_rows = document_rows
+            response_text = (
+                f"Documentos que compõem a métrica no período {period_label}{scope_text}: "
+                f"até {len(document_rows)} registro(s), agrupados por pedido, nota, filial e tipo de operação."
+            )
 
         from models.view_catalog import ChartType as SchemaChartType
         from services.data_transformer import transform_data
 
-        chart_data = transform_data(summary_rows, SchemaChartType.TABLE)
-        if isinstance(chart_data, dict):
-            chart_data["resumo"] = {
-                "periodo": period_label,
-                "faturamento_total": float(faturamento_total),
-                "ticket_medio": float(ticket_medio),
-                "desconto_total": float(desconto_total),
-                "total_indicadores": len(summary_rows),
-            }
+        all_warnings = [*unsupported_warnings]
+        if discount_query_requested and discount_warning:
+            all_warnings.append(discount_warning)
+
+        response_text = self._apply_response_mode(
+            response_text,
+            mode=mode,
+            row_count=len(summary_rows),
+            warnings=all_warnings,
+        )
+
+        breakdown_resumo = {
+            key: float(self._decimal_value(period_totals.get(key)))
+            for key in sales_value_breakdown.CATEGORY_VALUE_KEYS
+        }
+        core_resumo = {
+            "periodo": period_label,
+            "filial": selected_filial or "todas",
+            "faturamento_total": float(faturamento_total),
+            "total_bruto": float(total_bruto),
+            "total_movimentos_view": float(self._decimal_value(period_totals.get("total_movimentos_view"))),
+            **breakdown_resumo,
+            "ticket_medio": float(ticket_medio),
+            "ticket_medio_bruto": float(ticket_medio_bruto),
+            "desconto_total": float(desconto_total),
+            "desconto_total_bruto": float(desconto_total_bruto),
+            "desconto_medio_bruto": float(desconto_medio_bruto),
+            "desconto_fonte_tipo": str(period_totals.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita"),
+            "desconto_fonte_coluna": period_totals.get("desconto_fonte_coluna"),
+            "desconto_fonte_confianca": str(period_totals.get("desconto_fonte_confianca") or "baixa"),
+            "desconto_fonte_observacao": self._discount_source_observation(period_totals),
+            "pedidos_comerciais": pedidos,
+            "pedidos_total": pedidos_total,
+            "pedidos_movimentos_view": int(period_totals.get("pedidos_movimentos_view") or 0),
+            "total_indicadores": len(summary_rows),
+            "tipo_saida": ranking_kind or "resumo",
+            "filtro_comercial": self._erp_sales_filter_label(selected_filial),
+            "filiais": period_filial_totals,
+            "base_valor": value_basis,
+            "primary_metric": primary_sales_key,
+            "modo_resposta": self._normalize_response_mode(mode),
+            "financial_source_discovery_version": (financial_source_report or {}).get("version"),
+        }
+        metric_audit = core_sales_metric_audit(
+            topics=topics,
+            value_basis=value_basis,
+            ranking_kind=ranking_kind,
+            primary_metric=primary_sales_key,
+            period_label=period_label,
+            filial=selected_filial,
+            discount_source=period_totals,
+            financial_source_discovery=financial_source_report,
+        )
+        core_resumo["metric_registry_version"] = metric_audit["registry_version"]
+
+        chart_type_values = self._schema_chart_types_from_text(normalized_query, ranking_kind=ranking_kind)
+        visualizations_payload: List[Dict[str, Any]] = []
+        for chart_type_value in chart_type_values:
+            try:
+                target_chart_type = SchemaChartType(chart_type_value)
+            except ValueError:
+                target_chart_type = SchemaChartType.TABLE
+                chart_type_value = SchemaChartType.TABLE.value
+            transformed = transform_data(summary_rows, target_chart_type)
+            if isinstance(transformed, dict):
+                existing_resumo = transformed.get("resumo") if isinstance(transformed.get("resumo"), dict) else {}
+                transformed["resumo"] = {**existing_resumo, **core_resumo}
+            visualizations_payload.append(
+                {
+                    "chart_type": chart_type_value,
+                    "chart_data": transformed,
+                }
+            )
+        chart_data = visualizations_payload[0]["chart_data"] if visualizations_payload else transform_data(summary_rows, SchemaChartType.TABLE)
+        primary_chart_type = visualizations_payload[0]["chart_type"] if visualizations_payload else SchemaChartType.TABLE.value
         elapsed = (time.perf_counter() - start_time) * 1000
+        plan_intent = IntentType.RANKING if ranking_kind else IntentType.AGGREGATION
+        plan_dimensions = ["Vendedor.nome"] if ranking_kind and "vendedores" in ranking_kind else ["Venda.dtemissao_"]
+        if ranking_kind == "clientes":
+            plan_dimensions = ["Cliente.nome"]
+        if "Venda.filial_" not in plan_dimensions:
+            plan_dimensions.append("Venda.filial_")
 
         canonical_plan = CanonicalPlan(
             trace_id=trace_id,
             status=ExecutionStatus.READY,
-            intent=IntentType.AGGREGATION,
+            intent=plan_intent,
             goal=pergunta,
             entities=["Venda"],
             metrics=sorted(topics),
-            dimensions=["Venda.dtemissao_"],
-            suggested_visualization=VisualizationType.TABLE,
+            dimensions=plan_dimensions,
+            suggested_visualization=self._visualization_type_for_schema(primary_chart_type),
         )
         db_state = DashboardState(
-            chart_type=VisualizationType.TABLE,
-            selected_filters={"tenant_id": tenant_id, "periodo": period_label},
+            chart_type=self._visualization_type_for_schema(primary_chart_type),
+            selected_filters={"tenant_id": tenant_id, "periodo": period_label, "filial": selected_filial or "todas"},
         )
         exec_res = ExecutionResult(
             status=ExecutionStatus.READY,
             dataset=summary_rows,
-            metadata={"rule": "core_summary_query", "binds": binds},
+            metadata={"rule": "core_summary_query", "binds": binds, "business_filter": self._erp_sales_filter_label(selected_filial)},
             execution_time_ms=elapsed,
             row_count=len(summary_rows),
         )
@@ -338,6 +1665,7 @@ class NewQueryOrchestrator:
         debug_data["sample_rows"] = summary_rows
         debug_data["transformer"]["input"] = summary_rows
         debug_data["transformer"]["output"] = chart_data
+        debug_data["chart"] = {"primary": primary_chart_type, "visualizations": visualizations_payload}
         debug_data["llm_response"] = response_text
         debug_data["timeline"]["Core Summary Deterministico"] = datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
@@ -352,11 +1680,19 @@ class NewQueryOrchestrator:
             "parametros_extraidos": {str(key): str(value) for key, value in binds.items()},
             "ia_confianca": 1.0,
             "pode_favoritar": True,
-            "chart_type": SchemaChartType.TABLE.value,
+            "chart_type": primary_chart_type,
             "chart_data": chart_data,
+            "visualizations": visualizations_payload if len(visualizations_payload) > 1 else None,
             "insights": [],
             "recommendations": [],
-            "warnings": [],
+            "warnings": all_warnings,
+            "bi_intelligence": {
+                "metric_definitions": metric_audit["metric_definitions"],
+                "calculation_steps": metric_audit["calculation_steps"],
+                "unsupported_metrics": metric_audit["unsupported_metrics"],
+                "source_warnings": all_warnings,
+                "financial_source_discovery": financial_source_report,
+            },
             "telemetry": {
                 "timings": {
                     "total_pipeline": elapsed,
@@ -367,8 +1703,11 @@ class NewQueryOrchestrator:
             },
             "trust_center": {
                 "source": "Oracle ERP -> VW_VENDAS_LM",
-                "confidence_score": 1.0,
+                "confidence_score": 1.0 if not all_warnings else 0.55,
                 "calculation": "deterministic_core_summary",
+                "discount_source": period_totals.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita",
+                "metric_registry": metric_audit,
+                "financial_source_discovery": financial_source_report,
             },
         }
 
@@ -386,21 +1725,71 @@ class NewQueryOrchestrator:
             )
         )
 
+    def _repair_mojibake_text(self, value: str) -> str:
+        text_value = str(value or "")
+        if any(marker in text_value for marker in ("Ã", "Â", "â€", "�")):
+            for _ in range(2):
+                try:
+                    repaired = text_value.encode("cp1252").decode("utf-8")
+                except UnicodeError:
+                    break
+                if repaired == text_value:
+                    break
+                text_value = repaired
+        return (
+            text_value
+            .replace("Ã¡", "á")
+            .replace("Ã ", "à")
+            .replace("Ã¢", "â")
+            .replace("Ã£", "ã")
+            .replace("Ã©", "é")
+            .replace("Ãª", "ê")
+            .replace("Ã­", "í")
+            .replace("Ã³", "ó")
+            .replace("Ã´", "ô")
+            .replace("Ãµ", "õ")
+            .replace("Ãº", "ú")
+            .replace("Ã§", "ç")
+        )
+
     def _normalize_query_text(self, value: str) -> str:
-        text_value = unicodedata.normalize("NFKD", str(value or "").lower())
+        text_value = unicodedata.normalize("NFKD", self._repair_mojibake_text(str(value or "")).lower())
         normalized = "".join(ch for ch in text_value if not unicodedata.combining(ch))
         normalized = re.sub(r"mar\?+o", "marco", normalized)
         normalized = re.sub(r"m\?+s", "mes", normalized)
+        normalized = re.sub(r"gr\?+fico", "grafico", normalized)
+        normalized = re.sub(r"l\?+quido", "liquido", normalized)
+        normalized = re.sub(r"l\?+quida", "liquida", normalized)
+        normalized = re.sub(r"per\?+odo", "periodo", normalized)
+        normalized = re.sub(r"m\?+dio", "medio", normalized)
+        normalized = re.sub(r"n\?+o", "nao", normalized)
+        normalized = re.sub(r"devolu\?+\w*", "devolucao", normalized)
         return (
             normalized
             .replace("mar?o", "marco")
             .replace("m?s", "mes")
             .replace("n?o", "nao")
             .replace("m?dio", "medio")
+            .replace("gr?fico", "grafico")
+            .replace("l?quido", "liquido")
+            .replace("per?odo", "periodo")
         )
 
     def _month_range_from_text(self, text_value: str) -> Optional[tuple[str, str]]:
         normalized = self._normalize_query_text(text_value)
+
+        iso_range_match = re.search(
+            r"\b(20\d{2}-\d{2}-\d{2})\s*(?:a|ate|to|--?|->)\s*(20\d{2}-\d{2}-\d{2})\b",
+            normalized,
+        )
+        if iso_range_match:
+            try:
+                start_date = date.fromisoformat(iso_range_match.group(1))
+                end_date = date.fromisoformat(iso_range_match.group(2))
+            except ValueError:
+                return None
+            if start_date <= end_date:
+                return start_date.isoformat(), end_date.isoformat()
 
         day_match = re.search(r"\b(0?[1-9]|[12]\d|3[01])\s*/\s*(0?[1-9]|1[0-2])\s*/\s*(20\d{2})\b", normalized)
         if day_match:
@@ -422,20 +1811,32 @@ class NewQueryOrchestrator:
 
         month_names = {
             "janeiro": 1,
+            "jan": 1,
             "fevereiro": 2,
+            "fev": 2,
             "marco": 3,
+            "mar": 3,
             "abril": 4,
+            "abr": 4,
             "maio": 5,
+            "mai": 5,
             "junho": 6,
+            "jun": 6,
             "julho": 7,
+            "jul": 7,
             "agosto": 8,
+            "ago": 8,
             "setembro": 9,
+            "set": 9,
             "outubro": 10,
+            "out": 10,
             "novembro": 11,
+            "nov": 11,
             "dezembro": 12,
+            "dez": 12,
         }
         month_match = re.search(
-            r"\b(janeiro|fevereiro|marco|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)\b(?:\s+de)?\s+(20\d{2})",
+            r"\b(janeiro|jan|fevereiro|fev|marco|mar|abril|abr|maio|mai|junho|jun|julho|jul|agosto|ago|setembro|set|outubro|out|novembro|nov|dezembro|dez)\b(?:\s+de)?\s*/?\s*(20\d{2})",
             normalized,
         )
         if month_match:
@@ -759,7 +2160,8 @@ class NewQueryOrchestrator:
         session_id: Optional[str] = None,
         history: Optional[List[Dict[str, str]]] = None,
         dashboard_state_override: Optional[DashboardState] = None,
-        parent_id: Optional[str] = None
+        parent_id: Optional[str] = None,
+        mode: str = "analytical",
     ) -> Dict[str, Any]:
         start_time = time.perf_counter()
         trace_id = uuid.uuid4()
@@ -853,7 +2255,7 @@ class NewQueryOrchestrator:
             graph.current_node_id = parent_id
             conversation_graph_manager.save_graph(session_key, graph)
 
-        effective_pergunta = self._question_with_inherited_period(pergunta, history)
+        effective_pergunta = self._question_with_inherited_context(pergunta, history)
         if effective_pergunta != pergunta:
             debug_data["pergunta_contextualizada"] = effective_pergunta
 
@@ -867,6 +2269,7 @@ class NewQueryOrchestrator:
                 start_time=start_time,
                 debug_data=debug_data,
                 conversation_graph_manager=conversation_graph_manager,
+                mode=mode,
             )
             summary_payload["pergunta_original"] = pergunta
             if effective_pergunta != pergunta:
@@ -1333,29 +2736,51 @@ class NewQueryOrchestrator:
             "SCATTER": SchemaChartType.SCATTER
         }
 
+        normalized_question_for_visual = self._normalize_query_text(pergunta)
+        explicit_chart_type_values = (
+            self._schema_chart_types_from_text(normalized_question_for_visual, ranking_kind=None)
+            if self._has_explicit_visualization_request(normalized_question_for_visual)
+            else []
+        )
+
         v_type_str = canonical_plan.suggested_visualization.value.upper() if hasattr(canonical_plan.suggested_visualization, 'value') else str(canonical_plan.suggested_visualization).upper()
         target_chart_type = vis_map.get(v_type_str, SchemaChartType.TABLE)
 
         # Coerção inteligente baseada na intenção analítica do negócio
         intent_str = canonical_plan.intent.value.upper() if hasattr(canonical_plan.intent, 'value') else str(canonical_plan.intent).upper()
-        if "curva abc" in pergunta.lower():
-            target_chart_type = SchemaChartType.BAR
-        elif intent_str == "RANKING":
-            target_chart_type = SchemaChartType.BAR
-        elif intent_str == "TREND":
-            target_chart_type = SchemaChartType.LINE
-        elif intent_str in ("KPI", "AGGREGATION") and len(normalized_rows) == 1:
-            target_chart_type = SchemaChartType.KPI
+        if explicit_chart_type_values:
+            target_chart_type = vis_map.get(explicit_chart_type_values[0], SchemaChartType.TABLE)
+        else:
+            if "curva abc" in pergunta.lower():
+                target_chart_type = SchemaChartType.BAR
+            elif intent_str == "RANKING":
+                target_chart_type = SchemaChartType.BAR
+            elif intent_str == "TREND":
+                target_chart_type = SchemaChartType.LINE
+            elif intent_str in ("KPI", "AGGREGATION") and len(normalized_rows) == 1:
+                target_chart_type = SchemaChartType.KPI
 
         debug_data["timeline"]["14. Data Transformer Iniciado"] = get_timestamp()
         debug_data["transformer"]["input"] = normalized_rows[:50]
 
         # Converte o dataset para o formato Chart.js do frontend
-        transformed_chart_data = transform_data(normalized_rows, target_chart_type)
+        chart_type_sequence = explicit_chart_type_values or [target_chart_type.value]
+        visualizations_payload: List[Dict[str, Any]] = []
+        for chart_type_value in chart_type_sequence:
+            chart_type_for_payload = vis_map.get(chart_type_value, SchemaChartType.TABLE)
+            visualizations_payload.append(
+                {
+                    "chart_type": chart_type_for_payload.value,
+                    "chart_data": transform_data(normalized_rows, chart_type_for_payload),
+                }
+            )
+        target_chart_type = vis_map.get(visualizations_payload[0]["chart_type"], SchemaChartType.TABLE)
+        transformed_chart_data = visualizations_payload[0]["chart_data"]
         debug_data["transformer"]["output"] = transformed_chart_data
         debug_data["chart"] = {
             "type": target_chart_type.value,
-            "data": transformed_chart_data
+            "data": transformed_chart_data,
+            "visualizations": visualizations_payload,
         }
         debug_data["timeline"]["15. Data Transformer Concluído"] = get_timestamp()
 
@@ -1424,6 +2849,7 @@ class NewQueryOrchestrator:
             "pode_favoritar": bool(primary_view_name),
             "chart_type": target_chart_type.value,
             "chart_data": transformed_chart_data,
+            "visualizations": visualizations_payload if len(visualizations_payload) > 1 else None,
             "insights": explanation.insights,
             "recommendations": explanation.recommendations,
             "warnings": explanation.warnings,

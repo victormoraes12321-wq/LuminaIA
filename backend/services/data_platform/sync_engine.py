@@ -22,7 +22,7 @@ import time
 import json
 import hashlib
 import re
-from datetime import datetime, timezone, date, time as dt_time
+from datetime import datetime, timezone, date, time as dt_time, timedelta
 from decimal import Decimal
 from typing import Any, Awaitable, Callable
 
@@ -391,6 +391,8 @@ class SyncEngine:
         oracle_conn: oracledb.Connection,
         pg_conn: asyncpg.Connection,
         progress_callback: ProgressCallback | None = None,
+        *,
+        force_full: bool = False,
     ) -> int:
         """Executa a sincronização segura de uma única view usando staging tables."""
         table_name = _local_table_name(view_name)
@@ -439,14 +441,23 @@ class SyncEngine:
 
         # 4. Determina Modo de Sincronização (Incremental vs Full)
         # Se a tabela oficial já existe e tem dados, e possui campo incremental
-        incremental_column = await self._detect_incremental_column(pg_conn, table_name)
+        incremental_column = None if force_full else await self._detect_incremental_column(pg_conn, table_name)
         last_sync_val = None
+        incremental_lower_bound = None
+        incremental_operator = ">"
+        if force_full:
+            logger.info("[SyncEngine] Full sync forcado para %s; incremental desativado nesta execucao.", view_name)
 
         if incremental_column:
             try:
                 # Verifica o último valor registrado
                 last_sync_val = await pg_conn.fetchval(f"SELECT max({incremental_column}) FROM {table_name}")
                 if last_sync_val:
+                    if isinstance(last_sync_val, (datetime, date)):
+                        incremental_lower_bound = self._incremental_overlap_start(last_sync_val)
+                        incremental_operator = ">="
+                    else:
+                        incremental_lower_bound = last_sync_val
                     # Copia registros atuais para a staging para servir de base
                     # Especifica colunas de forma explícita para evitar erros se as tabelas tiverem colunas diferentes
                     columns_list = [desc[0].lower() for desc in col_desc]
@@ -454,6 +465,11 @@ class SyncEngine:
                     cols_joined_src = ", ".join(f'"{table_name}"."{c}"' for c in columns_list)
                     async with pg_conn.transaction():
                         await pg_conn.execute(f"INSERT INTO {staging_table} ({cols_joined_dest}) SELECT {cols_joined_src} FROM {table_name};")
+                        if incremental_operator == ">=":
+                            await pg_conn.execute(
+                                f"DELETE FROM {staging_table} WHERE {incremental_column} >= $1",
+                                incremental_lower_bound,
+                            )
             except Exception as copy_exc:
                 logger.warning(
                     "[SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): %s. "
@@ -471,16 +487,16 @@ class SyncEngine:
         
         query = f"SELECT * FROM {oracle_view_identifier}"
         params = {}
-        if incremental_column and last_sync_val:
+        if incremental_column and last_sync_val and incremental_lower_bound is not None:
             # Se for incremental, filtra do Oracle
             if isinstance(last_sync_val, (datetime, date)):
-                query += f" WHERE {incremental_column.upper()} > :last_val"
-                params["last_val"] = last_sync_val
+                query += f" WHERE {incremental_column.upper()} {incremental_operator} :last_val"
+                params["last_val"] = incremental_lower_bound
             else:
                 query += f" WHERE {incremental_column.upper()} > :last_val"
-                params["last_val"] = last_sync_val
+                params["last_val"] = incremental_lower_bound
 
-            logger.info("[SyncEngine] Executando carga INCREMENTAL para %s a partir de %s", view_name, last_sync_val)
+            logger.info("[SyncEngine] Executando carga INCREMENTAL para %s a partir de %s", view_name, incremental_lower_bound)
         else:
             logger.info("[SyncEngine] Executando carga COMPLETA (Full) para %s", view_name)
 
@@ -594,6 +610,13 @@ class SyncEngine:
 
         return imported_rows
 
+    def _incremental_overlap_start(self, last_sync_val: datetime | date) -> datetime | date:
+        """Reprocessa janela recente para capturar registros tardios no mesmo dia."""
+        if isinstance(last_sync_val, datetime):
+            overlap_day = last_sync_val.date() - timedelta(days=2)
+            return datetime.combine(overlap_day, dt_time.min)
+        return last_sync_val - timedelta(days=2)
+
     async def _detect_incremental_column(self, pg_conn: asyncpg.Connection, table_name: str) -> str | None:
         """Tenta detectar uma coluna temporal ou id para fins de sincronização incremental."""
         table_exists = await pg_conn.fetchval(
@@ -610,7 +633,17 @@ class SyncEngine:
         )
         
         # Prioridade para campos de auditoria temporal comuns
-        temporal_candidates = ["data_ref", "dt_emissao", "atualizado_em", "data_modificacao", "data_criacao", "data_movimento"]
+        temporal_candidates = [
+            "dtemissao_",
+            "dt_emissao",
+            "dt_emissao_",
+            "data_emissao",
+            "data_ref",
+            "atualizado_em",
+            "data_modificacao",
+            "data_criacao",
+            "data_movimento",
+        ]
         col_names = [c["column_name"] for c in columns]
         
         for cand in temporal_candidates:

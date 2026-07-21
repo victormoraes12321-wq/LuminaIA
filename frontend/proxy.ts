@@ -63,6 +63,23 @@ export function proxy(request: NextRequest) {
       const firstAccessUrl = new URL('/auth/first-access', request.url)
       return NextResponse.redirect(firstAccessUrl)
     }
+
+    const adminOnlyPaths = [
+      '/dashboard/admin/users',
+      '/dashboard/admin/settings',
+      '/dashboard/inspector',
+      '/dashboard/svr',
+    ]
+    const managementPaths = [
+      '/dashboard/admin/catalog',
+      '/dashboard/studio',
+    ]
+    const isAdminOnly = adminOnlyPaths.some(prefix => pathname.startsWith(prefix))
+    const isManagement = managementPaths.some(prefix => pathname.startsWith(prefix))
+    if ((isAdminOnly && payload?.role !== 'ADMIN') ||
+        (isManagement && payload?.role !== 'ADMIN' && payload?.role !== 'GESTOR')) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
   }
   
   // B. Rota de Primeiro Acesso (/auth/first-access)
@@ -107,4 +124,3 @@ export const config = {
     '/login'
   ]
 }
-

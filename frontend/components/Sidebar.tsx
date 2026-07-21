@@ -243,18 +243,20 @@ export function Sidebar({
               <span>Consultar Dados</span>
             </Link>
 
-            <Link
-              href="/dashboard/studio"
-              className={cn(
-                'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
-                pathname === '/dashboard/studio'
-                  ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
-                  : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
-              )}
-            >
-              <LayoutDashboard size={13} className={pathname === '/dashboard/studio' ? 'text-lumina-400' : 'text-zinc-500'} />
-              <span>Dashboard Studio</span>
-            </Link>
+            {(user?.role === 'ADMIN' || user?.role === 'GESTOR') && (
+              <Link
+                href="/dashboard/studio"
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                  pathname === '/dashboard/studio'
+                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                )}
+              >
+                <LayoutDashboard size={13} className={pathname === '/dashboard/studio' ? 'text-lumina-400' : 'text-zinc-500'} />
+                <span>Dashboard Studio</span>
+              </Link>
+            )}
           </div>
         </section>
 
@@ -296,18 +298,20 @@ export function Sidebar({
               </Link>
 
               {/* Version Center (SVR) */}
-              <Link
-                href="/dashboard/svr"
-                className={cn(
-                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
-                  pathname === '/dashboard/svr'
-                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
-                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
-                )}
-              >
-                <Layers size={13} className={pathname === '/dashboard/svr' ? 'text-lumina-400' : 'text-zinc-500'} />
-                <span>Version Center (SVR)</span>
-              </Link>
+              {user?.role === 'ADMIN' && (
+                <Link
+                  href="/dashboard/svr"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/svr'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <Layers size={13} className={pathname === '/dashboard/svr' ? 'text-lumina-400' : 'text-zinc-500'} />
+                  <span>Version Center (SVR)</span>
+                </Link>
+              )}
 
               {/* Configurações do SaaS (Apenas ADMIN) */}
               {user?.role === 'ADMIN' && (
@@ -326,7 +330,7 @@ export function Sidebar({
               )}
 
               {/* Pipeline Inspector */}
-              <Link
+              {user?.role === 'ADMIN' && <Link
                 href="/dashboard/inspector"
                 className={cn(
                   'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
@@ -337,7 +341,7 @@ export function Sidebar({
               >
                 <Layers size={13} className={pathname === '/dashboard/inspector' ? 'text-lumina-400' : 'text-zinc-500'} />
                 <span>Inspector de Pipeline</span>
-              </Link>
+              </Link>}
             </div>
           </section>
         )}

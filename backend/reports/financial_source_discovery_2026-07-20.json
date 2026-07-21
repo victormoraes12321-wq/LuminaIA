@@ -1,0 +1,1014 @@
+{
+  "version": "2026-07-20.financial-source-discovery",
+  "generated_at": "2026-07-20T15:15:35.797605+00:00",
+  "source_count": 10,
+  "sources": [
+    {
+      "schema": "public",
+      "name": "mock_oracle_vw_faturamento_mensal",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "mes",
+          "data_type": "numeric"
+        },
+        {
+          "name": "ano",
+          "data_type": "numeric"
+        },
+        {
+          "name": "faturamento_realizado",
+          "data_type": "numeric"
+        },
+        {
+          "name": "meta_mensal",
+          "data_type": "numeric"
+        },
+        {
+          "name": "atingimento_meta",
+          "data_type": "numeric"
+        },
+        {
+          "name": "crescimento_vs_anterior",
+          "data_type": "numeric"
+        },
+        {
+          "name": "transacoes_qtd",
+          "data_type": "numeric"
+        },
+        {
+          "name": "ticket_medio",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_referencia",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "mock_oracle_vw_vendas_mensais",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "mes",
+          "data_type": "numeric"
+        },
+        {
+          "name": "ano",
+          "data_type": "numeric"
+        },
+        {
+          "name": "venda_valor",
+          "data_type": "numeric"
+        },
+        {
+          "name": "venda_quantidade",
+          "data_type": "numeric"
+        },
+        {
+          "name": "forma_pagamento",
+          "data_type": "text"
+        },
+        {
+          "name": "status",
+          "data_type": "text"
+        },
+        {
+          "name": "vendedor",
+          "data_type": "text"
+        },
+        {
+          "name": "cliente",
+          "data_type": "text"
+        },
+        {
+          "name": "data_referencia",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_detalhe_pedidos",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_faturamento_mensal",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_faturamento_produtos",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_financeiro_lm",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "financeiro_id",
+          "data_type": "integer"
+        },
+        {
+          "name": "tenant_id",
+          "data_type": "character varying"
+        },
+        {
+          "name": "cliente_id",
+          "data_type": "integer"
+        },
+        {
+          "name": "valor_parcela",
+          "data_type": "numeric"
+        },
+        {
+          "name": "status_pagamento",
+          "data_type": "character varying"
+        },
+        {
+          "name": "data_vencimento",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_kpi_executivo_vendas",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_vendas_contexto_geral",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_vendas_lm",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "filial_",
+          "data_type": "text"
+        },
+        {
+          "name": "tp_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "tpdescricao_",
+          "data_type": "text"
+        },
+        {
+          "name": "codcliente_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "cnpj_",
+          "data_type": "text"
+        },
+        {
+          "name": "razao_",
+          "data_type": "text"
+        },
+        {
+          "name": "nota_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "pedido_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "dtemissao_",
+          "data_type": "timestamp without time zone"
+        },
+        {
+          "name": "cfop_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "codprod_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "descricao_",
+          "data_type": "text"
+        },
+        {
+          "name": "qtde_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "p_unit_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "ptotal_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "rca_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "nome_",
+          "data_type": "text"
+        },
+        {
+          "name": "cpf_",
+          "data_type": "text"
+        },
+        {
+          "name": "ncm_",
+          "data_type": "text"
+        },
+        {
+          "name": "pp_",
+          "data_type": "numeric"
+        },
+        {
+          "name": "plano_",
+          "data_type": "text"
+        },
+        {
+          "name": "numero_nfe",
+          "data_type": "text"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "vw_vendas_mensais",
+      "table_type": "BASE TABLE",
+      "row_count": null,
+      "columns": [
+        {
+          "name": "id",
+          "data_type": "numeric"
+        },
+        {
+          "name": "periodo",
+          "data_type": "text"
+        },
+        {
+          "name": "receita",
+          "data_type": "numeric"
+        },
+        {
+          "name": "data_ref",
+          "data_type": "timestamp without time zone"
+        }
+      ]
+    }
+  ],
+  "profit": {
+    "lucro_bruto": {
+      "status": "partial",
+      "active_mapping": false,
+      "best_source": "public.vw_vendas_lm",
+      "reason": "Ha fonte candidata, mas faltam colunas obrigatorias para calculo confiavel."
+    },
+    "lucro_liquido": {
+      "status": "partial",
+      "active_mapping": false,
+      "best_source": "public.vw_vendas_lm",
+      "reason": "Ha fonte candidata, mas faltam colunas obrigatorias para calculo confiavel."
+    },
+    "candidates": [
+      {
+        "source": "public.vw_vendas_lm",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": true,
+          "vendedor": true,
+          "cliente": true
+        },
+        "matched_columns": {
+          "revenue": [
+            "ptotal_"
+          ],
+          "tax": [
+            "dtemissao_"
+          ],
+          "date": [
+            "dtemissao_"
+          ],
+          "branch": [
+            "filial_"
+          ],
+          "seller": [
+            "rca_"
+          ],
+          "customer": [
+            "codcliente_",
+            "razao_"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": [
+          "A view de vendas faturadas nao possui custo, impostos, despesas ou margem no clone atual."
+        ]
+      },
+      {
+        "source": "public.mock_oracle_vw_vendas_mensais",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 10,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": true,
+          "cliente": true
+        },
+        "matched_columns": {
+          "revenue": [
+            "venda_valor"
+          ],
+          "date": [
+            "data_referencia"
+          ],
+          "seller": [
+            "vendedor"
+          ],
+          "customer": [
+            "cliente"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_financeiro_lm",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 10,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": true
+        },
+        "matched_columns": {
+          "date": [
+            "data_vencimento"
+          ],
+          "customer": [
+            "cliente_id"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.mock_oracle_vw_faturamento_mensal",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "faturamento_realizado"
+          ],
+          "date": [
+            "data_referencia"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_detalhe_pedidos",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_faturamento_mensal",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_faturamento_produtos",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_kpi_executivo_vendas",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_vendas_contexto_geral",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_vendas_mensais",
+        "metric_family": "profit",
+        "status": "partial",
+        "score": 5,
+        "capabilities": {
+          "lucro_bruto": false,
+          "lucro_liquido": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false
+        },
+        "matched_columns": {
+          "revenue": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "lucro bruto: coluna explicita de lucro/margem bruta ou receita + custo/CMV",
+          "lucro liquido: coluna explicita de lucro liquido ou receita + custo + impostos/despesas"
+        ],
+        "notes": []
+      }
+    ]
+  },
+  "unbilled_sales": {
+    "vendas_nao_faturadas": {
+      "status": "partial",
+      "active_mapping": false,
+      "best_source": "public.vw_vendas_lm",
+      "reason": "Ha fonte candidata, mas faltam colunas obrigatorias para calculo confiavel."
+    },
+    "candidates": [
+      {
+        "source": "public.vw_vendas_lm",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 55,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": true,
+          "vendedor": true,
+          "cliente": true,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "order": [
+            "pedido_"
+          ],
+          "billing": [
+            "nota_",
+            "numero_nfe"
+          ],
+          "value": [
+            "ptotal_"
+          ],
+          "date": [
+            "dtemissao_"
+          ],
+          "branch": [
+            "filial_"
+          ],
+          "seller": [
+            "rca_"
+          ],
+          "customer": [
+            "codcliente_",
+            "razao_"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": [
+          "Contem pedidos/notas ja emitidos; falta status de pendencia para separar nao faturadas."
+        ]
+      },
+      {
+        "source": "public.mock_oracle_vw_vendas_mensais",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 50,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": true,
+          "cliente": true,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "status": [
+            "status"
+          ],
+          "value": [
+            "venda_valor"
+          ],
+          "date": [
+            "data_referencia"
+          ],
+          "seller": [
+            "vendedor"
+          ],
+          "customer": [
+            "cliente"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_detalhe_pedidos",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 50,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_financeiro_lm",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 30,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": true,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "status": [
+            "status_pagamento"
+          ],
+          "value": [
+            "valor_parcela"
+          ],
+          "date": [
+            "data_vencimento"
+          ],
+          "customer": [
+            "cliente_id"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": [
+          "Status financeiro de pagamento nao substitui status operacional de faturamento do pedido."
+        ]
+      },
+      {
+        "source": "public.mock_oracle_vw_faturamento_mensal",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "billing": [
+            "faturamento_realizado"
+          ],
+          "value": [
+            "faturamento_realizado"
+          ],
+          "date": [
+            "data_referencia"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_faturamento_mensal",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_faturamento_produtos",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_kpi_executivo_vendas",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_vendas_contexto_geral",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      },
+      {
+        "source": "public.vw_vendas_mensais",
+        "metric_family": "unbilled_sales",
+        "status": "partial",
+        "score": 25,
+        "capabilities": {
+          "vendas_nao_faturadas": false,
+          "filial": false,
+          "vendedor": false,
+          "cliente": false,
+          "cancelados": false
+        },
+        "matched_columns": {
+          "value": [
+            "receita"
+          ],
+          "date": [
+            "periodo",
+            "data_ref"
+          ]
+        },
+        "missing_requirements": [
+          "fonte de contexto de pedido/carteira/orcamento pendente",
+          "numero/id do pedido",
+          "status operacional do pedido/faturamento, nao apenas status de pagamento"
+        ],
+        "notes": []
+      }
+    ]
+  },
+  "required_contracts": {
+    "lucro_bruto": [
+      "receita/faturamento",
+      "custo ou CMV",
+      "data de competencia/emissao",
+      "filial e dimensoes opcionais de vendedor/cliente/produto"
+    ],
+    "lucro_liquido": [
+      "receita/faturamento",
+      "custo ou CMV",
+      "impostos e despesas ou coluna explicita de lucro liquido",
+      "data de competencia/emissao"
+    ],
+    "vendas_nao_faturadas": [
+      "pedido/orcamento/carteira",
+      "status operacional de faturamento",
+      "valor do pedido",
+      "data do pedido",
+      "filial, vendedor e cliente quando existirem",
+      "flag/status de cancelamento quando existir"
+    ]
+  }
+}

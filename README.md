@@ -2,7 +2,7 @@
 
 LuminaAI e uma plataforma Enterprise de Business Intelligence com IA, backend FastAPI, frontend Next.js e Data Platform analitica para catalogo, blueprints, pacotes analiticos, runtime de dashboards e governanca multi-tenant.
 
-Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes incrementais executadas ate 2026-07-17. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
+Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes incrementais executadas ate 2026-07-21. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
 
 ## Estado Atual
 
@@ -11,12 +11,20 @@ Esta documentacao representa o estado atual do sistema apos as auditorias, corre
 - IA: Corporate Intelligence Engine modular, Query Intelligence Engine, planner, validator, blueprint builder, package matcher, visual strategy e response builder.
 - Data Platform: Metadata Catalog, Semantic Catalog, Blueprint Repository, Analytical Packages, Sync Engine, Scheduler, Live Dashboard Runtime, Trust Center e engines de performance/seguranca.
 - Validacao completa historica em 2026-07-09: backend `303 passed`, certificacao Enterprise `7 passed`, frontend lint/build OK, Playwright `16 passed`, load smoke `50 ok`, `runtime_cycles=0`.
-- Validacao incremental em 2026-07-17: `python -m py_compile` nos arquivos alterados, `npm run build`, geracao de docs automaticas e E2E Playwright de login/pergunta/renderizacao por `http://127.0.0.1:3000`.
+- Validacao incremental em 2026-07-20: `python -m py_compile`, testes focados de perguntas criticas com 38 testes, `npm run build`, bateria oficial de 461 perguntas/0 falhas e auditoria numerica por metrica/filial em 06/2026 e 07/2026.
 
 ## Correcoes Recentes
 
+- Consultas da IA usam somente o PostgreSQL analitico sincronizado; Oracle fica isolado na sincronizacao e reconciliacao tecnica.
+- Cada resposta informa a ultima atualizacao real, executa validacoes matematicas e oferece aprofundamento por documentos no mesmo chat.
+- O perfil `ADMIN` recebe diagnostico tecnico completo; o perfil `CONSULTA` nao recebe configuracoes SaaS, traces, planos ou telemetria.
+
 - Perguntas criticas de faturamento, ticket medio, desconto, venda por vendedor e rankings possuem caminho deterministico quando ha periodo claro.
-- Continuidade de conversa usa `session_id`, historico recente e `parent_id`; perguntas curtas podem herdar o periodo anterior.
+- Perguntas de vendas usam `filial_` como dimensao padrao: total geral inclui todas as filiais e a tabela detalha por filial; filial especifica filtra quando o usuario pedir.
+- Continuidade de conversa usa `session_id`, historico recente e `parent_id`; perguntas curtas podem herdar periodo, metrica e dimensao anteriores.
+- Preferencias de dashboard sao persistidas por usuario/tenant e aplicadas em perguntas ambiguas de BI.
+- Respostas criticas de vendas incluem auditoria de calculo em `bi_intelligence` e `trust_center.metric_registry`.
+- `GET /health/deep` fornece diagnostico de API, PostgreSQL e status de IA/invocacao.
 - Rankings excluem cadastros internos/tecnicos quando a regra de negocio exige: vendedor `PADRAO` e cliente/loja `LAGES E LOPES LTDA`.
 - Textos vindos da API e da UI passam por reparo defensivo de encoding antes da renderizacao.
 - O frontend preserva o host loopback (`localhost` ou `127.0.0.1`) na API para evitar perda de cookie de sessao.
@@ -73,6 +81,7 @@ Parar:
 ```powershell
 cd backend
 .\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts\run_core_sales_redteam.py --json-report reports\core_sales_redteam_2026-07-20.json
 
 cd ..\frontend
 npm run lint

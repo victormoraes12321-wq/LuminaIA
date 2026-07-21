@@ -24,6 +24,7 @@ from models.analytical_package import AnalyticalPackage, PackageStatus
 from models.package_dashboard_instance import PackageDashboardInstance
 from models.dashboard_template import DashboardTemplate
 from models.dashboard_instance import DashboardInstance
+from models.dashboard_preference import DashboardPreference
 from models.dashboard_studio_version import DashboardStudioVersion
 from models.business_concept import BusinessConcept
 from models.business_kpi import BusinessKPI
@@ -53,6 +54,7 @@ __all__: list[str] = [
     "PackageDashboardInstance",
     "DashboardTemplate",
     "DashboardInstance",
+    "DashboardPreference",
     "DashboardStudioVersion",
     "BusinessConcept",
     "BusinessKPI",

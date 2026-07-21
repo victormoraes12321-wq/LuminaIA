@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_db
 from models.user import User
-from routers.dependencies import enforce_password_change
+from routers.dependencies import enforce_password_change, check_admin_or_gestor_role
 from schemas.dashboard_studio import (
     DashboardDuplicateRequest,
     DashboardExportResponse,
@@ -30,6 +30,7 @@ from services.dashboard_studio_service import dashboard_studio_service
 router = APIRouter(
     prefix="/dashboard-studio",
     tags=["Dashboard Studio"],
+    dependencies=[Depends(check_admin_or_gestor_role)],
 )
 
 

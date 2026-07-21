@@ -6,6 +6,7 @@ import { repairObjectText, repairTextEncoding } from '@/lib/textEncoding'
 import { useAuth } from '@/context/AuthContext'
 import type {
   ChatMessage,
+  DashboardDefaults,
   FavoriteItem,
   HistoryItem,
   QueryMode,
@@ -39,11 +40,68 @@ interface FavoriteApiItem {
   query_id: string
 }
 
+interface DashboardPreferenceApiItem extends DashboardDefaults {
+  id: string | null
+  scope: string
+}
+
 function createConversationSessionId() {
   if (typeof globalThis.crypto?.randomUUID === 'function') {
     return `lumina-${globalThis.crypto.randomUUID()}`
   }
   return `lumina-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
+async function enrichConnectivityErrorMessage(message: string): Promise<string> {
+  const normalized = message.toLowerCase()
+  const shouldProbeHealth = [
+    'failed to fetch',
+    'network',
+    'conectar',
+    'servidor',
+    'http 500',
+    'http 502',
+    'http 503',
+    'http 504',
+  ].some(term => normalized.includes(term))
+  if (!shouldProbeHealth) return message
+
+  try {
+    const res = await fetch(`${getApiBase()}/health/deep`, { cache: 'no-store' })
+    if (!res.ok) {
+      return `${message} Health check profundo falhou com HTTP ${res.status}. Verifique se a API backend está ativa.`
+    }
+    const health = repairObjectText(await res.json()) as {
+      status?: string
+      components?: Record<string, { status?: string; error_type?: string }>
+    }
+    const status = health.status || 'unknown'
+    if (status === 'healthy') return message
+    const componentSummary = Object.entries(health.components || {})
+      .map(([name, component]) => `${name}: ${component.status || 'unknown'}${component.error_type ? ` (${component.error_type})` : ''}`)
+      .join('; ')
+    return `${message} Status atual do sistema: ${status}${componentSummary ? ` | ${componentSummary}` : ''}.`
+  } catch {
+    return `${message} Não consegui consultar /health/deep; verifique se a API backend está iniciada.`
+  }
+}
+
+async function fetchQueryWithRecovery(url: string, init: RequestInit): Promise<Response> {
+  let lastError: unknown = null
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(url, init)
+      if (![502, 503, 504].includes(response.status) || attempt === 1) {
+        return response
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') throw error
+      lastError = error
+      if (attempt === 1) throw error
+    }
+    await new Promise(resolve => window.setTimeout(resolve, 600))
+  }
+  throw lastError instanceof Error ? lastError : new Error('Servidor temporariamente indisponivel.')
 }
 
 // â”€â”€ Return Type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -81,6 +139,10 @@ export interface UseLuminaQueryReturn {
   mode: QueryMode
   /** Change active response depth mode and persist choice */
   changeMode: (mode: QueryMode) => void
+  /** Saved dashboard answer defaults loaded from the backend */
+  dashboardDefaults: DashboardDefaults | null
+  /** Persist dashboard answer defaults for the current user */
+  saveDashboardDefaults: (defaults: DashboardDefaults) => Promise<void>
   /** The active conversation graph */
   conversationGraph: ConversationGraph
   /** Stable backend conversation session id for the current chat */
@@ -103,6 +165,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
   const [history, setHistory]           = useState<HistoryItem[]>([])
   const [favorites, setFavorites]       = useState<FavoriteItem[]>([])
   const [lastResponse, setLastResponse] = useState<QueryResponse | null>(null)
+  const [dashboardDefaults, setDashboardDefaults] = useState<DashboardDefaults | null>(null)
   const [conversationGraph, setConversationGraph] = useState<ConversationGraph>({
     nodes: {},
     current_node_id: null,
@@ -207,20 +270,80 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     }
   }, [token, logout])
 
+  const fetchDashboardDefaults = useCallback(async () => {
+    if (!token) return
+    try {
+      const res = await fetch(`${getApiBase()}/api/v1/dashboard-preferences/default`, {
+        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (res.status === 401) {
+        void logout()
+        return
+      }
+      if (res.ok) {
+        const data = repairObjectText(await res.json()) as DashboardPreferenceApiItem
+        setDashboardDefaults(data.id ? {
+          basis: data.basis,
+          format: data.format,
+          instructions: data.instructions || '',
+        } : null)
+      }
+    } catch (err) {
+      console.warn('Erro ao carregar preferência de dashboard:', err)
+    }
+  }, [token, logout])
+
+  const saveDashboardDefaults = useCallback(async (defaults: DashboardDefaults) => {
+    setDashboardDefaults(defaults)
+    if (!token) return
+    try {
+      const res = await fetch(`${getApiBase()}/api/v1/dashboard-preferences/default`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(defaults),
+      })
+      if (res.status === 401) {
+        void logout()
+        return
+      }
+      if (res.ok) {
+        const data = repairObjectText(await res.json()) as DashboardPreferenceApiItem
+        setDashboardDefaults({
+          basis: data.basis,
+          format: data.format,
+          instructions: data.instructions || '',
+        })
+      } else {
+        console.warn('Falha ao salvar preferência de dashboard:', res.status)
+      }
+    } catch (err) {
+      console.warn('Erro ao salvar preferência de dashboard:', err)
+    }
+  }, [token, logout])
+
   // Executa a hidratação na montagem e sempre que o token mudar
   useEffect(() => {
     if (token) {
       void Promise.resolve().then(() => {
         void fetchHistory()
         void fetchFavorites()
+        void fetchDashboardDefaults()
       })
     } else {
       queueMicrotask(() => {
         setHistory([])
         setFavorites([])
+        setDashboardDefaults(null)
       })
     }
-  }, [token, fetchHistory, fetchFavorites])
+  }, [token, fetchHistory, fetchFavorites, fetchDashboardDefaults])
 
   // ─── Command Interceptor ──────────────────
 
@@ -529,7 +652,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
           content: msg.content
         }))
 
-      const res = await fetch(`${getApiBase()}/api/v1/query/`, {
+      const res = await fetchQueryWithRecovery(`${getApiBase()}/api/v1/query/`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -658,10 +781,11 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
       // AbortError is expected when component unmounts
       if (err instanceof DOMException && err.name === 'AbortError') return
 
-      const message =
+      const rawMessage =
         err instanceof Error
           ? err.message
           : 'Erro inesperado ao conectar com o servidor.'
+      const message = await enrichConnectivityErrorMessage(rawMessage)
 
       setError(message)
 
@@ -771,6 +895,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     fetchFavorites,
     mode,
     changeMode,
+    dashboardDefaults,
+    saveDashboardDefaults,
     conversationGraph,
     sessionId,
     resetConversation,

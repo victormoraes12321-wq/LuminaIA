@@ -43,4 +43,5 @@ Veja `.env.example`. Variaveis obrigatorias incluem `DATABASE_URL`, `SECRET_KEY`
 - Health check: `GET /health`.
 - Dockerfile usa Gunicorn + Uvicorn Worker.
 - Perguntas criticas de vendas possuem caminho deterministico em `services/new_query_orchestrator.py`.
+- `services/sales_value_breakdown.py` centraliza faturamento comercial, movimentos nao comerciais e abertura por filial para perguntas criticas.
 - `services/data_transformer.py` humaniza labels tecnicos e formata campos financeiros para exibicao.

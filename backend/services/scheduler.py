@@ -20,6 +20,9 @@ async def run_sync_task(tenant_id) -> None:
     try:
         from services.data_platform.sync_scheduler import sync_orchestrator
         await sync_orchestrator.execute_scheduled_sync(tenant_id, reason="Scheduler loop")
+        from services.daily_reconciliation import daily_reconciliation_service
+        reconciliation = await daily_reconciliation_service.run_for_tenant(tenant_id)
+        logger.info("Reconciliacao diaria do tenant %s: %s", tenant_id, reconciliation.get("status"))
     except Exception as exc:
         logger.error("Falha no agendador ao sincronizar o tenant %s: %s", tenant_id, exc)
 
@@ -90,7 +93,31 @@ def start_scheduler() -> None:
     global _scheduler_task
     if _scheduler_task is None or _scheduler_task.done():
         _scheduler_task = asyncio.create_task(_scheduler_loop())
+        _scheduler_task.add_done_callback(_restart_scheduler_after_failure)
         logger.info("⏰ Agendador iniciado com sucesso.")
+
+
+def _restart_scheduler_after_failure(task: asyncio.Task) -> None:
+    """Restarts an unexpectedly terminated scheduler without masking shutdown cancellation."""
+    if task.cancelled():
+        return
+    try:
+        error = task.exception()
+    except asyncio.CancelledError:
+        return
+    if error is None:
+        return
+    logger.error("Agendador encerrou inesperadamente; reinicio automatico em 5 segundos: %s", error)
+    asyncio.get_running_loop().call_later(5, start_scheduler)
+
+
+def get_scheduler_status() -> dict[str, object]:
+    task = _scheduler_task
+    return {
+        "status": "healthy" if task is not None and not task.done() else "degraded",
+        "running": bool(task is not None and not task.done()),
+        "restart_policy": "automatic",
+    }
 
 
 async def stop_scheduler() -> None:
@@ -105,4 +132,3 @@ async def stop_scheduler() -> None:
             pass
         _scheduler_task = None
         logger.info("⏰ Agendador desligado com sucesso.")
-

@@ -1,0 +1,791 @@
+{
+  "nodes": {
+    "node_9a5f52b7": {
+      "node_id": "node_9a5f52b7",
+      "parent_id": null,
+      "children_ids": [
+        "node_e9ee4b74"
+      ],
+      "user_query": "Qual foi nosso desconto no Mes de Junho de 2026?",
+      "canonical_plan": {
+        "trace_id": "062ec93e-0c0a-4eca-820f-6a93135503f8",
+        "created_at": "2026-07-18T13:30:22.643294Z",
+        "updated_at": "2026-07-18T13:30:22.643294Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "AGGREGATION",
+        "goal": "Qual foi nosso desconto no Mes de Junho de 2026?",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "desconto"
+        ],
+        "dimensions": [
+          "Venda.dtemissao_",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "5bf72081-a6a4-4599-a698-300c53908450",
+        "created_at": "2026-07-18T13:30:22.643294Z",
+        "updated_at": "2026-07-18T13:30:22.643294Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [
+          {
+            "indicador": "Desconto",
+            "filial": "1",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 3377,
+            "pedidos_total": 3919,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "2",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 1211,
+            "pedidos_total": 1282,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "3",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 1171,
+            "pedidos_total": 1242,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "4",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 1013,
+            "pedidos_total": 1111,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "5",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 594,
+            "pedidos_total": 735,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "Total geral",
+            "tipo_linha": "Total geral",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 7366,
+            "pedidos_total": 8289,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          }
+        ],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-06-01",
+            "end_date": "2026-06-30",
+            "end_exclusive": "2026-07-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 975.1273000001675,
+        "row_count": 6,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "d31ec2b3-2e16-48ee-bd72-43b79f3afafa",
+        "created_at": "2026-07-18T13:30:22.643294Z",
+        "updated_at": "2026-07-18T13:30:22.643294Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_062ec93e",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 6,
+        "execution_time_ms": 975.1273000001675,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-06-01 a 2026-06-30",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    },
+    "node_e9ee4b74": {
+      "node_id": "node_e9ee4b74",
+      "parent_id": "node_9a5f52b7",
+      "children_ids": [
+        "node_b10ba202"
+      ],
+      "user_query": "Total de desconto no m?s 07/2026",
+      "canonical_plan": {
+        "trace_id": "41fbe2af-ed12-4be8-a9a2-9104acc3cdd3",
+        "created_at": "2026-07-18T13:30:23.397419Z",
+        "updated_at": "2026-07-18T13:30:23.397419Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "AGGREGATION",
+        "goal": "Total de desconto no m?s 07/2026",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "desconto"
+        ],
+        "dimensions": [
+          "Venda.dtemissao_",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "c0862956-a8fa-4c72-99b1-815e0e5340a7",
+        "created_at": "2026-07-18T13:30:23.397419Z",
+        "updated_at": "2026-07-18T13:30:23.397419Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [
+          {
+            "indicador": "Desconto",
+            "filial": "1",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 1847,
+            "pedidos_total": 2165,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "2",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 711,
+            "pedidos_total": 765,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "3",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 711,
+            "pedidos_total": 778,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "4",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 571,
+            "pedidos_total": 620,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "5",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 366,
+            "pedidos_total": 446,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "Total geral",
+            "tipo_linha": "Total geral",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 4206,
+            "pedidos_total": 4774,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          }
+        ],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-07-01",
+            "end_date": "2026-07-31",
+            "end_exclusive": "2026-08-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 746.5639000001829,
+        "row_count": 6,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "6d7e9b2f-3290-4735-aa02-e993fd3e1302",
+        "created_at": "2026-07-18T13:30:23.397419Z",
+        "updated_at": "2026-07-18T13:30:23.397419Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_41fbe2af",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 6,
+        "execution_time_ms": 746.5639000001829,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-07-01 a 2026-07-31",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    },
+    "node_b10ba202": {
+      "node_id": "node_b10ba202",
+      "parent_id": "node_e9ee4b74",
+      "children_ids": [
+        "node_07654da8"
+      ],
+      "user_query": "Desconto m?dio no m?s 07/2026",
+      "canonical_plan": {
+        "trace_id": "c892d863-47e9-40ae-8705-e65127605975",
+        "created_at": "2026-07-18T13:30:24.298417Z",
+        "updated_at": "2026-07-18T13:30:24.298417Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "AGGREGATION",
+        "goal": "Desconto m?dio no m?s 07/2026",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "desconto"
+        ],
+        "dimensions": [
+          "Venda.dtemissao_",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "2ca8e2b1-d936-4f9e-b1a2-55ff4c550d29",
+        "created_at": "2026-07-18T13:30:24.298417Z",
+        "updated_at": "2026-07-18T13:30:24.298417Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [
+          {
+            "indicador": "Desconto",
+            "filial": "1",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 1847,
+            "pedidos_total": 2165,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "2",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 711,
+            "pedidos_total": 765,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "3",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 711,
+            "pedidos_total": 778,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "4",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 571,
+            "pedidos_total": 620,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "5",
+            "tipo_linha": "Filial",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 366,
+            "pedidos_total": 446,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          },
+          {
+            "indicador": "Desconto",
+            "filial": "Total geral",
+            "tipo_linha": "Total geral",
+            "desconto_comercial": 0.0,
+            "desconto_comercial_formatado": "R$ 0,00",
+            "desconto_medio_comercial": 0.0,
+            "desconto_medio_comercial_formatado": "R$ 0,00",
+            "desconto_total": 0.0,
+            "desconto_total_formatado": "R$ 0,00",
+            "desconto_medio_total": 0.0,
+            "desconto_medio_total_formatado": "R$ 0,00",
+            "pedidos_comerciais": 4206,
+            "pedidos_total": 4774,
+            "desconto_fonte_tipo": "derivado_sem_coluna_explicita",
+            "desconto_fonte_coluna": null,
+            "desconto_fonte_confianca": "baixa",
+            "desconto_fonte_observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado.",
+            "observacao": "A view vw_vendas_lm nao possui coluna explicita de desconto; o sistema tentou derivar por quantidade vezes preco unitario menos valor faturado."
+          }
+        ],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-07-01",
+            "end_date": "2026-07-31",
+            "end_exclusive": "2026-08-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 889.865600000121,
+        "row_count": 6,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "caa2fc1b-e954-40b7-b991-34477dba6877",
+        "created_at": "2026-07-18T13:30:24.298417Z",
+        "updated_at": "2026-07-18T13:30:24.298417Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_c892d863",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 6,
+        "execution_time_ms": 889.865600000121,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-07-01 a 2026-07-31",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    },
+    "node_07654da8": {
+      "node_id": "node_07654da8",
+      "parent_id": "node_b10ba202",
+      "children_ids": [
+        "node_9fb53d5c"
+      ],
+      "user_query": "Qual vendedor com maior desconto no m?s 07/2026?",
+      "canonical_plan": {
+        "trace_id": "c89de6b3-b110-4f20-8f9c-6137ae6fb404",
+        "created_at": "2026-07-18T13:30:25.899068Z",
+        "updated_at": "2026-07-18T13:30:25.899068Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "AGGREGATION",
+        "goal": "Qual vendedor com maior desconto no m?s 07/2026?",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "top_vendedor_desconto"
+        ],
+        "dimensions": [
+          "Venda.dtemissao_",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "7dcec1a4-1a2f-482f-972a-f65153eed7da",
+        "created_at": "2026-07-18T13:30:25.899068Z",
+        "updated_at": "2026-07-18T13:30:25.899068Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-07-01",
+            "end_date": "2026-07-31",
+            "end_exclusive": "2026-08-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 1575.4778999998962,
+        "row_count": 0,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "f87735a5-71c9-474e-9154-0f90bac566fc",
+        "created_at": "2026-07-18T13:30:25.899068Z",
+        "updated_at": "2026-07-18T13:30:25.899068Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_c89de6b3",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 0,
+        "execution_time_ms": 1575.4778999998962,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-07-01 a 2026-07-31",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    },
+    "node_9fb53d5c": {
+      "node_id": "node_9fb53d5c",
+      "parent_id": "node_07654da8",
+      "children_ids": [],
+      "user_query": "Ranking de vendedores por desconto no m?s 07/2026",
+      "canonical_plan": {
+        "trace_id": "ad877db6-7f03-4262-aec5-e1adf87bd7dc",
+        "created_at": "2026-07-18T13:30:27.869936Z",
+        "updated_at": "2026-07-18T13:30:27.869936Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "RANKING",
+        "goal": "Ranking de vendedores por desconto no m?s 07/2026",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "ranking_vendedores_desconto"
+        ],
+        "dimensions": [
+          "Vendedor.nome",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "f0241e57-0b0d-48e2-9871-387a2a9aea4b",
+        "created_at": "2026-07-18T13:30:27.869936Z",
+        "updated_at": "2026-07-18T13:30:27.869936Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-07-01",
+            "end_date": "2026-07-31",
+            "end_exclusive": "2026-08-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 1944.6444999994128,
+        "row_count": 0,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "a761f065-7c3d-42fc-a17a-dce49bb31d38",
+        "created_at": "2026-07-18T13:30:27.869936Z",
+        "updated_at": "2026-07-18T13:30:27.869936Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_ad877db6",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 0,
+        "execution_time_ms": 1944.6444999994128,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-07-01 a 2026-07-31",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    }
+  },
+  "current_node_id": "node_9fb53d5c"
+}

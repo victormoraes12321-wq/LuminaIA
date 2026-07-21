@@ -347,6 +347,22 @@ class QueryResponse(BaseModel):
         default=None,
         description="Métricas de observabilidade, linhagem de dados e status de sincronização/cache da consulta.",
     )
+    data_status: dict[str, Any] | None = Field(
+        default=None,
+        description="Status real dos dados analiticos no PostgreSQL e horario da ultima sincronizacao.",
+    )
+    validation_summary: dict[str, Any] | None = Field(
+        default=None,
+        description="Resultado das validacoes matematicas executadas antes da entrega da resposta.",
+    )
+    interaction_options: list[dict[str, Any]] = Field(
+        default_factory=list,
+        description="Acoes seguras para aprofundar ou reorganizar a resposta na mesma conversa.",
+    )
+    admin_diagnostics: dict[str, Any] | None = Field(
+        default=None,
+        description="Diagnostico tecnico completo. Presente somente para usuarios ADMIN.",
+    )
     roqg_validated: bool = Field(
         default=True,
         description="True quando a resposta foi auditada e validada pelo ROQG."

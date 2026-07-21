@@ -1,0 +1,118 @@
+{
+  "2026-06": {
+    "faturamento_comercial": "R$ 3.132.057,02",
+    "total_bruto": "R$ 4.327.746,77",
+    "saida_rb_devolucao": "R$ 384.108,29",
+    "venda_bonificada": "R$ 6.054,72",
+    "transferencias": "R$ 772.155,61",
+    "desconto_comercial": "R$ 0,00",
+    "pedidos_comerciais": 7366,
+    "ticket_medio": "R$ 425,20",
+    "filial_sum_ok": true,
+    "bruto_sum_ok": true,
+    "rb_sum_ok": true,
+    "desconto_sum_ok": true,
+    "filiais": {
+      "1": {
+        "faturamento_comercial": "R$ 1.591.551,63",
+        "total_bruto": "R$ 2.208.599,61",
+        "rb": "R$ 91.020,29"
+      },
+      "2": {
+        "faturamento_comercial": "R$ 525.299,71",
+        "total_bruto": "R$ 566.466,71",
+        "rb": "R$ 15.305,87"
+      },
+      "3": {
+        "faturamento_comercial": "R$ 385.513,18",
+        "total_bruto": "R$ 499.956,88",
+        "rb": "R$ 13.597,50"
+      },
+      "4": {
+        "faturamento_comercial": "R$ 220.088,54",
+        "total_bruto": "R$ 261.754,76",
+        "rb": "R$ 26.987,15"
+      },
+      "5": {
+        "faturamento_comercial": "R$ 409.603,96",
+        "total_bruto": "R$ 790.968,81",
+        "rb": "R$ 237.197,48"
+      }
+    },
+    "top_vendor": {
+      "nome": "WANESSA FERREIRA DA SILVA",
+      "total": "R$ 516.373,63",
+      "filial_linha": "1"
+    },
+    "top_rb_vendor": {
+      "nome": "ANA PAULA GONCALVES FERNANDES",
+      "total_rb": "R$ 103.202,45",
+      "filial_linha": "5"
+    },
+    "top_client": {
+      "nome": "CONSUMIDOR FINAL NFCE",
+      "total": "R$ 270.801,71",
+      "filial_linha": "1"
+    },
+    "discount_source": "derivado_sem_coluna_explicita",
+    "discount_confidence": "baixa"
+  },
+  "2026-07": {
+    "faturamento_comercial": "R$ 1.721.983,54",
+    "total_bruto": "R$ 3.137.930,82",
+    "saida_rb_devolucao": "R$ 174.329,05",
+    "venda_bonificada": "R$ 1.925,06",
+    "transferencias": "R$ 1.215.874,54",
+    "desconto_comercial": "R$ 0,00",
+    "pedidos_comerciais": 4206,
+    "ticket_medio": "R$ 409,41",
+    "filial_sum_ok": true,
+    "bruto_sum_ok": true,
+    "rb_sum_ok": true,
+    "desconto_sum_ok": true,
+    "filiais": {
+      "1": {
+        "faturamento_comercial": "R$ 669.242,54",
+        "total_bruto": "R$ 1.725.174,51",
+        "rb": "R$ 45.112,34"
+      },
+      "2": {
+        "faturamento_comercial": "R$ 324.758,54",
+        "total_bruto": "R$ 391.659,57",
+        "rb": "R$ 29.943,13"
+      },
+      "3": {
+        "faturamento_comercial": "R$ 231.040,08",
+        "total_bruto": "R$ 256.729,83",
+        "rb": "R$ 3.677,85"
+      },
+      "4": {
+        "faturamento_comercial": "R$ 83.673,26",
+        "total_bruto": "R$ 108.222,83",
+        "rb": "R$ 8.570,49"
+      },
+      "5": {
+        "faturamento_comercial": "R$ 413.269,12",
+        "total_bruto": "R$ 656.144,08",
+        "rb": "R$ 87.025,24"
+      }
+    },
+    "top_vendor": {
+      "nome": "MARCOS EMANUEL GONCALVES SOUZA",
+      "total": "R$ 252.514,64",
+      "filial_linha": "2"
+    },
+    "top_rb_vendor": {
+      "nome": "ANA PAULA GONCALVES FERNANDES",
+      "total_rb": "R$ 28.950,91",
+      "filial_linha": "5"
+    },
+    "top_client": {
+      "nome": "CONSUMIDOR FINAL NFCE",
+      "total": "R$ 178.332,08",
+      "filial_linha": "1"
+    },
+    "discount_source": "derivado_sem_coluna_explicita",
+    "discount_confidence": "baixa"
+  }
+}

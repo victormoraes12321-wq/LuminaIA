@@ -40,7 +40,8 @@ Esta pasta contem a documentacao tecnica oficial do LuminaAI. Os documentos fora
 - [Parecer final de producao](final_production_readiness_review.md)
 - [Scorecard de hardening](enterprise_hardening_scorecard.md)
 - [Auditoria arquitetural](architecture_audit_enterprise.md)
+- [Relatorio final de hardening 2026-07-20](reports/2026-07-20-hardening-final-audit.md)
 
 ## Nota De Atualizacao
 
-A certificacao completa de 2026-07-09 permanece como baseline historico. O documento [Estado atual do sistema](current-status.md) registra as correcoes e validacoes incrementais executadas em 2026-07-17.
+A certificacao completa de 2026-07-09 permanece como baseline historico. O documento [Estado atual do sistema](current-status.md) registra as correcoes e validacoes incrementais executadas em 2026-07-17, 2026-07-18 e 2026-07-20.

@@ -7,6 +7,9 @@ Observacoes:
 - A autenticacao principal usa JWT emitido pelo backend e enviado por cookie HttpOnly e/ou Bearer token conforme fluxo atual.
 - Rotas sob `/api/v1/api/v1/query` existem por compatibilidade com clientes antigos que duplicavam o prefixo no `base_url`.
 - Campos exatos de payload/resposta seguem os DTOs em `backend/schemas` e o schema OpenAPI.
+- `POST /api/v1/query/` retorna `data_status`, `validation_summary` e `interaction_options`. `admin_diagnostics` e preenchido somente para `ADMIN`.
+- Rotas de Inspector, SVR, cache, performance e seguranca exigem `ADMIN`. Dashboard Studio exige `ADMIN` ou `GESTOR`.
+- A fonte de consulta da IA e o PostgreSQL analitico; referencias ao Oracle na linhagem representam somente o processo tecnico anterior de sincronizacao.
 
 | Metodo | Endpoint | Tag | Objetivo | Autenticacao |
 | --- | --- | --- | --- | --- |
@@ -51,6 +54,8 @@ Observacoes:
 | `POST` | `/api/v1/dashboard-studio/templates/{template_id}/versions/{version}/rollback` | Dashboard Studio | Rollback Template | JWT/Depends |
 | `POST` | `/api/v1/dashboard-studio/validate-layout` | Dashboard Studio | Validate Layout | JWT/Depends |
 | `GET` | `/api/v1/dashboard/events` |  Live Dashboard Runtime | Assinatura Server-Sent Events (SSE) para Live Updates | JWT/Depends |
+| `GET` | `/api/v1/dashboard-preferences/{scope}` | Dashboard Preferences | Carregar preferencia de dashboard do usuario | JWT/Depends |
+| `PUT` | `/api/v1/dashboard-preferences/{scope}` | Dashboard Preferences | Salvar preferencia de dashboard do usuario | JWT/Depends |
 | `POST` | `/api/v1/dashboard/refresh` |  Live Dashboard Runtime | Forcar Smart Refresh de um Painel Analitico | JWT/Depends |
 | `GET` | `/api/v1/dashboard/telemetry` |  Live Dashboard Runtime | Relatorio de Observabilidade de Renderizacao | JWT/Depends |
 | `GET` | `/api/v1/metadata-catalog/` | Metadata Catalog | Pesquisar estruturas no Metadata Catalog | JWT/Depends |
@@ -96,6 +101,7 @@ Observacoes:
 | `PATCH` | `/api/v1/users/{user_id}` |  Usuarios | Editar Usuario (Admin-Only) | JWT/Depends |
 | `PUT` | `/api/v1/users/{user_id}/toggle-active` |  Usuarios | Ativar/Desativar Usuario (Admin-Only) | JWT/Depends |
 | `GET` | `/health` | Sistema | Verificacao de saude da API | Publica ou sessao |
+| `GET` | `/health/deep` | Sistema | Verificacao profunda de saude da API, PostgreSQL e IA | Publica ou sessao |
 
 ## Detalhamento Por Endpoint
 

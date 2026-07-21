@@ -285,7 +285,7 @@ export function adaptQueryResponseToRuntimePayload(
 /**
  * Generates a realistic fallback TrustCenterData object for legacy QueryResponses.
  */
-function generateFallbackTrustCenter(response: QueryResponse, queryId: string): TrustCenterData {
+function _generateLegacyFakeTrustCenter(response: QueryResponse, queryId: string): TrustCenterData {
   const viewName = response.view_name || 'VW_LUMINA_ANALYSIS';
   const now = new Date();
   const lastSync = new Date(now.getTime() - 42 * 60 * 1000); // 42 minutes ago
@@ -435,8 +435,81 @@ function generateFallbackTrustCenter(response: QueryResponse, queryId: string): 
   };
 }
 
+function generateTruthfulFallbackTrustCenter(response: QueryResponse, queryId: string): TrustCenterData {
+  const viewName = response.view_name || 'Fonte analitica';
+  const syncedAt = response.data_status?.synced_at ?? null;
+  const validationPassed = response.validation_summary?.status === 'PASSED';
+  const confidenceScore = response.ia_confianca == null
+    ? 0
+    : Math.round(response.ia_confianca <= 1 ? response.ia_confianca * 100 : response.ia_confianca);
+  const freshness = response.data_status?.freshness ?? 'UNKNOWN';
+  const syncStatus = freshness === 'CURRENT'
+    ? 'UP_TO_DATE'
+    : freshness === 'STALE' || freshness === 'UNKNOWN'
+      ? 'OUT_OF_DATE'
+      : 'DEGRADED';
+  const totalTime = response.telemetry?.timings?.total_pipeline ?? 0;
+  return {
+    trust_badge: {
+      status: validationPassed ? 'VERIFIED' : 'PENDING',
+      origem: response.data_status?.source_label ?? 'PostgreSQL analitico',
+      tempo_desde_sync: response.data_status?.age_minutes == null ? 'Nao disponivel' : `${response.data_status.age_minutes} min`,
+      proxima_sincronizacao: null,
+      proxima_sincronizacao_restante: 'Nao disponivel',
+      confidence_score: confidenceScore,
+      health_score: 0,
+    },
+    data_lineage: [],
+    version_center: {
+      view_version: 'Nao disponivel', blueprint_version: 'Nao disponivel', dashboard_template_version: 'Nao disponivel',
+      runtime_dataset_version: 'Nao disponivel', analytical_package_version: 'Nao disponivel', business_layer_version: 'Nao disponivel',
+      metadata_catalog_version: 'Nao disponivel', semantic_catalog_version: 'Nao disponivel',
+      created_at: syncedAt ?? '', updated_at: syncedAt ?? '', compatibility: 'Nao avaliada',
+    },
+    sync_center: {
+      ultima_sync: syncedAt,
+      proxima_sync: null,
+      tempo_desde_sync: response.data_status?.age_minutes == null ? 'Nao disponivel' : `${response.data_status.age_minutes} min`,
+      tempo_restante_sync: 'Nao disponivel',
+      horarios_programados: [],
+      quantidade_execucoes: 0,
+      ultimos_erros: [],
+      ultimos_avisos: [],
+      status_dados: syncStatus,
+    },
+    performance_center: {
+      time_blueprint_ms: 0, time_backend_ms: totalTime, time_runtime_dataset_ms: 0,
+      time_total_backend_ms: totalTime, records_processed: 0, records_displayed: 0,
+      components_rendered: 0, components_reused: 0,
+    },
+    cache_center: {
+      blueprint_reused: false, analytical_package_reused: Boolean(response.package_reused), dashboard_template_reused: false,
+      runtime_reused: false, cache_status: 'MISS', last_cache_update: '', cache_version: 'Nao disponivel', economia_estimada: 'Nao calculada',
+    },
+    health_center: { scores: {}, health_geral: 0 },
+    confidence_score: {
+      score: confidenceScore,
+      stars: Math.max(0, Math.min(5, Math.round(confidenceScore / 20))),
+      justificativa: response.ia_justificativa ?? 'Confianca nao informada.',
+    },
+    diagnostics: {
+      status: validationPassed ? 'NORMAL' : 'ATTENTION',
+      servico_afetado: validationPassed ? 'Nenhum' : 'Validacao da resposta',
+      impacto: validationPassed ? 'Nenhum' : 'Revisar verificacoes matematicas',
+      causa_provavel: validationPassed ? 'Sem falhas detectadas' : 'Validacao incompleta ou divergente',
+      sugestao_investigacao: validationPassed ? 'Nenhuma' : 'Consultar o diagnostico tecnico como administrador',
+    },
+    timeline: [],
+    audit_trail: {
+      pergunta: response.pergunta_original ?? '', blueprint_id: 'Nao disponivel', analytical_package_id: response.analytical_package_id ?? 'Nao disponivel',
+      view_name: viewName, runtime_dataset_id: queryId, dashboard_template_id: 'Nao disponivel',
+      tempo_total_ms: totalTime, tenant_id: 'Protegido', timestamp: new Date().toISOString(), request_id: response.request_id,
+    },
+  };
+}
+
 function normalizeTrustCenter(response: QueryResponse, queryId: string): TrustCenterData {
-  const fallback = generateFallbackTrustCenter(response, queryId);
+  const fallback = generateTruthfulFallbackTrustCenter(response, queryId);
   const raw = repairObjectText(response.trust_center) as Partial<TrustCenterData> & Record<string, unknown> | undefined;
   if (!raw || typeof raw !== 'object') return fallback;
 

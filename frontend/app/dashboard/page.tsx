@@ -97,6 +97,8 @@ export default function DashboardPage() {
     isFavorite,
     mode,
     changeMode,
+    dashboardDefaults,
+    saveDashboardDefaults,
     conversationGraph,
     resetConversation,
     backtrackToNode,
@@ -321,6 +323,8 @@ export default function DashboardPage() {
               onClearError={clearError}
               mode={mode}
               onChangeMode={changeMode}
+              dashboardDefaults={dashboardDefaults}
+              onSaveDashboardDefaults={saveDashboardDefaults}
               onSelectResponse={() => undefined}
             />
           </div>

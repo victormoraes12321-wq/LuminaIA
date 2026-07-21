@@ -1,0 +1,88 @@
+{
+  "nodes": {
+    "node_5d7def97": {
+      "node_id": "node_5d7def97",
+      "parent_id": null,
+      "children_ids": [],
+      "user_query": "Qual vendedor com maior desconto no m?s 07/2026?",
+      "canonical_plan": {
+        "trace_id": "448c654f-4c17-46ca-ae2b-4a2f81198446",
+        "created_at": "2026-07-18T13:30:57.091839Z",
+        "updated_at": "2026-07-18T13:30:57.091839Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "intent": "AGGREGATION",
+        "goal": "Qual vendedor com maior desconto no m?s 07/2026?",
+        "entities": [
+          "Venda"
+        ],
+        "metrics": [
+          "top_vendedor_desconto"
+        ],
+        "dimensions": [
+          "Venda.dtemissao_",
+          "Venda.filial_"
+        ],
+        "filters": [],
+        "limit": null,
+        "suggested_visualization": "TABLE",
+        "canonicalization_trace": []
+      },
+      "execution_result": {
+        "trace_id": "6dc39331-ab4f-425d-bd6b-6acd42019d8d",
+        "created_at": "2026-07-18T13:30:57.091839Z",
+        "updated_at": "2026-07-18T13:30:57.091839Z",
+        "pipeline_version": "2.0",
+        "status": "READY",
+        "dataset": [],
+        "metadata": {
+          "rule": "core_summary_query",
+          "binds": {
+            "start_date": "2026-07-01",
+            "end_date": "2026-07-31",
+            "end_exclusive": "2026-08-01"
+          },
+          "business_filter": "Filtro comercial: todas as filiais e tipos de venda 2/61."
+        },
+        "warnings": [],
+        "execution_time_ms": 1263.9954000005673,
+        "row_count": 0,
+        "cache_hit": false,
+        "source_views": []
+      },
+      "query_context": {
+        "trace_id": "cf8f4572-d367-4df2-b85f-a9cc2ba44f83",
+        "created_at": "2026-07-18T13:30:57.091839Z",
+        "updated_at": "2026-07-18T13:30:57.091839Z",
+        "pipeline_version": "2.0",
+        "dataset_id": "node_448c654f",
+        "dataset_version": 1,
+        "source_sync_timestamp": null,
+        "row_count": 0,
+        "execution_time_ms": 1263.9954000005673,
+        "is_cached": false
+      },
+      "dashboard_state": {
+        "chart_type": "TABLE",
+        "selected_chart_id": null,
+        "layout_mode": "DEFAULT",
+        "drilldown_stack": [],
+        "hidden_columns": [],
+        "visible_metrics": [],
+        "selected_series": [],
+        "active_dashboard": null,
+        "selected_filters": {
+          "tenant_id": "00000000-0000-0000-0000-000000000000",
+          "periodo": "2026-07-01 a 2026-07-31",
+          "filial": "todas"
+        },
+        "expanded_cards": [],
+        "selected_tab": null,
+        "pagination_page": 1,
+        "sort_column": null,
+        "sort_direction": null
+      }
+    }
+  },
+  "current_node_id": "node_5d7def97"
+}

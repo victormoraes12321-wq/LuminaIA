@@ -10,6 +10,14 @@ export type ChartType = 'BAR' | 'LINE' | 'PIE' | 'TABLE' | 'KPI' | 'AREA' | 'SCA
 // ── API Request ────────────────────────────────────────────────
 
 export type QueryMode = 'operational' | 'analytical' | 'executive'
+export type DashboardValueBasis = 'liquido' | 'bruto' | 'ambos'
+export type DashboardFormat = 'tabela' | 'grafico' | 'ambos'
+
+export interface DashboardDefaults {
+  basis: DashboardValueBasis
+  format: DashboardFormat
+  instructions: string
+}
 
 export interface QueryRequest {
   pergunta: string
@@ -219,8 +227,43 @@ export interface QueryResponse {
   mensagem: string | null
   resposta_direta?: string | null
   plano_execucao?: Record<string, unknown> | null
+  analytical_package_id?: string | null
+  package_reused?: boolean
   telemetry?: QueryTelemetry | null
   trust_center?: unknown
+  data_status?: {
+    query_source: 'POSTGRESQL_ANALYTICAL_CLONE'
+    source_label: string
+    view_name?: string | null
+    synced_at: string | null
+    checked_at: string
+    age_minutes: number | null
+    freshness: 'CURRENT' | 'STALE' | 'SYNCING' | 'DEGRADED' | 'UNKNOWN'
+    sync_status: string
+    records_last_sync: number
+    freshness_warning_minutes: number
+  } | null
+  validation_summary?: {
+    status: 'PASSED' | 'FAILED'
+    checks_total: number
+    checks_passed: number
+    checks_failed: number
+    validated_at: string
+    checks: Array<{
+      code: string
+      status: 'PASS' | 'FAIL'
+      actual: number
+      expected: number
+      difference: number
+      required: boolean
+    }>
+  } | null
+  interaction_options?: Array<{
+    id: string
+    label: string
+    prompt: string
+  }>
+  admin_diagnostics?: Record<string, unknown> | null
   status?: string
   ambiguities?: string[]
   missing_information?: string[]

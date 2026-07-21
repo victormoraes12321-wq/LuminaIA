@@ -38,7 +38,8 @@ from services.oracle_service import decrypt_connection_details
 from services.postgresql_clone_service import get_clone_db_connection, execute_clone_view
 from services.data_transformer import transform_data
 from services.query_intelligence_engine import query_intelligence_engine
-from routers.dependencies import get_current_user, enforce_password_change
+from services.query_response_governance import query_response_governance
+from routers.dependencies import get_current_user, enforce_password_change, check_admin_role
 
 logger = logging.getLogger(__name__)
 
@@ -321,13 +322,20 @@ async def processar_consulta(
             tenant_id=str(payload.tenant_id),
             session_id=payload.session_id,
             history=history_list,
-            parent_id=getattr(payload, "parent_id", None)
+            parent_id=getattr(payload, "parent_id", None),
+            mode=payload.mode,
         )
         
-        return QueryResponse.model_validate(res_dict)
+        governed = await query_response_governance.enrich(
+            res_dict,
+            db=db,
+            tenant=tenant,
+            current_user=current_user,
+        )
+        return QueryResponse.model_validate(governed)
 
     # ── 4. Delegar execução para o pipeline legado da Query Intelligence Engine ─────
-    return await query_intelligence_engine.process_query(
+    legacy_response = await query_intelligence_engine.process_query(
         payload=payload,
         current_user=current_user,
         db=db,
@@ -340,11 +348,23 @@ async def processar_consulta(
         tenant=tenant,
         intent_identifier=identify_intention,
     )
+    legacy_payload = (
+        legacy_response.model_dump(mode="json")
+        if hasattr(legacy_response, "model_dump")
+        else dict(legacy_response)
+    )
+    governed = await query_response_governance.enrich(
+        legacy_payload,
+        db=db,
+        tenant=tenant,
+        current_user=current_user,
+    )
+    return QueryResponse.model_validate(governed)
 
 
 @router.get("/intelligence", status_code=status.HTTP_200_OK)
 async def obter_metricas_inteligencia(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Retorna métricas consolidadas de eficiência do Query Intelligence Engine (QIE).
@@ -355,7 +375,7 @@ async def obter_metricas_inteligencia(
 
 @router.get("/cache/stats", status_code=status.HTTP_200_OK)
 async def obter_estatisticas_cache(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Retorna estatísticas detalhadas de performance e saúde da Intelligent Caching Platform (ICP).
@@ -366,7 +386,7 @@ async def obter_estatisticas_cache(
 
 @router.post("/cache/clear", status_code=status.HTTP_200_OK)
 async def limpar_cache_plataforma(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Invalida e limpa o cache associado ao tenant do usuário logado.
@@ -383,7 +403,7 @@ async def limpar_cache_plataforma(
 
 @router.get("/performance/center", status_code=status.HTTP_200_OK)
 async def obter_relatorio_performance(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Retorna o relatório consolidado do Performance Center monitorado pela POP.
@@ -394,7 +414,7 @@ async def obter_relatorio_performance(
 
 @router.post("/performance/optimize", status_code=status.HTTP_200_OK)
 async def otimizar_recursos_sistema(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Força otimização imediata de memória e desalocação de objetos órfãos.
@@ -405,7 +425,7 @@ async def otimizar_recursos_sistema(
 
 @router.get("/security/center", status_code=status.HTTP_200_OK)
 async def obter_relatorio_seguranca(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Retorna o relatório consolidado do Security Center monitorado pela ESP.
@@ -416,7 +436,7 @@ async def obter_relatorio_seguranca(
 
 @router.post("/security/backup", status_code=status.HTTP_200_OK)
 async def criar_backup_seguro(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Cria um backup criptografado do catálogo semântico e metadados analíticos.
@@ -436,7 +456,7 @@ async def criar_backup_seguro(
 @router.post("/security/restore", status_code=status.HTTP_200_OK)
 async def restaurar_backup_seguro(
     payload: dict,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Restaura permissões e metadados a partir de um backup criptografado verificado.
@@ -457,7 +477,7 @@ async def restaurar_backup_seguro(
 
 @router.get("/inspector/traces", status_code=status.HTTP_200_OK)
 async def get_inspector_traces(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Lista todos os traces analíticos recentes gravados em runtime-logs/debug/ para exibição no painel de inspeção.
@@ -499,7 +519,7 @@ async def get_inspector_traces(
 @router.get("/inspector/trace/{trace_id}", status_code=status.HTTP_200_OK)
 async def get_inspector_trace_detail(
     trace_id: str,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Retorna o payload de trace analítico completo de um ID específico.
@@ -528,7 +548,7 @@ async def get_inspector_trace_detail(
 @router.post("/inspector/replay", status_code=status.HTTP_200_OK)
 async def run_inspector_replay(
     payload: dict,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(check_admin_role)
 ):
     """
     Aciona o replay analítico de um trace e retorna o resultado dinâmico do pipeline.
@@ -644,5 +664,3 @@ async def run_inspector_replay(
     except Exception as e:
         import traceback
         raise HTTPException(status_code=500, detail={"error": str(e), "traceback": traceback.format_exc()})
-
-

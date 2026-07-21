@@ -488,11 +488,17 @@ async def get_oracle_connection(
                     else:
                         pool_params["service_name"] = service_name
                     
-                    _oracle_pools[tenant_key] = await oracledb.create_pool_async(**pool_params)
+                    pool_result = oracledb.create_pool_async(**pool_params)
+                    if inspect.isawaitable(pool_result):
+                        pool_result = await pool_result
+                    _oracle_pools[tenant_key] = pool_result
             
             pool = _oracle_pools[tenant_key]
             logger.info("Adquirindo conexão do Pool Oracle para o tenant %s", tenant_key)
-            return await pool.acquire()
+            acquire_result = pool.acquire()
+            if inspect.isawaitable(acquire_result):
+                return await acquire_result
+            return acquire_result
         else:
             # Standalone connection (ex: connection tests, validation)
             if sid:

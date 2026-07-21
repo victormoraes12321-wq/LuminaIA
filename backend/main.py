@@ -21,6 +21,7 @@ import time
 import uuid
 from collections import defaultdict, deque
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from typing import Any
 
 import sqlalchemy
@@ -40,6 +41,7 @@ from routers import analytical_packages as analytical_packages_router
 from routers import business_knowledge as business_knowledge_router
 from routers import dashboard_studio as dashboard_studio_router
 from routers import dashboard as dashboard_router
+from routers import dashboard_preferences as dashboard_preferences_router
 from routers import svr as svr_router
 from services.ai_credential_manager import ai_credential_manager
 from services.ai_invocation_manager import ai_invocation_manager
@@ -421,6 +423,11 @@ app.include_router(
 )
 
 app.include_router(
+    dashboard_preferences_router.router,
+    prefix="/api/v1",
+)
+
+app.include_router(
     svr_router.router,
     prefix="/api/v1",
 )
@@ -453,6 +460,52 @@ async def health_check() -> dict[str, Any]:
         "debug": settings.DEBUG,
         "ai": ai_credential_manager.get_status(),
         "ai_invocation": ai_invocation_manager.get_status(),
+        "deep_health": "/health/deep",
+    }
+
+
+@app.get(
+    "/health/deep",
+    tags=["Sistema"],
+    summary="Verificação profunda de saúde da API",
+    description="Valida componentes essenciais para diagnosticar queda ou degradação do sistema.",
+    response_description="Status detalhado dos componentes essenciais",
+)
+async def deep_health_check() -> dict[str, Any]:
+    components: dict[str, Any] = {
+        "api": {"status": "healthy"},
+        "ai": ai_credential_manager.get_status(),
+        "ai_invocation": ai_invocation_manager.get_status(),
+    }
+
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(sqlalchemy.text("SELECT 1"))
+        components["postgres"] = {"status": "healthy"}
+    except Exception as exc:
+        logger.warning("Health deep: PostgreSQL degradado: %s", exc)
+        components["postgres"] = {
+            "status": "degraded",
+            "error_type": type(exc).__name__,
+        }
+
+    from services.scheduler import get_scheduler_status
+    components["scheduler"] = get_scheduler_status()
+
+    component_statuses = [
+        str(value.get("status", "unknown")).lower()
+        for value in components.values()
+        if isinstance(value, dict)
+    ]
+    overall = "healthy" if all(item in {"healthy", "ok", "ready", "active"} for item in component_statuses) else "degraded"
+
+    return {
+        "status": overall,
+        "app": settings.APP_NAME,
+        "version": settings.APP_VERSION,
+        "environment": settings.ENVIRONMENT,
+        "checked_at": datetime.now(timezone.utc).isoformat(),
+        "components": components,
     }
 
 

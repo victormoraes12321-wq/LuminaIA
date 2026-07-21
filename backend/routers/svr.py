@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_db
 from models.user import User
 from models.svr import SVRCompatibilityMatrix, SVRAuditLog, SVRVersion
-from routers.dependencies import get_current_user, enforce_password_change
+from routers.dependencies import get_current_user, enforce_password_change, check_admin_role
 from services.svr_service import svr_service
 from services.svr_migration import svr_migration
 
@@ -20,7 +20,7 @@ logger = logging.getLogger("luminaai.routers.svr")
 router = APIRouter(
     prefix="/svr",
     tags=["⚙️ Semantic Version Registry"],
-    dependencies=[Depends(enforce_password_change)],
+    dependencies=[Depends(enforce_password_change), Depends(check_admin_role)],
 )
 
 # ── Schemas Pydantic ──────────────────────────────────────────────────
