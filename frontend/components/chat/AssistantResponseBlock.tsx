@@ -297,13 +297,15 @@ interface AssistantResponseBlockProps {
   onFavorite: () => void
   isFavorited: boolean
   onSendQuery: (pergunta: string) => void
+  isLatest?: boolean
 }
 
 export function AssistantResponseBlock({
   msg,
   onFavorite,
   isFavorited,
-  onSendQuery
+  onSendQuery,
+  isLatest = true,
 }: AssistantResponseBlockProps) {
   const { user } = useAuth()
   const displayContent = repairTextEncoding(msg.content)
@@ -445,7 +447,34 @@ export function AssistantResponseBlock({
     response.chart_type !== 'KPI' &&
     !!response.visualizations?.some(v => v.chart_type === 'TABLE')
 
-  const hasData = response?.chart_data && response.chart_type
+  const hasData = Boolean(response?.chart_data && response?.chart_type)
+
+  // Se a resposta exigir esclarecimentos ou escolhas (AMBIGUOUS / MISSING_INFORMATION),
+  // exibe EXCLUSIVAMENTE a janela popup flutuante (via Portal), sem concatenar bolhas no chat.
+  const isClarificationRequired =
+    isLatest &&
+    (response?.status === 'AMBIGUOUS' ||
+      response?.status === 'MISSING_INFORMATION' ||
+      (isClarificationData(response?.chart_data) && Boolean(response.chart_data.clarification_required)))
+
+  if (isClarificationRequired) {
+    const ambOptions =
+      response?.ambiguities && response.ambiguities.length > 0
+        ? response.ambiguities
+        : isClarificationData(response?.chart_data) && Array.isArray(response?.chart_data?.options)
+          ? response.chart_data.options
+          : []
+
+    return (
+      <ClarificationPanel
+        status={response?.status || 'AMBIGUOUS'}
+        ambiguities={ambOptions}
+        missingInformation={response?.missing_information || []}
+        perguntaOriginal={response?.pergunta_original || displayContent}
+        onResolve={onSendQuery}
+      />
+    )
+  }
 
   return (
     <div className="flex items-start gap-4 animate-fade-in w-full max-w-5xl mx-auto">
@@ -629,51 +658,7 @@ export function AssistantResponseBlock({
           </p>
         </div>
 
-        {/* Renderização de opções de clarificação do CSIE */}
-        {(() => {
-          if (!response) return null;
 
-          const isAmbiguous = response.status === 'AMBIGUOUS';
-          const isMissingInfo = response.status === 'MISSING_INFORMATION';
-
-          if (isAmbiguous || isMissingInfo) {
-            return (
-              <div className="pt-3 border-t border-zinc-900/60 mt-2">
-                <ClarificationPanel
-                  status={response.status!}
-                  ambiguities={response.ambiguities || []}
-                  missingInformation={response.missing_information || []}
-                  perguntaOriginal={response.pergunta_original || ''}
-                  onResolve={onSendQuery}
-                />
-              </div>
-            );
-          }
-
-          // Suporte legado
-          const clarificationData = response.chart_data;
-          if (
-            isClarificationData(clarificationData) &&
-            clarificationData.clarification_required &&
-            Array.isArray(clarificationData.options)
-          ) {
-            return (
-              <div className="pt-3 border-t border-zinc-900/60 mt-2">
-                <ClarificationPanel
-                  status="AMBIGUOUS"
-                  ambiguities={clarificationData.options}
-                  perguntaOriginal={response.pergunta_original || ''}
-                  onResolve={(resolucao) => {
-                    const opt = resolucao.replace(response.pergunta_original || '', '').replace(/[()]/g, '').trim();
-                    onSendQuery(`${opt} ${response.pergunta_original || ''}`);
-                  }}
-                />
-              </div>
-            );
-          }
-
-          return null;
-        })()}
 
         {/* ── 3. Análise Comparativa (Subtítulo ou Notas Extras) ── */}
         {isStructured && sections.comparativa && (
@@ -739,7 +724,7 @@ export function AssistantResponseBlock({
                 Preserva retrocompatibilidade com DynamicRenderer via adapter. */}
             <ErrorBoundary>
               <InlineDashboardRuntime
-                response={response}
+                response={response!}
                 className="w-full"
               />
             </ErrorBoundary>

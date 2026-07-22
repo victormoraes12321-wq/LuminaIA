@@ -1,14 +1,14 @@
 # Estado Atual Do Sistema
 
-Data da atualizacao: 2026-07-21
+Data da atualizacao: 2026-07-22
 
-Este documento resume o estado atual do LuminaAI apos as correcoes recentes de perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao, preferencias de dashboard, health/recovery e encoding de textos.
+Este documento resume o estado atual do LuminaAI apos as correcoes recentes de perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao, preferencias de dashboard, auto-cura do catalogo, produtos/estoque, financeiro, suporte a anos isolados e suites de teste massivo.
 
 ## Resumo Executivo
 
 O sistema permanece estruturado como uma plataforma Enterprise de BI com IA, backend FastAPI, frontend Next.js, Data Platform, catalogos, runtime de dashboards e governanca multi-tenant.
 
-A certificacao completa de 2026-07-09 continua registrada como baseline historico. Em 2026-07-17, 2026-07-18 e 2026-07-20 foram feitas validacoes incrementais focadas nas falhas reportadas pelo usuario e nas alteracoes recentes do codigo.
+A certificacao completa de 2026-07-09 continua registrada como baseline historico. Em 2026-07-17, 2026-07-18, 2026-07-20, 2026-07-21 e 2026-07-22 foram feitas validacoes incrementais e suites de estresse focadas nas falhas reportadas pelo usuario e nas alteracoes recentes do codigo.
 
 ## Correcoes Recentes Validadas
 
@@ -18,7 +18,11 @@ A certificacao completa de 2026-07-09 continua registrada como baseline historic
 - A acao `Ver documentos` detalha no PostgreSQL os pedidos/notas que formam a metrica, respeitando periodo, filial e categoria da conversa.
 - O scheduler reinicia automaticamente em falha inesperada, participa do `/health/deep` e executa reconciliacao tecnica diaria depois da sincronizacao agendada.
 - O frontend nao fabrica mais horarios, health scores, versoes ou desempenho para completar o Trust Center; ausencia de evidencia e mostrada como nao disponivel.
-
+- Consultas deterministicas ampliadas para **Produtos mais vendidos**, **Estoque por produto** e **Financeiro / Titulos em aberto** com retorno de dados brutos populando `sample_rows` para a Tabela Detalhada com Colunas.
+- Auto-cura semantica no `Canonicalizer` para entidades desconhecidas (`Produto`, `Financeiro`, `Venda`, `Vendedor`, `Cliente`, `Cidade`, `Estado`, `Categoria`).
+- Auto-cura graciosa de filtros desconhecidos com descarte seguro em log em vez de erro `UNSUPPORTED`.
+- Parser de periodo (`_month_range_from_text`) expandido para anos isolados de 4 digitos (`no ano de 2026`, `em 2026`, `2026`), retornando o intervalo `YYYY-01-01` a `YYYY-12-31`.
+- Tolerancia a typos e erros de grafia no chat (`mais vendidoa`, `mais vendida`, `top produtos`).
 - Perguntas criticas de vendas ganharam caminho deterministico no `NewQueryOrchestrator` quando ha periodo explicito ou periodo herdado da conversa.
 - Perguntas com a mesma fonte/metrica mas saida diferente sao separadas por intencao: `maior/top` retorna uma linha; `ranking/lista/todos/por vendedor` retorna tabela ordenada.
 - Consultas de faturamento, ticket medio, descontos, maior vendedor e maior cliente usam regras estaveis sobre `vw_vendas_lm`.
@@ -69,10 +73,11 @@ As seguintes familias de perguntas devem ser tratadas como superficie critica de
 - Ranking/top clientes, excluindo a loja interna quando aplicavel.
 - Perguntas de continuidade na mesma conversa, herdando periodo quando a pergunta seguinte for curta ou ambigua.
 
-## Validacao Incremental Executada Em 2026-07-17, 2026-07-18 E 2026-07-20
+## Validacao Incremental Executada Em 2026-07-17, 2026-07-18, 2026-07-20, 2026-07-21 E 2026-07-22
 
 | Validacao | Resultado |
 | --- | --- |
+| Mineracao e estresse massivo em 2026-07-22 | OK; 164 cenarios de perguntas analiticas e interacoes multi-turn executados sem falhas (0 falhas). Cobriu produtos mais vendidos, estoque, financeiro, anos isolados de 4 digitos (`no ano de 2026`), auto-cura do catalogo e descarte gracioso de filtros. |
 | Governanca, rastreabilidade e perfis em 2026-07-21 | OK; 49 testes focados, `py_compile`, build Next.js, TypeScript e lint dos arquivos alterados. Consulta real retornou fonte PostgreSQL, 4 checks aprovados e 500 documentos detalhados. |
 | `python -m py_compile` em orquestrador, transformer e modulo `sales_value_breakdown` | OK em 2026-07-18 |
 | `python -m py_compile` nos arquivos alterados em 2026-07-20 | OK; orquestrador, metric registry, preferencias, main, redteam, reconciliacao ERP e descoberta de fontes financeiras |

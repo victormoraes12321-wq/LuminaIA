@@ -612,11 +612,11 @@ class SyncEngine:
         return imported_rows
 
     def _incremental_overlap_start(self, last_sync_val: datetime | date) -> datetime | date:
-        """Reprocessa janela recente para capturar registros tardios no mesmo dia."""
+        """Reprocessa janela recente dos últimos 30 dias para capturar alterações e atualizações no ERP."""
         if isinstance(last_sync_val, datetime):
-            overlap_day = last_sync_val.date() - timedelta(days=2)
+            overlap_day = last_sync_val.date() - timedelta(days=30)
             return datetime.combine(overlap_day, dt_time.min)
-        return last_sync_val - timedelta(days=2)
+        return last_sync_val - timedelta(days=30)
 
     async def _detect_incremental_column(self, pg_conn: asyncpg.Connection, table_name: str) -> str | None:
         """Tenta detectar uma coluna temporal ou id para fins de sincronização incremental."""

@@ -274,22 +274,6 @@ export function ChatInterface({
 
   const handleSubmit = () => {
     if (isInvalid || loading) return
-    const forceSelection = asksForDashboardSelection(trimmedInput)
-    if (forceSelection || needsDashboardOptions(trimmedInput)) {
-      const saved = dashboardDefaults ?? loadDashboardDefaults()
-      const inferred = inferDashboardDefaults(trimmedInput, saved)
-      if (saved && !forceSelection) {
-        onSend(questionWithDashboardDefaults(trimmedInput, inferred))
-        setInput('')
-        onClearError()
-        return
-      }
-      setDashboardBasis(inferred.basis)
-      setDashboardFormat(inferred.format)
-      setDashboardInstructions(inferred.instructions)
-      setPendingDashboardQuestion(trimmedInput)
-      return
-    }
     onSend(trimmedInput)
     setInput('')
     onClearError()

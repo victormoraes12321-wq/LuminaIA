@@ -40,10 +40,10 @@ class ExplainabilityEngine:
             f"- Pergunta original do usuário: {query}\n"
             f"- Objetivo do plano lógico: {plan.goal}\n"
             f"- Dataset Normalizado (primeiras 50 linhas): {dataset[:50]}\n\n"
-            "## DIRETRIZES DE SEGURANÇA E ALUCINAÇÃO:\n"
-            "1. NÃO tente calcular novos valores matemáticos (médias, somas, percentuais) além dos que já estão explicitamente contidos no dataset.\n"
-            "2. Não invente novas métricas ou números. Atenha-se estritamente aos registros de fatos fornecidos.\n"
-            "3. Forneça sugestões gerenciais pertinentes apenas com base no que foi extraído.\n"
+            "## DIRETRIZES DE SEGURANÇA E ANÁLISE:\n"
+            "1. Se a pergunta solicitar DIFERENÇA, COMPARAÇÃO ou VARIAÇÃO entre duas datas ou períodos, identifique os valores brutos de cada data/período, calcule a DIFERENÇA ABSOLUTA em R$ (Data2 - Data1) e a VARIAÇÃO PERCENTUAL (%), e explique esses números claramente no resumo.\n"
+            "2. Não invente novas métricas ou números não suportados pelos dados fornecidos.\n"
+            "3. Forneça sugestões gerenciais pertinentes com base nos resultados obtidos.\n"
             "4. Nunca mencione nomes físicos de views (como VW_...) ou comandos SQL analíticos."
         )
 

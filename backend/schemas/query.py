@@ -371,6 +371,22 @@ class QueryResponse(BaseModel):
         default=None,
         description="Plano formal de renderização gerado pelo Response Orchestrator & Quality Gate (ROQG)."
     )
+    status: str | None = Field(
+        default=None,
+        description="Status de execução (FULL_RENDERING, AMBIGUOUS, MISSING_INFORMATION, etc.)"
+    )
+    ambiguities: list[str] | None = Field(
+        default=None,
+        description="Lista de opções para resolução de ambiguidade"
+    )
+    missing_information: list[str] | None = Field(
+        default=None,
+        description="Lista de campos obrigatórios ausentes"
+    )
+    goal: str | None = Field(
+        default=None,
+        description="Objetivo analítico do plano"
+    )
 
 
 

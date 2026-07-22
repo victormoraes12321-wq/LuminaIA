@@ -123,6 +123,36 @@ class NewQueryOrchestrator:
             )
         )
 
+    def _is_faturamento_basis_ambiguous(self, pergunta: str) -> bool:
+        normalized = self._normalize_query_text(pergunta)
+        has_faturamento_term = any(
+            term in normalized
+            for term in ("faturamento", "vendas", "venda", "receita", "faturado", "faturados")
+        )
+        if not has_faturamento_term:
+            return False
+
+        has_explicit_basis = any(
+            term in normalized
+            for term in (
+                "bruto", "bruta", "liquido", "liquida", "comercial", "ambos", "os dois", "preferencias", "preferencia", "base de valor"
+            )
+        )
+        return not has_explicit_basis
+
+    def _has_explicit_visualization_request(self, normalized: str) -> bool:
+        explicit_patterns = [
+            "grafico", "tabela", "pizza", "barra", "barras", "linha", "linhas",
+            "kpi", "card", "cartao", "cartao de kpi", "destacado", "grade", "planilha",
+            "baara", "baaras", "baras", "piza", "pisa", "pissa", "visualizacao",
+            "colunas", "detalhada", "evolucao"
+        ]
+        return any(pattern in normalized for pattern in explicit_patterns)
+
+    def _is_visualization_preference_ambiguous(self, pergunta: str) -> bool:
+        normalized = self._normalize_query_text(pergunta)
+        return not self._has_explicit_visualization_request(normalized)
+
     def _value_basis_from_text(self, normalized: str) -> str:
         wants_both = any(term in normalized for term in ("liquido e bruto", "bruto e liquido", "os dois", "ambos"))
         if wants_both:
@@ -206,39 +236,20 @@ class NewQueryOrchestrator:
         return sales_value_breakdown.CATEGORY_LABELS.get(metric_key, metric_key.replace("_", " ").title())
 
     def _schema_chart_types_from_text(self, normalized: str, *, ranking_kind: Optional[str]) -> List[str]:
-        explicit_table = any(term in normalized for term in ("tabela", "planilha", "listagem"))
-        explicit_chart = any(term in normalized for term in ("grafico", "grafica", "dashboard visual", "visual"))
         wants_both = any(term in normalized for term in ("grafico e tabela", "tabela e grafico", "planilha e grafico", "os dois", "ambos"))
 
-        chart_type = "BAR"
-        if any(term in normalized for term in ("pizza", "donut", "rosca")):
-            chart_type = "PIE"
-        elif any(term in normalized for term in ("linha", "evolucao", "evolução")):
-            chart_type = "LINE"
+        if any(term in normalized for term in ("kpi", "card", "cartao", "cartão", "destacado")):
+            return ["KPI"]
+        elif any(term in normalized for term in ("pizza", "donut", "rosca", "piza", "pisa", "pissa")):
+            return ["TABLE", "PIE"] if wants_both else ["PIE"]
+        elif any(term in normalized for term in ("linha", "evolucao", "evolução", "linas", "lina")):
+            return ["TABLE", "LINE"] if wants_both else ["LINE"]
+        elif any(term in normalized for term in ("barra", "barras", "baara", "baaras", "bara", "baras", "coluna", "colunas")):
+            return ["TABLE", "BAR"] if wants_both else ["BAR"]
+        elif any(term in normalized for term in ("tabela", "planilha", "listagem", "grade", "detalhada")):
+            return ["TABLE"]
 
-        if wants_both:
-            return ["TABLE", chart_type]
-        if explicit_chart and not explicit_table:
-            return [chart_type]
-        return ["TABLE"]
-
-    def _has_explicit_visualization_request(self, normalized: str) -> bool:
-        return any(
-            term in normalized
-            for term in (
-                "tabela",
-                "planilha",
-                "listagem",
-                "grafico",
-                "grafica",
-                "barras",
-                "pizza",
-                "donut",
-                "rosca",
-                "linha",
-                "visual",
-            )
-        )
+        return ["BAR"]
 
     def _visualization_type_for_schema(self, chart_type: str) -> VisualizationType:
         mapping = {
@@ -372,6 +383,27 @@ class NewQueryOrchestrator:
             topics.add("ranking_clientes")
         elif wants_client_top:
             topics.add("top_cliente")
+
+        # Tópicos de produtos mais vendidos
+        has_product_term = any(term in normalized for term in ("produto", "produtos", "item", "itens", "mercadoria", "sku"))
+        has_vendido_term = any(term in normalized for term in ("vendido", "vendidos", "vendida", "vendidas", "vendidoa", "mais vendeu", "mais popular", "top"))
+        
+        if (has_product_term and has_vendido_term) or ("produtos mais" in normalized) or ("mais vendido" in normalized) or ("mais vendidoa" in normalized):
+            topics.add("produto_mais_vendido")
+
+        # Tópico de estoque por produto
+        if any(term in normalized for term in ("estoque", "saldo estoque", "posicao estoque", "nivel estoque")):
+            topics.add("estoque_produto")
+            if has_product_term or "produto" in normalized:
+                topics.add("produto_mais_vendido")
+
+        # Tópico de financeiro em aberto
+        if any(term in normalized for term in (
+            "financeiro", "financeiros", "parcela", "parcelas", "inadimplencia", "inadimplente",
+            "inadimplentes", "titulo", "titulos", "contas a receber", "em aberto", "vencido",
+            "vencidos", "devendo", "devedor", "devedores",
+        )):
+            topics.add("financeiro_aberto")
 
         return topics
 
@@ -610,8 +642,9 @@ class NewQueryOrchestrator:
 
     def _is_core_summary_query(self, pergunta: str) -> bool:
         topics = self._core_summary_topics(pergunta)
-        if not topics or self._month_range_from_text(pergunta) is None:
+        if not topics:
             return False
+        # Se não há período, tentaremos assumir o mês atual — não bloqueamos
         if len(topics) >= 2:
             return True
 
@@ -634,11 +667,15 @@ class NewQueryOrchestrator:
             "ranking_vendedores_rb",
             "ranking_vendedores_devolucao",
             "ranking_clientes",
+            "produto_mais_vendido",
+            "estoque_produto",
+            "financeiro_aberto",
         }:
             return True
         if single_topic == "top_cliente":
             return "ranking" not in normalized
         return False
+
 
     def _question_with_inherited_period(self, pergunta: str, history: Optional[List[Dict[str, str]]]) -> str:
         contextual_question = self._question_with_inherited_metric(pergunta, history)
@@ -1143,7 +1180,15 @@ class NewQueryOrchestrator:
         conversation_graph_manager: Any,
         mode: str = "analytical",
     ) -> Dict[str, Any]:
-        start_date_raw, end_date_raw = self._month_range_from_text(pergunta) or ("", "")
+        _period_from_text = self._month_range_from_text(pergunta)
+        if _period_from_text is None:
+            # Sem período explícito: assume o mês atual como padrão
+            import calendar as _cal
+            _today = date.today()
+            _last_day = _cal.monthrange(_today.year, _today.month)[1]
+            _period_from_text = (f"{_today.year:04d}-{_today.month:02d}-01", f"{_today.year:04d}-{_today.month:02d}-{_last_day:02d}")
+            logger.info("[Orchestrator] Período não especificado — assumindo mês atual: %s a %s", *_period_from_text)
+        start_date_raw, end_date_raw = _period_from_text
         start_date = date.fromisoformat(start_date_raw)
         end_date = date.fromisoformat(end_date_raw)
         topics = self._core_summary_topics(pergunta)
@@ -1346,6 +1391,22 @@ class NewQueryOrchestrator:
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
                 )
+            if "produto_mais_vendido" in topics or "estoque_produto" in topics:
+                ranking_kind = "produtos"
+                explicit_limit = self._ranking_limit_from_text(normalized_query) or 10
+                ranking_rows = await sales_value_breakdown.fetch_product_ranking(
+                    session,
+                    binds,
+                    limit=explicit_limit,
+                    filial=selected_filial,
+                )
+            elif "financeiro_aberto" in topics:
+                ranking_kind = "financeiro"
+                ranking_rows = await sales_value_breakdown.fetch_financial_open(
+                    session,
+                    binds,
+                    limit=50,
+                )
 
         period_label = f"{start_date.isoformat()} a {end_date.isoformat()}"
         response_text = ""
@@ -1415,6 +1476,21 @@ class NewQueryOrchestrator:
                     first = ranking_rows[0]
                     response_text += f" Líder: {first['cliente']} ({self._format_brl(first.get('valor_total'))})."
                 response_text += " O cliente interno LAGES E LOPES LTDA foi desconsiderado apenas no ranking de clientes."
+            elif ranking_kind == "produtos":
+                total_rows = len(ranking_rows)
+                response_text = (
+                    f"Produtos mais vendidos e posição de estoque no período {period_label}{scope_text}: "
+                    f"{total_rows} produto(s) retornado(s)."
+                )
+                if ranking_rows:
+                    first = ranking_rows[0]
+                    response_text += f" Produto líder: {first['produto']} (Qtd: {int(first.get('quantidade_vendida') or 0):,}, Estoque atual: {int(first.get('estoque_atual') or 0):,})."
+            elif ranking_kind == "financeiro":
+                total_rows = len(ranking_rows)
+                response_text = (
+                    f"Títulos e parcelas financeiras em aberto no período {period_label}{scope_text}: "
+                    f"{total_rows} registro(s) retornado(s)."
+                )
 
         if not ranking_kind and "faturamento" in topics:
             summary_rows = self._period_value_breakdown_rows(
@@ -1682,6 +1758,7 @@ class NewQueryOrchestrator:
             "pode_favoritar": True,
             "chart_type": primary_chart_type,
             "chart_data": chart_data,
+            "sample_rows": summary_rows,
             "visualizations": visualizations_payload if len(visualizations_payload) > 1 else None,
             "insights": [],
             "recommendations": [],
@@ -1862,18 +1939,35 @@ class NewQueryOrchestrator:
             "vendas do mes",
             "ticket medio do mes",
             "desconto do mes",
+            "hoje",
+            "este mes",
+            "esse mes",
+            "mes atual",
+            "ultimos 30 dias",
+            "ultimas semanas",
         )
         if any(pattern in normalized for pattern in current_month_patterns):
             last_day = calendar.monthrange(today.year, today.month)[1]
             return f"{today.year:04d}-{today.month:02d}-01", f"{today.year:04d}-{today.month:02d}-{last_day:02d}"
 
+        # Se encontrou um ano de 4 dígitos isolado (ex: "ano de 2026", "em 2026", "2026")
+        year_match = re.search(r"\b(?:no\s+ano\s+de\s+|ano\s+de\s+|ano\s+)?(20\d{2})\b", normalized)
+        if year_match:
+            year = int(year_match.group(1))
+            return f"{year:04d}-01-01", f"{year:04d}-12-31"
+
+        # Retorna None — caller vai usar mês atual como fallback
         return None
 
     def _ensure_period_filter(self, semantic_plan: SemanticPlan, pergunta: str) -> None:
         text_value = f"{pergunta or ''} {semantic_plan.goal or ''}"
         month_range = self._month_range_from_text(text_value)
         if not month_range:
-            return
+            # Fallback: usa mês atual como período padrão se não houver período no texto
+            _today = date.today()
+            _last_day = calendar.monthrange(_today.year, _today.month)[1]
+            month_range = (f"{_today.year:04d}-{_today.month:02d}-01", f"{_today.year:04d}-{_today.month:02d}-{_last_day:02d}")
+            logger.info("[Orchestrator] _ensure_period_filter: Período ausente — assumindo mês atual %s a %s", *month_range)
 
         has_date_filter = any(
             any(token in str(query_filter.field).lower() for token in ("data", "dt", "emissao", "periodo", "mes", "ano"))
@@ -1881,6 +1975,7 @@ class NewQueryOrchestrator:
         )
         if has_date_filter:
             return
+
 
         start_date, end_date = month_range
         semantic_plan.filters.append(
@@ -2228,8 +2323,85 @@ class NewQueryOrchestrator:
                 os.makedirs(log_dir, exist_ok=True)
 
                 debug_json = json.dumps(debug_data, indent=4, default=str, ensure_ascii=False)
+                with open(os.path.join(log_dir, f"debug_{trace_id}.json"), "w", encoding="utf-8") as f:
+                    f.write(debug_json)
+                with open(os.path.join(log_dir, "debug_steps.json"), "w", encoding="utf-8") as f:
+                    f.write(debug_json)
+            except Exception as e_log:
+                logger.error("Erro ao salvar log de debug em disco: %s", e_log)
 
-                # Salva trace persistente por trace_id
+        def write_debug_and_return(payload: dict) -> dict:
+            payload["trace_id"] = str(trace_id)
+            payload["query_id"] = str(trace_id)
+            payload["request_id"] = str(trace_id)
+            save_debug_logs(payload)
+            payload["debug_info"] = debug_data
+            return payload
+        start_time = time.perf_counter()
+        trace_id = uuid.uuid4()
+        history = history or []
+        session_key = session_id or tenant_id
+
+        # ── Inicialização do PIPELINE DEBUG ──
+        debug_data = {
+            "pergunta": pergunta,
+            "resposta_bruta_llm": None,
+            "semantic_plan": None,
+            "canonical_plan": None,
+            "execution_plan": None,
+            "selected_views": [],
+            "joins": [],
+            "sql": {
+                "raw_sql": None,
+                "parameters": {}
+            },
+            "execution_time_ms": 0.0,
+            "rows": 0,
+            "sample_rows": [],
+            "transformer": {
+                "input": [],
+                "output": {}
+            },
+            "chart": None,
+            "llm_prompt": None,
+            "llm_response": None,
+            "error_traceback": None,
+            "timeline": {}
+        }
+
+        from datetime import datetime
+        def get_timestamp() -> str:
+            return datetime.now().strftime("%H:%M:%S.%f")[:-3]
+
+        debug_data["timeline"]["1. Pergunta Recebida"] = get_timestamp()
+
+        def save_debug_logs(payload: dict):
+            try:
+                import os
+                import json
+
+                # Popula o payload final no debug
+                debug_data["payload_frontend"] = payload
+                debug_data["timeline"]["16. Frontend Retornado"] = get_timestamp()
+
+                # Se houver erro ou exceção no status do payload
+                if payload.get("status") in ("AMBIGUOUS", "MISSING_INFORMATION", "OUT_OF_SCOPE", "SECURITY_VIOLATION", "DATABASE_ERROR", "EMPTY_ANOMALY"):
+                    if not debug_data.get("error_traceback"):
+                        debug_data["error_traceback"] = payload.get("message") or payload.get("mensagem") or payload.get("resposta_direta")
+
+                # Latência total
+                debug_data["timeline"]["Total Processamento"] = f"{(time.perf_counter() - start_time) * 1000:.2f}ms"
+
+                # Formata SQL com quebras de linha estéticas para legibilidade no trace
+                if debug_data["sql"]["raw_sql"]:
+                    raw = debug_data["sql"]["raw_sql"]
+                    formatted = raw.replace(" SELECT ", "\nSELECT\n  ").replace(" FROM ", "\nFROM\n  ").replace(" LEFT JOIN ", "\nLEFT JOIN\n  ").replace(" INNER JOIN ", "\nINNER JOIN\n  ").replace(" JOIN ", "\nJOIN\n  ").replace(" WHERE ", "\nWHERE\n  ").replace(" GROUP BY ", "\nGROUP BY\n  ").replace(" HAVING ", "\nHAVING\n  ").replace(" ORDER BY ", "\nORDER BY\n  ").replace(" LIMIT ", "\nLIMIT\n  ")
+                    debug_data["sql"]["raw_sql"] = formatted
+
+                log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "runtime-logs", "debug")
+                os.makedirs(log_dir, exist_ok=True)
+
+                debug_json = json.dumps(debug_data, indent=4, default=str, ensure_ascii=False)
                 with open(os.path.join(log_dir, f"debug_{trace_id}.json"), "w", encoding="utf-8") as f:
                     f.write(debug_json)
                 # Sobrescreve trace global da última execução
@@ -2258,6 +2430,45 @@ class NewQueryOrchestrator:
         effective_pergunta = self._question_with_inherited_context(pergunta, history)
         if effective_pergunta != pergunta:
             debug_data["pergunta_contextualizada"] = effective_pergunta
+
+        # ── Intercepção de Ambiguidade: 1) Faturamento Bruto vs Líquido ──────
+        if self._is_faturamento_basis_ambiguous(pergunta):
+            logger.info("[Orchestrator] Faturamento ambíguo detectado sem especificação de Bruto/Líquido. Disparando popup.")
+            elapsed = (time.perf_counter() - start_time) * 1000
+            amb_res = {
+                "status": "AMBIGUOUS",
+                "goal": pergunta,
+                "ambiguities": [
+                    "Faturamento Líquido (Base Comercial Padrão - Vendas Válidas)",
+                    "Faturamento Bruto (Total Sem Descontos ou Devoluções)"
+                ],
+                "missing_information": [],
+                "resposta_direta": "Identifiquei que você solicitou Faturamento. Por favor, selecione qual base de valor deseja analisar:",
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed
+            }
+            return write_debug_and_return(amb_res)
+
+        # ── Intercepção de Ambiguidade: 2) Escolha Obrigatória do Formato de Dashboard ──
+        if self._is_visualization_preference_ambiguous(pergunta):
+            logger.info("[Orchestrator] Preferência de dashboard não especificada. Disparando popup para escolha visual.")
+            elapsed = (time.perf_counter() - start_time) * 1000
+            amb_res = {
+                "status": "AMBIGUOUS",
+                "goal": pergunta,
+                "ambiguities": [
+                    "Tabela Detalhada com Colunas",
+                    "Gráfico de Barras",
+                    "Gráfico de Linhas (Evolução Temporal)",
+                    "Gráfico de Pizza (Distribuição em %)",
+                    "Cartão de KPI Destacado"
+                ],
+                "missing_information": [],
+                "resposta_direta": "Como você deseja visualizar este dashboard?",
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed
+            }
+            return write_debug_and_return(amb_res)
 
         if self._is_core_summary_query(effective_pergunta):
             debug_data["timeline"]["Core Summary Detectado"] = get_timestamp()
@@ -2309,6 +2520,44 @@ class NewQueryOrchestrator:
             debug_data["timeline"]["Local Explainability Interception"] = get_timestamp()
             return write_debug_and_return(explain_local_res)
 
+        # ── Intercepção de Ambiguidade: 1) Faturamento Bruto vs Líquido ──────
+        if self._is_faturamento_basis_ambiguous(pergunta):
+            logger.info("[Orchestrator] Faturamento ambíguo detectado sem especificação de Bruto/Líquido. Disparando popup.")
+            elapsed = (time.perf_counter() - start_time) * 1000
+            amb_res = {
+                "status": "AMBIGUOUS",
+                "goal": pergunta,
+                "ambiguities": [
+                    "Faturamento Líquido (Base Comercial Padrão - Vendas Válidas)",
+                    "Faturamento Bruto (Total Sem Descontos ou Devoluções)"
+                ],
+                "missing_information": [],
+                "resposta_direta": "Identifiquei que você solicitou Faturamento. Por favor, selecione qual base de valor deseja analisar:",
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed
+            }
+            return write_debug_and_return(amb_res)
+
+        # ── Intercepção de Ambiguidade: 2) Escolha Obrigatória do Formato de Dashboard ──
+        if self._is_visualization_preference_ambiguous(pergunta):
+            logger.info("[Orchestrator] Preferência de dashboard não especificada. Disparando popup para escolha visual.")
+            elapsed = (time.perf_counter() - start_time) * 1000
+            amb_res = {
+                "status": "AMBIGUOUS",
+                "goal": pergunta,
+                "ambiguities": [
+                    "Tabela Detalhada com Colunas",
+                    "Gráfico de Barras",
+                    "Gráfico de Linhas (Evolução Temporal)",
+                    "Gráfico de Pizza (Distribuição em %)",
+                    "Cartão de KPI Destacado"
+                ],
+                "missing_information": [],
+                "resposta_direta": "Como você deseja visualizar este dashboard?",
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed
+            }
+            return write_debug_and_return(amb_res)
         # Inicializa o cache de planos na classe se necessário
         if not hasattr(self, "_last_semantic_plans"):
             self._last_semantic_plans = {}

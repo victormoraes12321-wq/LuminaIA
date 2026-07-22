@@ -148,7 +148,7 @@ export default function InspectorPage() {
       <Sidebar activePage="admin" />
 
       {/* Conteúdo Principal do Inspector */}
-      <div className="flex flex-1 h-full min-w-0 overflow-hidden">
+      <div className="flex flex-1 h-full min-w-0 overflow-hidden dashboard-main-content">
         {/* Painel Esquerdo: Lista de Traces */}
         <div className="w-[340px] h-full flex flex-col border-r border-zinc-200/50 dark:border-zinc-800/40 bg-zinc-50/10 dark:bg-zinc-950/10 flex-shrink-0">
           <div className="p-4 border-b border-zinc-200/50 dark:border-zinc-800/40 flex justify-between items-center">

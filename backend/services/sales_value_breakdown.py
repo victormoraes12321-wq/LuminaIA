@@ -534,6 +534,99 @@ class SalesValueBreakdownService:
             filial=filial,
         )
 
+    async def fetch_product_ranking(
+        self,
+        session: Any,
+        binds: dict[str, Any],
+        *,
+        limit: int | None = 10,
+        filial: Any | None = None,
+    ) -> list[dict[str, Any]]:
+        query_binds = dict(binds)
+        filial_where = self.filial_scope_sql(alias="lm", filial=filial)
+        period_where = self.period_where_sql(alias="lm")
+        limit_sql = f"LIMIT {limit}" if limit and limit > 0 else ""
+
+        sql = text(
+            f"""
+            SELECT 
+                coalesce(p.nome_produto, lm.descricao_) as produto,
+                lm.codprod_::text as codigo_produto,
+                coalesce(sum(lm.qtde_), 0) as quantidade_vendida,
+                coalesce(sum(lm.ptotal_), 0) as valor_total,
+                coalesce(max(p.estoque), 0) as estoque_atual,
+                coalesce(lm.filial_::text, '1') as filial
+            FROM vw_vendas_lm lm
+            LEFT JOIN vw_produtos_cad_lm p 
+                ON coalesce(nullif(ltrim(lm.codprod_::text, '0'), ''), '0') = coalesce(nullif(ltrim(p.codigo::text, '0'), ''), '0')
+            WHERE lm.tp_ IN (2, 61)
+              AND {period_where}
+              {filial_where}
+            GROUP BY 1, 2, 6
+            ORDER BY quantidade_vendida DESC, valor_total DESC
+            {limit_sql}
+            """
+        )
+        res = await session.execute(sql, query_binds)
+        rows = []
+        for idx, row in enumerate(res.fetchall(), 1):
+            mapping = dict(row._mapping)
+            v_total = float(mapping.get("valor_total") or 0)
+            q_total = float(mapping.get("quantidade_vendida") or 0)
+            e_atual = float(mapping.get("estoque_atual") or 0)
+            rows.append({
+                "posicao": idx,
+                "produto": str(mapping.get("produto") or "Produto N/A"),
+                "codigo_produto": str(mapping.get("codigo_produto") or ""),
+                "quantidade_vendida": q_total,
+                "valor_total": v_total,
+                "valor_formatado": f"R$ {v_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "estoque_atual": e_atual,
+                "filial": str(mapping.get("filial") or "1"),
+            })
+        return rows
+
+    async def fetch_financial_open(
+        self,
+        session: Any,
+        binds: dict[str, Any],
+        *,
+        limit: int | None = 50,
+    ) -> list[dict[str, Any]]:
+        query_binds = dict(binds)
+        limit_sql = f"LIMIT {limit}" if limit and limit > 0 else ""
+        sql = text(
+            f"""
+            SELECT 
+                f.financeiro_id,
+                f.status_pagamento,
+                f.valor_parcela,
+                f.data_vencimento,
+                coalesce(c.nome, f.cliente_id::text) as cliente
+            FROM vw_financeiro_lm f
+            LEFT JOIN vw_clientes_cad_lm c 
+                ON coalesce(nullif(ltrim(f.cliente_id::text, '0'), ''), '0') = coalesce(nullif(ltrim(c.codigo::text, '0'), ''), '0')
+            ORDER BY f.data_vencimento ASC
+            {limit_sql}
+            """
+        )
+        res = await session.execute(sql, query_binds)
+        rows = []
+        for idx, row in enumerate(res.fetchall(), 1):
+            mapping = dict(row._mapping)
+            v_parcela = float(mapping.get("valor_parcela") or 0)
+            rows.append({
+                "posicao": idx,
+                "financeiro_id": str(mapping.get("financeiro_id") or ""),
+                "cliente": str(mapping.get("cliente") or "Cliente N/A"),
+                "status_pagamento": str(mapping.get("status_pagamento") or "EM_ABERTO"),
+                "valor_parcela": v_parcela,
+                "valor_formatado": f"R$ {v_parcela:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                "data_vencimento": str(mapping.get("data_vencimento") or ""),
+            })
+        return rows
+
+
     async def _fetch_dimension_ranking_by_filial(
         self,
         session: Any,

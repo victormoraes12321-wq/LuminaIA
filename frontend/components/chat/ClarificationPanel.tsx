@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { HelpCircle, AlertCircle, Send, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -14,6 +15,11 @@ interface ClarificationPanelProps {
   className?: string;
 }
 
+function cleanPerguntaOriginal(pergunta: string): string {
+  if (!pergunta) return '';
+  return pergunta.replace(/\s*\([^)]*\)/g, '').replace(/\s*\[Instruções:[^\]]*\]/g, '').trim();
+}
+
 export function ClarificationPanel({
   status,
   ambiguities = [],
@@ -22,16 +28,25 @@ export function ClarificationPanel({
   onResolve,
   className,
 }: ClarificationPanelProps) {
+  const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [missingData, setMissingData] = useState<Record<string, string>>({});
   const [selectedAmbiguity, setSelectedAmbiguity] = useState<string | null>(null);
+  const [customInstructions, setCustomInstructions] = useState<string>('');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isAmbiguous = status === 'AMBIGUOUS';
   const isMissingInfo = status === 'MISSING_INFORMATION';
 
   const handleAmbiguitySelect = (option: string) => {
     setSelectedAmbiguity(option);
-    // Envia a resposta imediatamente concatenando com a pergunta original
-    const resolvedText = `${perguntaOriginal} (${option})`;
+    setIsClosing(true);
+    const baseQuestion = cleanPerguntaOriginal(perguntaOriginal);
+    const extra = customInstructions.trim() ? ` [Instruções: ${customInstructions.trim()}]` : '';
+    const resolvedText = `${baseQuestion} em ${option}${extra}`;
     onResolve(resolvedText);
   };
 
@@ -43,12 +58,16 @@ export function ClarificationPanel({
 
     if (resolvedParts.length === 0) return;
 
-    const resolvedText = `${perguntaOriginal} [Com informações adicionadas: ${resolvedParts.join(', ')}]`;
+    setIsClosing(true);
+    const extra = customInstructions.trim() ? ` [Instruções: ${customInstructions.trim()}]` : '';
+    const resolvedText = `${perguntaOriginal} [Com informações adicionadas: ${resolvedParts.join(', ')}]${extra}`;
     onResolve(resolvedText);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200">
+  if (!mounted || isClosing || typeof document === 'undefined') return null;
+
+  const modalNode = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-lg p-4 animate-in fade-in duration-200">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -99,6 +118,20 @@ export function ClarificationPanel({
                   </motion.button>
                 ))}
               </div>
+
+              {/* Seção de Instruções Personalizadas Opcionais */}
+              <div className="mt-4 pt-3 border-t border-zinc-900/80">
+                <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-1.5">
+                  Instruções Personalizadas (Opcional):
+                </label>
+                <input
+                  type="text"
+                  placeholder="Ex: Ordenar por maior valor, destacar top 5, etc."
+                  value={customInstructions}
+                  onChange={(e) => setCustomInstructions(e.target.value)}
+                  className="w-full bg-zinc-900/60 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none placeholder:text-zinc-600 focus:border-lumina-500/60 transition-all duration-200"
+                />
+              </div>
             </div>
           )}
 
@@ -147,6 +180,8 @@ export function ClarificationPanel({
         </div>
       </div>
     </motion.div>
-    </div>
-  );
+  </div>
+);
+
+  return createPortal(modalNode, document.body);
 }

@@ -524,7 +524,7 @@ export default function DashboardStudioPage() {
   return (
     <div className="flex h-dvh overflow-hidden" style={{ background: 'rgb(var(--bg-base))' }}>
       <Sidebar />
-      <main className="flex-1 min-w-0 overflow-hidden" style={{ marginLeft: 'var(--sidebar-w)' }}>
+      <main className="flex-1 min-w-0 overflow-hidden dashboard-main-content">
         <div className="h-full overflow-y-auto">
           <section className="relative min-h-full overflow-hidden p-4 md:p-6">
             <div

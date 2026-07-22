@@ -1,8 +1,8 @@
-﻿# LuminaAI
+# LuminaAI
 
 LuminaAI e uma plataforma Enterprise de Business Intelligence com IA, backend FastAPI, frontend Next.js e Data Platform analitica para catalogo, blueprints, pacotes analiticos, runtime de dashboards e governanca multi-tenant.
 
-Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes incrementais executadas ate 2026-07-21. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
+Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes executadas ate 2026-07-22. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
 
 ## Estado Atual
 
@@ -12,13 +12,18 @@ Esta documentacao representa o estado atual do sistema apos as auditorias, corre
 - Data Platform: Metadata Catalog, Semantic Catalog, Blueprint Repository, Analytical Packages, Sync Engine, Scheduler, Live Dashboard Runtime, Trust Center e engines de performance/seguranca.
 - Validacao completa historica em 2026-07-09: backend `303 passed`, certificacao Enterprise `7 passed`, frontend lint/build OK, Playwright `16 passed`, load smoke `50 ok`, `runtime_cycles=0`.
 - Validacao incremental em 2026-07-20: `python -m py_compile`, testes focados de perguntas criticas com 38 testes, `npm run build`, bateria oficial de 461 perguntas/0 falhas e auditoria numerica por metrica/filial em 06/2026 e 07/2026.
+- Validacao incremental em 2026-07-22: suite massiva de mineracao e estresse com **164 cenario analiticos e multi-turn/0 falhas**, auto-cura semantica de entidades/metricas/filtros no `Canonicalizer`, extracao automatica de anos isolados de 4 digitos e integracao direta de consultas de produtos mais vendidos, estoque e titulos em aberto.
 
 ## Correcoes Recentes
 
 - Consultas da IA usam somente o PostgreSQL analitico sincronizado; Oracle fica isolado na sincronizacao e reconciliacao tecnica.
 - Cada resposta informa a ultima atualizacao real, executa validacoes matematicas e oferece aprofundamento por documentos no mesmo chat.
 - O perfil `ADMIN` recebe diagnostico tecnico completo; o perfil `CONSULTA` nao recebe configuracoes SaaS, traces, planos ou telemetria.
-
+- Suporte a consultas deterministicas estendidas de **Produtos mais vendidos**, **Estoque por produto** e **Financeiro / Titulos em aberto** com preenchimento em `sample_rows` para tabelas e graficos do frontend.
+- Auto-cura semantica no `Canonicalizer` para entidades desconhecidas (ex: `item`, `mercadoria`, `estoque`, `parcela`, `cobranca`, `comissao`) redirecionando para entidades canonicas.
+- Auto-cura graciosa de filtros nao mapeados (descarte com log de aviso em vez de erro `UNSUPPORTED`).
+- Suporte a anos isolados de 4 digitos (`no ano de 2026`, `em 2026`, `2026`), gerando o intervalo `YYYY-01-01` a `YYYY-12-31`.
+- Tolerancia a typos e erros gramaticais de usuarios (`mais vendidoa`, `mais vendida`, `top produtos`).
 - Perguntas criticas de faturamento, ticket medio, desconto, venda por vendedor e rankings possuem caminho deterministico quando ha periodo claro.
 - Perguntas de vendas usam `filial_` como dimensao padrao: total geral inclui todas as filiais e a tabela detalha por filial; filial especifica filtra quando o usuario pedir.
 - Continuidade de conversa usa `session_id`, historico recente e `parent_id`; perguntas curtas podem herdar periodo, metrica e dimensao anteriores.

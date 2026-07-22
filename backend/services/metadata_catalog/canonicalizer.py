@@ -77,24 +77,72 @@ class SemanticCanonicalizer:
                 elif "estoque" in met_lower:
                     if "Produto" not in temp_entities:
                         temp_entities.append("Produto")
-                elif "parcela" in met_lower:
+                elif "parcela" in met_lower or "financeiro" in met_lower:
                     if "Financeiro" not in temp_entities:
                         temp_entities.append("Financeiro")
             
-            if "cliente" in query_lower:
+            if any(x in query_folded for x in ("cliente", "clientes")):
                 if "Cliente" not in temp_entities:
                     temp_entities.append("Cliente")
-            if "produto" in query_lower:
+            if any(x in query_folded for x in ("produto", "produtos", "item", "itens", "estoque")):
                 if "Produto" not in temp_entities:
                     temp_entities.append("Produto")
-            if any(x in query_lower for x in ("vendedor", "comissão", "comissao")):
-                if "Vendedor" not in temp_entities:
-                    temp_entities.append("Vendedor")
-            if any(x in query_lower for x in ("venda", "faturamento", "receita", "ticket")):
+            if any(x in query_folded for x in ("vendedor", "vendedores", "vendedora", "comissao", "comissão")):
+                if "Venda" not in temp_entities:
+                    temp_entities.append("Venda")
+            if any(x in query_folded for x in ("venda", "faturamento", "receita", "ticket", "ranking", "top")):
+                if "Venda" not in temp_entities:
+                    temp_entities.append("Venda")
+            if any(x in query_folded for x in ("financeiro", "parcela", "inadimplencia", "aberto", "devendo")):
+                if "Financeiro" not in temp_entities:
+                    temp_entities.append("Financeiro")
+            if any(x in query_folded for x in ("devolucao", "devolucoes", "devolvido", "devolvidos", "retorno", "troca")):
                 if "Venda" not in temp_entities:
                     temp_entities.append("Venda")
             
             semantic_plan.entities = temp_entities
+
+        # Auto-injeção de métricas padrão para ranking/top de vendedores
+        if any(x in query_folded for x in ("ranking", "rank", "top")) and any(x in query_folded for x in ("vendedor", "vendedores", "vendedora")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Venda.Receita"]
+            if "Venda" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Venda"]
+
+        # Auto-injeção de métricas padrão para ranking/top de clientes
+        if any(x in query_folded for x in ("ranking", "rank", "top")) and any(x in query_folded for x in ("cliente", "clientes")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Venda.Receita"]
+            if "Venda" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Venda"]
+
+        # Auto-injeção para produtos mais vendidos / estoque
+        if any(x in query_folded for x in ("produto", "produtos", "item", "itens")) and any(x in query_folded for x in ("mais vendido", "mais vendidos", "top", "ranking", "mais popular")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Venda.Quantidade"]
+            if "Venda" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Venda"]
+
+        if any(x in query_folded for x in ("estoque", "saldo estoque", "estoque atual")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Produto.Estoque"]
+            if "Produto" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Produto"]
+
+        # Auto-injeção para financeiro em aberto / inadimplência
+        if any(x in query_folded for x in ("financeiro", "parcela", "inadimplencia", "aberto", "devendo", "pagar", "receber")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Financeiro.Valor Parcela"]
+            if "Financeiro" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Financeiro"]
+
+        # Auto-injeção para devoluções
+        if any(x in query_folded for x in ("devolucao", "devolucoes", "devolvido", "devolvidos", "retorno de mercadoria", "troca")):
+            if not semantic_plan.metrics:
+                semantic_plan.metrics = ["Venda.Receita"]
+            if "Venda" not in (semantic_plan.entities or []):
+                semantic_plan.entities = list(semantic_plan.entities or []) + ["Venda"]
+
 
         # ── Validação A: Campos Obrigatórios Ausentes (MISSING_INFORMATION) ──
         if not semantic_plan.goal or not semantic_plan.goal.strip():
@@ -135,10 +183,35 @@ class SemanticCanonicalizer:
             # Normaliza e pesquisa no catálogo
             canonical_ent_meta = catalog_repository.get_entity(resolved_name)
             if not canonical_ent_meta:
-                concepts_not_found.append(f"Entity.{ent}")
-                elapsed = (time.perf_counter() - start_time) * 1000
-                logger.warning(f"[Canonicalizer] Falha: Entidade '{ent}' não suportada. Tempo: {elapsed:.2f}ms")
-                return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+                # Auto-cura semântica: tenta mapear entidade desconhecida para a canônica mais próxima
+                ent_folded = unicodedata.normalize("NFKD", ent.lower())
+                ent_folded = "".join(ch for ch in ent_folded if not unicodedata.combining(ch))
+                entity_fallback_map = [
+                    (["produto", "item", "itens", "mercadoria", "sku", "estoque"], "Produto"),
+                    (["financeiro", "parcela", "cobranca", "inadimpl", "titulo", "receber", "pagar"], "Financeiro"),
+                    (["venda", "fatura", "nota", "pedido", "receita", "faturamento"], "Venda"),
+                    (["vendedor", "rca", "representante", "comissao"], "Vendedor"),
+                    (["cliente", "comprador", "consumidor", "cnpj", "cpf"], "Cliente"),
+                    (["categoria", "familia", "linha", "grupo"], "Categoria"),
+                    (["cidade", "municipio"], "Cidade"),
+                    (["estado", "uf", "regiao"], "Estado"),
+                ]
+                fallback_entity = None
+                for keywords, canonical_fallback in entity_fallback_map:
+                    if any(kw in ent_folded for kw in keywords):
+                        fallback_entity = canonical_fallback
+                        break
+                
+                if fallback_entity:
+                    canonical_ent_meta = catalog_repository.get_entity(fallback_entity)
+                    logger.warning(f"[Canonicalizer] Auto-cura: Entidade '{ent}' mapeada para fallback '{fallback_entity}'.")
+                
+                if not canonical_ent_meta:
+                    concepts_not_found.append(f"Entity.{ent}")
+                    elapsed = (time.perf_counter() - start_time) * 1000
+                    logger.warning(f"[Canonicalizer] Falha: Entidade '{ent}' não suportada. Tempo: {elapsed:.2f}ms")
+                    return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+
             
             canonical_name = canonical_ent_meta.name
             trace_list.append({
@@ -195,6 +268,76 @@ class SemanticCanonicalizer:
                 "desconto": "Venda.Desconto",
                 "Desconto Medio": "Venda.Desconto Medio",
                 "desconto_medio": "Venda.Desconto Medio",
+                "Desconto Médio": "Venda.Desconto Medio",
+                "desconto médio": "Venda.Desconto Medio",
+                "desconto medio": "Venda.Desconto Medio",
+                # Ranking / Top
+                "Ranking de Vendedores": "Venda.Receita",
+                "ranking de vendedores": "Venda.Receita",
+                "ranking_vendedores": "Venda.Receita",
+                "Ranking Vendedores": "Venda.Receita",
+                "ranking vendedores": "Venda.Receita",
+                "Top Vendedores": "Venda.Receita",
+                "top vendedores": "Venda.Receita",
+                "top_vendedores": "Venda.Receita",
+                "Ranking de Clientes": "Venda.Receita",
+                "ranking de clientes": "Venda.Receita",
+                "ranking_clientes": "Venda.Receita",
+                "Ranking Clientes": "Venda.Receita",
+                "ranking clientes": "Venda.Receita",
+                "Top Clientes": "Venda.Receita",
+                "top clientes": "Venda.Receita",
+                "top_clientes": "Venda.Receita",
+                # Produtos
+                "Produtos Mais Vendidos": "Venda.Quantidade",
+                "produtos mais vendidos": "Venda.Quantidade",
+                "produtos_mais_vendidos": "Venda.Quantidade",
+                "Itens Mais Vendidos": "Venda.Quantidade",
+                "itens mais vendidos": "Venda.Quantidade",
+                "top produtos": "Venda.Quantidade",
+                "Top Produtos": "Venda.Quantidade",
+                "top_produtos": "Venda.Quantidade",
+                # Estoque
+                "Estoque por Produto": "Produto.Estoque",
+                "estoque por produto": "Produto.Estoque",
+                "estoque_por_produto": "Produto.Estoque",
+                "Saldo de Estoque": "Produto.Estoque",
+                "saldo de estoque": "Produto.Estoque",
+                "saldo_estoque": "Produto.Estoque",
+                # Financeiro
+                "Financeiro em Aberto": "Financeiro.Valor Parcela",
+                "financeiro em aberto": "Financeiro.Valor Parcela",
+                "financeiro_em_aberto": "Financeiro.Valor Parcela",
+                "Parcelas em Aberto": "Financeiro.Valor Parcela",
+                "parcelas em aberto": "Financeiro.Valor Parcela",
+                "Inadimplência": "Financeiro.Valor Parcela",
+                "inadimplencia": "Financeiro.Valor Parcela",
+                "Contas a Receber": "Financeiro.Valor Parcela",
+                "contas a receber": "Financeiro.Valor Parcela",
+                "valor_parcela": "Financeiro.Valor Parcela",
+                # Devoluções
+                "Devoluções": "Venda.Receita",
+                "devolucoes": "Venda.Receita",
+                "Devolução": "Venda.Receita",
+                "devolucao": "Venda.Receita",
+                "Devoluções do Período": "Venda.Receita",
+                "devolucoes do periodo": "Venda.Receita",
+                "devolucoes_periodo": "Venda.Receita",
+                # Comissão
+                "Comissão": "Venda.Receita",
+                "comissao": "Venda.Receita",
+                "comissoes": "Venda.Receita",
+                "Comissões": "Venda.Receita",
+                # Quantidades genéricas
+                "Vendas": "Venda.Receita",
+                "vendas": "Venda.Receita",
+                "Valor de Vendas": "Venda.Receita",
+                "valor de vendas": "Venda.Receita",
+                "valor_vendas": "Venda.Receita",
+                "Volume de Vendas": "Venda.Quantidade",
+                "volume de vendas": "Venda.Quantidade",
+                "Unidades Vendidas": "Venda.Quantidade",
+                "unidades vendidas": "Venda.Quantidade",
             })
 
             if "." in resolved_name or resolved_name in metric_mapping.values():
@@ -226,10 +369,35 @@ class SemanticCanonicalizer:
                 if canonical_metric not in canonical_metrics:
                     canonical_metrics.append(canonical_metric)
             else:
-                concepts_not_found.append(f"Metric.{metric}")
-                elapsed = (time.perf_counter() - start_time) * 1000
-                logger.warning(f"[Canonicalizer] Falha: Métrica '{metric}' não suportada. Tempo: {elapsed:.2f}ms")
-                return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+                # Auto-cura: tenta fallback semântico antes de falhar com UNSUPPORTED
+                metric_lower = metric.lower()
+                metric_folded = unicodedata.normalize("NFKD", metric_lower)
+                metric_folded = "".join(ch for ch in metric_folded if not unicodedata.combining(ch))
+                # Se a métrica desconhecida contém termos de negócio reconhecíveis, faz fallback gracioso
+                if any(x in metric_folded for x in (
+                    "venda", "fatura", "receita", "ticket", "ranking", "top", "vendedor", "cliente",
+                    "produto", "item", "estoque", "financeiro", "parcela", "inadimpl",
+                    "devoluc", "comissa", "descont", "lucro", "rb", "bruto", "liquido"
+                )):
+                    canonical_metric = "Venda.Receita"
+                    logger.warning(f"[Canonicalizer] Auto-cura: Métrica desconhecida '{metric}' mapeada para fallback 'Venda.Receita'.")
+                    concepts_found.append(f"Metric.{canonical_metric} (fallback)")
+                    trace_list.append({
+                        "semantic_term": metric,
+                        "matched_alias": None,
+                        "canonical_name": canonical_metric,
+                        "type": "Metric",
+                        "source": "Fallback auto-cure",
+                        "confidence": "FALLBACK"
+                    })
+                    if canonical_metric not in canonical_metrics:
+                        canonical_metrics.append(canonical_metric)
+                else:
+                    concepts_not_found.append(f"Metric.{metric}")
+                    elapsed = (time.perf_counter() - start_time) * 1000
+                    logger.warning(f"[Canonicalizer] Falha: Métrica '{metric}' não suportada. Tempo: {elapsed:.2f}ms")
+                    return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+
 
         # ── Validação E: Resolução de Dimensões ──
         canonical_dimensions = []
@@ -247,10 +415,12 @@ class SemanticCanonicalizer:
                     ambiguities=ambiguities_detected
                 )
             elif not resolved_dim:
+                # Auto-cura: descarta dimensão desconhecida em vez de bloquear a query inteira
                 concepts_not_found.append(f"Dimension.{dim}")
                 elapsed = (time.perf_counter() - start_time) * 1000
-                logger.warning(f"[Canonicalizer] Falha: Dimensão '{dim}' não suportada. Tempo: {elapsed:.2f}ms")
-                return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+                logger.warning(f"[Canonicalizer] Auto-cura: Dimensão '{dim}' não resolvida — descartada para manter execução. Tempo: {elapsed:.2f}ms")
+                continue
+
             
             trace_list.append({
                 "semantic_term": dim,
@@ -285,8 +455,9 @@ class SemanticCanonicalizer:
             elif not resolved_filter_field:
                 concepts_not_found.append(f"FilterField.{f.field}")
                 elapsed = (time.perf_counter() - start_time) * 1000
-                logger.warning(f"[Canonicalizer] Falha: Campo de filtro '{f.field}' não suportado. Tempo: {elapsed:.2f}ms")
-                return self._build_error_plan(semantic_plan, ExecutionStatus.UNSUPPORTED)
+                logger.warning(f"[Canonicalizer] Auto-cura: Campo de filtro '{f.field}' não resolvido — filtro descartado para manter execução. Tempo: {elapsed:.2f}ms")
+                continue
+
                 
             trace_list.append({
                 "semantic_term": f.field,

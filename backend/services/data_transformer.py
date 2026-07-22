@@ -94,6 +94,9 @@ _NUMERIC_EXCLUDED_TERMS = (
     "id",
     "codigo",
     "cod",
+    "filial",
+    "filial_",
+    "cod_filial",
     "ranking",
     "index",
     "nfe",
@@ -431,10 +434,18 @@ def transform_chart_data(rows: list[dict[str, Any]], chart_type: ChartType) -> d
     ]
 
     datasets = []
+    seen_data_vectors = []
     for i, col in enumerate(numeric_cols):
-        color = palette[i % len(palette)]
         data_values = [r[col] for r in rows]
 
+        # Deduplicação de séries idênticas: evita duplicar legendas/métricas quando os valores numéricos são idênticos
+        vector_tuple = tuple(data_values)
+        if vector_tuple in seen_data_vectors:
+            logger.info("[Transformer] Ignorando série duplicada '%s' (dados idênticos a métrica anterior).", col)
+            continue
+        seen_data_vectors.append(vector_tuple)
+
+        color = palette[len(datasets) % len(palette)]
         dataset = {
             "label": _humanize_key(col),
             "data": data_values,
@@ -491,17 +502,10 @@ def transform_chart_data(rows: list[dict[str, Any]], chart_type: ChartType) -> d
 def transform_pie_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
     Traduz registros para gráficos circulares de Pizza ou Rosca (Pie/Donut).
-
-    Parâmetros:
-    -----------
-    rows : list[dict[str, Any]]
-        Registros limpos.
-
-    Retorno:
-    --------
-    dict[str, Any]
-        Objeto com labels, values, colors e resumo de market share.
     """
+    if not rows:
+        return {"labels": [], "values": [], "valores_brutos": [], "colors": [], "resumo": {}}
+
     keys = list(rows[0].keys())
 
     # Separa chave categórica de chave de valor
@@ -517,16 +521,26 @@ def transform_pie_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
         str_col = keys[0]
 
     for k in keys:
-        if k != str_col and isinstance(rows[0][k], (int, float)):
+        if k != str_col and is_numeric_value(rows[0][k]):
             num_col = k
             break
     preferred_num_cols = [k for k in _preferred_numeric_keys(keys, rows[0], max_items=1) if k != str_col]
-    num_col = preferred_num_cols[0] if preferred_num_cols else num_col
+    num_col = preferred_num_cols[0] if (preferred_num_cols and is_numeric_value(rows[0].get(preferred_num_cols[0]))) else num_col
     if not num_col:
         num_col = keys[1] if len(keys) > 1 else keys[0]
 
-    labels = [str(r[str_col]) for r in rows]
-    raw_values = [float(r[num_col]) if isinstance(r[num_col], (int, float)) else 0.0 for r in rows]
+    labels = []
+    for r in rows:
+        val = r.get(str_col)
+        if val is None:
+            continue
+        val_str = str(val).strip()
+        if str_col.lower() in ("filial", "cod_filial", "filial_") or (val_str.isdigit() and len(val_str) <= 2):
+            labels.append(f"Filial {val_str}")
+        else:
+            labels.append(val_str)
+
+    raw_values = [to_float(r.get(num_col)) for r in rows if r.get(str_col) is not None]
 
     # Normalização em percentual
     total = sum(raw_values)
@@ -534,21 +548,22 @@ def transform_pie_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
     if total > 0:
         values = [round((v / total) * 100, 2) for v in raw_values]
     else:
-        values = [0.0] * len(raw_values)
+        values = [round(100.0 / len(raw_values), 2) for _ in raw_values] if raw_values else []
 
     # Cores correspondentes
-    palette = ["#6C63FF", "#00D2D3", "#FF6B6B", "#FECA57", "#48DBFB", "#FF9FF3", "#54A0FF"]
-    colors = palette[:len(labels)]
-    if len(colors) < len(labels):
-        colors += ["#888888"] * (len(labels) - len(colors))
+    palette = ["#6C63FF", "#00D2D3", "#FF6B6B", "#FECA57", "#48DBFB", "#FF9FF3", "#54A0FF", "#10B981", "#F59E0B", "#6366F1"]
+    colors = [palette[i % len(palette)] for i in range(len(labels))]
 
     resumo = {}
     if raw_values:
-        idx_max = raw_values.index(max(raw_values))
+        max_v = max(raw_values)
+        idx_max = raw_values.index(max_v) if max_v in raw_values else 0
         sorted_vals = sorted(values, reverse=True)
         resumo = {
-            "maior_participacao": labels[idx_max],
-            "maior_participacao_percentual": values[idx_max],
+            "total_geral": total,
+            "total_geral_formatado": f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+            "maior_participacao": labels[idx_max] if idx_max < len(labels) else "",
+            "maior_participacao_percentual": values[idx_max] if idx_max < len(values) else 0.0,
             "total_linhas": len(labels),
             "concentracao_top3": round(sum(sorted_vals[:3]), 2),
         }
@@ -799,13 +814,19 @@ def transform_kpi_data(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 return 0.0
             return round(((atual - anterior) / anterior) * 100, 2)
 
+        seen_values = set()
         kpis = []
         for k in numeric_keys:
-            values = [to_float(r[k]) for r in rows if is_numeric_value(r[k])]
+            if any(term in k.lower() for term in ("filial", "cod_filial", "filial_", "id", "codigo", "cod")):
+                continue
+            values = [to_float(r[k]) for r in rows if isinstance(r, dict) and k in r and is_numeric_value(r[k])]
             if not values:
                 continue
 
             atual = values[-1]
+            if atual in seen_values and len(seen_values) > 0:
+                continue
+            seen_values.add(atual)
             anterior = values[-2] if len(values) > 1 else atual
 
             sparkline = values[-7:] if len(values) >= 7 else values

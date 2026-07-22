@@ -359,7 +359,7 @@ export default function AdminCatalogPage() {
   return (
     <div className="flex h-dvh overflow-hidden" style={{ background: 'rgb(var(--bg-base))' }}>
       <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden min-w-0" style={{ marginLeft: 'var(--sidebar-w)' }}>
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0 dashboard-main-content">
         
         {/* Top Header */}
         <header

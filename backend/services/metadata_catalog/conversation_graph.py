@@ -97,16 +97,16 @@ class ConversationGraphManager:
         p_lower = pergunta.lower()
         new_chart_type: Optional[VisualizationType] = None
         
-        # Mapeamento simples de intenções de visualização
-        if "pizza" in p_lower:
+        # Mapeamento tolerante a erros de digitação (ex: baaras, piza, linas)
+        if any(w in p_lower for w in ["pizza", "piza", "pisa", "pissa", "pie", "rosca", "donut"]):
             new_chart_type = VisualizationType.PIE
-        elif "barra" in p_lower:
+        elif any(w in p_lower for w in ["barra", "barras", "baara", "baaras", "bara", "baras", "bar", "coluna", "colunas"]):
             new_chart_type = VisualizationType.BAR
-        elif "linha" in p_lower:
+        elif any(w in p_lower for w in ["linha", "linhas", "lina", "linas", "evolucao", "historico", "serie"]):
             new_chart_type = VisualizationType.LINE
-        elif "tabela" in p_lower or "grade" in p_lower:
+        elif any(w in p_lower for w in ["tabela", "tabelas", "tabua", "tabella", "grade", "planilha", "lista"]):
             new_chart_type = VisualizationType.TABLE
-        elif "card" in p_lower or "kpi" in p_lower:
+        elif any(w in p_lower for w in ["card", "kpi", "cartao", "indicador"]):
             new_chart_type = VisualizationType.KPI_CARD
 
         # Mapeamento de ordenação local
@@ -164,20 +164,33 @@ class ConversationGraphManager:
             self.add_node(session_id, new_node)
             elapsed = (time.perf_counter() - start_time) * 1000
             
+            from services.data_transformer import transform_data
+            from models.view_catalog import ChartType as SchemaChartType
+
+            vis_map = {
+                "TABLE": SchemaChartType.TABLE,
+                "BAR": SchemaChartType.BAR,
+                "LINE": SchemaChartType.LINE,
+                "PIE": SchemaChartType.PIE,
+                "KPI": SchemaChartType.KPI,
+                "AREA": SchemaChartType.AREA,
+                "SCATTER": SchemaChartType.SCATTER
+            }
+            s_type = vis_map.get(state.chart_type.value.upper(), SchemaChartType.TABLE)
+            transformed_dataset = transform_data(rows, s_type)
+
             logger.info(f"[ConversationGraph] Operação visual local executada com sucesso. Tipo: {new_chart_type or 'Ordenação'}")
             return {
                 "query_id": str(trace_id),
                 "trace_id": str(trace_id),
                 "request_id": str(trace_id),
-                "status": "UI_MODIFIED",
+                "status": "FULL_RENDERING",
                 "pergunta_original": pergunta,
-                "resposta_direta": f"Atualizei a visualização do dashboard conforme solicitado.",
+                "resposta_direta": f"Atualizei a visualização do dashboard para {state.chart_type.value} conforme solicitado.",
                 "ia_justificativa": "Atualização visual executada localmente em memória RAM.",
                 "chart_type": state.chart_type.value,
-                "chart_data": {
-                    "columns": [{"key": k, "label": k.replace("_", " ").title()} for k in rows[0].keys()] if rows else [],
-                    "rows": rows
-                },
+                "dataset": transformed_dataset,
+                "chart_data": transformed_dataset,
                 "insights": [],
                 "recommendations": [],
                 "warnings": [],

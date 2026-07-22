@@ -1,4 +1,15 @@
-﻿# Changelog
+# Changelog
+
+## 2026-07-22 - Auto-Cura Do Catálogo, Expansão De Consultas Determinísticas E Testes Massivos De Estresse
+
+- Adicionados tópicos determinísticos `produto_mais_vendido`, `estoque_produto` e `financeiro_aberto` no `NewQueryOrchestrator`, evitando despachos indesejados ao LLM que retornavam `UNSUPPORTED`.
+- Criadas as rotinas `fetch_product_ranking` e `fetch_financial_open` no `SalesValueBreakdownService` (`sales_value_breakdown.py`), permitindo consultar ranking de produtos mais vendidos cruzados com saldo de estoque (`VW_PRODUTOS_CAD_LM` x `VW_VENDAS_LM`) e contas financeiras em aberto (`VW_FINANCEIRO_LM`).
+- `Canonicalizer` reforçado com auto-cura semântica de entidades e métricas desconhecidas, redirecionando aliases conceituais (ex: `item`, `mercadoria`, `estoque`, `parcela`, `cobranca`, `comissao`) para entidades canônicas (`Produto`, `Financeiro`, `Venda`, `Vendedor`, `Cliente`, `Cidade`, `Estado`, `Categoria`).
+- Filtros desconhecidos no `Canonicalizer` passam a ser descartados com log de aviso (auto-cura graciosa) em vez de interromper o fluxo com erro `UNSUPPORTED`.
+- Parser de período (`_month_range_from_text`) expandido para suportar menções a anos isolados de 4 dígitos (ex: `no ano de 2026`, `em 2026`, `ano 2026`, `2026`), gerando o intervalo `YYYY-01-01` a `YYYY-12-31` em vez de recair no fallback do mês corrente.
+- Adicionada tolerância para typos e variações gramaticais de usuários (ex: `mais vendidoa`, `mais vendida`, `top produtos`).
+- Preenchimento do campo `sample_rows` no payload principal do orquestrador para garantir que a Tabela Detalhada com Colunas e os componentes de gráficos do frontend renderizem todas as linhas extraídas.
+- Executada suíte massiva de testes de estresse e mineração de falhas com **164 cenários automatizados (incluindo multi-turn e interatividade)** obtendo **100% de taxa de aprovação (0 falhas)**.
 
 ## 2026-07-21 - Governanca De Resposta, Rastreabilidade E Operacao
 

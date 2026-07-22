@@ -406,6 +406,19 @@ svg {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* ── Dashboard Content Layout (Garante margem apenas em telas desktop >= 1024px) ── */
+  .dashboard-main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .dashboard-main-content {
+      margin-left: var(--sidebar-w);
+      width: calc(100% - var(--sidebar-w));
+    }
+  }
+
   /* ── Interactive Base ─────────────────────────────────────── */
 
   .interactive {

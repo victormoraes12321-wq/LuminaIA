@@ -74,6 +74,8 @@ async def validate_oracle_listener(host: str, port: int, timeout_seconds: float 
     This keeps the admin screen from showing a generic Oracle error when the
     machine cannot even reach the database listener.
     """
+    if getattr(settings, 'MOCK_ORACLE', False):
+        return
     try:
         _reader, writer = await asyncio.wait_for(
             asyncio.open_connection(str(host), int(port)),

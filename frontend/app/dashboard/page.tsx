@@ -151,8 +151,7 @@ export default function DashboardPage() {
 
       {/* ── Main Content ─────────────────────────────────────── */}
       <main
-        className="flex flex-col flex-1 min-w-0 overflow-hidden"
-        style={{ marginLeft: 'var(--sidebar-w)' }}
+        className="flex flex-col flex-1 min-w-0 overflow-hidden dashboard-main-content"
       >
         {/* Top Bar */}
         <header
@@ -264,6 +263,8 @@ export default function DashboardPage() {
                         )
                       }
 
+                      const lastAssistantIndex = messages.findLastIndex(m => m.role === 'assistant')
+
                       return (
                         <AssistantResponseBlock
                           key={msg.id}
@@ -271,6 +272,7 @@ export default function DashboardPage() {
                           onFavorite={() => toggleFavorite(msg.queryResponse!)}
                           isFavorited={msg.queryResponse ? isFavorite(msg.queryResponse.query_id) : false}
                           onSendQuery={sendQuery}
+                          isLatest={messages.indexOf(msg) === lastAssistantIndex}
                         />
                       )
                     })}

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import {
   Cell,
   Pie,
@@ -9,6 +10,14 @@ import {
 } from 'recharts'
 import type { ChartDataPie } from '@/types/lumina'
 
+function formatPieValue(val?: number): string {
+  if (val === undefined || val === null) return ''
+  if (Math.abs(val) >= 100) {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 2 }).format(val)
+  }
+  return new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(val)
+}
+
 // ── Glassmorphism Tooltip ──────────────────────────────────────
 
 interface PieTooltipProps {
@@ -16,13 +25,15 @@ interface PieTooltipProps {
   payload?: Array<{
     name: string
     value: number
-    payload: { color: string }
+    payload: { color: string; rawValue?: number }
   }>
 }
 
 function PieTooltip({ active, payload }: PieTooltipProps) {
   if (!active || !payload?.length) return null
   const entry = payload[0]
+  const rawVal = entry.payload.rawValue
+
   return (
     <div
       className="glass-strong rounded-xl px-4 py-3 shadow-lumina"
@@ -37,8 +48,13 @@ function PieTooltip({ active, payload }: PieTooltipProps) {
           {entry.name}
         </span>
       </div>
-      <p className="text-lg font-bold" style={{ color: 'rgb(var(--text-primary))' }}>
-        {entry.value.toFixed(1)}%
+      {rawVal !== undefined && (
+        <p className="text-base font-bold" style={{ color: 'rgb(var(--text-primary))' }}>
+          {formatPieValue(rawVal)}
+        </p>
+      )}
+      <p className="text-xs font-medium text-emerald-400 mt-0.5">
+        {entry.value.toFixed(1)}% do total
       </p>
     </div>
   )
@@ -55,49 +71,57 @@ interface PieLegendProps {
 function PieLegend({ data, activeIndex, onHover }: PieLegendProps) {
   return (
     <div className="flex flex-col gap-2 justify-center min-w-0">
-      {data.labels.map((label, i) => (
-        <button
-          key={label}
-          className="flex items-center gap-2.5 text-left group rounded-lg px-2 py-1 transition-colors hover:bg-[rgb(var(--bg-elevated))]"
-          onMouseEnter={() => onHover(i)}
-          onMouseLeave={() => onHover(null)}
-        >
-          <span
-            className="w-2.5 h-2.5 rounded-full flex-shrink-0 transition-transform group-hover:scale-125"
-            style={{
-              background: data.colors[i],
-              opacity: activeIndex !== null && activeIndex !== i ? 0.35 : 1,
-            }}
-          />
-          <div className="min-w-0 flex-1">
-            <p
-              className="text-xs font-medium truncate transition-colors"
-              style={{
-                color: activeIndex === i
-                  ? 'rgb(var(--text-primary))'
-                  : 'rgb(var(--text-secondary))',
-              }}
-            >
-              {label}
-            </p>
-          </div>
-          <span
-            className="text-xs font-bold flex-shrink-0"
-            style={{
-              color: activeIndex === i ? data.colors[i] : 'rgb(var(--text-muted))',
-            }}
+      {data.labels.map((label, i) => {
+        const rawVal = data.valores_brutos?.[i]
+        return (
+          <button
+            key={label}
+            className="flex items-center gap-2.5 text-left group rounded-lg px-2.5 py-1.5 transition-colors hover:bg-[rgb(var(--bg-elevated))]"
+            onMouseEnter={() => onHover(i)}
+            onMouseLeave={() => onHover(null)}
           >
-            {data.values[i]?.toFixed(1)}%
-          </span>
-        </button>
-      ))}
+            <span
+              className="w-2.5 h-2.5 rounded-full flex-shrink-0 transition-transform group-hover:scale-125"
+              style={{
+                background: data.colors[i],
+                opacity: activeIndex !== null && activeIndex !== i ? 0.35 : 1,
+              }}
+            />
+            <div className="min-w-0 flex-1">
+              <p
+                className="text-xs font-medium truncate transition-colors"
+                style={{
+                  color: activeIndex === i
+                    ? 'rgb(var(--text-primary))'
+                    : 'rgb(var(--text-secondary))',
+                }}
+              >
+                {label}
+              </p>
+            </div>
+            <div className="flex flex-col items-end flex-shrink-0">
+              {rawVal !== undefined && (
+                <span
+                  className="text-xs font-bold"
+                  style={{
+                    color: activeIndex === i ? data.colors[i] : 'rgb(var(--text-primary))',
+                  }}
+                >
+                  {formatPieValue(rawVal)}
+                </span>
+              )}
+              <span className="text-[10px] font-semibold text-emerald-400">
+                {data.values[i]?.toFixed(1)}%
+              </span>
+            </div>
+          </button>
+        )
+      })}
     </div>
   )
 }
 
 // ── PieChartComponent ─────────────────────────────────────────
-
-import { useState } from 'react'
 
 interface PieChartComponentProps {
   data: ChartDataPie
@@ -106,37 +130,40 @@ interface PieChartComponentProps {
 export function PieChartComponent({ data }: PieChartComponentProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
-  const chartData = data.labels.map((label, i) => ({
+  const chartData = data.labels.map((label: string, i: number) => ({
     name: label,
     value: data.values[i],
+    rawValue: data.valores_brutos?.[i],
     color: data.colors[i],
   }))
 
-  // Find largest segment for center label
   const maxIndex = data.values.indexOf(Math.max(...data.values))
   const centerLabel = data.labels[maxIndex]
+  const centerRawVal = data.valores_brutos?.[maxIndex]
+
+  const activeRawVal = activeIndex !== null ? data.valores_brutos?.[activeIndex] : centerRawVal
 
   return (
     <div className="flex gap-4 items-center h-full">
       {/* Donut chart */}
-      <div className="flex-shrink-0 w-[180px] h-[180px] relative">
+      <div className="flex-shrink-0 w-[200px] h-[200px] relative">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={chartData}
               cx="50%"
               cy="50%"
-              innerRadius={56}
-              outerRadius={84}
+              innerRadius={58}
+              outerRadius={88}
               paddingAngle={2}
               dataKey="value"
               animationBegin={0}
               animationDuration={800}
               animationEasing="ease-out"
-              onMouseEnter={(_, index) => setActiveIndex(index)}
+              onMouseEnter={(_, index: number) => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
             >
-              {chartData.map((entry, index) => (
+              {chartData.map((entry: { name: string; value: number; color: string; rawValue?: number }, index: number) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={entry.color}
@@ -151,23 +178,31 @@ export function PieChartComponent({ data }: PieChartComponentProps) {
         </ResponsiveContainer>
 
         {/* Center label */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-2">
           {activeIndex !== null ? (
             <>
-              <p className="text-base font-bold" style={{ color: data.colors[activeIndex] }}>
+              {activeRawVal !== undefined && (
+                <p className="text-xs font-bold truncate max-w-full" style={{ color: data.colors[activeIndex] }}>
+                  {formatPieValue(activeRawVal)}
+                </p>
+              )}
+              <p className="text-sm font-bold text-emerald-400">
                 {data.values[activeIndex]?.toFixed(1)}%
               </p>
-              <p className="text-[10px] text-center px-3 leading-tight mt-0.5" style={{ color: 'rgb(var(--text-muted))' }}>
+              <p className="text-[10px] text-center px-1 truncate max-w-full leading-tight mt-0.5" style={{ color: 'rgb(var(--text-muted))' }}>
                 {data.labels[activeIndex]}
               </p>
             </>
           ) : (
             <>
-              <p className="text-base font-bold" style={{ color: data.colors[maxIndex] }}>
-                {data.values[maxIndex]?.toFixed(1)}%
+              <p className="text-xs font-bold text-indigo-400 truncate max-w-full">
+                {formatPieValue(data.valores_brutos?.reduce((a, b) => a + b, 0))}
               </p>
-              <p className="text-[10px] px-2 text-center leading-tight mt-0.5" style={{ color: 'rgb(var(--text-muted))' }}>
-                {centerLabel?.split(' ')[0]}
+              <p className="text-[11px] font-semibold text-emerald-400">
+                100%
+              </p>
+              <p className="text-[10px] px-1 text-center truncate max-w-full leading-tight mt-0.5" style={{ color: 'rgb(var(--text-muted))' }}>
+                Total Geral
               </p>
             </>
           )}
@@ -175,7 +210,7 @@ export function PieChartComponent({ data }: PieChartComponentProps) {
       </div>
 
       {/* Legend */}
-      <div className="flex-1 overflow-y-auto thin-scroll max-h-[180px]">
+      <div className="flex-1 overflow-y-auto thin-scroll max-h-[200px]">
         <PieLegend
           data={data}
           activeIndex={activeIndex}
