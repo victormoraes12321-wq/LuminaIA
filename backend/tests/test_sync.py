@@ -8,7 +8,7 @@ import json
 from unittest.mock import AsyncMock, patch, MagicMock
 from datetime import datetime
 from httpx import AsyncClient, ASGITransport
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from cryptography.fernet import Fernet
 
@@ -31,10 +31,10 @@ async def admin_client():
         transport=ASGITransport(app=app),
         base_url=BASE_URL
     ) as client:
-        # Tenta logar primeiro com ti@casadocampo.vet.br (que não requer troca de senha)
+        # Usa administrador tecnico sintetico, sem troca de senha obrigatoria.
         login_res = await client.post("/auth/login", json={
-            "email": "ti@casadocampo.vet.br",
-            "password": "H0llyw00d26"
+            "email": "technical.admin@lumina.internal",
+            "password": "SyntheticUser@2026"
         })
         if login_res.status_code != 200:
             # Fallback para o admin padrão
@@ -106,6 +106,15 @@ async def test_database_sync_and_concurrency(admin_client: AsyncClient):
             "algorithm": "Fernet",
             "payload": encrypted_oracle
         }
+        # O baseline usa VW_VENDAS_LM como view SQL deterministica. Este teste
+        # sincroniza a view dedicada de performance para exercitar o swap de
+        # tabelas sem alterar a fonte analitica compartilhada pelo baseline.
+        await db_session.execute(
+            delete(ViewCatalog).where(
+                ViewCatalog.tenant_id == tenant.id,
+                ViewCatalog.nome_view_oracle == "VW_VENDAS_LM",
+            )
+        )
         db_session.add(tenant)
         await db_session.commit()
 

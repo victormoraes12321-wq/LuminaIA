@@ -257,6 +257,42 @@ def resolve_relative_date_range(date_range_str: str, anchor: date = ANCHOR_DATE)
     if not date_range_str:
         return None
 
+    from services.temporal import (
+        PluralTemporalResultError,
+        TemporalNormalizer,
+        context_from_legacy_anchor,
+        envelope_plural_for_deprecated_caller,
+        singular_range_from_result,
+    )
+
+    temporal_result = TemporalNormalizer().normalize(
+        date_range_str,
+        context_from_legacy_anchor(anchor),
+    )
+    if temporal_result.unresolved_expressions:
+        return None
+    legacy_rolling_months = re.search(
+        r"\bultim[oa]s?\s+(\d+)\s+mes(?:es)?\b",
+        normalize_text_key(date_range_str),
+    )
+    if legacy_rolling_months and not any(
+        modifier in normalize_text_key(date_range_str)
+        for modifier in ("fechado", "completo", "encerrado")
+    ):
+        amount = int(legacy_rolling_months.group(1))
+        logger.warning(
+            "Deprecated legacy rolling-month adapter retained the historical 30-day approximation."
+        )
+        return (
+            anchor - timedelta(days=max(amount * 30 - 1, 0))
+        ).isoformat(), anchor.isoformat()
+    try:
+        return singular_range_from_result(temporal_result)
+    except PluralTemporalResultError:
+        # Explicit deprecated compatibility for callers that still accept only
+        # one date_range. The canonical V2 result remains plural and ordered.
+        return envelope_plural_for_deprecated_caller(temporal_result)
+
     br_dates = re.findall(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b", date_range_str)
     if br_dates:
         try:

@@ -78,7 +78,7 @@ export function ConversationGraphNavigator({
                   : 'bg-zinc-900/40 border-transparent hover:bg-zinc-900/80 hover:border-zinc-800 text-zinc-400 hover:text-zinc-200'
               )}
             >
-              <span className="line-clamp-2 break-words">"{node.user_query}"</span>
+              <span className="line-clamp-2 break-words">&quot;{node.user_query}&quot;</span>
               <div className="flex items-center gap-2 mt-0.5">
                 <span
                   className={cn(

@@ -2,3 +2,24 @@
 __pycache__/
 backend/.lumina_conversations/
 backend/runtime-logs/
+
+# Runtime secrets and local environments. Tracked files require separate
+# containment/rotation work; ignore rules do not remove Git history.
+.env
+.env.local
+.env.*
+backend/.env
+backend/.env.test
+!backend/.env.test.example
+
+# Test/runtime artifacts
+runtime-logs/
+*.log
+backend/.pytest_cache/
+backend/htmlcov/
+backend/.coverage*
+frontend/playwright-report/
+frontend/test-results/
+frontend/blob-report/
+.lumina_conversations/
+.test-runtime/

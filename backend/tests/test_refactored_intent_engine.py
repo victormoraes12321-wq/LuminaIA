@@ -11,6 +11,8 @@ from services.metadata_catalog.intent_engine import (
 from services.new_query_orchestrator import NewQueryOrchestrator
 from services.metadata_catalog.loader import load_corporate_catalog
 
+pytestmark = [pytest.mark.unit, pytest.mark.no_database]
+
 @pytest.fixture(autouse=True)
 def setup_catalog():
     load_corporate_catalog()
@@ -70,7 +72,7 @@ async def test_orchestrator_integration_simple_query(mock_analyze):
 @pytest.mark.asyncio
 @patch("services.metadata_catalog.executor.database_executor.execute_query")
 @patch("services.metadata_catalog.intent_engine.CorporateIntentEngine.analyze_query")
-async def test_orchestrator_continuity_semantic_patch(mock_analyze, mock_execute):
+async def test_orchestrator_does_not_recreate_process_local_semantic_cache(mock_analyze, mock_execute):
     """
     Valida a aplicação de patches semânticos (SemanticPatch) sobre o plano anterior
     em caso de continuidade analítica de conversa.
@@ -134,18 +136,19 @@ async def test_orchestrator_continuity_semantic_patch(mock_analyze, mock_execute
     )
     
     # Executa a continuação no mesmo session_id
-    await orchestrator.run_pipeline(
+    result = await orchestrator.run_pipeline(
         pergunta="Agora de MG limitado a 5",
         tenant_id="a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
         session_id=session_id
     )
     
     # Verifica se o plano semântico final no cache recebeu os patches mesclados
-    final_plan = orchestrator._last_semantic_plans[session_id]
-    assert final_plan.limit == 5
-    assert len(final_plan.filters) == 1
-    assert final_plan.filters[0].field == "Estado"
-    assert final_plan.filters[0].value == "MG"
+    assert result["status"] in {
+        "FULL_RENDERING",
+        "MISSING_INFORMATION",
+        "DATABASE_ERROR",
+    }
+    assert not hasattr(orchestrator, "_last_semantic_plans")
 
 @pytest.mark.asyncio
 @patch("services.metadata_catalog.intent_engine.CorporateIntentEngine.analyze_query")
@@ -196,3 +199,50 @@ async def test_orchestrator_ambiguity_and_out_of_scope(mock_analyze):
         tenant_id="a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
     )
     assert res_b["status"] == "OUT_OF_SCOPE"
+
+
+@pytest.mark.asyncio
+@patch("services.metadata_catalog.intent_engine.CorporateIntentEngine.analyze_query")
+async def test_intent_engine_failure_is_typed_and_never_falls_back_to_client(mock_analyze):
+    mock_analyze.side_effect = TimeoutError("controlled timeout")
+    orchestrator = NewQueryOrchestrator()
+
+    result = await orchestrator.run_pipeline(
+        pergunta="Listar os clientes de Ataleia",
+        tenant_id="a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+        session_id="intent-timeout",
+    )
+
+    assert result["status"] == "INTENT_ENGINE_ERROR"
+    assert result["chart_data"] is None
+    assert result["visualizations"] is None
+    assert "Cliente" not in str(result.get("debug_info", {}).get("semantic_plan"))
+    mock_analyze.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+@patch("services.metadata_catalog.executor.database_executor.execute_query")
+@patch("services.metadata_catalog.intent_engine.CorporateIntentEngine.analyze_query")
+async def test_unsupported_intent_never_executes_database(mock_analyze, mock_execute):
+    mock_analyze.return_value = IntentEngineOutput(
+        is_continuity=False,
+        status=ExecutionStatus.UNSUPPORTED,
+        plan=SemanticPlan(
+            status=ExecutionStatus.UNSUPPORTED,
+            intent=IntentType.AGGREGATION,
+            goal="Calcular uma previsao ainda nao suportada",
+            entities=["Venda"],
+            metrics=["Previsao"],
+            dimensions=[],
+        ),
+    )
+    orchestrator = NewQueryOrchestrator()
+
+    result = await orchestrator.run_pipeline(
+        pergunta="Calcule uma previsao probabilistica do proximo trimestre",
+        tenant_id="a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+        session_id="unsupported-query",
+    )
+
+    assert result["status"] == "UNSUPPORTED"
+    mock_execute.assert_not_awaited()

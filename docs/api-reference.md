@@ -2,12 +2,44 @@
 
 Fonte: gerado a partir do schema OpenAPI exposto por `backend/main.py`.
 
+## Estado Conversacional V2
+
+`QueryRequest` aceita `client_message_id` e `expected_context_version`.
+`QueryResponse` devolve sessao, nos, parent, versao, epoch, status e replay
+quando a persistencia PostgreSQL esta habilitada.
+
+As rotas autenticadas `/api/v1/conversations` criam, listam, consultam,
+resetam, arquivam, reabrem e excluem sessoes do proprio usuario. Tenant e
+usuario sempre vem do token. Listagens usam cursor keyset e limites fixos.
+
+Importacao JSON e uma operacao offline. Ela permanece em dry-run por padrao e
+o apply exige `CONVERSATION_LEGACY_IMPORT_ENABLED=true`.
+
+## Execucao Comparativa V2
+
+O Prompt 06 nao adiciona rota publica. Perguntas comparativas continuam pela
+rota de consulta existente. Quando o planner produz `QueryPlanV2` `READY` e
+`COMPARISON_EXECUTOR_V2_ENABLED=true`, o orquestrador chama
+`lumina.comparison-executor/1.0`.
+
+O payload V1 permanece compativel e recebe `analytical_contract`. No contrato
+V2, `contract.extensions.comparison_executor` informa versao, estrategia,
+cache, partial, summaries de alinhamento, contagem de calculos, denominadores
+zero, nao aplicaveis, validacao e proveniencia. SQL e binds nunca fazem parte
+da API.
+
 Observacoes:
 
 - A autenticacao principal usa JWT emitido pelo backend e enviado por cookie HttpOnly e/ou Bearer token conforme fluxo atual.
 - Rotas sob `/api/v1/api/v1/query` existem por compatibilidade com clientes antigos que duplicavam o prefixo no `base_url`.
 - Campos exatos de payload/resposta seguem os DTOs em `backend/schemas` e o schema OpenAPI.
 - `POST /api/v1/query/` retorna `data_status`, `validation_summary` e `interaction_options`. `admin_diagnostics` e preenchido somente para `ADMIN`.
+- `POST /api/v1/query/` pode retornar o campo opcional
+  `analytical_contract` com schema `lumina.analytics/2.0`. O campo e aditivo,
+  controlado por feature flags e nao e obrigatorio para clientes V1.
+- O sidecar distingue `READY`, `CLARIFICATION_REQUIRED`, `OUT_OF_SCOPE`,
+  `UNSUPPORTED`, `BLOCKED` e `ERROR`, preserva listas de periodos e
+  visualizacoes e deriva tenant do contexto autenticado.
 - Rotas de Inspector, SVR, cache, performance e seguranca exigem `ADMIN`. Dashboard Studio exige `ADMIN` ou `GESTOR`.
 - A fonte de consulta da IA e o PostgreSQL analitico; referencias ao Oracle na linhagem representam somente o processo tecnico anterior de sincronizacao.
 
@@ -1101,3 +1133,48 @@ Observacoes:
 - Codigos HTTP documentados: 200
 - Permissoes: aplicadas por dependencias FastAPI e regras do router quando existentes.
 - Exemplo minimo: chamar com `Authorization: Bearer <token>` quando autenticado.
+
+## Metadados Temporais V2
+
+Quando o sidecar V2 estiver presente,
+`analytical_contract.intent.contract.extensions.temporal` pode conter:
+
+- `normalizer_version`;
+- `timezone`;
+- `relation` (`NONE`, `SINGLE`, `RANGE`, `PERIOD_LIST`, `COMPARISON`);
+- `rule_ids`;
+- `warnings`;
+- `readiness`.
+
+As janelas canonicas ficam em `analytical_contract.intent.time_windows`, com
+fim inclusivo. Adapters de timestamp calculam o dia seguinte como limite
+exclusivo.
+
+## Metadados Do Planner Comparativo V2
+
+Quando uma pergunta comparativa produz sidecar V2,
+`analytical_contract.plan.contract.extensions.comparison_planner` e
+`analytical_contract.comparison_planner` podem conter:
+
+- `version` (`lumina.comparison-planner/1.0`);
+- `readiness`;
+- `strategy_hint`;
+- `rule_ids`;
+- `issue_codes`;
+- `complexity`;
+- `cache_identity`;
+- `shadow_divergence`.
+
+Esses metadados descrevem planejamento, nao resultados. Eles nao incluem SQL,
+binds, credenciais, pergunta integral ou valores financeiros.
+
+## Apresentacao Comparativa V2
+
+Nao existe endpoint novo. Quando `POST /api/v1/query/` retorna uma comparacao
+com sidecar `lumina.analytics/2.0`, o frontend pode adapta-la localmente para
+`lumina.comparison-presentation/1.0`.
+
+O renderer preserva o payload recebido e aplica RBAC de apresentacao:
+`CONSULTA` nao recebe diagnostico administrativo, `GESTOR` pode receber
+proveniencia resumida e `ADMIN` pode inspecionar checks e metadados sanitizados.
+SQL, binds e credenciais nao fazem parte da apresentacao nem da exportacao.

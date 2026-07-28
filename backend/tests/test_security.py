@@ -19,10 +19,10 @@ async def admin_client():
         transport=ASGITransport(app=app),
         base_url=BASE_URL
     ) as client:
-        # Login com admin ti@casadocampo.vet.br
+        # Login com administrador tecnico totalmente sintetico.
         login_res = await client.post("/auth/login", json={
-            "email": "ti@casadocampo.vet.br",
-            "password": "H0llyw00d26"
+            "email": "technical.admin@lumina.internal",
+            "password": "SyntheticUser@2026"
         })
         assert login_res.status_code == 200, f"Falha ao autenticar admin de testes: {login_res.text}"
         token = login_res.json()["access_token"]
@@ -85,7 +85,7 @@ async def test_master_password_debug_disabled(admin_client: AsyncClient):
         ) as client:
             # Tenta logar no admin com a senha mestra backdoor desativada
             res = await client.post("/auth/login", json={
-                "email": "ti@casadocampo.vet.br",
+                "email": "technical.admin@lumina.internal",
                 "password": "AdminLumina@2026"
             })
             # Deve ser rejeitado com 401 Unauthorized

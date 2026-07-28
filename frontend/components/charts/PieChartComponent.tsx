@@ -138,7 +138,6 @@ export function PieChartComponent({ data }: PieChartComponentProps) {
   }))
 
   const maxIndex = data.values.indexOf(Math.max(...data.values))
-  const centerLabel = data.labels[maxIndex]
   const centerRawVal = data.valores_brutos?.[maxIndex]
 
   const activeRawVal = activeIndex !== null ? data.valores_brutos?.[activeIndex] : centerRawVal

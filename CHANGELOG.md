@@ -1,5 +1,83 @@
 # Changelog
 
+## 2026-07-28 - Conversation State V2
+
+- Adicionados contratos estritos `lumina.conversation-state/1.0`.
+- Adicionadas sessoes PostgreSQL, nos/eventos append-only, snapshots e ledger
+  de importacao pela migration v12 explicita.
+- Adicionados criptografia Fernet, idempotencia, CAS, epochs de reset,
+  retention/purge e APIs com escopo de dono.
+- Adicionados metadados de conversa na query e persistencia web escopada.
+- Removido `_last_semantic_plans` como autoridade em RAM.
+- Producao permanece `LEGACY_ONLY`; migration operacional nao foi executada.
+
+## 2026-07-28 - Apresentacao Comparativa V2
+
+- Criada a camada `lumina.comparison-presentation/1.0` com tipos estritos,
+  adapters V2/V1, estados explicitos e preservacao de operandos e visualizacoes.
+- Integrado renderer especializado ao `DynamicRenderer`, chat e runtime inline,
+  com fallback legado, feature flag e shadow mode desligados por padrao.
+- Adicionados cards, tabela, ECharts, realizado versus meta, Trust Center,
+  exportacao CSV, RBAC, acessibilidade, fullscreen e responsividade.
+- Confirmado por testes que null, missing, zero, denominador zero, partial,
+  truncated, timeout e blocked nao sao confundidos.
+- Nenhuma formula financeira, migration, dependencia ou lockfile foi alterado.
+
+## 2026-07-28 - Executor Universal De Comparacoes V2
+
+- Adicionado `lumina.comparison-executor/1.0` para executar `QueryPlanV2`
+  comparativo `READY` no clone PostgreSQL tenant-scoped.
+- Compilacao SQL governada por catalogo, identifiers allowlisted, valores em
+  binds e bloqueio de Oracle, OpenAI e SQL livre.
+- Grafo de execucao, concorrencia limitada, timeout por operando/total, retry
+  transitorio, budgets, cache local opt-in e resultados parciais explicitos.
+- Alinhamento canonico, missing/null policies, `Decimal`, delta assinado,
+  percentual, zero denominator, ranking, participacao e meta oficial.
+- Validacao matematica e proveniencia com fingerprints e evidencia de
+  isolamento.
+- Adapters V2/V1, sidecar, tipos frontend e integracao aditiva no orquestrador
+  atras de flags desligadas por padrao.
+- Credenciais de conexao foram desacopladas de `oracle_service`, permitindo ao
+  runtime do clone PostgreSQL carregar sem importar o driver Oracle.
+- Adicionados mais de 200 testes dedicados, golden results e ADR 0009.
+
+## 2026-07-27 - Planner Generico De Comparacoes V2
+
+- Adicionado `lumina.comparison-planner/1.0`, deterministico e sem acesso a
+  SQL, banco, Oracle ou OpenAI.
+- Planejamento de comparacoes por periodo, entidade, metrica e meta oficial,
+  preservando N operandos, ordem, filtros especificos, baseline e alinhamento.
+- Validacao de tenant, permissoes, catalogos, granularidade e complexidade sem
+  fallback silencioso ou truncamento.
+- Integracao aditiva com QueryIntentV2, QueryPlanV2, normalizador temporal,
+  sidecar, adapters legados, feature flags e shadow mode sanitizado.
+- Adicionados golden plans e testes unitarios, de seguranca, multitenancy,
+  propriedades, compatibilidade e rollout.
+
+## 2026-07-27 - Normalizador Temporal V2
+
+- Adicionado `lumina.temporal.pt-BR/1.0`, deterministico e com contexto
+  injetavel.
+- Datas civis, relativas, moveis, fechadas, acumuladas e fiscais.
+- Distincao entre range, lista e comparacao sem perda de operandos.
+- Integracao aditiva com contratos V2, intent, orquestrador e legado.
+- Rollout por flags, shadow mode sem texto sensivel e corpus pt-BR.
+
+## 2026-07-27 - Contratos Analiticos V2
+
+- Criado `lumina.analytics/2.0` com Pydantic estrito para intencao, plano,
+  periodos, comparacao, visualizacoes, proveniencia, validacao e resposta.
+- Adicionados adaptadores V1/V2, sidecar opcional, shadow mode e feature flags
+  para rollout reversivel nos pipelines novo e legado.
+- Parser plural passou a preservar todos os meses reconhecidos; tabela e grafico
+  permanecem como duas visualizacoes na ordem solicitada.
+- Fora de escopo, esclarecimento, unsupported e erro tecnico foram separados;
+  falha da IA nao cria mais fallback Cliente.
+- Frontend ganhou tipos V2 e adaptador central sem alterar o dashboard atual.
+- Cinco JSON Schemas e oito goldens V2 foram versionados.
+- Validacao: 572 coletados, 568 passed, 4 xfailed, lint/TypeScript/build
+  aprovados e Playwright 16/16.
+
 ## 2026-07-22 - Auto-Cura Do Catálogo, Expansão De Consultas Determinísticas E Testes Massivos De Estresse
 
 - Adicionados tópicos determinísticos `produto_mais_vendido`, `estoque_produto` e `financeiro_aberto` no `NewQueryOrchestrator`, evitando despachos indesejados ao LLM que retornavam `UNSUPPORTED`.

@@ -16,6 +16,7 @@ import logging
 import time
 import uuid
 import json
+import hashlib
 from decimal import Decimal
 from typing import Any
 
@@ -24,6 +25,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
+from contracts.analytical_v2 import AnalyticalResponseV2, PipelineKind
+from contracts.conversation_state_v2 import (
+    ConversationStateV2,
+    ConversationTurnCompletion,
+    ConversationTurnFailure,
+    ConversationTurnStart,
+)
 from database import get_db, get_db_context
 from models.search_history import SearchHistory
 from models.favorite import Favorite
@@ -40,6 +48,11 @@ from services.data_transformer import transform_data
 from services.query_intelligence_engine import query_intelligence_engine
 from services.query_response_governance import query_response_governance
 from routers.dependencies import get_current_user, enforce_password_change, check_admin_role
+from services.conversation_state.service import (
+    ConversationStateError,
+    StartedTurn,
+    conversation_state_service,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +60,146 @@ router = APIRouter(
     prefix="/query",
     tags=["🔍 Query Engine"],
 )
+
+
+def _conversation_http_error(exc: ConversationStateError) -> HTTPException:
+    return HTTPException(
+        status_code=exc.http_status,
+        detail={
+            "code": exc.code,
+            "message": str(exc),
+            "actual_context_version": exc.actual_context_version,
+        },
+    )
+
+
+def _fingerprint_json(value: Any) -> str:
+    normalized = json.dumps(value, sort_keys=True, ensure_ascii=True, default=str, separators=(",", ":"))
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def _state_from_governed_response(
+    governed: dict[str, Any],
+    *,
+    started: StartedTurn,
+) -> ConversationStateV2:
+    sidecar = governed.get("analytical_contract")
+    if sidecar:
+        try:
+            contract = (
+                sidecar
+                if isinstance(sidecar, AnalyticalResponseV2)
+                else AnalyticalResponseV2.model_validate_json(
+                    json.dumps(sidecar, default=str)
+                )
+            )
+            intent = contract.intent
+            return ConversationStateV2(
+                context_epoch=started.context_epoch,
+                context_version=started.base_context_version,
+                active_metric_refs=intent.metric_refs,
+                active_dimension_refs=intent.dimension_refs,
+                active_filters=intent.filters,
+                active_time_windows=intent.time_windows,
+                active_comparison=intent.comparison,
+                active_visualizations=intent.requested_visualizations,
+                last_intent_kind=intent.intent_kind,
+                last_readiness=intent.readiness,
+                last_plan_fingerprint=_fingerprint_json(governed.get("plano_execucao") or {}),
+                last_response_fingerprint=_fingerprint_json({
+                    "query_id": governed.get("query_id"),
+                    "status": governed.get("status"),
+                    "view_name": governed.get("view_name"),
+                }),
+                pending_clarification=bool(governed.get("ambiguities") or governed.get("missing_information")),
+                field_origins=intent.field_origins,
+            )
+        except (ValueError, TypeError):
+            logger.warning(
+                "[CONVERSATION] Sidecar analitico invalido para snapshot; usando estado minimo",
+                extra={"session_id": started.public_session_id},
+            )
+    return ConversationStateV2(
+        context_epoch=started.context_epoch,
+        context_version=started.base_context_version,
+        last_response_fingerprint=_fingerprint_json({
+            "query_id": governed.get("query_id"),
+            "status": governed.get("status"),
+            "view_name": governed.get("view_name"),
+        }),
+        pending_clarification=bool(governed.get("ambiguities") or governed.get("missing_information")),
+    )
+
+
+async def _complete_conversation_turn(
+    governed: dict[str, Any],
+    *,
+    started: StartedTurn | None,
+    current_user: User,
+) -> dict[str, Any]:
+    if started is None:
+        return governed
+    response_text = str(
+        governed.get("resposta_direta")
+        or governed.get("mensagem")
+        or governed.get("ia_analise")
+        or "Resposta analitica concluida."
+    )
+    try:
+        completed = await conversation_state_service.complete_turn(
+            tenant_id=current_user.tenant_id,
+            user_id=current_user.id,
+            completion=ConversationTurnCompletion(
+                session_id=started.session_id,
+                query_node_id=started.query_node_id,
+                base_context_version=started.base_context_version,
+                response_content=response_text[:12000],
+                state=_state_from_governed_response(governed, started=started),
+                response_fingerprint=_fingerprint_json({
+                    "query_id": governed.get("query_id"),
+                    "status": governed.get("status"),
+                }),
+            ),
+        )
+    except ConversationStateError as exc:
+        if conversation_state_service.postgres_is_authority:
+            raise _conversation_http_error(exc)
+        governed["conversation_warning"] = exc.code
+        return governed
+    governed.update({
+        "session_id": completed.public_session_id,
+        "query_node_id": completed.query_node_id,
+        "response_node_id": completed.response_node_id,
+        "parent_id": completed.parent_node_id,
+        "context_version": completed.context_version,
+        "context_epoch": completed.context_epoch,
+        "conversation_status": "ACTIVE",
+        "idempotent_replay": completed.idempotent_replay,
+    })
+    return governed
+
+
+async def _fail_conversation_turn(
+    *,
+    started: StartedTurn | None,
+    current_user: User,
+) -> None:
+    if started is None:
+        return
+    try:
+        await conversation_state_service.fail_turn(
+            tenant_id=current_user.tenant_id,
+            user_id=current_user.id,
+            failure=ConversationTurnFailure(
+                session_id=started.session_id,
+                query_node_id=started.query_node_id,
+                base_context_version=started.base_context_version,
+                error_code="PIPELINE_FAILED",
+                safe_message="A consulta falhou antes de concluir a resposta.",
+            ),
+        )
+    except Exception:
+        logger.exception("[CONVERSATION] Falha ao registrar turno incompleto")
 
 # ── Mock Data Generator ───────────────────────────────────────
 from services.mock_service import gerar_dados_mock_oracle
@@ -302,6 +455,63 @@ async def processar_consulta(
         "Use esta data como ponto de partida para calcular datas relativas como 'primeiro semestre', 'esse ano', 'mes passado', etc."
     )
 
+    conversation_turn: StartedTurn | None = None
+    conversation_server_state: ConversationStateV2 | None = None
+    if conversation_state_service.postgres_writes_enabled:
+        try:
+            parent_uuid = None
+            if payload.parent_id:
+                try:
+                    parent_uuid = uuid.UUID(str(payload.parent_id))
+                except ValueError:
+                    parent_uuid = None
+            conversation_turn = await conversation_state_service.start_turn(
+                tenant_id=current_user.tenant_id,
+                user_id=current_user.id,
+                turn=ConversationTurnStart(
+                    public_session_id=payload.session_id,
+                    client_message_id=payload.client_message_id or uuid.uuid4(),
+                    parent_node_id=parent_uuid,
+                    expected_context_version=payload.expected_context_version,
+                    content=payload.pergunta,
+                ),
+            )
+            if conversation_state_service.postgres_is_authority:
+                _, conversation_server_state = await conversation_state_service.load_state(
+                    tenant_id=current_user.tenant_id,
+                    user_id=current_user.id,
+                    public_session_id=conversation_turn.public_session_id,
+                )
+        except (ConversationStateError, ValueError) as exc:
+            if isinstance(exc, ConversationStateError):
+                if conversation_state_service.postgres_is_authority:
+                    raise _conversation_http_error(exc)
+                logger.warning("[CONVERSATION] Shadow write ignorado: %s", exc.code)
+                conversation_turn = None
+            elif conversation_state_service.postgres_is_authority:
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail={"code": "INVALID_CONVERSATION_REQUEST", "message": str(exc)},
+                ) from exc
+            else:
+                logger.warning("[CONVERSATION] Shadow request invalido; legado preservado")
+                conversation_turn = None
+        if conversation_turn.idempotent_replay and conversation_turn.response_node_id:
+            return QueryResponse(
+                query_id=conversation_turn.response_node_id,
+                pergunta_original=payload.pergunta,
+                mensagem="Esta mensagem ja foi processada. A referencia da resposta existente foi retornada.",
+                status="IDEMPOTENT_REPLAY",
+                session_id=conversation_turn.public_session_id,
+                query_node_id=conversation_turn.query_node_id,
+                response_node_id=conversation_turn.response_node_id,
+                parent_id=conversation_turn.parent_node_id,
+                context_version=conversation_turn.base_context_version,
+                context_epoch=conversation_turn.context_epoch,
+                conversation_status="ACTIVE",
+                idempotent_replay=True,
+            )
+
     # ── 4. Strangler Pattern: Desvio controlado para o Novo Pipeline ─────────
     import os as _os
     _is_testing = "PYTEST_CURRENT_TEST" in _os.environ
@@ -317,37 +527,58 @@ async def processar_consulta(
         if payload.history:
             history_list = [{"role": h.role, "content": h.content} for h in payload.history]
             
-        res_dict = await new_query_orchestrator.run_pipeline(
-            pergunta=payload.pergunta,
-            tenant_id=str(payload.tenant_id),
-            session_id=payload.session_id,
-            history=history_list,
-            parent_id=getattr(payload, "parent_id", None),
-            mode=payload.mode,
-        )
+        try:
+            res_dict = await new_query_orchestrator.run_pipeline(
+                pergunta=payload.pergunta,
+                tenant_id=str(payload.tenant_id),
+                session_id=(
+                    conversation_turn.public_session_id
+                    if conversation_turn and conversation_state_service.postgres_is_authority
+                    else payload.session_id
+                ),
+                history=history_list,
+                parent_id=getattr(payload, "parent_id", None),
+                mode=payload.mode,
+                conversation_state=conversation_server_state,
+                postgres_conversation_authority=conversation_state_service.postgres_is_authority,
+            )
+        except Exception:
+            await _fail_conversation_turn(started=conversation_turn, current_user=current_user)
+            raise
         
         governed = await query_response_governance.enrich(
             res_dict,
             db=db,
             tenant=tenant,
             current_user=current_user,
+            pipeline=PipelineKind.NEW,
+            session_id=payload.session_id,
+        )
+        governed = await _complete_conversation_turn(
+            governed,
+            started=conversation_turn,
+            current_user=current_user,
         )
         return QueryResponse.model_validate(governed)
 
     # ── 4. Delegar execução para o pipeline legado da Query Intelligence Engine ─────
-    legacy_response = await query_intelligence_engine.process_query(
-        payload=payload,
-        current_user=current_user,
-        db=db,
-        background_tasks=background_tasks,
-        instrucoes_finais=instrucoes_finais,
-        ia_api_key=ia_api_key,
-        ia_model=ia_model,
-        ia_temp=ia_temp,
-        catalog_summaries=catalog_summaries,
-        tenant=tenant,
-        intent_identifier=identify_intention,
-    )
+    try:
+        legacy_response = await query_intelligence_engine.process_query(
+            payload=payload,
+            current_user=current_user,
+            db=db,
+            background_tasks=background_tasks,
+            instrucoes_finais=instrucoes_finais,
+            ia_api_key=ia_api_key,
+            ia_model=ia_model,
+            ia_temp=ia_temp,
+            catalog_summaries=catalog_summaries,
+            tenant=tenant,
+            intent_identifier=identify_intention,
+        )
+    except Exception:
+        await _fail_conversation_turn(started=conversation_turn, current_user=current_user)
+        raise
     legacy_payload = (
         legacy_response.model_dump(mode="json")
         if hasattr(legacy_response, "model_dump")
@@ -357,6 +588,13 @@ async def processar_consulta(
         legacy_payload,
         db=db,
         tenant=tenant,
+        current_user=current_user,
+        pipeline=PipelineKind.LEGACY,
+        session_id=payload.session_id,
+    )
+    governed = await _complete_conversation_turn(
+        governed,
+        started=conversation_turn,
         current_user=current_user,
     )
     return QueryResponse.model_validate(governed)

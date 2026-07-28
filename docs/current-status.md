@@ -1,16 +1,27 @@
 # Estado Atual Do Sistema
 
-Data da atualizacao: 2026-07-22
+Data da atualizacao: 2026-07-28
 
-Este documento resume o estado atual do LuminaAI apos as correcoes recentes de perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao, preferencias de dashboard, auto-cura do catalogo, produtos/estoque, financeiro, suporte a anos isolados e suites de teste massivo.
+Este documento resume o estado atual do LuminaAI apos as correcoes recentes de
+perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao,
+preferencias de dashboard, auto-cura do catalogo, produtos/estoque, financeiro,
+contratos analiticos V2, normalizacao temporal, planner/executor/renderer
+comparativos e estado conversacional PostgreSQL.
 
 ## Resumo Executivo
 
 O sistema permanece estruturado como uma plataforma Enterprise de BI com IA, backend FastAPI, frontend Next.js, Data Platform, catalogos, runtime de dashboards e governanca multi-tenant.
 
-A certificacao completa de 2026-07-09 continua registrada como baseline historico. Em 2026-07-17, 2026-07-18, 2026-07-20, 2026-07-21 e 2026-07-22 foram feitas validacoes incrementais e suites de estresse focadas nas falhas reportadas pelo usuario e nas alteracoes recentes do codigo.
+A certificacao de 2026-07-09 permanece como historico. O baseline vigente de
+2026-07-28 cobre a suite backend integral, contratos V2, PostgreSQL descartavel,
+frontend e Playwright; consulte `docs/audit/TEST_BASELINE.md`.
 
 ## Correcoes Recentes Validadas
+
+- O estado `lumina.conversation-state/1.0` possui sessoes, nodes, snapshots,
+  eventos, idempotencia e CAS no PostgreSQL, com owner tenant+usuario,
+  retention, importacao governada e integracao frontend. Producao permanece
+  `LEGACY_ONLY` ate migration e rollout operacionais aprovados.
 
 - A IA consulta exclusivamente o PostgreSQL analitico sincronizado. Oracle nao faz parte do caminho de perguntas; e usado apenas pela sincronizacao e reconciliacao tecnica.
 - Respostas exibem a ultima atualizacao real e validam matematicamente totais, filiais, transferencias e rankings antes da entrega.
@@ -21,7 +32,16 @@ A certificacao completa de 2026-07-09 continua registrada como baseline historic
 - Consultas deterministicas ampliadas para **Produtos mais vendidos**, **Estoque por produto** e **Financeiro / Titulos em aberto** com retorno de dados brutos populando `sample_rows` para a Tabela Detalhada com Colunas.
 - Auto-cura semantica no `Canonicalizer` para entidades desconhecidas (`Produto`, `Financeiro`, `Venda`, `Vendedor`, `Cliente`, `Cidade`, `Estado`, `Categoria`).
 - Auto-cura graciosa de filtros desconhecidos com descarte seguro em log em vez de erro `UNSUPPORTED`.
-- Parser de periodo (`_month_range_from_text`) expandido para anos isolados de 4 digitos (`no ano de 2026`, `em 2026`, `2026`), retornando o intervalo `YYYY-01-01` a `YYYY-12-31`.
+- O normalizador deterministico `lumina.temporal.pt-BR/1.0` centraliza periodos absolutos, relativos, moveis, fechados, acumulados e fiscais. Ele distingue intervalo, lista e comparacao, usa relogio/timezone injetaveis e entrega janelas canonicas aos contratos V2; `_month_range_from_text` permanece apenas como adaptador legado.
+- O planner deterministico `lumina.comparison-planner/1.0` transforma
+  comparacoes normalizadas em `QueryPlanV2`, preservando N operandos, ordem,
+  filtros especificos, baseline, alinhamento e limites. Ele nao executa SQL,
+  nao consulta banco/Oracle/OpenAI e nao calcula valores.
+- O executor deterministico `lumina.comparison-executor/1.0` consome planos
+  comparativos `READY`, compila consultas PostgreSQL por catalogo e binds,
+  executa todos os operandos, alinha IDs canonicos e calcula com `Decimal`.
+  Ele produz validacao e proveniencia, bloqueia fonte sem isolamento de tenant
+  e permanece desligado por feature flag ate rollout controlado.
 - Tolerancia a typos e erros de grafia no chat (`mais vendidoa`, `mais vendida`, `top produtos`).
 - Perguntas criticas de vendas ganharam caminho deterministico no `NewQueryOrchestrator` quando ha periodo explicito ou periodo herdado da conversa.
 - Perguntas com a mesma fonte/metrica mas saida diferente sao separadas por intencao: `maior/top` retorna uma linha; `ranking/lista/todos/por vendedor` retorna tabela ordenada.
@@ -77,6 +97,7 @@ As seguintes familias de perguntas devem ser tratadas como superficie critica de
 
 | Validacao | Resultado |
 | --- | --- |
+| Executor universal em 2026-07-28 | 233 testes dedicados aprovados; 454 testes integrados de contratos, temporal, planner e executor; schemas deterministas; AST 356; ESLint, TypeScript, build e Playwright 16/16 aprovados. |
 | Mineracao e estresse massivo em 2026-07-22 | OK; 164 cenarios de perguntas analiticas e interacoes multi-turn executados sem falhas (0 falhas). Cobriu produtos mais vendidos, estoque, financeiro, anos isolados de 4 digitos (`no ano de 2026`), auto-cura do catalogo e descarte gracioso de filtros. |
 | Governanca, rastreabilidade e perfis em 2026-07-21 | OK; 49 testes focados, `py_compile`, build Next.js, TypeScript e lint dos arquivos alterados. Consulta real retornou fonte PostgreSQL, 4 checks aprovados e 500 documentos detalhados. |
 | `python -m py_compile` em orquestrador, transformer e modulo `sales_value_breakdown` | OK em 2026-07-18 |
@@ -107,6 +128,12 @@ As seguintes familias de perguntas devem ser tratadas como superficie critica de
 | Backend temporario usado no teste | Encerrado apos a validacao |
 
 ## Observacoes De Escopo
+
+Em 2026-07-28 foi adicionada a apresentacao comparativa
+`lumina.comparison-presentation/1.0`: adapter V2/V1, cards, tabela, ECharts,
+actual versus target, estados explicitos, Trust Center, CSV, RBAC,
+acessibilidade, responsividade, feature flags e shadow mode. O rollout fica
+desligado por padrao e nenhum calculo financeiro e refeito no frontend.
 
 - Mes corrente e uma janela viva: se o ERP receber vendas durante a reconciliacao, o clone pode ficar alguns pedidos atras mesmo apos sync. Para auditoria final de numero exato, prefira mes fechado, dia fechado ou sync imediatamente antes da consulta final.
 - Transferencias (`tp_` 3, 31 e 96, ou descricao de transferencia) aparecem separadas, mas nao entram em faturamento, lucro ou total bruto sem transferencias.

@@ -1,5 +1,11 @@
 # LuminaAI Backend
 
+## Conversation State V2
+
+O modulo `services/conversation_state/` implementa
+`lumina.conversation-state/1.0`. O default e `LEGACY_ONLY`; migration v12 e
+rollout produtivo exigem operacao explicita.
+
 Backend FastAPI responsavel por autenticacao, autorizacao, IA, planner/validator, Business Layer, Data Platform, execucao de dados, catalogos, sync, dashboard runtime e APIs administrativas.
 
 ## Estrutura
@@ -11,6 +17,9 @@ Backend FastAPI responsavel por autenticacao, autorizacao, IA, planner/validator
 - `schemas/`: DTOs Pydantic.
 - `models/`: modelos SQLAlchemy.
 - `services/`: regras, IA, Data Platform, sync, cache e seguranca.
+- `services/comparison_planning/`: planejamento comparativo V2 sem dados.
+- `services/comparison_execution/`: compilacao governada, execucao,
+  alinhamento, matematica, validacao e adapters comparativos.
 - `database/`: SQL inicial e migrations.
 - `tests/`: suite pytest.
 
@@ -30,7 +39,9 @@ Para uso normal no Windows, prefira iniciar pela raiz do projeto:
 ## Testes
 
 ```powershell
-.\.venv\Scripts\python.exe -m pytest -q
+docker compose -f ..\docker-compose.test.yml up -d --wait
+..\scripts\run-backend-tests-safe.ps1 --selection all -q
+docker compose -f ..\docker-compose.test.yml down -v
 ```
 
 ## Variaveis Principais
@@ -45,3 +56,7 @@ Veja `.env.example`. Variaveis obrigatorias incluem `DATABASE_URL`, `SECRET_KEY`
 - Perguntas criticas de vendas possuem caminho deterministico em `services/new_query_orchestrator.py`.
 - `services/sales_value_breakdown.py` centraliza faturamento comercial, movimentos nao comerciais e abertura por filial para perguntas criticas.
 - `services/data_transformer.py` humaniza labels tecnicos e formata campos financeiros para exibicao.
+- Comparacoes V2 usam `lumina.comparison-executor/1.0`; Oracle e OpenAI nao
+  participam da execucao nem da matematica.
+- `COMPARISON_EXECUTOR_V2_ENABLED` e
+  `COMPARISON_EXECUTOR_V2_SHADOW_MODE` iniciam desligadas.

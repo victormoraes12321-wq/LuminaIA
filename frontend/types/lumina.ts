@@ -6,6 +6,212 @@
 // ── Chart Types ───────────────────────────────────────────────
 
 export type ChartType = 'BAR' | 'LINE' | 'PIE' | 'TABLE' | 'KPI' | 'AREA' | 'SCATTER' | 'HEATMAP' | 'TREEMAP' | 'FUNNEL'
+export type JsonPrimitive = string | number | boolean | null
+export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue }
+
+export type AnalyticalIntentKind =
+  | 'METRIC' | 'RANKING' | 'BREAKDOWN' | 'COMPARISON' | 'DETAIL'
+  | 'METADATA' | 'FOLLOW_UP' | 'CLARIFICATION' | 'OUT_OF_SCOPE'
+export type AnalyticalReadiness =
+  | 'READY' | 'CLARIFICATION_REQUIRED' | 'OUT_OF_SCOPE'
+  | 'UNSUPPORTED' | 'BLOCKED' | 'ERROR'
+export type AnalyticalFieldOrigin =
+  | 'EXPLICIT_USER' | 'INHERITED_CONVERSATION' | 'USER_PREFERENCE'
+  | 'TENANT_KNOWLEDGE' | 'DETERMINISTIC_DEFAULT' | 'LLM_INFERENCE'
+  | 'LEGACY_ADAPTER' | 'SYSTEM_GENERATED'
+export type AnalyticalVisualizationKind =
+  | 'KPI_CARD' | 'SUMMARY_CARD' | 'DATA_TABLE' | 'BAR_CHART'
+  | 'LINE_CHART' | 'AREA_CHART' | 'PIE_CHART' | 'DONUT_CHART'
+  | 'SCATTER_CHART' | 'HEATMAP' | 'TREEMAP' | 'FUNNEL' | 'INSIGHTS_LIST'
+export type AnalyticalValidationStatus = 'PASSED' | 'FAILED' | 'WARNING' | 'NOT_EXECUTED'
+
+export interface AnalyticalTemporalMetadata {
+  normalizer_version: string
+  timezone: string
+  relation: 'NONE' | 'SINGLE' | 'RANGE' | 'PERIOD_LIST' | 'COMPARISON'
+  rule_ids: string[]
+  warnings: string[]
+  readiness: AnalyticalReadiness
+}
+
+export interface AnalyticalComparisonPlannerMetadata {
+  planner_version: string
+  kind: AnalyticalComparison['kind']
+  operand_count: number
+  metric_count: number
+  dimension_count: number
+  complexity: 'LOW' | 'MEDIUM' | 'HIGH' | 'REJECTED'
+  complexity_score: number
+  readiness: AnalyticalReadiness
+  issue_codes: string[]
+  strategy_hint:
+    | 'SINGLE_AGGREGATION' | 'CONDITIONAL_AGGREGATION' | 'MULTI_QUERY'
+    | 'GROUPED_SERIES' | 'PIVOT' | 'TARGET_JOIN'
+    | 'LEGACY_COMPATIBILITY' | 'UNDECIDED'
+  rule_ids: string[]
+  cache_identity: string
+}
+
+export interface AnalyticalAlignedDatasetSummary {
+  dataset_id: string
+  metric_id: string
+  alignment_keys: string[]
+  series: string[]
+  row_count: number
+  truncated: boolean
+  missing_bucket_count: number
+  null_bucket_count: number
+  alignment_policy: string
+}
+
+export interface AnalyticalComparisonExecutorMetadata {
+  executor_version: 'lumina.comparison-executor/1.0'
+  strategy:
+    | 'SINGLE_AGGREGATION' | 'CONDITIONAL_AGGREGATION' | 'MULTI_QUERY'
+    | 'GROUPED_SERIES' | 'PIVOT' | 'TARGET_JOIN' | 'LEGACY_COMPATIBILITY'
+  cache_status: 'HIT' | 'MISS' | 'BYPASS'
+  partial: boolean
+  aligned_datasets: AnalyticalAlignedDatasetSummary[]
+  calculation_count: number
+  zero_denominator_count: number
+  not_applicable_count: number
+  validation_status: AnalyticalValidationStatus
+  provenance_count: number
+}
+
+export interface AnalyticalContractMetadata {
+  schema_name: 'lumina.analytics'
+  schema_version: '2.0'
+  created_at: string
+  request_id: string | null
+  trace_id: string | null
+  pipeline: 'NEW' | 'LEGACY'
+  adapter_used: string | null
+  extensions: Record<string, JsonValue> & {
+    temporal?: AnalyticalTemporalMetadata
+    comparison_planner?: AnalyticalComparisonPlannerMetadata
+    comparison_executor?: AnalyticalComparisonExecutorMetadata
+  }
+}
+
+export interface AnalyticalConfidence {
+  level: 'HIGH' | 'MEDIUM' | 'LOW' | 'UNKNOWN'
+  score: string | number
+  reasons: string[]
+  requires_confirmation: boolean
+}
+
+export interface AnalyticalTimeWindow {
+  window_id: string
+  label: string
+  start: string
+  end: string
+  end_inclusive: boolean
+  granularity: 'DAY' | 'WEEK' | 'MONTH' | 'QUARTER' | 'SEMESTER' | 'YEAR' | 'CUSTOM'
+  timezone: string
+  origin: AnalyticalFieldOrigin
+  confidence: AnalyticalConfidence
+  raw_expression: string | null
+}
+
+export interface AnalyticalMetricReference {
+  metric_id: string
+  metric_version: string
+  display_name: string
+  unit: string
+  aggregation: string
+  origin: AnalyticalFieldOrigin
+  confidence: AnalyticalConfidence
+}
+
+export interface AnalyticalVisualization {
+  visualization_id: string
+  kind: AnalyticalVisualizationKind
+  title: string
+  metric_ids: string[]
+  dimension_ids: string[]
+  data_reference: string
+  priority: number
+  is_primary: boolean
+  origin: AnalyticalFieldOrigin
+  options: Record<string, JsonValue>
+}
+
+export interface AnalyticalComparisonOperand {
+  operand_id: string
+  label: string
+  metric_refs: AnalyticalMetricReference[]
+  time_windows: AnalyticalTimeWindow[]
+  filters: JsonValue[]
+  entity_refs: JsonValue[]
+  origin: AnalyticalFieldOrigin
+}
+
+export interface AnalyticalComparison {
+  comparison_id: string
+  kind: 'PERIOD_VS_PERIOD' | 'ENTITY_VS_ENTITY' | 'METRIC_VS_METRIC' | 'ACTUAL_VS_TARGET' | 'MULTI_PERIOD' | 'MULTI_ENTITY'
+  operands: AnalyticalComparisonOperand[]
+  calculations: Array<'VALUE' | 'ABSOLUTE_DIFFERENCE' | 'PERCENTAGE_DIFFERENCE' | 'DIRECTION' | 'SHARE' | 'RANK'>
+  baseline_operand_id: string | null
+  alignment_dimensions: string[]
+  requested_sort: string | null
+  origin: AnalyticalFieldOrigin
+  confidence: AnalyticalConfidence
+}
+
+export interface AnalyticalIntentV2 {
+  contract: AnalyticalContractMetadata
+  intent_kind: AnalyticalIntentKind
+  readiness: AnalyticalReadiness
+  raw_question: string
+  normalized_question: string
+  metric_refs: AnalyticalMetricReference[]
+  dimension_refs: JsonValue[]
+  filters: JsonValue[]
+  time_windows: AnalyticalTimeWindow[]
+  comparison: AnalyticalComparison | null
+  requested_visualizations: AnalyticalVisualization[]
+  confidence: AnalyticalConfidence
+  clarification: JsonValue
+  out_of_scope_reason: string | null
+  field_origins: Record<string, AnalyticalFieldOrigin>
+}
+
+export interface AnalyticalDatasetV2 {
+  dataset_id: string
+  columns: JsonValue[]
+  rows: Array<Record<string, JsonValue>>
+  row_count: number
+  truncated: boolean
+  numeric_metadata: Record<string, string | number>
+  data_classification: 'PUBLIC' | 'INTERNAL' | 'CONFIDENTIAL' | 'RESTRICTED'
+}
+
+export interface AnalyticalResponseV2 {
+  contract: AnalyticalContractMetadata
+  scope_summary: {
+    tenant_id: string
+    user_role: string
+    session_id: string | null
+  }
+  intent: AnalyticalIntentV2
+  plan_summary: JsonValue
+  datasets: AnalyticalDatasetV2[]
+  visualizations: AnalyticalVisualization[]
+  provenance: JsonValue[]
+  validation: {
+    status: AnalyticalValidationStatus
+    checks: JsonValue[]
+    validated_at: string | null
+    validator_version: string
+  }
+  summary: string | null
+  insights: string[]
+  warnings: string[]
+  errors: JsonValue[]
+  clarification: JsonValue
+  legacy_compatibility: JsonValue
+}
 
 // ── API Request ────────────────────────────────────────────────
 
@@ -23,6 +229,10 @@ export interface QueryRequest {
   pergunta: string
   tenant_id: string
   mode?: QueryMode
+  session_id?: string
+  parent_id?: string | null
+  client_message_id?: string
+  expected_context_version?: number
 }
 
 // ── Chart Data Structures (espelhando o backend Python) ────────
@@ -212,11 +422,21 @@ export interface VisualizationItem {
 export interface QueryResponse {
   query_id: string
   request_id?: string | null
+  session_id?: string | null
+  query_node_id?: string | null
+  response_node_id?: string | null
+  parent_id?: string | null
+  context_version?: number | null
+  context_epoch?: number | null
+  conversation_status?: 'ACTIVE' | 'ARCHIVED' | 'EXPIRED' | 'DELETED' | null
+  idempotent_replay?: boolean
+  conversation_warning?: string | null
   view_catalog_id: string | null
   view_name: string | null
   chart_type: ChartType | null
   chart_data: AnyChartData | null
   visualizations: VisualizationItem[] | null
+  analytical_contract?: AnalyticalResponseV2 | null
   bi_intelligence?: BIIntelligence | null
   parametros_extraidos: Record<string, string>
   ia_confianca: number | null

@@ -354,3 +354,28 @@ class ConversationGraphManager:
         return None
 
 conversation_graph_manager = ConversationGraphManager()
+
+
+class StatelessConversationGraphAdapter:
+    """Compatibility surface used while PostgreSQL is the conversation authority."""
+
+    def __init__(self) -> None:
+        self.graph = ConversationGraph(nodes={}, current_node_id=None)
+
+    def get_graph(self, session_id: str) -> ConversationGraph:
+        return self.graph
+
+    def save_graph(self, session_id: str, graph: ConversationGraph) -> None:
+        self.graph = graph
+
+    def add_node(self, session_id: str, node: ConversationNode) -> None:
+        return None
+
+    def try_visual_only_update(self, **kwargs) -> None:
+        return None
+
+    def try_local_drilldown(self, **kwargs) -> None:
+        return None
+
+    def try_dataset_reuse(self, *args, **kwargs) -> None:
+        return None

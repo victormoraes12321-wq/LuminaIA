@@ -35,8 +35,16 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.pool import NullPool
 
 from config import settings
+
+if settings.is_testing:
+    from testing.database_guard import validate_test_database_environment
+
+    _test_target = validate_test_database_environment()
+    if settings.DATABASE_URL != settings.TEST_DATABASE_URL:
+        raise RuntimeError("Configuracao de teste recusada: engine fora de TEST_DATABASE_URL.")
 
 logger = logging.getLogger(__name__)
 
@@ -44,15 +52,23 @@ logger = logging.getLogger(__name__)
 # ── Engine Assíncrono ──────────────────────────────────────────
 # pool_pre_ping=True: SQLAlchemy verifica se a conexão está viva antes de
 # reutilizá-la do pool, evitando erros após períodos de inatividade.
-engine: AsyncEngine = create_async_engine(
-    settings.DATABASE_URL,
-    echo=settings.DB_ECHO,
-    pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW,
-    pool_timeout=settings.DB_POOL_TIMEOUT,
-    pool_recycle=settings.DB_POOL_RECYCLE,
-    pool_pre_ping=True,
-)
+_engine_options: dict[str, object] = {
+    "echo": settings.DB_ECHO,
+    "pool_pre_ping": True,
+}
+if settings.is_testing:
+    _engine_options["poolclass"] = NullPool
+else:
+    _engine_options.update(
+        {
+            "pool_size": settings.DB_POOL_SIZE,
+            "max_overflow": settings.DB_MAX_OVERFLOW,
+            "pool_timeout": settings.DB_POOL_TIMEOUT,
+            "pool_recycle": settings.DB_POOL_RECYCLE,
+        }
+    )
+
+engine: AsyncEngine = create_async_engine(settings.DATABASE_URL, **_engine_options)
 
 
 # ── Factory de Sessões Assíncronas ─────────────────────────────

@@ -23,6 +23,7 @@ import { Sidebar } from '@/components/Sidebar'
 import { useAuth } from '@/context/AuthContext'
 import { getApiBase } from '@/lib/utils'
 import { DynamicRenderer } from '@/components/DynamicRenderer'
+import type { ChartType } from '@/types/lumina'
 
 interface TraceItem {
   trace_id: string
@@ -33,11 +34,78 @@ interface TraceItem {
   created_at: number
 }
 
+type InspectorTab = 'visual' | 'nlu' | 'planning' | 'sql' | 'dataset' | 'transformer' | 'explanation'
+
+interface CanonicalizationTraceItem {
+  semantic_term: string
+  type: string
+  canonical_name: string
+  confidence: string | number
+  source: string
+}
+
+interface JoinTraceItem {
+  left_table: string
+  left_column: string
+  right_table: string
+  right_column: string
+}
+
+interface TraceDetail {
+  trace_id?: string
+  pergunta?: string
+  execution_time_ms?: number
+  chart_type?: ChartType | null
+  semantic_plan?: {
+    goal?: string
+    intent?: string
+    limit?: number
+    entities?: string[]
+    metrics?: string[]
+    dimensions?: string[]
+    [key: string]: unknown
+  }
+  canonical_plan?: {
+    status?: string
+    suggested_visualization?: string
+    canonicalization_trace?: CanonicalizationTraceItem[]
+    [key: string]: unknown
+  }
+  execution_plan?: {
+    selected_views?: string[]
+    resolution_justification?: unknown
+    [key: string]: unknown
+  }
+  joins?: JoinTraceItem[]
+  sql?: {
+    raw_sql?: string
+    parameters?: Record<string, unknown>
+  }
+  sample_rows?: Record<string, unknown>[]
+  transformer?: {
+    output?: Record<string, unknown>
+  }
+  chart?: {
+    type?: ChartType | null
+    data?: Record<string, unknown>
+  }
+  llm_prompt?: string
+  llm_response?: string
+}
+
+interface ReplayResponse extends Partial<TraceDetail> {
+  status?: string
+  detail?: {
+    error?: string
+    traceback?: string
+  } | string
+}
+
 export default function InspectorPage() {
-  const { loading: authLoading, user } = useAuth()
+  const { loading: authLoading } = useAuth()
   const [traces, setTraces] = useState<TraceItem[]>([])
   const [selectedTraceId, setSelectedTraceId] = useState<string | null>(null)
-  const [traceDetail, setTraceDetail] = useState<any | null>(null)
+  const [traceDetail, setTraceDetail] = useState<TraceDetail | null>(null)
   const [loadingTraces, setLoadingTraces] = useState(false)
   const [loadingDetail, setLoadingDetail] = useState(false)
   
@@ -49,7 +117,7 @@ export default function InspectorPage() {
   const [replaySuccess, setReplaySuccess] = useState(false)
   
   // Abas de detalhes do inspector
-  const [activeTab, setActiveTab] = useState<'visual' | 'nlu' | 'planning' | 'sql' | 'dataset' | 'transformer' | 'explanation'>('visual')
+  const [activeTab, setActiveTab] = useState<InspectorTab>('visual')
   const [showJsonInspector, setShowJsonInspector] = useState<string | null>(null)
 
   // Carrega lista de traces
@@ -58,7 +126,7 @@ export default function InspectorPage() {
     try {
       const res = await fetch(`${getApiBase()}/api/v1/query/inspector/traces`)
       if (res.ok) {
-        const data = await res.json()
+        const data = await res.json() as TraceItem[]
         setTraces(data)
       }
     } catch (e) {
@@ -77,7 +145,7 @@ export default function InspectorPage() {
     try {
       const res = await fetch(`${getApiBase()}/api/v1/query/inspector/trace/${id}`)
       if (res.ok) {
-        const data = await res.json()
+        const data = await res.json() as TraceDetail
         setTraceDetail(data)
       }
     } catch (e) {
@@ -104,34 +172,38 @@ export default function InspectorPage() {
         })
       })
       
-      const result = await res.json()
+      const result = await res.json() as ReplayResponse
       if (res.ok && result.status === 'SUCCESS') {
         setReplaySuccess(true)
         // Atualiza a tela mesclando os novos dados de replay no detalhe do trace atual
-        setTraceDetail((prev: any) => ({
+        setTraceDetail((prev) => ({
           ...prev,
-          semantic_plan: result.semantic_plan || prev.semantic_plan,
-          canonical_plan: result.canonical_plan || prev.canonical_plan,
-          execution_plan: result.execution_plan || prev.execution_plan,
-          sql: result.sql || prev.sql,
-          sample_rows: result.sample_rows || prev.sample_rows,
-          transformer: result.transformer || prev.transformer,
-          execution_time_ms: result.execution_time_ms || prev.execution_time_ms
+          semantic_plan: result.semantic_plan || prev?.semantic_plan,
+          canonical_plan: result.canonical_plan || prev?.canonical_plan,
+          execution_plan: result.execution_plan || prev?.execution_plan,
+          sql: result.sql || prev?.sql,
+          sample_rows: result.sample_rows || prev?.sample_rows,
+          transformer: result.transformer || prev?.transformer,
+          execution_time_ms: result.execution_time_ms || prev?.execution_time_ms
         }))
       } else {
-        const errMsg = result.detail?.error || result.detail || "Erro desconhecido no Replay"
-        const errTb = result.detail?.traceback || ""
+        const detail = typeof result.detail === 'object' ? result.detail : null
+        const errMsg = detail?.error || result.detail || "Erro desconhecido no Replay"
+        const errTb = detail?.traceback || ""
         setReplayError(`${errMsg}\n${errTb}`)
       }
-    } catch (e: any) {
-      setReplayError(e.message || "Erro de rede no Replay")
+    } catch (error: unknown) {
+      setReplayError(error instanceof Error ? error.message : "Erro de rede no Replay")
     } finally {
       setReplayLoading(false)
     }
   }
 
   useEffect(() => {
-    fetchTraces()
+    const timer = window.setTimeout(() => {
+      void fetchTraces()
+    }, 0)
+    return () => window.clearTimeout(timer)
   }, [])
 
   if (authLoading) {
@@ -248,7 +320,7 @@ export default function InspectorPage() {
                       )}
                     </div>
                     <h1 className="text-base font-bold text-zinc-800 dark:text-zinc-100">
-                      "{traceDetail.pergunta}"
+                      &quot;{traceDetail.pergunta}&quot;
                     </h1>
                   </div>
                   
@@ -308,7 +380,7 @@ export default function InspectorPage() {
 
                 {/* Abas */}
                 <div className="flex gap-1 border-b border-zinc-200/30 dark:border-zinc-800/30 pt-1">
-                  {[
+                  {([
                     { id: 'visual', label: 'Dashboard', icon: Layout },
                     { id: 'nlu', label: 'Semantic & Canonical', icon: Sparkles },
                     { id: 'planning', label: 'Joins & Views', icon: Layers },
@@ -316,12 +388,12 @@ export default function InspectorPage() {
                     { id: 'dataset', label: 'Resultado Banco', icon: Table },
                     { id: 'transformer', label: 'Transformer', icon: Cpu },
                     { id: 'explanation', label: 'Explicação IA', icon: FileText }
-                  ].map(tab => {
+                  ] as const).map(tab => {
                     const Icon = tab.icon
                     return (
                       <button
                         key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
+                        onClick={() => setActiveTab(tab.id)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-t-lg transition-all border-b-2 ${
                           activeTab === tab.id
                             ? 'border-lumina-500 text-lumina-400 bg-lumina-500/5'
@@ -500,11 +572,11 @@ export default function InspectorPage() {
                                 <span className="text-zinc-400 font-bold block mb-2">Histórico de Mapeamento (Aliases):</span>
                                 <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-1">
                                   {traceDetail.canonical_plan.canonicalization_trace && traceDetail.canonical_plan.canonicalization_trace.length > 0 ? (
-                                    traceDetail.canonical_plan.canonicalization_trace.map((item: any, idx: number) => (
+                                    traceDetail.canonical_plan.canonicalization_trace.map((item, idx: number) => (
                                       <div key={idx} className="p-2 rounded bg-zinc-100/50 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/80 flex flex-col gap-1">
                                         <div className="flex justify-between items-center">
                                           <span className="font-bold text-[10px] text-zinc-500 font-mono">
-                                            Termo: '{item.semantic_term}'
+                                             Termo: &apos;{item.semantic_term}&apos;
                                           </span>
                                           <span className="bg-lumina-500/10 text-lumina-400 text-[9px] px-1 py-0.2 rounded font-semibold uppercase">
                                             {item.type}
@@ -574,7 +646,7 @@ export default function InspectorPage() {
                                 <h4 className="font-bold text-zinc-400 uppercase text-[10px] mb-2">Relacionamentos e Junções Físicas (ON)</h4>
                                 <div className="flex flex-col gap-2 max-h-[220px] overflow-y-auto">
                                   {traceDetail.joins && traceDetail.joins.length > 0 ? (
-                                    traceDetail.joins.map((join: any, idx: number) => (
+                                    traceDetail.joins.map((join, idx: number) => (
                                       <div key={idx} className="p-2 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 flex flex-col gap-1">
                                         <span className="font-bold text-[10px] text-zinc-500 font-mono">JOIN {idx + 1}</span>
                                         <p className="font-mono text-zinc-800 dark:text-zinc-200 text-xs">
@@ -590,7 +662,7 @@ export default function InspectorPage() {
                             </div>
 
                             {/* Justificativa e Scores das Views Candidatas */}
-                            {traceDetail.execution_plan.resolution_justification && (
+                            {Boolean(traceDetail.execution_plan.resolution_justification) && (
                               <div className="p-4 rounded-xl border border-zinc-200/50 dark:border-zinc-800 bg-zinc-100/50 dark:bg-zinc-900">
                                 <h4 className="font-bold text-zinc-400 uppercase text-[10px] mb-2">Pontuação de Relevância de Mapeamento de Views</h4>
                                 <pre className="text-[10px] font-mono bg-zinc-50 dark:bg-zinc-950 p-3 rounded border border-zinc-200 dark:border-zinc-800 overflow-x-auto max-h-[160px]">
@@ -625,7 +697,7 @@ export default function InspectorPage() {
                             <div className="p-4 rounded-xl border border-zinc-200/50 dark:border-zinc-800 bg-zinc-100/50 dark:bg-zinc-900">
                               <h4 className="font-bold text-zinc-400 uppercase text-[10px] mb-2">Parâmetros Parametrizados (Binds)</h4>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {Object.entries(traceDetail.sql.parameters || {}).map(([key, val]: any) => (
+                                {Object.entries(traceDetail.sql.parameters || {}).map(([key, val]) => (
                                   <div key={key} className="p-2 rounded bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
                                     <span className="text-[9px] font-mono text-zinc-400 block mb-0.5">{key}</span>
                                     <span className="text-xs font-bold font-mono text-lumina-400">{String(val)}</span>
@@ -663,9 +735,9 @@ export default function InspectorPage() {
                                 </tr>
                               </thead>
                               <tbody>
-                                {traceDetail.sample_rows.map((row: any, rIdx: number) => (
+                                {traceDetail.sample_rows.map((row, rIdx: number) => (
                                   <tr key={rIdx} className="border-b border-zinc-200/50 dark:border-zinc-800/40 hover:bg-zinc-50 dark:hover:bg-zinc-850/30">
-                                    {Object.values(row).map((val: any, cIdx: number) => (
+                                    {Object.values(row).map((val, cIdx: number) => (
                                       <td key={cIdx} className="p-3 text-zinc-700 dark:text-zinc-300 font-medium">
                                         {val === null || val === undefined
                                           ? <span className="text-zinc-500 font-mono">null</span>

@@ -35,7 +35,8 @@ export function ClarificationPanel({
   const [customInstructions, setCustomInstructions] = useState<string>('');
 
   useEffect(() => {
-    setMounted(true);
+    const frame = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const isAmbiguous = status === 'AMBIGUOUS';
@@ -88,7 +89,7 @@ export function ClarificationPanel({
               : 'Informações obrigatórias ausentes para prosseguir'}
           </h4>
           <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-            Sua pergunta: <span className="italic font-medium text-zinc-300">"{perguntaOriginal}"</span>
+            Sua pergunta: <span className="italic font-medium text-zinc-300">&quot;{perguntaOriginal}&quot;</span>
           </p>
 
           {/* Seção de Resolução de Ambiguidade */}

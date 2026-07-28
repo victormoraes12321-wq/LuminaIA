@@ -6,7 +6,7 @@ import unicodedata
 from typing import Any
 
 import asyncpg
-from services.oracle_service import decrypt_connection_details
+from services.connection_credentials import decrypt_connection_details
 
 logger = logging.getLogger("luminaai.services.postgres_clone")
 

@@ -22,6 +22,10 @@ Esta pasta contem a documentacao tecnica oficial do LuminaAI. Os documentos fora
 - [Performance](performance.md)
 - [Fluxos](flows.md)
 - [Padroes](patterns.md)
+- [Contratos Analiticos V2](contracts/ANALYTICAL_CONTRACTS_V2.md)
+- [Compatibilidade V1/V2](contracts/COMPATIBILITY_V1_V2.md)
+- [Normalizador Temporal V2](contracts/TEMPORAL_NORMALIZER_V2.md)
+- [Planner Generico de Comparacoes V2](contracts/COMPARISON_PLANNER_V2.md)
 
 ## Guias Operacionais
 
@@ -41,6 +45,26 @@ Esta pasta contem a documentacao tecnica oficial do LuminaAI. Os documentos fora
 - [Scorecard de hardening](enterprise_hardening_scorecard.md)
 - [Auditoria arquitetural](architecture_audit_enterprise.md)
 - [Relatorio final de hardening 2026-07-20](reports/2026-07-20-hardening-final-audit.md)
+
+## Auditoria As-Is 2026-07-27
+
+- [Estado atual auditado](audit/CURRENT_STATE_AUDIT.md)
+- [Arquitetura as-is](audit/ARCHITECTURE_AS_IS.md)
+- [Divergencias entre documentacao e codigo](audit/DOCUMENTATION_CODE_DIVERGENCES.md)
+- [Mapa de implementacao LuminaAI V2](audit/LUMINAAI_V2_IMPLEMENTATION_MAP.md)
+- [Baseline seguro de testes](audit/TEST_BASELINE.md)
+- [Como executar os testes seguros](testing/README.md)
+- [Contencao de testes e segredos](security/TEST_AND_SECRET_CONTAINMENT.md)
+- [Relatorio do Prompt 03](audit/PROMPT_03_CONTRACTS_V2_REPORT.md)
+- [Relatorio do Prompt 04](audit/PROMPT_04_TEMPORAL_NORMALIZER_REPORT.md)
+- [Relatorio do Prompt 05](audit/PROMPT_05_COMPARISON_PLANNER_REPORT.md)
+- [Contrato do Executor Comparativo V2](contracts/COMPARISON_EXECUTOR_V2.md)
+- [Relatorio do Prompt 06](audit/PROMPT_06_COMPARISON_EXECUTOR_REPORT.md)
+- [Apresentacao Comparativa V2](contracts/COMPARISON_PRESENTATION_V2.md)
+- [Relatorio do Prompt 07](audit/PROMPT_07_COMPARISON_RENDERING_REPORT.md)
+
+Esses documentos distinguem codigo confirmado, configuracao, testes,
+documentacao historica e itens que ainda necessitam validacao em runtime.
 
 ## Nota De Atualizacao
 

@@ -1,5 +1,13 @@
 # Arquitetura Do LuminaAI
 
+## Estado Conversacional
+
+O subsistema escalavel usa `lumina.conversation-state/1.0`: PostgreSQL armazena
+sessoes por tenant/usuario, nos e eventos append-only e snapshots
+materializados. Nenhum lock permanece aberto durante execucao analitica.
+`LEGACY_ONLY` continua como default de producao ate migration v12 e rollout
+controlado. Consulte ADR 0011 e `docs/contracts/CONVERSATION_STATE_V2.md`.
+
 ## Visao Geral
 
 O LuminaAI e uma plataforma de BI corporativo orientada por IA. A IA interpreta a intencao, estrutura estrategia analitica/visual e gera blueprints. O backend executa regras, consultas, calculos e persistencia. O frontend renderiza dashboards e interacoes sem calcular regra de negocio.

@@ -1,0 +1,22 @@
+{
+  "schema_version": "lumina.conversation-state/1.0",
+  "volatile_fields": ["updated_at"],
+  "cases": [
+    {"name": "empty_session", "epoch": 0, "version": 0, "markers": [], "subject": null},
+    {"name": "first_turn", "epoch": 0, "version": 1, "markers": ["first-turn"], "subject": "faturamento"},
+    {"name": "simple_query", "epoch": 0, "version": 2, "markers": ["simple-query"], "subject": "ticket medio"},
+    {"name": "comparison", "epoch": 0, "version": 3, "markers": ["comparison"], "subject": "faturamento"},
+    {"name": "multiple_periods", "epoch": 0, "version": 4, "markers": ["period:2026-06", "period:2026-07"], "subject": "faturamento"},
+    {"name": "reset", "epoch": 1, "version": 5, "markers": [], "subject": null},
+    {"name": "branch", "epoch": 1, "version": 6, "markers": ["branch:filial-1"], "subject": "vendas"},
+    {"name": "clarification", "epoch": 1, "version": 7, "markers": ["clarification"], "subject": "desconto", "pending_clarification": true},
+    {"name": "error", "epoch": 1, "version": 7, "markers": ["error"], "subject": "desconto"},
+    {"name": "timeout", "epoch": 1, "version": 7, "markers": ["timeout"], "subject": "desconto"},
+    {"name": "archived", "epoch": 1, "version": 8, "markers": ["archived"], "subject": "vendas"},
+    {"name": "expired", "epoch": 1, "version": 8, "markers": ["expired"], "subject": "vendas"},
+    {"name": "imported_legacy", "epoch": 0, "version": 1, "markers": ["LEGACY_ADAPTER"], "subject": null},
+    {"name": "conflict", "epoch": 0, "version": 1, "markers": ["conflict"], "subject": "faturamento"},
+    {"name": "idempotent_replay", "epoch": 0, "version": 1, "markers": ["idempotent-replay"], "subject": "faturamento"},
+    {"name": "four_turn_scenario", "epoch": 0, "version": 4, "markers": ["branch:Centro", "period:2026-06", "period:2026-07", "comparison:junho-julho", "dimension:produto"], "subject": "faturamento"}
+  ]
+}

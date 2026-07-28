@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { generateId, truncate, getApiBase } from '@/lib/utils'
+import { normalizeQueryResponse } from '@/lib/analyticalContractAdapter'
 import { repairObjectText, repairTextEncoding } from '@/lib/textEncoding'
 import { useAuth } from '@/context/AuthContext'
 import type {
@@ -12,6 +13,8 @@ import type {
   QueryMode,
   QueryResponse,
   ChartType,
+  TableColumn,
+  TableRow,
 } from '@/types/lumina'
 import { ExecutionStatus, VisualizationType } from '@/types/dashboard-runtime'
 import type {
@@ -45,11 +48,31 @@ interface DashboardPreferenceApiItem extends DashboardDefaults {
   scope: string
 }
 
+function visualizationToChartType(value: VisualizationType | string): ChartType {
+  if (value === VisualizationType.KPI_CARD) return 'KPI'
+  if (value === VisualizationType.DONUT) return 'PIE'
+  const supported: ChartType[] = [
+    'BAR', 'LINE', 'PIE', 'TABLE', 'AREA', 'SCATTER', 'HEATMAP', 'TREEMAP', 'FUNNEL',
+  ]
+  return supported.includes(value as ChartType) ? (value as ChartType) : 'TABLE'
+}
+
 function createConversationSessionId() {
   if (typeof globalThis.crypto?.randomUUID === 'function') {
     return `lumina-${globalThis.crypto.randomUUID()}`
   }
   return `lumina-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
+function createClientMessageId() {
+  if (typeof globalThis.crypto?.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID()
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
+function conversationStorageKey(tenantId: string, userId: string) {
+  return `lumina-conversation:${tenantId}:${userId}`
 }
 
 async function enrichConnectivityErrorMessage(message: string): Promise<string> {
@@ -171,6 +194,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     current_node_id: null,
   })
   const [sessionId, setSessionId] = useState(createConversationSessionId)
+  const [contextVersion, setContextVersion] = useState(0)
+  const [serverParentId, setServerParentId] = useState<string | null>(null)
   const [injectedQuery, setInjectedQuery] = useState('')
   const [mode, setMode] = useState<QueryMode>(() => {
     if (typeof window !== 'undefined') {
@@ -205,7 +230,58 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
     })
     setInjectedQuery('')
     setSessionId(createConversationSessionId())
-  }, [])
+    setContextVersion(0)
+    setServerParentId(null)
+    if (typeof window !== 'undefined' && user) {
+      localStorage.removeItem(conversationStorageKey(user.tenant_id, user.id))
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (!user || typeof window === 'undefined') return
+    const key = conversationStorageKey(user.tenant_id, user.id)
+    const raw = localStorage.getItem(key)
+    let active = true
+    queueMicrotask(() => {
+      if (!active) return
+      if (!raw) {
+        setSessionId(createConversationSessionId())
+        setContextVersion(0)
+        setServerParentId(null)
+        return
+      }
+      try {
+        const stored = JSON.parse(raw) as {
+          sessionId?: string
+          contextVersion?: number
+          parentId?: string | null
+        }
+        setSessionId(stored.sessionId || createConversationSessionId())
+        setContextVersion(
+          Number.isInteger(stored.contextVersion) && (stored.contextVersion ?? -1) >= 0
+            ? stored.contextVersion!
+            : 0,
+        )
+        setServerParentId(stored.parentId || null)
+      } catch {
+        localStorage.removeItem(key)
+        setSessionId(createConversationSessionId())
+        setContextVersion(0)
+        setServerParentId(null)
+      }
+    })
+    return () => {
+      active = false
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (!user || typeof window === 'undefined') return
+    localStorage.setItem(
+      conversationStorageKey(user.tenant_id, user.id),
+      JSON.stringify({ sessionId, contextVersion, parentId: serverParentId }),
+    )
+  }, [contextVersion, serverParentId, sessionId, user])
 
   // â”€â”€ Hydration Methods â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -368,7 +444,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         cache_hit: false
       }
       const dashboardState: DashboardState = {
-        chart_type: (lastResponse.chart_type as any) || 'TABLE',
+        chart_type: lastResponse.chart_type || VisualizationType.TABLE,
         selected_chart_id: lastResponse.query_id,
         drilldown_stack: [],
         hidden_columns: [],
@@ -416,7 +492,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
 
     if (isChangeChart && targetChartType) {
       // Atualiza lastResponse
-      setLastResponse(prev => prev ? { ...prev, chart_type: targetChartType as any } : null)
+      const responseChartType = visualizationToChartType(targetChartType)
+      setLastResponse(prev => prev ? { ...prev, chart_type: responseChartType } : null)
 
       // Atualiza DashboardState no Grafo
       setConversationGraph(prev => {
@@ -441,7 +518,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         role: 'assistant',
         content: `Entendido! Alterei a visualização ativa para o gráfico de **${targetChartType}** instantaneamente em memória (zero Network Requests efetuados).`,
         timestamp: new Date(),
-        queryResponse: lastResponse ? { ...lastResponse, chart_type: targetChartType as any } : undefined
+        queryResponse: lastResponse ? { ...lastResponse, chart_type: responseChartType } : undefined
       }
       setMessages(prev => [...prev, assistantMsg])
       return true
@@ -455,11 +532,11 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
       
       setLastResponse(prev => {
         if (!prev || !prev.chart_data || !('rows' in prev.chart_data)) return prev
-        const rows = [...(prev.chart_data.rows as Record<string, any>[])]
+        const rows = [...(prev.chart_data.rows as TableRow[])]
         if (rows.length === 0) return prev
 
         const firstRow = rows[0]
-        matchedKey = Object.keys(firstRow).find(k => k.toLowerCase() === field || (prev.chart_data && 'columns' in prev.chart_data && (prev.chart_data.columns as any[]).some(col => col.key === k && col.label.toLowerCase() === field))) || field
+        matchedKey = Object.keys(firstRow).find(k => k.toLowerCase() === field || (prev.chart_data && 'columns' in prev.chart_data && (prev.chart_data.columns as TableColumn[]).some(col => col.key === k && col.label.toLowerCase() === field))) || field
 
         rows.sort((a, b) => {
           const valA = a[matchedKey]
@@ -520,8 +597,8 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         if (!prev || !prev.chart_data || !('rows' in prev.chart_data)) return prev
         
         const originalRows = (activeNode && activeNode.execution_result && activeNode.execution_result.dataset.length > 0)
-          ? (activeNode.execution_result.dataset as Record<string, any>[])
-          : (prev.chart_data.rows as Record<string, any>[])
+          ? activeNode.execution_result.dataset
+          : (prev.chart_data.rows as TableRow[])
         
         const firstRow = originalRows[0] || {}
         const matchedKey = Object.keys(firstRow).find(k => k.toLowerCase() === field) || field
@@ -652,6 +729,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
           content: msg.content
         }))
 
+      const clientMessageId = createClientMessageId()
       const res = await fetchQueryWithRecovery(`${getApiBase()}/api/v1/query/`, {
         method: 'POST',
         credentials: 'include',
@@ -665,7 +743,9 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
           session_id: sessionId,
           history: chatHistory,
           mode: mode,
-          parent_id: conversationGraph.current_node_id,
+          parent_id: serverParentId ?? conversationGraph.current_node_id,
+          client_message_id: clientMessageId,
+          expected_context_version: contextVersion,
         }),
         signal: controller.signal,
       })
@@ -679,19 +759,42 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         const errBody = await res.json().catch(() => ({
           error: { message: `Erro HTTP ${res.status}` },
         }))
+        const typedError = errBody as {
+          detail?: { code?: string; message?: string; actual_context_version?: number }
+          error?: { message?: string }
+        }
+        const code = typedError.detail?.code
+        if (
+          code === 'CONVERSATION_EXPIRED'
+          || code === 'CONVERSATION_ARCHIVED'
+          || code === 'CONVERSATION_DELETED'
+        ) {
+          setSessionId(createConversationSessionId())
+          setContextVersion(0)
+          setServerParentId(null)
+        } else if (
+          code === 'CONTEXT_VERSION_CONFLICT'
+          && typeof typedError.detail?.actual_context_version === 'number'
+        ) {
+          setContextVersion(typedError.detail.actual_context_version)
+        }
         throw new Error(
           repairTextEncoding(
-            (errBody as { error?: { message?: string } }).error?.message ??
+            typedError.detail?.message ??
+              typedError.error?.message ??
               `HTTP ${res.status}`,
           ),
         )
       }
 
-      const data = repairObjectText(await res.json()) as QueryResponse
+      const data = normalizeQueryResponse(repairObjectText(await res.json()))
       setLastResponse(data)
+      if (data.session_id) setSessionId(data.session_id)
+      if (typeof data.context_version === 'number') setContextVersion(data.context_version)
+      if (data.response_node_id) setServerParentId(data.response_node_id)
 
       // Registra o novo nó no grafo analítico da conversa
-      const nodeId = data.query_id
+      const nodeId = data.response_node_id ?? data.query_id
       const executionResult: ExecutionResult = {
         status: data.view_name ? ExecutionStatus.READY : ExecutionStatus.INVALID,
         dataset: (data.chart_data && 'rows' in data.chart_data) ? (data.chart_data.rows as Record<string, unknown>[]) : [],
@@ -702,7 +805,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         cache_hit: false
       }
       const dashboardState: DashboardState = {
-        chart_type: (data.chart_type as any) || 'TABLE',
+        chart_type: data.chart_type || VisualizationType.TABLE,
         selected_chart_id: data.query_id,
         drilldown_stack: [],
         hidden_columns: [],
@@ -724,7 +827,9 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
         if (prev.current_node_id && nodes[prev.current_node_id]) {
           nodes[prev.current_node_id] = {
             ...nodes[prev.current_node_id],
-            children_ids: [...nodes[prev.current_node_id].children_ids, nodeId]
+            children_ids: [
+              ...new Set([...nodes[prev.current_node_id].children_ids, nodeId]),
+            ]
           }
         }
         return {
@@ -802,7 +907,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
       }
       setLoading(false)
     }
-  }, [classify_and_handle_ui_command, conversationGraph, loading, logout, messages, mode, sessionId, token, user])
+  }, [classify_and_handle_ui_command, contextVersion, conversationGraph, loading, logout, messages, mode, serverParentId, sessionId, token, user])
 
   // â”€â”€ Favorites â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -844,7 +949,7 @@ export function useLuminaQuery(): UseLuminaQueryReturn {
       query_id: node.node_id,
       view_name: (node.execution_result.metadata?.view_name as string) || null,
       view_catalog_id: null,
-      chart_type: node.dashboard_state.chart_type as any,
+      chart_type: visualizationToChartType(node.dashboard_state.chart_type),
       chart_data: {
         rows: node.execution_result.dataset,
         columns: node.execution_result.dataset.length > 0

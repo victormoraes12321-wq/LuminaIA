@@ -33,6 +33,13 @@ from models.business_relationship import BusinessRelationship
 from models.business_governance_log import BusinessGovernanceLog
 from models.semantic_memory import SemanticMemory
 from models.svr import SVRConcept, SVRVersion, SVRCompatibilityMatrix, SVRAuditLog
+from models.conversation_state import (
+    ConversationEvent,
+    ConversationLegacyImport,
+    ConversationNodeRecord,
+    ConversationSession,
+    ConversationStateSnapshot,
+)
 
 __all__: list[str] = [
     "Tenant",
@@ -66,4 +73,9 @@ __all__: list[str] = [
     "SVRVersion",
     "SVRCompatibilityMatrix",
     "SVRAuditLog",
+    "ConversationSession",
+    "ConversationNodeRecord",
+    "ConversationStateSnapshot",
+    "ConversationEvent",
+    "ConversationLegacyImport",
 ]

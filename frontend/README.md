@@ -1,5 +1,11 @@
 # LuminaAI Frontend
 
+## Conversation State V2
+
+O hook de consulta envia idempotency UUID, context version e response parent.
+O navegador guarda somente identificadores escopados ao usuario/tenant e limpa
+esses dados no logout.
+
 Frontend Next.js responsavel por autenticacao de tela, chat, renderizacao de respostas, Dashboard Runtime, Dashboard Studio, componentes visuais, Trust Center e paginas administrativas.
 
 ## Stack

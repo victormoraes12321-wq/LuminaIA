@@ -127,6 +127,15 @@ class CorporateIntentEngine:
         model = lease.model
         
         system_prompt = self._build_system_prompt()
+        temporal_context = kwargs.get("temporal_context")
+        if isinstance(temporal_context, dict):
+            system_prompt += (
+                "\n\n## CONTEXTO TEMPORAL DETERMINISTICO:\n"
+                f"{temporal_context!r}\n"
+                "Os limites acima ja foram normalizados e validados. Nao invente, "
+                "substitua, reordene ou reduza os periodos. Datas explicitas do "
+                "normalizador prevalecem sobre qualquer inferencia."
+            )
         
         messages = [
             {"role": "system", "content": system_prompt}

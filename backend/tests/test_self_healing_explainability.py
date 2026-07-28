@@ -110,7 +110,7 @@ async def test_explainability_engine_avoids_hallucination():
     assert len(explanation.insights) == 1
     # Verifica que o prompt proíbe alucinação
     args = client_mock.beta.chat.completions.parse.call_args[1]
-    assert "NÃO tente calcular novos valores" in args["messages"][1]["content"]
+    assert "Não invente novas métricas ou números" in args["messages"][1]["content"]
 
 @pytest.mark.asyncio
 async def test_explain_local_dataset_no_db_call():

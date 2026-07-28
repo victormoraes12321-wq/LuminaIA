@@ -10,6 +10,14 @@ from pydantic import BaseModel, Field
 from datetime import date, datetime, timezone, timedelta
 from openai import AsyncOpenAI
 
+from services.temporal import (
+    PluralTemporalResultError,
+    TemporalContext,
+    TemporalFeaturePolicy,
+    TemporalNormalizationGateway,
+    TemporalRelation,
+    default_temporal_context,
+)
 from models.new_pipeline_contracts import (
     SemanticPlan, CanonicalPlan, ExecutionPlan, ExecutionResult, QueryContext,
     DashboardState, ConversationNode, ConversationGraph, ExecutionStatus,
@@ -44,11 +52,28 @@ class NewQueryOrchestrator:
     Orquestrador central unificado do novo pipeline cognitivo (Decoupled NLU-SQL) do LuminaAI.
     """
     def __init__(self, provider: Optional[Any] = None):
+        from config import settings
+
         self.resolver = SemanticCanonicalizer()
         self.planner = MetadataResolver()
         self.optimizer = QueryOptimizer()
         self.generator = SQLGenerator()
         self.validator = SecurityValidator()
+        self.temporal_gateway = TemporalNormalizationGateway(
+            policy=TemporalFeaturePolicy.from_settings(settings)
+        )
+        self.comparison_planner_enabled = (
+            settings.COMPARISON_PLANNER_V2_ENABLED
+        )
+        self.comparison_planner_shadow_mode = (
+            settings.COMPARISON_PLANNER_V2_SHADOW_MODE
+        )
+        self.comparison_executor_enabled = (
+            settings.COMPARISON_EXECUTOR_V2_ENABLED
+        )
+        self.comparison_executor_shadow_mode = (
+            settings.COMPARISON_EXECUTOR_V2_SHADOW_MODE
+        )
 
     def _erp_sales_filter_sql(self, alias: str = "", filial: Any | None = None) -> str:
         return sales_value_breakdown.commercial_filter_sql(alias, filial)
@@ -151,7 +176,35 @@ class NewQueryOrchestrator:
 
     def _is_visualization_preference_ambiguous(self, pergunta: str) -> bool:
         normalized = self._normalize_query_text(pergunta)
-        return not self._has_explicit_visualization_request(normalized)
+        asks_to_choose = any(
+            term in normalized
+            for term in (
+                "escolher",
+                "escolha",
+                "selecionar",
+                "selecao",
+                "configurar",
+                "definir o formato",
+            )
+        )
+        refers_to_output = any(
+            term in normalized
+            for term in ("dashboard", "formato", "visualizacao", "como mostrar")
+        )
+        concrete_format = any(
+            term in normalized
+            for term in (
+                "grafico",
+                "tabela",
+                "planilha",
+                "pizza",
+                "barra",
+                "linha",
+                "kpi",
+                "card",
+            )
+        )
+        return asks_to_choose and refers_to_output and not concrete_format
 
     def _value_basis_from_text(self, normalized: str) -> str:
         wants_both = any(term in normalized for term in ("liquido e bruto", "bruto e liquido", "os dois", "ambos"))
@@ -247,7 +300,9 @@ class NewQueryOrchestrator:
         elif any(term in normalized for term in ("barra", "barras", "baara", "baaras", "bara", "baras", "coluna", "colunas")):
             return ["TABLE", "BAR"] if wants_both else ["BAR"]
         elif any(term in normalized for term in ("tabela", "planilha", "listagem", "grade", "detalhada")):
-            return ["TABLE"]
+            return ["TABLE", "BAR"] if wants_both else ["TABLE"]
+        elif "grafico" in normalized:
+            return ["BAR"]
 
         return ["BAR"]
 
@@ -301,8 +356,20 @@ class NewQueryOrchestrator:
         has_rb_term = self._has_rb_term(normalized)
         has_devolucao_term = self._has_devolucao_term(normalized)
         has_unsupported_metric = self._has_profit_term(normalized) or self._has_unbilled_sales_term(normalized)
-        wants_vendor_ranking = has_vendor_term and self._wants_ranked_output(normalized, "vendedor")
-        wants_client_ranking = has_client_term and self._wants_ranked_output(normalized, "cliente")
+        has_ranking_signal = (
+            self._has_explicit_core_metric_term(normalized)
+            or bool(re.search(r"\b(?:ranking|rank|top)\b", normalized))
+        )
+        wants_vendor_ranking = (
+            has_vendor_term
+            and has_ranking_signal
+            and self._wants_ranked_output(normalized, "vendedor")
+        )
+        wants_client_ranking = (
+            has_client_term
+            and has_ranking_signal
+            and self._wants_ranked_output(normalized, "cliente")
+        )
         wants_vendor_top = has_vendor_term and self._wants_top_output(normalized, "vendedor")
         wants_client_top = has_client_term and self._wants_top_output(normalized, "cliente")
         if (
@@ -677,18 +744,24 @@ class NewQueryOrchestrator:
         return False
 
 
-    def _question_with_inherited_period(self, pergunta: str, history: Optional[List[Dict[str, str]]]) -> str:
+    def _question_with_inherited_period(
+        self,
+        pergunta: str,
+        history: Optional[List[Dict[str, str]]],
+        temporal_context: TemporalContext | None = None,
+    ) -> str:
         contextual_question = self._question_with_inherited_metric(pergunta, history)
-        if self._month_range_from_text(contextual_question) is not None:
+        if self._month_ranges_from_text(contextual_question, temporal_context):
             return contextual_question
         if not self._core_summary_topics(contextual_question):
             return contextual_question
 
         for message in reversed(history or []):
             content = str((message or {}).get("content") or "")
-            period = self._month_range_from_text(content)
-            if not period:
+            periods = self._month_ranges_from_text(content, temporal_context)
+            if len(periods) != 1:
                 continue
+            period = periods[0]
             start_raw, end_raw = period
             try:
                 start_date = date.fromisoformat(start_raw)
@@ -704,8 +777,17 @@ class NewQueryOrchestrator:
 
         return contextual_question
 
-    def _question_with_inherited_context(self, pergunta: str, history: Optional[List[Dict[str, str]]]) -> str:
-        contextual_question = self._question_with_inherited_period(pergunta, history)
+    def _question_with_inherited_context(
+        self,
+        pergunta: str,
+        history: Optional[List[Dict[str, str]]],
+        temporal_context: TemporalContext | None = None,
+    ) -> str:
+        contextual_question = self._question_with_inherited_period(
+            pergunta,
+            history,
+            temporal_context,
+        )
         normalized = self._normalize_query_text(contextual_question)
         if self._filial_from_text(contextual_question) is not None:
             return contextual_question
@@ -1179,14 +1261,33 @@ class NewQueryOrchestrator:
         debug_data: Dict[str, Any],
         conversation_graph_manager: Any,
         mode: str = "analytical",
+        temporal_context: TemporalContext | None = None,
     ) -> Dict[str, Any]:
-        _period_from_text = self._month_range_from_text(pergunta)
+        _periods_from_text = self._month_ranges_from_text(pergunta, temporal_context)
+        if len(_periods_from_text) > 1:
+            elapsed = (time.perf_counter() - start_time) * 1000
+            return {
+                "status": "AMBIGUOUS",
+                "goal": pergunta,
+                "ambiguities": [
+                    "Comparar os periodos informados",
+                    "Analisar os periodos como lista independente",
+                ],
+                "missing_information": ["operacao_temporal"],
+                "resposta_direta": (
+                    "Reconheci varios periodos, mas este executor singular nao pode "
+                    "escolher um deles sem perder informacao."
+                ),
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed,
+            }
+        _period_from_text = _periods_from_text[0] if _periods_from_text else None
         if _period_from_text is None:
             # Sem período explícito: assume o mês atual como padrão
-            import calendar as _cal
-            _today = date.today()
-            _last_day = _cal.monthrange(_today.year, _today.month)[1]
-            _period_from_text = (f"{_today.year:04d}-{_today.month:02d}-01", f"{_today.year:04d}-{_today.month:02d}-{_last_day:02d}")
+            current_ranges = self._month_ranges_from_text("mes atual", temporal_context)
+            if not current_ranges:
+                raise ValueError("Temporal normalizer did not resolve the current month")
+            _period_from_text = current_ranges[0]
             logger.info("[Orchestrator] Período não especificado — assumindo mês atual: %s a %s", *_period_from_text)
         start_date_raw, end_date_raw = _period_from_text
         start_date = date.fromisoformat(start_date_raw)
@@ -1852,7 +1953,34 @@ class NewQueryOrchestrator:
             .replace("per?odo", "periodo")
         )
 
-    def _month_range_from_text(self, text_value: str) -> Optional[tuple[str, str]]:
+    def _month_ranges_from_text(
+        self,
+        text_value: str,
+        temporal_context: TemporalContext | None = None,
+    ) -> list[tuple[str, str]]:
+        """Canonical plural month API used by comparison-aware contracts."""
+        context = temporal_context or default_temporal_context()
+        _, selected = self.temporal_gateway.select_ranges(
+            text_value,
+            context,
+            legacy_parser=self._month_range_from_text_legacy,
+        )
+        return selected
+
+    def _month_range_from_text(
+        self,
+        text_value: str,
+        temporal_context: TemporalContext | None = None,
+    ) -> Optional[tuple[str, str]]:
+        """Deprecated singular wrapper that refuses plural temporal semantics."""
+        ranges = self._month_ranges_from_text(text_value, temporal_context)
+        if len(ranges) > 1:
+            raise PluralTemporalResultError(
+                "Orchestrator singular period wrapper refuses multiple windows"
+            )
+        return ranges[0] if ranges else None
+
+    def _month_range_from_text_legacy(self, text_value: str) -> Optional[tuple[str, str]]:
         normalized = self._normalize_query_text(text_value)
 
         iso_range_match = re.search(
@@ -1959,14 +2087,20 @@ class NewQueryOrchestrator:
         # Retorna None — caller vai usar mês atual como fallback
         return None
 
-    def _ensure_period_filter(self, semantic_plan: SemanticPlan, pergunta: str) -> None:
+    def _ensure_period_filter(
+        self,
+        semantic_plan: SemanticPlan,
+        pergunta: str,
+        temporal_context: TemporalContext | None = None,
+    ) -> None:
         text_value = f"{pergunta or ''} {semantic_plan.goal or ''}"
-        month_range = self._month_range_from_text(text_value)
+        month_range = self._month_range_from_text(text_value, temporal_context)
         if not month_range:
             # Fallback: usa mês atual como período padrão se não houver período no texto
-            _today = date.today()
-            _last_day = calendar.monthrange(_today.year, _today.month)[1]
-            month_range = (f"{_today.year:04d}-{_today.month:02d}-01", f"{_today.year:04d}-{_today.month:02d}-{_last_day:02d}")
+            current_ranges = self._month_ranges_from_text("mes atual", temporal_context)
+            if not current_ranges:
+                raise ValueError("Temporal normalizer did not resolve the current month")
+            month_range = current_ranges[0]
             logger.info("[Orchestrator] _ensure_period_filter: Período ausente — assumindo mês atual %s a %s", *month_range)
 
         has_date_filter = any(
@@ -1988,7 +2122,12 @@ class NewQueryOrchestrator:
         if "Data" not in semantic_plan.dimensions:
             semantic_plan.dimensions.append("Data")
 
-    def _repair_core_business_query(self, semantic_plan: SemanticPlan, pergunta: str) -> None:
+    def _repair_core_business_query(
+        self,
+        semantic_plan: SemanticPlan,
+        pergunta: str,
+        temporal_context: TemporalContext | None = None,
+    ) -> None:
         normalized = self._normalize_query_text(f"{pergunta or ''} {semantic_plan.goal or ''}")
 
         def apply_rank_limit(default_limit: int = 10) -> None:
@@ -2094,7 +2233,7 @@ class NewQueryOrchestrator:
                 semantic_plan.dimensions.append("Cliente")
             apply_rank_limit()
 
-        self._ensure_period_filter(semantic_plan, pergunta)
+        self._ensure_period_filter(semantic_plan, pergunta, temporal_context)
 
     def _extract_storage_date_params(self, canonical_plan: CanonicalPlan) -> Dict[str, Any]:
         params: Dict[str, Any] = {}
@@ -2257,6 +2396,8 @@ class NewQueryOrchestrator:
         dashboard_state_override: Optional[DashboardState] = None,
         parent_id: Optional[str] = None,
         mode: str = "analytical",
+        conversation_state: Optional[Any] = None,
+        postgres_conversation_authority: bool = False,
     ) -> Dict[str, Any]:
         start_time = time.perf_counter()
         trace_id = uuid.uuid4()
@@ -2419,15 +2560,182 @@ class NewQueryOrchestrator:
             return payload
 
         # ── 1. Conversation Graph Recuperação ─────────────────────────
-        from services.metadata_catalog.conversation_graph import conversation_graph_manager
+        from services.metadata_catalog.conversation_graph import (
+            StatelessConversationGraphAdapter,
+            conversation_graph_manager as legacy_conversation_graph_manager,
+        )
+        conversation_graph_manager = (
+            StatelessConversationGraphAdapter()
+            if postgres_conversation_authority
+            else legacy_conversation_graph_manager
+        )
         graph = conversation_graph_manager.get_graph(session_key)
+        if postgres_conversation_authority:
+            history = []
+            debug_data["conversation_state"] = {
+                "authority": "POSTGRESQL",
+                "schema_version": getattr(conversation_state, "schema_version", None),
+                "context_epoch": getattr(conversation_state, "context_epoch", 0),
+                "context_version": getattr(conversation_state, "context_version", 0),
+            }
 
         # Se o parent_id foi fornecido explicitamente, navega/muda o nó ativo para ele
         if parent_id and parent_id in graph.nodes:
             graph.current_node_id = parent_id
             conversation_graph_manager.save_graph(session_key, graph)
 
-        effective_pergunta = self._question_with_inherited_context(pergunta, history)
+        temporal_context = default_temporal_context(
+            reference_datetime=datetime.now(timezone.utc),
+        )
+        effective_pergunta = self._question_with_inherited_context(
+            pergunta,
+            history,
+            temporal_context,
+        )
+        temporal_result = self.temporal_gateway.normalize(
+            effective_pergunta,
+            temporal_context,
+            legacy_parser=self._month_range_from_text_legacy,
+        )
+        debug_data["temporal_normalization"] = {
+            "normalizer_version": temporal_result.normalizer_version,
+            "rule_ids": list(temporal_result.rule_ids),
+            "window_count": len(temporal_result.windows),
+            "relation": temporal_result.relation.value,
+            "readiness": temporal_result.readiness.value,
+            "timezone": temporal_result.timezone,
+            "duration_ms": temporal_result.duration_ms,
+        }
+        if (
+            temporal_result.relation == TemporalRelation.COMPARISON
+            and (
+                self.comparison_planner_enabled
+                or self.comparison_planner_shadow_mode
+            )
+        ):
+            try:
+                from contracts.analytical_v2 import (
+                    PipelineKind,
+                    build_intent_v2,
+                    build_plan_v2,
+                )
+
+                comparison_intent = build_intent_v2(
+                    effective_pergunta,
+                    pipeline=PipelineKind.NEW,
+                    temporal_context=temporal_context,
+                    temporal_result=temporal_result,
+                )
+                comparison_plan = build_plan_v2(
+                    comparison_intent,
+                    tenant_id=uuid.UUID(tenant_id),
+                    user_id=None,
+                    user_role="CONSULTA",
+                    session_id=session_key,
+                    allowed_source_ids=["vw_vendas_lm"],
+                    pipeline=PipelineKind.NEW,
+                    comparison_planner_enabled=self.comparison_planner_enabled,
+                    comparison_planner_shadow_mode=self.comparison_planner_shadow_mode,
+                )
+                planner_metadata = comparison_plan.contract.extensions.get(
+                    "comparison_planner",
+                    {},
+                )
+                debug_data["comparison_planning"] = {
+                    "planner_version": planner_metadata.get("planner_version"),
+                    "kind": planner_metadata.get("kind"),
+                    "operand_count": planner_metadata.get("operand_count"),
+                    "metric_count": planner_metadata.get("metric_count"),
+                    "dimension_count": planner_metadata.get("dimension_count"),
+                    "complexity": planner_metadata.get("complexity"),
+                    "readiness": comparison_plan.intent.readiness.value,
+                    "issue_codes": planner_metadata.get("issue_codes", []),
+                    "strategy_hint": planner_metadata.get("strategy_hint"),
+                    "cache_identity": comparison_plan.cache_identity,
+                }
+                if (
+                    comparison_plan.intent.readiness.value == "READY"
+                    and (
+                        self.comparison_executor_enabled
+                        or self.comparison_executor_shadow_mode
+                    )
+                ):
+                    from services.comparison_execution import (
+                        ComparisonExecutionRejected,
+                        execution_result_to_legacy,
+                    )
+                    from services.comparison_execution.runtime import (
+                        ComparisonRuntimeUnavailable,
+                        execute_plan_on_tenant_clone,
+                    )
+
+                    shadow_safe = (
+                        len(comparison_plan.comparison.operands) <= 2
+                        and len(comparison_plan.dimension_refs) <= 1
+                        and (comparison_plan.limit or 1000) <= 1000
+                    )
+                    if self.comparison_executor_enabled or shadow_safe:
+                        try:
+                            comparison_result = await execute_plan_on_tenant_clone(
+                                comparison_plan
+                            )
+                            debug_data["comparison_execution"] = {
+                                "executor_version": comparison_result.executor_version,
+                                "status": comparison_result.status.value,
+                                "strategy": comparison_result.strategy_used.value,
+                                "operand_count": len(comparison_result.operands),
+                                "calculation_count": len(comparison_result.calculations),
+                                "validation": comparison_result.validation.status.value,
+                                "partial": comparison_result.partial,
+                                "cache_status": comparison_result.cache_status,
+                                "duration_ms": float(comparison_result.duration_ms),
+                            }
+                            if self.comparison_executor_enabled:
+                                return write_debug_and_return(
+                                    execution_result_to_legacy(
+                                        comparison_result,
+                                        comparison_plan,
+                                    )
+                                )
+                        except (
+                            ComparisonExecutionRejected,
+                            ComparisonRuntimeUnavailable,
+                            RuntimeError,
+                            ValueError,
+                        ) as executor_exc:
+                            logger.warning(
+                                "Comparison executor V2 did not produce a result | error=%s",
+                                type(executor_exc).__name__,
+                            )
+                            debug_data["comparison_execution"] = {
+                                "status": "BLOCKED",
+                                "error_type": type(executor_exc).__name__,
+                            }
+                            if self.comparison_executor_enabled:
+                                return write_debug_and_return(
+                                    {
+                                        "status": "SECURITY_VIOLATION",
+                                        "mensagem": (
+                                            "A comparacao foi bloqueada porque a fonte "
+                                            "analitica nao comprovou todos os requisitos "
+                                            "de seguranca e validacao."
+                                        ),
+                                        "resposta_direta": (
+                                            "Nao foi possivel executar esta comparacao "
+                                            "com seguranca."
+                                        ),
+                                        "chart_data": None,
+                                    }
+                                )
+            except (TypeError, ValueError) as planner_exc:
+                logger.warning(
+                    "Comparison planner preview was not produced | error=%s",
+                    type(planner_exc).__name__,
+                )
+                debug_data["comparison_planning"] = {
+                    "readiness": "ERROR",
+                    "error_type": type(planner_exc).__name__,
+                }
         if effective_pergunta != pergunta:
             debug_data["pergunta_contextualizada"] = effective_pergunta
 
@@ -2481,6 +2789,7 @@ class NewQueryOrchestrator:
                 debug_data=debug_data,
                 conversation_graph_manager=conversation_graph_manager,
                 mode=mode,
+                temporal_context=temporal_context,
             )
             summary_payload["pergunta_original"] = pergunta
             if effective_pergunta != pergunta:
@@ -2559,9 +2868,6 @@ class NewQueryOrchestrator:
             }
             return write_debug_and_return(amb_res)
         # Inicializa o cache de planos na classe se necessário
-        if not hasattr(self, "_last_semantic_plans"):
-            self._last_semantic_plans = {}
-
         # Extrai contexto conversacional estruturado do nó ativo atual para guiar a IA
         last_plan = None
         last_db_state = None
@@ -2593,13 +2899,26 @@ class NewQueryOrchestrator:
                 history=history,
                 last_plan=last_plan,
                 dashboard_state=last_db_state,
-                query_context=last_q_context
+                query_context=last_q_context,
+                temporal_context={
+                    "normalizer_version": temporal_result.normalizer_version,
+                    "timezone": temporal_result.timezone,
+                    "relation": temporal_result.relation.value,
+                    "windows": [
+                        {
+                            "start": window.start.isoformat(),
+                            "end": window.end.isoformat(),
+                            "granularity": window.granularity.value,
+                        }
+                        for window in temporal_result.windows
+                    ],
+                    "unresolved_count": len(temporal_result.unresolved_expressions),
+                },
             )
             debug_data["timeline"]["3. Intent Engine Concluído"] = get_timestamp()
             debug_data["resposta_bruta_llm"] = getattr(intent_output, "raw_response", None) or intent_output.model_dump_json()
 
             # Se for continuidade e houver plano anterior no cache, aplica os patches
-            cache_key = session_id or tenant_id
             if intent_output.is_continuity and last_plan:
                 base_plan = last_plan
 
@@ -2648,53 +2967,64 @@ class NewQueryOrchestrator:
                 else:
                     raise ValueError("Plano semântico não gerado pela IA no modo normal.")
 
-            # Auto-cura de status analítico: se a LLM classificar pessimistamente como MISSING_INFORMATION,
-            # mas termos ou entidades válidos estão presentes no plano, coage o status para READY para viabilizar a execução.
-            if intent_output.status in (ExecutionStatus.MISSING_INFORMATION, ExecutionStatus.UNSUPPORTED):
-                if semantic_plan.intent in (IntentType.LIST, IntentType.AGGREGATION, IntentType.RANKING, IntentType.TREND) or len(semantic_plan.entities) > 0:
-                    logger.info("[Orchestrator] Auto-cura: Coagindo status de %s para READY para viabilizar execucao.", intent_output.status)
-                    intent_output.status = ExecutionStatus.READY
-                    semantic_plan.status = ExecutionStatus.READY
-
-            # Trata status não-prontos
-            self._repair_core_business_query(semantic_plan, pergunta)
-            if semantic_plan.status == ExecutionStatus.READY:
-                intent_output.status = ExecutionStatus.READY
+            if intent_output.status == ExecutionStatus.READY:
+                self._repair_core_business_query(
+                    semantic_plan,
+                    pergunta,
+                    temporal_context,
+                )
 
             semantic_plan.status = intent_output.status
             debug_data["semantic_plan"] = semantic_plan.model_dump()
 
-            if intent_output.status in (ExecutionStatus.AMBIGUOUS, ExecutionStatus.MISSING_INFORMATION, ExecutionStatus.OUT_OF_SCOPE):
+            if intent_output.status in (
+                ExecutionStatus.AMBIGUOUS,
+                ExecutionStatus.MISSING_INFORMATION,
+                ExecutionStatus.OUT_OF_SCOPE,
+                ExecutionStatus.UNSUPPORTED,
+            ):
                 elapsed = (time.perf_counter() - start_time) * 1000
+                direct_messages = {
+                    ExecutionStatus.AMBIGUOUS: "A pergunta analitica precisa de esclarecimento.",
+                    ExecutionStatus.MISSING_INFORMATION: "Faltam informacoes para executar a consulta com seguranca.",
+                    ExecutionStatus.OUT_OF_SCOPE: "Esta pergunta esta fora do escopo analitico empresarial.",
+                    ExecutionStatus.UNSUPPORTED: "Esta operacao analitica ainda nao possui execucao suportada.",
+                }
                 res = {
                     "status": intent_output.status.value,
                     "goal": semantic_plan.goal or pergunta,
                     "ambiguities": intent_output.ambiguities,
                     "missing_information": intent_output.missing_information,
-                    "resposta_direta": "Identifiquei termos ambíguos ou informações ausentes na pergunta analítica.",
+                    "resposta_direta": direct_messages[intent_output.status],
                     "pergunta_original": pergunta,
                     "execution_time_ms": elapsed
                 }
                 return write_debug_and_return(res)
 
             # Salva o plano semântico bem-sucedido no cache para futuras continuidades
-            self._last_semantic_plans[cache_key] = semantic_plan
-
         except Exception as exc:
             import traceback
             debug_data["error_traceback"] = traceback.format_exc()
             logger.error("[Orchestrator] Falha no Motor de Intenções Refatorado: %s", exc, exc_info=True)
-            # Fallback determinístico seguro
-            semantic_plan = SemanticPlan(
-                status=ExecutionStatus.READY,
-                intent=IntentType.LIST,
-                goal=pergunta,
-                entities=["Cliente"],
-                metrics=[],
-                dimensions=[],
-                trace_id=trace_id
-            )
-            debug_data["semantic_plan"] = semantic_plan.model_dump()
+            # Fail closed: a falha de interpretacao nao inventa entidade nem dataset.
+            elapsed = (time.perf_counter() - start_time) * 1000
+            return write_debug_and_return({
+                "status": "INTENT_ENGINE_ERROR",
+                "goal": pergunta,
+                "ambiguities": [],
+                "missing_information": [],
+                "resposta_direta": (
+                    "Nao foi possivel interpretar a pergunta com seguranca. "
+                    "Nenhuma consulta foi executada."
+                ),
+                "mensagem": "Falha controlada no motor de intencoes.",
+                "pergunta_original": pergunta,
+                "execution_time_ms": elapsed,
+                "chart_type": None,
+                "chart_data": None,
+                "visualizations": None,
+                "pode_favoritar": False,
+            })
 
         # ── 3. Query Intent Resolver ──────────────────────────────────
         debug_data["timeline"]["5. Canonicalizer Iniciado"] = get_timestamp()
@@ -2872,7 +3202,19 @@ class NewQueryOrchestrator:
                                 history=history,
                                 last_plan=last_plan,
                                 dashboard_state=last_db_state,
-                                query_context=last_q_context
+                                query_context=last_q_context,
+                                temporal_context={
+                                    "normalizer_version": temporal_result.normalizer_version,
+                                    "timezone": temporal_result.timezone,
+                                    "relation": temporal_result.relation.value,
+                                    "windows": [
+                                        {
+                                            "start": window.start.isoformat(),
+                                            "end": window.end.isoformat(),
+                                        }
+                                        for window in temporal_result.windows
+                                    ],
+                                },
                             )
 
                             if intent_output.plan:

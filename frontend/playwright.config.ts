@@ -1,5 +1,26 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const reservedPorts = new Set([3000, 3001, 3002, 3333, 8000])
+const requestedPort = Number(process.env.PLAYWRIGHT_PORT || '3100')
+
+if (!Number.isInteger(requestedPort) || requestedPort < 1024 || requestedPort > 65535) {
+  throw new Error('PLAYWRIGHT_PORT must be an integer between 1024 and 65535.')
+}
+if (reservedPorts.has(requestedPort)) {
+  throw new Error(`PLAYWRIGHT_PORT ${requestedPort} is reserved for an operational service.`)
+}
+
+const testBaseURL = process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${requestedPort}`
+const parsedBaseURL = new URL(testBaseURL)
+const parsedPort = Number(parsedBaseURL.port || (parsedBaseURL.protocol === 'https:' ? 443 : 80))
+
+if (!['127.0.0.1', 'localhost'].includes(parsedBaseURL.hostname)) {
+  throw new Error('PLAYWRIGHT_BASE_URL must use loopback.')
+}
+if (reservedPorts.has(parsedPort)) {
+  throw new Error(`PLAYWRIGHT_BASE_URL port ${parsedPort} is reserved for an operational service.`)
+}
+
 export default defineConfig({
   testDir: './tests/visual',
   timeout: 45_000,
@@ -10,13 +31,13 @@ export default defineConfig({
   workers: 2,
   reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3000',
+    baseURL: testBaseURL,
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: 'npm run dev -- --hostname 127.0.0.1 --port 3000',
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
+    command: `npm run dev:local -- --hostname 127.0.0.1 --port ${requestedPort}`,
+    url: testBaseURL,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
   projects: [

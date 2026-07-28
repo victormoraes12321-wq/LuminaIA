@@ -79,7 +79,7 @@ function normalizeQuestion(value: string): string {
     .toLowerCase()
 }
 
-function loadDashboardDefaults(): DashboardDefaults | null {
+function _loadDashboardDefaults(): DashboardDefaults | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = window.localStorage.getItem(DASHBOARD_DEFAULTS_KEY)
@@ -101,7 +101,7 @@ function saveDashboardDefaults(defaults: DashboardDefaults) {
   window.localStorage.setItem(DASHBOARD_DEFAULTS_KEY, JSON.stringify(defaults))
 }
 
-function asksForDashboardSelection(question: string): boolean {
+function _asksForDashboardSelection(question: string): boolean {
   const normalized = normalizeQuestion(question)
   return [
     'selecionar a forma',
@@ -114,7 +114,7 @@ function asksForDashboardSelection(question: string): boolean {
   ].some(term => normalized.includes(term))
 }
 
-function needsDashboardOptions(question: string): boolean {
+function _needsDashboardOptions(question: string): boolean {
   const normalized = normalizeQuestion(question)
   const analyticalIntent = [
     'analise',
@@ -178,7 +178,7 @@ function needsDashboardOptions(question: string): boolean {
   return !hasFormat || (requiresValueBasis && !hasValueBasis)
 }
 
-function inferDashboardDefaults(question: string, saved: DashboardDefaults | null): DashboardDefaults {
+function _inferDashboardDefaults(question: string, saved: DashboardDefaults | null): DashboardDefaults {
   const normalized = normalizeQuestion(question)
   let basis = saved?.basis || 'liquido'
   let format = saved?.format || 'tabela'
@@ -235,7 +235,7 @@ export function ChatInterface({
   onClearError,
   mode,
   onChangeMode,
-  dashboardDefaults,
+  dashboardDefaults: _dashboardDefaults,
   onSaveDashboardDefaults,
 }: ChatInterfaceProps) {
   const [input, setInput] = useState('')

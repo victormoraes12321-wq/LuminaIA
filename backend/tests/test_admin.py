@@ -178,7 +178,7 @@ async def test_admin_tenant_settings(admin_client: AsyncClient):
     assert "TKEY" in settings_new["ia_config"]["api_key"]
 
     
-    # ── Cenário 4: Testar Conexão Oracle (Deve falhar/lancar erro) ───────
+    # ── Cenário 4: Testar Conexão Oracle (deve usar o mock isolado) ──────
     test_conn_payload = {
         "host": "localhost",
         "port": 9999, # Porta inexistente para gerar timeout/erro rapido
@@ -187,11 +187,11 @@ async def test_admin_tenant_settings(admin_client: AsyncClient):
         "sid": "XE"
     }
     res_test = await admin_client.post("/tenant/test-oracle", json=test_conn_payload)
-    assert res_test.status_code == 400
-    # A mensagem é sanitizada para não expor detalhes de infraestrutura (correção de segurança AppSec)
-    assert res_test.json()["error"]["code"] == 400
+    assert res_test.status_code == 200
+    assert res_test.json()["success"] is True
+    assert "Simulação" in res_test.json()["message"]
 
-    # Testar com senha mascarada - deve recuperar a senha salva (ou falhar por host inválido se tentar conectar)
+    # A senha mascarada também não pode provocar acesso à rede no ambiente de teste.
     test_conn_payload_masked = {
         "host": "localhost",
         "port": 9999,
@@ -200,8 +200,8 @@ async def test_admin_tenant_settings(admin_client: AsyncClient):
         "sid": "XE"
     }
     res_test_masked = await admin_client.post("/tenant/test-oracle", json=test_conn_payload_masked)
-    assert res_test_masked.status_code == 400
-    assert res_test_masked.json()["error"]["code"] == 400
+    assert res_test_masked.status_code == 200
+    assert res_test_masked.json()["success"] is True
 
     # ── Cenário 5: Testar Conexão de IA (Deve falhar com chave inválida) ──
     test_ai_payload = {
@@ -229,4 +229,3 @@ async def test_admin_audit_logs(admin_client: AsyncClient):
         assert "usuario" in log
         assert "email" in log["usuario"]
         assert "view" in log
-

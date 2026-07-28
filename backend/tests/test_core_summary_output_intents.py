@@ -1,4 +1,8 @@
+import pytest
+
 from services.new_query_orchestrator import NewQueryOrchestrator
+
+pytestmark = [pytest.mark.unit, pytest.mark.no_database]
 
 
 def test_vendor_top_query_is_not_collapsed_with_ranking():
@@ -124,6 +128,7 @@ def test_iso_period_from_assistant_response_keeps_long_context_alive():
     assert "ranking_clientes" in orchestrator._core_summary_topics(inherited)
 
 
+@pytest.mark.known_gap
 def test_same_followup_inherits_metric_period_and_visual_request():
     orchestrator = NewQueryOrchestrator()
 

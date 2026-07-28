@@ -444,6 +444,10 @@ class AICredentialManager:
     def _client_for_candidate(self, candidate: CredentialCandidate) -> AsyncOpenAI:
         if candidate.provider_id != "openai":
             raise AICMProviderUnavailableError(f"Provider sem adaptador ativo: {candidate.provider_id}")
+        if settings.is_testing or settings.MOCK_OPENAI:
+            from testing.ai_mock import deterministic_ai_provider
+
+            return deterministic_ai_provider.client  # type: ignore[return-value]
         if candidate.credential_id not in self._clients:
             self._clients[candidate.credential_id] = AsyncOpenAI(
                 api_key=candidate.api_key,

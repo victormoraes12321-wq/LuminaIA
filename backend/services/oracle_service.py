@@ -16,16 +16,15 @@ from __future__ import annotations
 
 import asyncio
 import inspect
-import json
 import logging
 import re
 from typing import Any
 import uuid
 
 import oracledb
-from cryptography.fernet import Fernet
 
 from config import settings
+from services.connection_credentials import decrypt_connection_details
 
 # Inicialização do logger específico deste serviço
 logger = logging.getLogger("luminaai.services.oracle")
@@ -175,77 +174,6 @@ def classify_oracle_connection_error(
         ),
         error_text,
     )
-
-
-def decrypt_connection_details(oracle_conn: dict[str, Any]) -> dict[str, Any]:
-    """
-    Descriptografa as credenciais de conexão do banco Oracle de um Tenant específico.
-
-    O JSON de conexão é armazenado de forma criptografada na tabela 'tenants' do PostgreSQL
-    para garantir conformidade com políticas de segurança da informação. A chave simétrica
-    utilizada é definida pela variável de ambiente 'ENCRYPTION_KEY' no formato base64 da Fernet.
-
-    Parâmetros:
-    -----------
-    oracle_conn : dict[str, Any]
-        Dicionário contendo as chaves de controle de criptografia do tenant:
-        - encrypted (bool): Indica se o payload está cifrado.
-        - algorithm (str): Nome do algoritmo utilizado (ex: 'Fernet').
-        - payload (str | dict): Carga contendo os dados de conexão cifrados ou planos.
-
-    Retorno:
-    --------
-    dict[str, Any]
-        Dicionário contendo os parâmetros de conexão descriptografados em formato plano:
-        host, port, user, password, sid ou service_name.
-
-    Exceções:
-    ---------
-    ValueError:
-        Caso as credenciais estejam ausentes, malformadas ou o decodificador falhe.
-    """
-    # Valida se o dicionário com os dados de conexão existe
-    if not oracle_conn:
-        raise ValueError("Dados de conexão do Oracle não fornecidos ou vazios.")
-
-    if isinstance(oracle_conn, str):
-        try:
-            oracle_conn = json.loads(oracle_conn)
-        except Exception:
-            pass
-
-    # Se a flag 'encrypted' estiver explicitamente falsa, lê o payload direto (útil para desenvolvimento local)
-    if not oracle_conn.get("encrypted", True):
-        logger.warning("Alerta de Segurança: Lendo credenciais em plaintext para fins de desenvolvimento.")
-        payload_data = oracle_conn.get("payload")
-        if isinstance(payload_data, dict):
-            return payload_data
-        elif isinstance(payload_data, str):
-            # Tenta decodificar a string como um JSON estruturado
-            return json.loads(payload_data)
-        raise ValueError("Payload de conexão não criptografado inválido ou mal estruturado.")
-
-    # Extrai o payload criptografado
-    payload = oracle_conn.get("payload")
-    if not payload:
-        raise ValueError("Carga criptografada (payload) ausente nas credenciais do tenant.")
-
-    try:
-        # Prepara a chave simétrica Fernet a partir das configurações do backend
-        key_bytes = settings.ENCRYPTION_KEY.encode("utf-8")
-        f = Fernet(key_bytes)
-        
-        # Descriptografa a string criptografada e converte de bytes de volta para string UTF-8
-        decrypted_bytes = f.decrypt(payload.encode("utf-8"))
-        decrypted_str = decrypted_bytes.decode("utf-8")
-        
-        # Converte a string JSON plana em um dicionário Python
-        details = json.loads(decrypted_str)
-        return details
-    except Exception as exc:
-        logger.error("Falha crítica ao descriptografar credenciais do tenant: %s", exc)
-        # Oculta detalhes do erro criptográfico e lança uma exceção limpa
-        raise ValueError("Chave de criptografia inválida ou payload de conexão corrompido.") from exc
 
 
 import asyncio
@@ -436,7 +364,11 @@ async def get_oracle_connection(
     host = str(details["host"]).strip()
     
     # ── Interceptador de Simulação (MOCK_ORACLE) ──
-    if host == "MOCK_ORACLE" or (settings.MOCK_ORACLE and not ignore_mock_global):
+    if (
+        host == "MOCK_ORACLE"
+        or settings.is_testing
+        or (settings.MOCK_ORACLE and not ignore_mock_global)
+    ):
         logger.info("Modo de simulacao Oracle ativo (host=%s, MOCK_ORACLE=%s). Usando base PostgreSQL local como fonte.", host, settings.MOCK_ORACLE)
         if tenant_id is not None:
             tenant_key = str(tenant_id)

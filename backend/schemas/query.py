@@ -12,6 +12,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field, ConfigDict, field_validator
 
+from contracts.analytical_v2 import AnalyticalResponseV2
 from models.view_catalog import ChartType
 
 
@@ -77,6 +78,16 @@ class QueryRequest(BaseModel):
         default=None,
         max_length=64,
         description="ID do nó pai no grafo de conversa para ramificações"
+    )
+
+    client_message_id: uuid.UUID | None = Field(
+        default=None,
+        description="UUID idempotente gerado uma vez por submissao e reutilizado no retry.",
+    )
+    expected_context_version: int | None = Field(
+        default=None,
+        ge=0,
+        description="Versao server-side esperada pelo cliente para detectar concorrencia.",
     )
 
     @field_validator("mode")
@@ -241,6 +252,15 @@ class QueryResponse(BaseModel):
         default=None,
         description="ID único de requisição imutável para rastreamento completo de ponta a ponta.",
     )
+    session_id: str | None = Field(default=None, max_length=128)
+    query_node_id: uuid.UUID | None = None
+    response_node_id: uuid.UUID | None = None
+    parent_id: uuid.UUID | str | None = None
+    context_version: int | None = Field(default=None, ge=0)
+    context_epoch: int | None = Field(default=None, ge=0)
+    conversation_status: str | None = Field(default=None, max_length=32)
+    idempotent_replay: bool = False
+    conversation_warning: str | None = Field(default=None, max_length=500)
     view_catalog_id: uuid.UUID | None = Field(
         default=None,
         description=(
@@ -268,6 +288,10 @@ class QueryResponse(BaseModel):
     visualizations: list[VisualizationItem] | None = Field(
         default=None,
         description="v3.0: Lista de visualizações solicitadas (suporte a múltiplos componentes de uma vez)."
+    )
+    analytical_contract: AnalyticalResponseV2 | None = Field(
+        default=None,
+        description="Sidecar opcional e versionado lumina.analytics/2.0.",
     )
     bi_intelligence: dict[str, Any] | None = Field(
         default=None,

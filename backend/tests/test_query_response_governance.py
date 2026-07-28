@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from services.query_response_governance import query_response_governance
+from contracts.analytical_v2 import PipelineKind
+from config import settings
 from models.user import UserRole
 from types import SimpleNamespace
 import uuid
 import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.no_database]
 
 
 class _Result:
@@ -137,3 +141,71 @@ async def test_non_admin_never_receives_technical_trace() -> None:
     assert result["telemetry"] is None
     assert "debug_info" not in result
     assert result["data_status"]["query_source"] == "POSTGRESQL_ANALYTICAL_CLONE"
+
+
+@pytest.mark.asyncio
+async def test_enabled_v2_sidecar_is_emitted_for_new_pipeline(monkeypatch) -> None:
+    monkeypatch.setattr(settings, "ANALYTICAL_CONTRACTS_V2_ENABLED", True)
+    monkeypatch.setattr(settings, "ANALYTICAL_CONTRACTS_V2_SHADOW_MODE", False)
+    payload = {
+        "query_id": str(uuid.uuid4()),
+        "pergunta_original": "Faturamento de 06/2026 em tabela e grafico",
+        "status": "FULL_RENDERING",
+        "view_name": "VW_VENDAS_LM",
+        "chart_type": "TABLE",
+        "chart_data": {
+            "columns": [{"key": "valor", "label": "Valor", "type": "currency"}],
+            "rows": [{"valor": 300}],
+            "total_rows": 1,
+            "resumo": {},
+        },
+        "visualizations": [
+            {"chart_type": "TABLE", "chart_data": {}},
+            {"chart_type": "BAR", "chart_data": {}},
+        ],
+    }
+    tenant = SimpleNamespace(id=uuid.uuid4(), sync_config={})
+    user = SimpleNamespace(id=uuid.uuid4(), role=UserRole.CONSULTA)
+
+    result = await query_response_governance.enrich(
+        payload,
+        db=_FakeDb(),
+        tenant=tenant,
+        current_user=user,
+        pipeline=PipelineKind.NEW,
+        session_id="session-v2",
+    )
+
+    contract = result["analytical_contract"]
+    assert contract["contract"]["schema_version"] == "2.0"
+    assert contract["contract"]["pipeline"] == "NEW"
+    assert contract["scope_summary"]["tenant_id"] == str(tenant.id)
+    assert [item["kind"] for item in contract["visualizations"]] == [
+        "DATA_TABLE",
+        "BAR_CHART",
+    ]
+
+
+@pytest.mark.asyncio
+async def test_shadow_mode_validates_without_exposing_sidecar(monkeypatch) -> None:
+    monkeypatch.setattr(settings, "ANALYTICAL_CONTRACTS_V2_ENABLED", True)
+    monkeypatch.setattr(settings, "ANALYTICAL_CONTRACTS_V2_SHADOW_MODE", True)
+    payload = {
+        "query_id": str(uuid.uuid4()),
+        "pergunta_original": "Faturamento de 06/2026 em tabela",
+        "status": "FULL_RENDERING",
+        "chart_type": None,
+        "chart_data": None,
+    }
+    tenant = SimpleNamespace(id=uuid.uuid4(), sync_config={})
+    user = SimpleNamespace(id=uuid.uuid4(), role=UserRole.CONSULTA)
+
+    result = await query_response_governance.enrich(
+        payload,
+        db=_FakeDb(),
+        tenant=tenant,
+        current_user=user,
+        pipeline=PipelineKind.LEGACY,
+    )
+
+    assert "analytical_contract" not in result

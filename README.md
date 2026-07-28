@@ -1,8 +1,18 @@
 # LuminaAI
 
+O estado conversacional escalavel `lumina.conversation-state/1.0` esta
+implementado atras de rollout controlado. Producao permanece `LEGACY_ONLY`;
+consulte [contrato](docs/contracts/CONVERSATION_STATE_V2.md), [ADR
+0011](docs/adrs/0011-postgresql-conversation-source-of-truth.md) e o
+[runbook de retencao](docs/operation/CONVERSATION_RETENTION_RUNBOOK.md).
+
 LuminaAI e uma plataforma Enterprise de Business Intelligence com IA, backend FastAPI, frontend Next.js e Data Platform analitica para catalogo, blueprints, pacotes analiticos, runtime de dashboards e governanca multi-tenant.
 
-Esta documentacao representa o estado atual do sistema apos as auditorias, correcoes e validacoes executadas ate 2026-07-22. O baseline de certificacao completa permanece registrado em 2026-07-09; as correcoes mais recentes estao consolidadas em [Estado atual do sistema](docs/current-status.md).
+Esta documentacao representa o estado atual do sistema apos as auditorias,
+correcoes e validacoes executadas ate 2026-07-28. O baseline atual esta em
+[Baseline seguro de testes](docs/audit/TEST_BASELINE.md), e as correcoes
+historicas permanecem consolidadas em
+[Estado atual do sistema](docs/current-status.md).
 
 ## Estado Atual
 

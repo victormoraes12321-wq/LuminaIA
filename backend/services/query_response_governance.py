@@ -1,14 +1,19 @@
 from __future__ import annotations
 
+import logging
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
 from sqlalchemy import func, select
 
+from config import settings
+from contracts.analytical_v2 import PipelineKind, attach_v2_sidecar
 from models.metadata_catalog import MetadataCatalog
 from models.sync_queue import SyncQueue
 from models.user import UserRole
+
+logger = logging.getLogger(__name__)
 
 
 class QueryResponseGovernance:
@@ -199,7 +204,16 @@ class QueryResponseGovernance:
         )
         return {key: trace.get(key) for key in allowed if key in trace}
 
-    async def enrich(self, payload: dict[str, Any], *, db: Any, tenant: Any, current_user: Any) -> dict[str, Any]:
+    async def enrich(
+        self,
+        payload: dict[str, Any],
+        *,
+        db: Any,
+        tenant: Any,
+        current_user: Any,
+        pipeline: PipelineKind = PipelineKind.LEGACY,
+        session_id: str | None = None,
+    ) -> dict[str, Any]:
         result = dict(payload)
         data_status = await self._data_status(db, tenant=tenant, view_name=result.get("view_name"))
         validation = self.validate_math(result)
@@ -241,6 +255,37 @@ class QueryResponseGovernance:
             result["plano_execucao"] = None
             result["plano_nlu"] = None
             result["telemetry"] = None
+
+        if settings.ANALYTICAL_CONTRACTS_V2_ENABLED:
+            role = getattr(getattr(current_user, "role", None), "value", None) or "CONSULTA"
+            try:
+                with_sidecar = attach_v2_sidecar(
+                    result,
+                    tenant_id=tenant.id,
+                    user_id=getattr(current_user, "id", None),
+                    user_role=str(role).upper(),
+                    session_id=session_id,
+                    pipeline=pipeline,
+                    comparison_planner_enabled=settings.COMPARISON_PLANNER_V2_ENABLED,
+                    comparison_planner_shadow_mode=settings.COMPARISON_PLANNER_V2_SHADOW_MODE,
+                )
+                if settings.ANALYTICAL_CONTRACTS_V2_SHADOW_MODE:
+                    contract = with_sidecar.get("analytical_contract")
+                    metadata = contract.get("contract", {}) if isinstance(contract, dict) else {}
+                    logger.info(
+                        "Analytical contract V2 validated in shadow mode | schema=%s/%s | pipeline=%s",
+                        metadata.get("schema_name"),
+                        metadata.get("schema_version"),
+                        pipeline.value,
+                    )
+                else:
+                    result["analytical_contract"] = with_sidecar["analytical_contract"]
+            except (TypeError, ValueError) as exc:
+                logger.warning(
+                    "Analytical contract V2 sidecar was not emitted | pipeline=%s | error=%s",
+                    pipeline.value,
+                    type(exc).__name__,
+                )
         return result
 
 

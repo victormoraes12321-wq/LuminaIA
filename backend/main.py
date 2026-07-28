@@ -43,6 +43,7 @@ from routers import dashboard_studio as dashboard_studio_router
 from routers import dashboard as dashboard_router
 from routers import dashboard_preferences as dashboard_preferences_router
 from routers import svr as svr_router
+from routers import conversations as conversations_router
 from services.ai_credential_manager import ai_credential_manager
 from services.ai_invocation_manager import ai_invocation_manager
 from services.scheduler import start_scheduler, stop_scheduler
@@ -97,6 +98,10 @@ async def lifespan(app: FastAPI):
     logger.info("=" * 60)
 
     try:
+        if settings.is_testing:
+            from testing.database_guard import guard_engine_before_write
+
+            await guard_engine_before_write(engine)
         async with engine.connect() as conn:
             await conn.execute(sqlalchemy.text("SELECT 1"))
             from database import Base
@@ -108,27 +113,28 @@ async def lifespan(app: FastAPI):
         # permite healthcheck expor o problema sem crashar imediatamente
         logger.critical("â Œ Falha ao conectar ao PostgreSQL: %s", exc)
 
-    try:
-        aicm_report = await ai_credential_manager.startup_validate()
-        logger.info("[AICM] Startup validation status: %s", aicm_report.get("status"))
-    except Exception as exc:
-        logger.warning("[AICM] Startup validation failed in degraded mode: %s", exc)
-    # Inicia o agendador de sincronização em background
-    try:
-        start_scheduler()
-    except Exception as exc:
-        logger.error("Falha ao iniciar o agendador: %s", exc)
+    if not settings.is_testing:
+        try:
+            aicm_report = await ai_credential_manager.startup_validate()
+            logger.info("[AICM] Startup validation status: %s", aicm_report.get("status"))
+        except Exception as exc:
+            logger.warning("[AICM] Startup validation failed in degraded mode: %s", exc)
+        # Inicia o agendador de sincronização em background
+        try:
+            start_scheduler()
+        except Exception as exc:
+            logger.error("Falha ao iniciar o agendador: %s", exc)
 
     # Sincroniza o SemanticCatalog com o dicionário semântico em memória
-    try:
-        from services.semantic_layer import sync_from_semantic_catalog
-        from config import settings as _settings
-        # Usa o tenant demo padrão para carregamento inicial de sinônimos
-        demo_tenant = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
-        synced = await sync_from_semantic_catalog(demo_tenant)
-        logger.info("✅ SemanticCatalog sincronizado: %d conceitos carregados", synced)
-    except Exception as exc:
-        logger.warning("Falha ao sincronizar o catálogo semântico legado no startup: %s", exc)
+    if not settings.is_testing:
+        try:
+            from services.semantic_layer import sync_from_semantic_catalog
+            # Usa o tenant demo padrão para carregamento inicial de sinônimos
+            demo_tenant = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+            synced = await sync_from_semantic_catalog(demo_tenant)
+            logger.info("✅ SemanticCatalog sincronizado: %d conceitos carregados", synced)
+        except Exception as exc:
+            logger.warning("Falha ao sincronizar o catálogo semântico legado no startup: %s", exc)
 
     # Inicializa o Corporate Knowledge Catalog (CKC)
     try:
@@ -143,7 +149,8 @@ async def lifespan(app: FastAPI):
     # ── Shutdown ──────────────────────────────────────────────
     logger.info("🛑 LuminaAI — Encerrando...")
     # Desliga o agendador
-    await stop_scheduler()
+    if not settings.is_testing:
+        await stop_scheduler()
     await ai_credential_manager.close_all()
     await engine.dispose()
     logger.info("✅ Pool de conexões PostgreSQL fechado. Até logo!")
@@ -429,6 +436,11 @@ app.include_router(
 
 app.include_router(
     svr_router.router,
+    prefix="/api/v1",
+)
+
+app.include_router(
+    conversations_router.router,
     prefix="/api/v1",
 )
 

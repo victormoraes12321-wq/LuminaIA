@@ -13,7 +13,7 @@ from __future__ import annotations
 import logging
 from functools import lru_cache
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 logger = logging.getLogger(__name__)
@@ -40,19 +40,44 @@ class Settings(BaseSettings):
         "Motor de Intenções para análise de dados empresariais."
     )
     ENVIRONMENT: str = Field(default="development")
+    LUMINA_TESTING: bool = Field(default=False)
+    LUMINA_DISABLE_EXTERNAL_NETWORK: bool = Field(default=False)
     DEBUG: bool = Field(default=False)
     NEW_PIPELINE_ACTIVE: bool = Field(default=False)
     ENABLE_DETERMINISTIC_PIPELINE: bool = Field(default=False)
+    ANALYTICAL_CONTRACTS_V2_ENABLED: bool = Field(default=False)
+    ANALYTICAL_CONTRACTS_V2_SHADOW_MODE: bool = Field(default=True)
+    ANALYTICAL_CONTRACTS_V2_FRONTEND_ENABLED: bool = Field(default=False)
+    ANALYTICAL_COMPARISON_V2_EXECUTION_ENABLED: bool = Field(default=False)
+    TEMPORAL_NORMALIZER_V2_ENABLED: bool = Field(default=True)
+    TEMPORAL_NORMALIZER_V2_SHADOW_MODE: bool = Field(default=True)
+    COMPARISON_PLANNER_V2_ENABLED: bool = Field(default=True)
+    COMPARISON_PLANNER_V2_SHADOW_MODE: bool = Field(default=True)
+    COMPARISON_EXECUTOR_V2_ENABLED: bool = Field(default=False)
+    COMPARISON_EXECUTOR_V2_SHADOW_MODE: bool = Field(default=False)
+    CONVERSATION_STATE_MODE: str = Field(default="LEGACY_ONLY")
+    CONVERSATION_PERSIST_CONTENT: bool = Field(default=True)
+    CONVERSATION_CONTENT_KEY_VERSION: str = Field(default="v1", min_length=1, max_length=32)
+    CONVERSATION_ACTIVE_TTL_HOURS: int = Field(default=24, ge=1, le=8760)
+    CONVERSATION_ARCHIVE_AFTER_DAYS: int = Field(default=30, ge=1, le=3650)
+    CONVERSATION_SOFT_DELETE_AFTER_DAYS: int = Field(default=180, ge=1, le=3650)
+    CONVERSATION_PURGE_AFTER_DAYS: int = Field(default=365, ge=1, le=7300)
+    CONVERSATION_MAX_CONTENT_BYTES: int = Field(default=12000, ge=256, le=1000000)
+    CONVERSATION_MAX_NODES: int = Field(default=10000, ge=10, le=1000000)
+    CONVERSATION_PURGE_BATCH_SIZE: int = Field(default=100, ge=1, le=1000)
+    CONVERSATION_RETENTION_JOB_ENABLED: bool = Field(default=False)
+    CONVERSATION_LEGACY_IMPORT_ENABLED: bool = Field(default=False)
     DB_ECHO: bool = Field(default=False, description="Habilita logs de todas as queries SQL no console")
 
     # ── Banco de Dados PostgreSQL (Async) ──────────────────────
     DATABASE_URL: str = Field(
-        ...,
+        default="",
         description=(
             "URL de conexão assíncrona: "
             "postgresql+asyncpg://usuario:senha@host:5432/banco"
         ),
     )
+    TEST_DATABASE_URL: str | None = Field(default=None)
     DB_POOL_SIZE: int = Field(default=10, ge=1, le=50)
     DB_MAX_OVERFLOW: int = Field(default=20, ge=0, le=100)
     DB_POOL_TIMEOUT: int = Field(default=30, ge=5, le=120)
@@ -103,17 +128,22 @@ class Settings(BaseSettings):
         default=False,
         description="Se True, intercepta qualquer conexão Oracle e usa a base mock local. Para produção/Oracle real, manter False."
     )
+    MOCK_OPENAI: bool = Field(
+        default=False,
+        description="Usa provedor deterministico de IA durante testes.",
+    )
 
     # ── CORS ──────────────────────────────────────────────────
     CORS_ORIGINS: list[str] = Field(
         default=[
+            "http://localhost:3002",
+            "http://127.0.0.1:3002",
             "http://localhost:3000",
             "http://127.0.0.1:3000",
+            "http://localhost:3001",
+            "http://127.0.0.1:3001",
             "http://localhost:5173",
             "http://127.0.0.1:5173",
-            "http://192.168.0.36:3000",
-            "http://192.168.18.103:3000",
-            "http://192.168.1.5:3000",
         ],
         description="Lista de origens permitidas para CORS",
     )
@@ -146,13 +176,51 @@ class Settings(BaseSettings):
     @classmethod
     def validate_environment(cls, v: str) -> str:
         """Garante que o ambiente seja um valor válido."""
-        allowed = {"development", "staging", "production"}
+        allowed = {"development", "staging", "production", "test"}
         normalized = v.lower().strip()
         if normalized not in allowed:
             raise ValueError(
                 f"ENVIRONMENT inválido: '{v}'. Deve ser um de: {sorted(allowed)}"
             )
         return normalized
+
+    @field_validator("CONVERSATION_STATE_MODE")
+    @classmethod
+    def validate_conversation_state_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {
+            "LEGACY_ONLY",
+            "SHADOW_WRITE",
+            "DUAL_WRITE_LEGACY_READ",
+            "POSTGRES_READ_WRITE",
+            "POSTGRES_ONLY",
+        }
+        if normalized not in allowed:
+            raise ValueError("CONVERSATION_STATE_MODE invalido")
+        return normalized
+
+    @model_validator(mode="after")
+    def validate_database_contract(self) -> "Settings":
+        if self.ENVIRONMENT == "test" or self.LUMINA_TESTING:
+            if self.ENVIRONMENT != "test" or not self.LUMINA_TESTING:
+                raise ValueError(
+                    "Modo de teste exige ENVIRONMENT=test e LUMINA_TESTING=true."
+                )
+            if not self.TEST_DATABASE_URL:
+                raise ValueError("TEST_DATABASE_URL e obrigatoria no modo de teste.")
+            self.DATABASE_URL = self.TEST_DATABASE_URL
+            self.MOCK_ORACLE = True
+            self.MOCK_OPENAI = True
+            self.LUMINA_DISABLE_EXTERNAL_NETWORK = True
+        elif not self.DATABASE_URL:
+            raise ValueError("DATABASE_URL e obrigatoria fora do modo de teste.")
+        if not (
+            self.CONVERSATION_ARCHIVE_AFTER_DAYS
+            <= self.CONVERSATION_SOFT_DELETE_AFTER_DAYS
+            <= self.CONVERSATION_PURGE_AFTER_DAYS
+        ):
+            raise ValueError("Conversation retention periods must be ordered.")
+        return self
 
     # ── Propriedades Derivadas ─────────────────────────────────
 
@@ -172,6 +240,11 @@ class Settings(BaseSettings):
         return self.ENVIRONMENT == "staging"
 
     @property
+    def is_testing(self) -> bool:
+        """Retorna True somente para o modo de teste explicitamente habilitado."""
+        return self.ENVIRONMENT == "test" and self.LUMINA_TESTING
+
+    @property
     def cors_allow_origin_regex(self) -> str | None:
         """Permite acesso via IP local em desenvolvimento sem editar o .env a cada rede."""
         if self.CORS_ALLOW_ORIGIN_REGEX:
@@ -184,7 +257,7 @@ class Settings(BaseSettings):
             r"10(?:\.\d{1,3}){3}|"
             r"192\.168(?:\.\d{1,3}){2}|"
             r"172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2}"
-            r")(?::(?:3000|5173))?$"
+            r")(?::(?:3000|3001|3002|5173))?$"
         )
 
 

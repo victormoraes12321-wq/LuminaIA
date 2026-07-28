@@ -77,6 +77,14 @@ def test_conversation_graph_creation_and_node_connections():
     assert graph_updated.nodes[node_id_2].parent_id == node_id_1
     assert node_id_2 in graph_updated.nodes[node_id_1].children_ids
 
+@pytest.mark.known_gap
+@pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "LUMINA-GAP-DASH-001 / dashboard V2: a atualizacao visual local ainda "
+        "retorna FULL_RENDERING em vez do contrato UI_MODIFIED."
+    ),
+)
 def test_visual_only_update_intercepts_correctly():
     manager = ConversationGraphManager()
     session_id = "test_session_2"

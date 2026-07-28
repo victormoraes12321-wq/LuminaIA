@@ -173,6 +173,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null)
     setError(null)
     if (typeof window !== 'undefined') {
+      for (let index = localStorage.length - 1; index >= 0; index -= 1) {
+        const key = localStorage.key(index)
+        if (key?.startsWith('lumina-conversation:')) {
+          localStorage.removeItem(key)
+        }
+      }
       window.location.replace('/login')
     }
   }, [])

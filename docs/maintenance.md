@@ -1,5 +1,13 @@
 # Guia De Manutencao
 
+## Migration V12
+
+`backend/database/migration_v12_0.py` adiciona o estado conversacional
+PostgreSQL. `up` e idempotente, transacional e verificavel, sem execucao no
+startup. `down --confirm-test-only` e destrutiva e bloqueada fora do banco
+descartavel. O rollback operacional e `CONVERSATION_STATE_MODE=LEGACY_ONLY`,
+preservando tabelas e dados.
+
 ## Boas Praticas
 
 - Rodar testes backend e frontend antes de mudancas.

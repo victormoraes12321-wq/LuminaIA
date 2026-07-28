@@ -16,7 +16,8 @@ def load_training_data():
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("scenario", load_training_data())
-async def test_semantic_knowledge_intelligence(scenario):
+@pytest.mark.ai_mock
+async def test_semantic_knowledge_intelligence(scenario, fake_openai_provider):
     """
     Valida a inteligência semântica do sistema traduzindo a pergunta analítica
     e verificando se os conceitos corporativos esperados (métricas, dimensões, período)
@@ -26,13 +27,22 @@ async def test_semantic_knowledge_intelligence(scenario):
     expected_metrics = scenario.get("expected_metrics", [])
     expected_dimensions = scenario.get("expected_dimensions", [])
     expected_period = scenario.get("expected_period")
+    fake_openai_provider.queue_text(json.dumps({
+        "metrics": expected_metrics,
+        "dimensions": expected_dimensions,
+        "period": expected_period,
+        "filters": {},
+        "confidence": 0.85,
+        "hypotheses": [],
+    }))
 
     async with AsyncSessionLocal() as db_session:
         tenant_id = uuid.uuid4()
         cip, score, origin = await csie.generate_corporate_intent_plan(
             pergunta=question,
             tenant_id=tenant_id,
-            db=db_session
+            db=db_session,
+            client=fake_openai_provider.client,
         )
 
         legacy_plan = cip.to_legacy_semantic_plan()

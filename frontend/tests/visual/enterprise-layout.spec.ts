@@ -1,6 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
 const consoleErrorsByPage = new WeakMap<Page, string[]>()
+const visualBaseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3100'
 
 const user = {
   id: '11111111-1111-4111-8111-111111111111',
@@ -121,7 +122,7 @@ async function authenticateProxy(page: Page) {
     {
       name: 'lumina-token',
       value: `${header}.${payload}.visual-test`,
-      url: 'http://127.0.0.1:3000',
+      url: visualBaseURL,
       httpOnly: true,
       sameSite: 'Lax',
     },

@@ -22,6 +22,8 @@ import { ETreemapChart } from '@/components/charts/ETreemapChart'
 import { EFunnelChart } from '@/components/charts/EFunnelChart'
 import { DataTable } from '@/components/charts/DataTable'
 import { repairTextEncoding } from '@/lib/textEncoding'
+import { ComparisonRenderer } from '@/components/comparison'
+import type { ComparisonPresentationModel } from '@/components/comparison'
 import {
   isChartDataBar,
   isChartDataKPI,
@@ -128,6 +130,7 @@ interface DynamicRendererProps {
   className?: string
   title?: string
   visualizations?: Array<{ chart_type: ChartType; chart_data: AnyChartData }> | null
+  comparisonModel?: ComparisonPresentationModel | null
 }
 
 function hasDirectResponse(data: unknown): data is { resposta_direta: string } {
@@ -221,7 +224,18 @@ function downloadCSV(chartType: ChartType, chartData: AnyChartData, title?: stri
 
 // ── Main Export ────────────────────────────────────────────────
 
-export function DynamicRenderer({ chartType, chartData, className, title, visualizations }: DynamicRendererProps) {
+export function DynamicRenderer({
+  chartType,
+  chartData,
+  className,
+  title,
+  visualizations,
+  comparisonModel,
+}: DynamicRendererProps) {
+  if (comparisonModel) {
+    return <ComparisonRenderer model={comparisonModel} className={className} />
+  }
+
   // Handle resposta_direta (textual answer from AI without chart)
   if (!chartType && hasDirectResponse(chartData)) {
     const texto = chartData.resposta_direta
