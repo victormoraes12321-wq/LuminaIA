@@ -29,6 +29,9 @@ os.environ["MOCK_OPENAI"] = "true"
 os.environ["LUMINA_DISABLE_EXTERNAL_NETWORK"] = "true"
 os.environ["NEW_PIPELINE_ACTIVE"] = "false"
 os.environ["ENABLE_DETERMINISTIC_PIPELINE"] = "false"
+os.environ["CONTEXT_RESOLUTION_V2_ENABLED"] = "false"
+os.environ["CONTEXT_RESOLUTION_V2_SHADOW_MODE"] = "false"
+os.environ["CONTEXT_RESOLUTION_V2_FRONTEND_ENABLED"] = "false"
 
 from testing.network_guard import install_external_network_guard
 

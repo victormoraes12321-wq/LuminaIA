@@ -246,6 +246,7 @@ class QueryResponseGovernance:
                 "calculation_steps": intelligence.get("calculation_steps"),
                 "validation": validation,
                 "telemetry": result.get("telemetry"),
+                "context_resolution": result.get("context_resolution_metadata"),
                 "trace": self._safe_admin_trace(result),
             }
             result.pop("debug_info", None)

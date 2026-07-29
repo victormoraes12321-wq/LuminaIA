@@ -15,9 +15,10 @@ references.
 ## State And Persistence
 
 `ConversationStateV2` records context epoch/version, active analytical
-references, subject, readiness, fingerprints, node references, field origins
-and context markers. It never stores datasets, SQL, binds, credentials,
-provider payloads or chain of thought.
+references, bounded recent periods, ordering/limit, typed pending
+clarification, subject, readiness, fingerprints, node references, field
+origins and context markers. It never stores datasets, SQL, binds,
+credentials, provider payloads or chain of thought.
 
 Migration `v12.0` creates:
 
@@ -78,5 +79,8 @@ legacy import disabled by default. Import dry-run remains available for
 validation; applying an import requires the explicit governed flag.
 
 When PostgreSQL is authoritative, the orchestrator receives the structured
-snapshot, ignores client history as authority and uses a stateless graph
-adapter. Advanced semantic inheritance remains owned by Prompt 09.
+snapshot selected by the active parent, ignores client history as authority
+and uses a stateless graph adapter. Semantic inheritance is implemented by
+`lumina.context-resolution/1.0`; see
+`docs/contracts/CONTEXT_RESOLUTION_ENGINE_V2.md`. Production remains
+`LEGACY_ONLY` and context resolution flags remain disabled by default.

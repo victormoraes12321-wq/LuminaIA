@@ -308,6 +308,44 @@ class ConversationStateService:
                 context_epoch=locked.context_epoch,
             )
 
+    async def resolve_previous_head(
+        self,
+        *,
+        tenant_id: uuid.UUID,
+        user_id: uuid.UUID,
+        public_session_id: str,
+    ) -> uuid.UUID | None:
+        """Returns the prior response head for an explicit textual backtrack."""
+        async with self.session_factory() as db:
+            repo = ConversationStateRepository(db)
+            row = await repo.get_session(
+                tenant_id=tenant_id,
+                user_id=user_id,
+                public_session_id=public_session_id,
+            )
+            if row is None:
+                raise ConversationStateError(
+                    "SESSION_NOT_FOUND", "Conversa nao encontrada.", http_status=404,
+                )
+            self._assert_accessible(row)
+            if row.active_head_node_id is None:
+                return None
+            response = await repo.get_node(
+                tenant_id=tenant_id,
+                user_id=user_id,
+                session_id=row.id,
+                node_id=row.active_head_node_id,
+            )
+            if response is None or response.parent_node_id is None:
+                return None
+            query = await repo.get_node(
+                tenant_id=tenant_id,
+                user_id=user_id,
+                session_id=row.id,
+                node_id=response.parent_node_id,
+            )
+            return query.parent_node_id if query is not None else None
+
     async def complete_turn(
         self,
         *,
@@ -367,9 +405,10 @@ class ConversationStateService:
                     actual_context_version=row.context_version,
                 )
             next_version = row.context_version + 1
+            next_epoch = row.context_epoch + 1 if completion.reset_context_epoch else row.context_epoch
             state = ConversationStateV2.model_validate({
                 **completion.state.model_dump(mode="python"),
-                "context_epoch": row.context_epoch,
+                "context_epoch": next_epoch,
                 "context_version": next_version,
                 "last_query_node_id": query_node.id,
                 "updated_at": utc_now(),
@@ -396,7 +435,9 @@ class ConversationStateService:
                 user_id=user_id,
                 session_id=row.id,
                 expected_context_version=completion.base_context_version,
+                expected_context_epoch=row.context_epoch,
                 new_context_version=next_version,
+                new_context_epoch=next_epoch,
                 head_node_id=response.id,
                 expires_at=self._expires_at(),
             )
@@ -407,6 +448,7 @@ class ConversationStateService:
                     actual_context_version=row.context_version,
                 )
             row.context_version = next_version
+            row.context_epoch = next_epoch
             row.active_head_node_id = response.id
             await repo.create_snapshot(row=row, head_node_id=response.id, state=state)
             query_node.status = "COMPLETED"
@@ -416,11 +458,13 @@ class ConversationStateService:
                 event_type=ConversationEventType.TURN_COMPLETED,
                 node_id=response.id,
                 fingerprint=completion.response_fingerprint or protected.fingerprint,
+                metadata=completion.context_resolution_metadata,
             )
             await repo.record_event(
                 row=row,
                 event_type=ConversationEventType.CONTEXT_UPDATED,
                 node_id=response.id,
+                metadata=completion.context_resolution_metadata,
             )
             return CompletedTurn(
                 public_session_id=row.public_session_id,
@@ -428,7 +472,7 @@ class ConversationStateService:
                 response_node_id=response.id,
                 parent_node_id=query_node.parent_node_id,
                 context_version=next_version,
-                context_epoch=row.context_epoch,
+                context_epoch=next_epoch,
             )
 
     async def fail_turn(
@@ -484,6 +528,7 @@ class ConversationStateService:
         tenant_id: uuid.UUID,
         user_id: uuid.UUID,
         public_session_id: str,
+        head_node_id: uuid.UUID | None = None,
     ) -> tuple[ConversationSession, ConversationStateV2]:
         expired = False
         async with self.session_factory() as db, db.begin():
@@ -513,10 +558,25 @@ class ConversationStateService:
             )
         async with self.session_factory() as db:
             repo = ConversationStateRepository(db)
-            snapshot = await repo.load_snapshot(
-                tenant_id=tenant_id, user_id=user_id, session_id=row.id,
+            snapshot = (
+                await repo.load_snapshot_for_head(
+                    tenant_id=tenant_id,
+                    user_id=user_id,
+                    session_id=row.id,
+                    head_node_id=head_node_id,
+                )
+                if head_node_id is not None
+                else await repo.load_snapshot(
+                    tenant_id=tenant_id, user_id=user_id, session_id=row.id,
+                )
             )
             if snapshot is None:
+                if head_node_id is not None:
+                    raise ConversationStateError(
+                        "PARENT_SNAPSHOT_NOT_FOUND",
+                        "O ponto escolhido nao possui contexto consolidado.",
+                        http_status=409,
+                    )
                 return row, ConversationStateV2(
                     context_epoch=row.context_epoch,
                     context_version=row.context_version,
@@ -529,6 +589,11 @@ class ConversationStateService:
                     "O estado da conversa falhou na verificacao de integridade.",
                     http_status=500,
                 )
+            if head_node_id is not None:
+                state = state.model_copy(update={
+                    "context_epoch": row.context_epoch,
+                    "context_version": row.context_version,
+                })
             return row, state
 
     async def mutate_session(

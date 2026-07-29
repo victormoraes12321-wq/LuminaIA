@@ -11,3 +11,4 @@
 - [ADR 0009 - Execucao Comparativa Deterministica](0009-deterministic-comparison-execution.md)
 - [ADR 0010 - Renderizacao Comparativa Orientada Por Contratos](0010-contract-driven-comparison-rendering.md)
 - [ADR 0011 - PostgreSQL como fonte do estado conversacional](0011-postgresql-conversation-source-of-truth.md)
+- [ADR 0012 - Resolucao deterministica de contexto antes do planejamento](0012-deterministic-context-resolution.md)

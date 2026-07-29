@@ -177,15 +177,16 @@ O tenant A confirmou, por SQL deterministico:
 
 - `LUMINA-GAP-DASH-001`: atualizacao visual local retorna
   `FULL_RENDERING`, nao `UI_MODIFIED`. Futuro dashboard V2.
-- `LUMINA-GAP-CONTEXT-001`: a persistencia estrutural de quatro turnos esta
-  aprovada; a heranca semantica automatica de metrica, filial, periodos e
-  dimensao pertence ao Prompt 09.
 - `LUMINA-GAP-TENANT-001`: core summary consulta `vw_vendas_lm` sem filtro
   `tenant_id`. Futuro gateway analitico isolado.
 
-Foram removidos dez casos `xfail`: `VIS-001`, `VIS-002`, `COMP-001`, quatro
-variacoes `COMP-002`, `ORCH-001`, `ORCH-002` e `CONTEXT-002`. Todos agora
-possuem teste regular aprovado; nenhum `XPASS` permaneceu.
+Foram removidos onze casos `xfail`: `VIS-001`, `VIS-002`, `COMP-001`, quatro
+variacoes `COMP-002`, `ORCH-001`, `ORCH-002` e `CONTEXT-002`. Os dez casos
+anteriores ao Prompt 09 possuem teste regular aprovado.
+`LUMINA-GAP-CONTEXT-001` foi substituido por teste regular do motor
+`lumina.context-resolution/1.0`, cuja execucao PostgreSQL desta etapa ficou
+pendente pelas restricoes locais registradas abaixo. Permanecem somente
+`DASH-001` e `TENANT-001`.
 
 ## Evidencias De Contencao
 
@@ -204,7 +205,7 @@ possuem teste regular aprovado; nenhum `XPASS` permaneceu.
 - dependencias externas: substituidas por mocks;
 - compatibilidade de testes: corrigida;
 - bugs introduzidos nesta tarefa: nenhum remanescente;
-- bugs funcionais preexistentes: 3 casos visiveis como `xfail(strict=True)`.
+- bugs funcionais preexistentes: 2 casos visiveis como `xfail(strict=True)`.
 
 ## Comandos Executados
 
@@ -223,7 +224,7 @@ reproducao.
 
 ## Proxima Etapa
 
-Executar `Prompt 09 - Motor de heranca e resolucao de contexto`,
+Executar `Prompt 10 - Base de Conhecimento Empresarial`,
 preservando:
 
 1. `lumina.temporal.pt-BR/1.0` como autoridade de datas;
@@ -234,3 +235,66 @@ preservando:
 6. quatro gaps futuros sem mascaramento;
 7. `lumina.comparison-executor/1.0` como unica autoridade numerica comparativa;
 8. `lumina.comparison-presentation/1.0` como camada somente de apresentacao.
+
+## Incremento Prompt 09
+
+- contrato `lumina.context-resolution/1.0`;
+- heranca deterministica por campo, sem concatenacao textual no caminho V2;
+- quatro turnos: junho/Centro, julho, comparacao e produto;
+- patch discriminado, checksums e idempotencia;
+- snapshot do parent para branch e CAS por epoch/versao;
+- reset total avanca epoch apenas na conclusao;
+- negacao, correcao, remocao, conflito e mudanca de assunto fail-closed;
+- resumo publico e diagnostico tecnico restrito a `ADMIN`;
+- 2 xfails estritos remanescentes: `DASH-001` e `TENANT-001`;
+- AST dos arquivos Python alterados aprovado;
+- frontend ESLint e TypeScript aprovados;
+- 7 cenarios Playwright desktop produziram `ok`; o comando excedeu o timeout
+  apenas durante encerramento do webserver, sem porta 3100 remanescente;
+- build frontend bloqueado exclusivamente pelo acesso externo as fontes Google;
+- pytest/PostgreSQL descartavel nao executado nesta sandbox porque o named pipe
+  Docker retornou acesso negado e o Python 3.12 do host nao e executavel pela
+  sandbox. As suites e fixtures foram adicionadas, sem declarar aprovacao.
+
+## Certificacao Prompt 09.1 - 2026-07-28
+
+As limitacoes registradas no incremento original foram resolvidas em uma nova
+sessao de certificacao, sem apagar a evidencia historica anterior.
+
+| Verificacao | Resultado certificado |
+|---|---:|
+| Backend coletado | 1080 |
+| Backend passed | 1078 |
+| Backend failed | 0 |
+| Backend xfailed | 2 |
+| Backend XPASS | 0 |
+| Duracao backend | 719.95 s |
+| Prompt 09 direcionado | 88 passed |
+| Estado/concorrencia/PostgreSQL | 28 passed |
+| Contratos/schemas/goldens focalizados | 43 passed |
+| Playwright | 196 passed, exit code 0 |
+
+Os dois xfails continuam exatamente:
+
+- `LUMINA-GAP-DASH-001`;
+- `LUMINA-GAP-TENANT-001`.
+
+`LUMINA-GAP-CONTEXT-001` passou como teste regular. O cenario de quatro turnos
+tambem passou integrado ao PostgreSQL, produzindo quatro snapshots, versoes
+`1, 2, 3, 4`, faturamento e filial Centro herdados, junho/julho ordenados,
+comparacao ativa e dimensao produto no estado final.
+
+Validacoes complementares:
+
+- PostgreSQL 16 Alpine descartavel em `127.0.0.1:55432/luminaai_test`;
+- CAS, concorrencia, replay, restart, duas instancias, branches, cross-tenant,
+  cross-user, parent invalido, reset e falha tecnica aprovados;
+- cinco schemas exportados duas vezes com hashes identicos e sem diff;
+- 18 golden transitions validas;
+- OpenAPI com 83 paths, dos quais 6 conversacionais, e campos novos aditivos;
+- ESLint, TypeScript e build Next.js aprovados;
+- Playwright completo aprovado em quatro viewports e webserver encerrado;
+- AST de 382 arquivos Python aprovado;
+- Oracle, OpenAI e banco operacional nao acessados;
+- nenhuma migration, dependencia ou lockfile alterado;
+- portas `55432`, `3100`, `3002` e `8000` fechadas ao final.

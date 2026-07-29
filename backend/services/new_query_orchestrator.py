@@ -74,6 +74,8 @@ class NewQueryOrchestrator:
         self.comparison_executor_shadow_mode = (
             settings.COMPARISON_EXECUTOR_V2_SHADOW_MODE
         )
+        from services.context_resolution.feature_flags import ContextResolutionFeaturePolicy
+        self.context_resolution_policy = ContextResolutionFeaturePolicy.from_settings()
 
     def _erp_sales_filter_sql(self, alias: str = "", filial: Any | None = None) -> str:
         return sales_value_breakdown.commercial_filter_sql(alias, filial)
@@ -1250,6 +1252,79 @@ class NewQueryOrchestrator:
             include_discount_details=include_discount_details,
         )
 
+    def _is_core_resolved_intent(self, intent: Optional[Any]) -> bool:
+        if intent is None:
+            return False
+        core_metrics = {
+            "faturamento_comercial",
+            "ticket_medio",
+            "desconto_total",
+            "desconto_medio",
+            "saida_rb",
+            "devolucao",
+            "ranking_vendedores",
+            "ranking_clientes",
+        }
+        return any(metric.metric_id in core_metrics for metric in intent.metric_refs)
+
+    def _core_summary_topics_from_intent(self, intent: Any) -> set[str]:
+        topics: set[str] = set()
+        metric_ids = {metric.metric_id for metric in intent.metric_refs}
+        dimension_ids = {dimension.dimension_id for dimension in intent.dimension_refs}
+        if "faturamento_comercial" in metric_ids:
+            topics.add("faturamento")
+        if "ticket_medio" in metric_ids:
+            topics.add("ticket_medio")
+        if "desconto_total" in metric_ids:
+            topics.add("desconto_total")
+        if "desconto_medio" in metric_ids:
+            topics.add("desconto_medio")
+        if "saida_rb" in metric_ids:
+            topics.add("saida_rb")
+        if "devolucao" in metric_ids:
+            topics.add("devolucao")
+        if "ranking_vendedores" in metric_ids:
+            topics.add("ranking_vendedores")
+        if "ranking_clientes" in metric_ids:
+            topics.add("ranking_clientes")
+        if "vendedor" in dimension_ids:
+            topics.add("ranking_vendedores")
+        if "cliente" in dimension_ids:
+            topics.add("ranking_clientes")
+        if "produto" in dimension_ids:
+            topics.add("produto_mais_vendido")
+        return topics
+
+    def _filial_from_resolved_intent(self, intent: Optional[Any]) -> Optional[str]:
+        if intent is None:
+            return None
+        for query_filter in intent.filters:
+            if str(query_filter.field_id).lower() not in {"filial", "loja", "unidade"}:
+                continue
+            if query_filter.value not in (None, ""):
+                return sales_value_breakdown.normalize_filial(query_filter.value)
+            if query_filter.values:
+                return sales_value_breakdown.normalize_filial(query_filter.values[0])
+        return None
+
+    def _primary_metric_from_resolved_intent(self, intent: Optional[Any]) -> Optional[str]:
+        if intent is None:
+            return None
+        mapping = {
+            "faturamento_comercial": "faturamento_comercial",
+            "ticket_medio": "faturamento_comercial",
+            "desconto_total": "desconto_comercial",
+            "desconto_medio": "desconto_comercial",
+            "saida_rb": "saida_rb",
+            "devolucao": "devolucao",
+            "ranking_vendedores": "faturamento_comercial",
+            "ranking_clientes": "faturamento_comercial",
+        }
+        for metric in intent.metric_refs:
+            if metric.metric_id in mapping:
+                return mapping[metric.metric_id]
+        return None
+
 
     async def _execute_core_summary_query(
         self,
@@ -1262,8 +1337,16 @@ class NewQueryOrchestrator:
         conversation_graph_manager: Any,
         mode: str = "analytical",
         temporal_context: TemporalContext | None = None,
+        resolved_intent: Optional[Any] = None,
     ) -> Dict[str, Any]:
-        _periods_from_text = self._month_ranges_from_text(pergunta, temporal_context)
+        _periods_from_text = (
+            [
+                (window.start.isoformat(), window.end.isoformat())
+                for window in resolved_intent.time_windows
+            ]
+            if resolved_intent is not None and resolved_intent.time_windows
+            else self._month_ranges_from_text(pergunta, temporal_context)
+        )
         if len(_periods_from_text) > 1:
             elapsed = (time.perf_counter() - start_time) * 1000
             return {
@@ -1293,15 +1376,21 @@ class NewQueryOrchestrator:
         start_date = date.fromisoformat(start_date_raw)
         end_date = date.fromisoformat(end_date_raw)
         topics = self._core_summary_topics(pergunta)
+        if resolved_intent is not None:
+            topics.update(self._core_summary_topics_from_intent(resolved_intent))
         normalized_query = self._normalize_query_text(pergunta)
         vendor_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "vendedor")
         client_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "cliente")
-        selected_filial = self._filial_from_text(pergunta)
+        selected_filial = self._filial_from_resolved_intent(resolved_intent)
+        if selected_filial is None:
+            selected_filial = self._filial_from_text(pergunta)
         scope_text = self._scope_suffix(selected_filial)
         value_basis = self._value_basis_from_text(normalized_query)
         include_operational_details = self._include_operational_details(normalized_query)
         include_discount_details = self._include_discount_details(normalized_query)
-        primary_sales_key = self._primary_metric_for_query(normalized_query)
+        primary_sales_key = self._primary_metric_from_resolved_intent(resolved_intent)
+        if primary_sales_key is None:
+            primary_sales_key = self._primary_metric_for_query(normalized_query)
         unsupported_warnings: List[str] = []
         financial_source_report: Dict[str, Any] | None = None
 
@@ -2398,11 +2487,14 @@ class NewQueryOrchestrator:
         mode: str = "analytical",
         conversation_state: Optional[Any] = None,
         postgres_conversation_authority: bool = False,
+        context_resolution_context: Optional[Any] = None,
     ) -> Dict[str, Any]:
         start_time = time.perf_counter()
         trace_id = uuid.uuid4()
         history = history or []
         session_key = session_id or tenant_id
+        context_resolution_result = None
+        resolved_query_intent = None
 
         # ── Inicialização do PIPELINE DEBUG ──
         debug_data = {
@@ -2472,11 +2564,23 @@ class NewQueryOrchestrator:
                 logger.error("Erro ao salvar log de debug em disco: %s", e_log)
 
         def write_debug_and_return(payload: dict) -> dict:
+            if context_resolution_result is not None:
+                from services.context_resolution.observability import safe_resolution_metadata
+                if self.context_resolution_policy.frontend_enabled:
+                    payload["context_relationship"] = context_resolution_result.relationship.value
+                    payload["public_context_summary"] = (
+                        context_resolution_result.public_context_summary.model_dump(mode="json")
+                    )
+                payload["context_resolution_metadata"] = safe_resolution_metadata(
+                    context_resolution_result
+                )
             payload["trace_id"] = str(trace_id)
             payload["query_id"] = str(trace_id)
             payload["request_id"] = str(trace_id)
             save_debug_logs(payload)
             payload["debug_info"] = debug_data
+            if context_resolution_result is not None:
+                payload["_context_resolution_result"] = context_resolution_result
             return payload
         start_time = time.perf_counter()
         trace_id = uuid.uuid4()
@@ -2552,11 +2656,23 @@ class NewQueryOrchestrator:
                 logger.error("Erro ao salvar log de debug em disco: %s", e_log)
 
         def write_debug_and_return(payload: dict) -> dict:
+            if context_resolution_result is not None:
+                from services.context_resolution.observability import safe_resolution_metadata
+                if self.context_resolution_policy.frontend_enabled:
+                    payload["context_relationship"] = context_resolution_result.relationship.value
+                    payload["public_context_summary"] = (
+                        context_resolution_result.public_context_summary.model_dump(mode="json")
+                    )
+                payload["context_resolution_metadata"] = safe_resolution_metadata(
+                    context_resolution_result
+                )
             payload["trace_id"] = str(trace_id)
             payload["query_id"] = str(trace_id)
             payload["request_id"] = str(trace_id)
             save_debug_logs(payload)
             payload["debug_info"] = debug_data
+            if context_resolution_result is not None:
+                payload["_context_resolution_result"] = context_resolution_result
             return payload
 
         # ── 1. Conversation Graph Recuperação ─────────────────────────
@@ -2584,19 +2700,116 @@ class NewQueryOrchestrator:
             graph.current_node_id = parent_id
             conversation_graph_manager.save_graph(session_key, graph)
 
-        temporal_context = default_temporal_context(
-            reference_datetime=datetime.now(timezone.utc),
+        structured_context_enabled = bool(
+            postgres_conversation_authority
+            and conversation_state is not None
+            and context_resolution_context is not None
+            and self.context_resolution_policy.should_resolve
         )
-        effective_pergunta = self._question_with_inherited_context(
-            pergunta,
-            history,
-            temporal_context,
+        temporal_context = default_temporal_context(
+            reference_datetime=(
+                context_resolution_context.reference_datetime
+                if structured_context_enabled
+                else datetime.now(timezone.utc)
+            ),
+        )
+        effective_pergunta = (
+            pergunta
+            if structured_context_enabled
+            else self._question_with_inherited_context(pergunta, history, temporal_context)
         )
         temporal_result = self.temporal_gateway.normalize(
             effective_pergunta,
             temporal_context,
             legacy_parser=self._month_range_from_text_legacy,
         )
+        if structured_context_enabled:
+            from contracts.analytical_v2 import PipelineKind, build_intent_v2
+            from services.context_resolution import ContextResolutionEngine
+
+            current_query_intent = build_intent_v2(
+                pergunta,
+                pipeline=PipelineKind.NEW,
+                temporal_context=temporal_context,
+                temporal_result=temporal_result,
+            )
+            candidate_resolution = ContextResolutionEngine().resolve(
+                current_intent=current_query_intent,
+                current_question=pergunta,
+                persisted_state=conversation_state,
+                context=context_resolution_context,
+            )
+            debug_data["context_resolution"] = {
+                "version": candidate_resolution.resolution_version,
+                "relationship": candidate_resolution.relationship.value,
+                "readiness": candidate_resolution.readiness.value,
+                "decision_count": len(candidate_resolution.field_decisions),
+                "conflict_count": len(candidate_resolution.conflicts),
+                "operation_count": len(candidate_resolution.patch.operations),
+            }
+            if self.context_resolution_policy.can_author_state:
+                has_persisted_analysis = bool(
+                    conversation_state.active_metric_refs
+                    or conversation_state.active_subject
+                    or conversation_state.pending_clarification
+                )
+                should_author_resolution = bool(
+                    candidate_resolution.readiness.value == "READY"
+                    or candidate_resolution.conflicts
+                    or candidate_resolution.relationship.value == "RESET"
+                    or has_persisted_analysis
+                )
+                if should_author_resolution:
+                    context_resolution_result = candidate_resolution
+                    resolved_query_intent = candidate_resolution.resolved_intent
+                if (
+                    should_author_resolution
+                    and candidate_resolution.relationship.value == "RESET"
+                ):
+                    elapsed = (time.perf_counter() - start_time) * 1000
+                    return write_debug_and_return({
+                        "status": "FULL_RENDERING",
+                        "goal": pergunta,
+                        "resposta_direta": (
+                            "O contexto da conversa foi reiniciado. "
+                            "A proxima pergunta comecara uma nova analise."
+                        ),
+                        "mensagem": "Contexto da conversa reiniciado.",
+                        "ia_analise": "Contexto da conversa reiniciado.",
+                        "pergunta_original": pergunta,
+                        "chart_type": None,
+                        "chart_data": None,
+                        "visualizations": [],
+                        "execution_time_ms": elapsed,
+                    })
+                if (
+                    should_author_resolution
+                    and candidate_resolution.readiness.value != "READY"
+                ):
+                    clarification = candidate_resolution.clarification
+                    elapsed = (time.perf_counter() - start_time) * 1000
+                    return write_debug_and_return({
+                        "status": candidate_resolution.readiness.value,
+                        "goal": pergunta,
+                        "ambiguities": (
+                            list(clarification.candidate_options) if clarification else []
+                        ),
+                        "missing_information": (
+                            list(clarification.missing_fields) if clarification else []
+                        ),
+                        "resposta_direta": (
+                            clarification.question
+                            if clarification else
+                            "Nao foi possivel consolidar o contexto com seguranca."
+                        ),
+                        "mensagem": (
+                            clarification.question
+                            if clarification else
+                            "Contexto analitico incompleto."
+                        ),
+                        "pergunta_original": pergunta,
+                        "execution_time_ms": elapsed,
+                    })
         debug_data["temporal_normalization"] = {
             "normalizer_version": temporal_result.normalizer_version,
             "rule_ids": list(temporal_result.rule_ids),
@@ -2607,7 +2820,13 @@ class NewQueryOrchestrator:
             "duration_ms": temporal_result.duration_ms,
         }
         if (
-            temporal_result.relation == TemporalRelation.COMPARISON
+            (
+                temporal_result.relation == TemporalRelation.COMPARISON
+                or (
+                    resolved_query_intent is not None
+                    and resolved_query_intent.comparison is not None
+                )
+            )
             and (
                 self.comparison_planner_enabled
                 or self.comparison_planner_shadow_mode
@@ -2620,11 +2839,15 @@ class NewQueryOrchestrator:
                     build_plan_v2,
                 )
 
-                comparison_intent = build_intent_v2(
-                    effective_pergunta,
-                    pipeline=PipelineKind.NEW,
-                    temporal_context=temporal_context,
-                    temporal_result=temporal_result,
+                comparison_intent = (
+                    resolved_query_intent
+                    if resolved_query_intent is not None
+                    else build_intent_v2(
+                        effective_pergunta,
+                        pipeline=PipelineKind.NEW,
+                        temporal_context=temporal_context,
+                        temporal_result=temporal_result,
+                    )
                 )
                 comparison_plan = build_plan_v2(
                     comparison_intent,
@@ -2778,7 +3001,10 @@ class NewQueryOrchestrator:
             }
             return write_debug_and_return(amb_res)
 
-        if self._is_core_summary_query(effective_pergunta):
+        if (
+            self._is_core_summary_query(effective_pergunta)
+            or self._is_core_resolved_intent(resolved_query_intent)
+        ):
             debug_data["timeline"]["Core Summary Detectado"] = get_timestamp()
             summary_payload = await self._execute_core_summary_query(
                 pergunta=effective_pergunta,
@@ -2790,6 +3016,7 @@ class NewQueryOrchestrator:
                 conversation_graph_manager=conversation_graph_manager,
                 mode=mode,
                 temporal_context=temporal_context,
+                resolved_intent=resolved_query_intent,
             )
             summary_payload["pergunta_original"] = pergunta
             if effective_pergunta != pergunta:
@@ -2928,7 +3155,10 @@ class NewQueryOrchestrator:
                 semantic_plan.trace_id = trace_id
 
                 # Aplica cada patch semântico gerado pelo interpretador conceitual
-                for patch in intent_output.patches:
+                from services.context_resolution.legacy_adapter import (
+                    validate_legacy_semantic_patches,
+                )
+                for patch in validate_legacy_semantic_patches(intent_output.patches):
                     op = patch.operation.upper()
                     if op == "ADD_FILTER" and patch.field and patch.value is not None:
                         semantic_plan.filters.append(

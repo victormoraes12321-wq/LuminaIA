@@ -261,6 +261,15 @@ class QueryResponse(BaseModel):
     conversation_status: str | None = Field(default=None, max_length=32)
     idempotent_replay: bool = False
     conversation_warning: str | None = Field(default=None, max_length=500)
+    context_relationship: str | None = Field(default=None, max_length=64)
+    public_context_summary: dict[str, Any] | None = Field(
+        default=None,
+        description="Resumo publico dos campos mantidos, substituidos ou removidos.",
+    )
+    context_resolution_metadata: dict[str, Any] | None = Field(
+        default=None,
+        description="Telemetria estrutural do resolvedor, exposta somente para ADMIN.",
+    )
     view_catalog_id: uuid.UUID | None = Field(
         default=None,
         description=(

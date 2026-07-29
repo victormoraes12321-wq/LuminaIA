@@ -172,7 +172,11 @@ function generateSuggestions(queryResponse?: QueryResponse): string[] {
   if (!queryResponse) return []
   
   // Banim mocks estáticos em telas de clarificação/ambiguidade/erro
-  if (queryResponse.status === 'AMBIGUOUS' || queryResponse.status === 'MISSING_INFORMATION') {
+  if (
+    queryResponse.status === 'AMBIGUOUS'
+    || queryResponse.status === 'MISSING_INFORMATION'
+    || queryResponse.status === 'CLARIFICATION_REQUIRED'
+  ) {
     return []
   }
   
@@ -455,6 +459,7 @@ export function AssistantResponseBlock({
     isLatest &&
     (response?.status === 'AMBIGUOUS' ||
       response?.status === 'MISSING_INFORMATION' ||
+      response?.status === 'CLARIFICATION_REQUIRED' ||
       (isClarificationData(response?.chart_data) && Boolean(response.chart_data.clarification_required)))
 
   if (isClarificationRequired) {
@@ -592,6 +597,45 @@ export function AssistantResponseBlock({
         )}
 
         {/* ── 0. Erro de Consistência (Single Source of Truth) ── */}
+        {response?.public_context_summary && (
+          <div
+            className="flex flex-wrap items-center gap-x-4 gap-y-2 border-y py-2.5 text-[11px] no-print"
+            style={{ borderColor: 'rgb(var(--border) / 0.35)' }}
+            data-testid="public-context-summary"
+          >
+            <span className="inline-flex items-center gap-1.5 font-semibold text-zinc-300">
+              <Compass size={12} className="text-indigo-400" />
+              Contexto {response.context_relationship === 'NEW_TOPIC' ? 'iniciado' : 'mantido'}
+            </span>
+            {response.public_context_summary.active_metrics.map(metric => (
+              <span key={`metric-${metric}`} className="text-zinc-400">
+                {repairTextEncoding(metric)}
+              </span>
+            ))}
+            {response.public_context_summary.active_periods.map(period => (
+              <span key={`period-${period}`} className="text-zinc-400">
+                {repairTextEncoding(period)}
+              </span>
+            ))}
+            {response.public_context_summary.active_dimensions.length > 0 && (
+              <span className="text-zinc-400">
+                Por {response.public_context_summary.active_dimensions.map(repairTextEncoding).join(', ')}
+              </span>
+            )}
+            {response.public_context_summary.inherited_filters.map(filter => (
+              <span key={`filter-${filter}`} className="text-cyan-400">
+                {repairTextEncoding(filter)}
+              </span>
+            ))}
+            {response.public_context_summary.replaced_fields.length > 0 && (
+              <span className="text-amber-400">Filtros atualizados</span>
+            )}
+            {response.public_context_summary.removed_fields.length > 0 && (
+              <span className="text-red-400">Filtros removidos</span>
+            )}
+          </div>
+        )}
+
         {consistencyErrors.length > 0 && (
           <div className="bg-red-950/20 border border-red-500/30 rounded-3xl p-6 flex flex-col gap-3">
             <div className="flex items-center gap-2 text-red-400 font-bold text-sm">

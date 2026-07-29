@@ -248,6 +248,30 @@ class ConversationStateRepository:
         )
         return (await self.db.execute(stmt)).scalar_one_or_none()
 
+    async def load_snapshot_for_head(
+        self,
+        *,
+        tenant_id: uuid.UUID,
+        user_id: uuid.UUID,
+        session_id: uuid.UUID,
+        head_node_id: uuid.UUID,
+    ) -> ConversationStateSnapshot | None:
+        stmt = (
+            select(ConversationStateSnapshot)
+            .where(
+                ConversationStateSnapshot.tenant_id == tenant_id,
+                ConversationStateSnapshot.user_id == user_id,
+                ConversationStateSnapshot.session_id == session_id,
+                ConversationStateSnapshot.head_node_id == head_node_id,
+            )
+            .order_by(
+                ConversationStateSnapshot.context_epoch.desc(),
+                ConversationStateSnapshot.context_version.desc(),
+            )
+            .limit(1)
+        )
+        return (await self.db.execute(stmt)).scalar_one_or_none()
+
     async def create_snapshot(
         self,
         *,
@@ -296,7 +320,9 @@ class ConversationStateRepository:
         user_id: uuid.UUID,
         session_id: uuid.UUID,
         expected_context_version: int,
+        expected_context_epoch: int,
         new_context_version: int,
+        new_context_epoch: int,
         head_node_id: uuid.UUID,
         expires_at: datetime,
     ) -> bool:
@@ -307,9 +333,11 @@ class ConversationStateRepository:
                 ConversationSession.tenant_id == tenant_id,
                 ConversationSession.user_id == user_id,
                 ConversationSession.status == "ACTIVE",
+                ConversationSession.context_epoch == expected_context_epoch,
                 ConversationSession.context_version == expected_context_version,
             )
             .values(
+                context_epoch=new_context_epoch,
                 context_version=new_context_version,
                 active_head_node_id=head_node_id,
                 last_activity_at=utc_now(),

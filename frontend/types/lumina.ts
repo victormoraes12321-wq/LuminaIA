@@ -417,6 +417,18 @@ export interface VisualizationItem {
   chart_data: AnyChartData
 }
 
+export interface PublicContextSummary {
+  active_metrics: string[]
+  active_periods: string[]
+  inherited_filters: string[]
+  active_dimensions: string[]
+  active_comparison: string | null
+  replaced_fields: string[]
+  removed_fields: string[]
+  reset: boolean
+  clarification_required: boolean
+}
+
 // ── API Response ───────────────────────────────────────────────
 
 export interface QueryResponse {
@@ -431,6 +443,9 @@ export interface QueryResponse {
   conversation_status?: 'ACTIVE' | 'ARCHIVED' | 'EXPIRED' | 'DELETED' | null
   idempotent_replay?: boolean
   conversation_warning?: string | null
+  context_relationship?: string | null
+  public_context_summary?: PublicContextSummary | null
+  context_resolution_metadata?: Record<string, JsonValue> | null
   view_catalog_id: string | null
   view_name: string | null
   chart_type: ChartType | null

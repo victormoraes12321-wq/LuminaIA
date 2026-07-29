@@ -10,6 +10,7 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, StringConstraints, model_validator
 
 from contracts.analytical_v2 import (
+    ClarificationRequest,
     ComparisonSpecification,
     DimensionReference,
     ExecutionReadiness,
@@ -17,6 +18,7 @@ from contracts.analytical_v2 import (
     FilterSpecification,
     IntentKind,
     MetricReference,
+    OrderingSpecification,
     TimeWindow,
     VisualizationSpecification,
 )
@@ -111,7 +113,10 @@ class ConversationStateV2(StrictConversationModel):
     active_time_windows: list[TimeWindow] = Field(default_factory=list)
     active_comparison: ComparisonSpecification | None = None
     active_visualizations: list[VisualizationSpecification] = Field(default_factory=list)
+    active_ordering: list[OrderingSpecification] = Field(default_factory=list)
+    active_limit: int | None = Field(default=None, ge=1, le=10000)
     active_subject: str | None = Field(default=None, max_length=256)
+    recent_time_windows: list[TimeWindow] = Field(default_factory=list, max_length=12)
     last_intent_kind: IntentKind | None = None
     last_readiness: ExecutionReadiness | None = None
     last_plan_fingerprint: str | None = Field(default=None, max_length=128)
@@ -119,6 +124,9 @@ class ConversationStateV2(StrictConversationModel):
     last_query_node_id: UUID | None = None
     last_response_node_id: UUID | None = None
     pending_clarification: bool = False
+    pending_clarification_request: ClarificationRequest | None = None
+    last_context_relationship: str | None = Field(default=None, max_length=64)
+    last_context_patch_fingerprint: str | None = Field(default=None, max_length=64)
     field_origins: dict[str, FieldOrigin] = Field(default_factory=dict)
     context_markers: list[str] = Field(default_factory=list, max_length=100)
     updated_at: datetime = Field(default_factory=utc_now)
@@ -129,6 +137,8 @@ class ConversationStateV2(StrictConversationModel):
             raise ValueError("unsupported conversation state schema version")
         if self.updated_at.tzinfo is None:
             raise ValueError("updated_at must be timezone-aware")
+        if self.pending_clarification_request is not None and not self.pending_clarification:
+            raise ValueError("typed pending clarification requires the pending flag")
         return self
 
 
@@ -232,6 +242,11 @@ class ConversationTurnCompletion(StrictConversationModel):
     state: ConversationStateV2
     response_fingerprint: str | None = Field(default=None, max_length=128)
     search_history_id: UUID | None = None
+    context_resolution_metadata: dict[str, JsonValue] = Field(
+        default_factory=dict,
+        max_length=30,
+    )
+    reset_context_epoch: bool = False
 
 
 class ConversationTurnFailure(StrictConversationModel):

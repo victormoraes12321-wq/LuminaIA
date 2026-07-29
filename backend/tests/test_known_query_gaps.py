@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from services.new_query_orchestrator import NewQueryOrchestrator
+from context_resolution_fixtures import persisted, resolve_turn
 
 
 pytestmark = [
@@ -39,23 +40,20 @@ def test_comparison_variations_preserve_two_periods(question: str) -> None:
     assert set(periods) == {JUNE, JULY}
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "LUMINA-GAP-CONTEXT-001 / future PostgreSQL conversation-state prompt: "
-        "single-turn period parsing does not inherit year, branch, metric, or two "
-        "comparison periods across the required four-turn scenario."
-    ),
-)
-@pytest.mark.known_gap
 def test_required_four_turn_conversation_continuity() -> None:
-    orchestrator = NewQueryOrchestrator()
     questions = [
         "Qual foi o faturamento de junho de 2026 da filial Centro?",
         "E em julho?",
         "Agora compare os dois meses.",
         "Separe por produto.",
     ]
-    periods = [orchestrator._month_range_from_text(question) for question in questions]
-    expected = [JUNE, JULY, (JUNE, JULY), (JUNE, JULY)]
-    assert periods == expected
+    state = None
+    periods = []
+    for turn, question in enumerate(questions, start=1):
+        result = resolve_turn(question, state=state, turn=turn)
+        periods.append([
+            (window.start.isoformat(), window.end.isoformat())
+            for window in result.resolved_intent.time_windows
+        ])
+        state = persisted(result)
+    assert periods == [[JUNE], [JULY], [JUNE, JULY], [JUNE, JULY]]

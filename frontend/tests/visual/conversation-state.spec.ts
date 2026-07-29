@@ -66,6 +66,18 @@ function responseForTurn(turn: number) {
     context_epoch: 0,
     conversation_status: 'ACTIVE',
     idempotent_replay: false,
+    context_relationship: turn === 1 ? 'NEW_TOPIC' : 'REFINEMENT',
+    public_context_summary: {
+      active_metrics: ['Faturamento comercial'],
+      active_periods: [turn === 1 ? 'Junho de 2026' : 'Julho de 2026'],
+      inherited_filters: turn === 1 ? [] : ['filial: Centro'],
+      active_dimensions: turn >= 4 ? ['Produto'] : [],
+      active_comparison: turn >= 3 ? 'PERIOD_VS_PERIOD' : null,
+      replaced_fields: turn === 2 ? ['active_time_windows'] : [],
+      removed_fields: [],
+      reset: false,
+      clarification_required: false,
+    },
   }
 }
 
@@ -132,6 +144,43 @@ test('query continuity uses server session, response parent and context version'
       contextVersion: 2,
       parentId: responseNode2,
     })
+})
+
+test('four-turn context summary remains readable without exposing technical metadata', async ({ page }) => {
+  let turn = 0
+  await installCommonRoutes(page, async route => {
+    turn += 1
+    const response = responseForTurn(turn)
+    return route.fulfill({
+      json: {
+        ...response,
+        response_node_id: `aaaaaaaa-aaaa-4aaa-8aaa-${turn.toString().padStart(12, '0')}`,
+        context_resolution_metadata: {
+          patch_fingerprint: 'must-not-be-rendered',
+        },
+      },
+    })
+  })
+  await authenticate(page)
+  await page.goto('/dashboard')
+  const input = page.getByRole('textbox')
+  const questions = [
+    'Faturamento de junho de 2026 da filial Centro',
+    'E em julho?',
+    'Agora compare os dois meses',
+    'Separe por produto',
+  ]
+  for (const [index, question] of questions.entries()) {
+    await input.fill(question)
+    await input.press('Enter')
+    await expect.poll(() => turn).toBe(index + 1)
+  }
+
+  const summaries = page.getByTestId('public-context-summary')
+  await expect(summaries.last()).toContainText('Contexto mantido')
+  await expect(summaries.last()).toContainText('Faturamento comercial')
+  await expect(summaries.last()).toContainText('Produto')
+  await expect(page.getByText('must-not-be-rendered')).toHaveCount(0)
 })
 
 test('automatic network recovery reuses the same client message id', async ({ page }) => {

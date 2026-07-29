@@ -17,6 +17,7 @@ import time
 import uuid
 import json
 import hashlib
+import unicodedata
 from decimal import Decimal
 from typing import Any
 
@@ -78,11 +79,40 @@ def _fingerprint_json(value: Any) -> str:
     return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
+def _requests_conversation_backtrack(question: str) -> bool:
+    normalized = "".join(
+        char for char in unicodedata.normalize("NFKD", question.lower())
+        if not unicodedata.combining(char)
+    )
+    return any(marker in normalized for marker in (
+        "volte para a analise anterior",
+        "voltar para a analise anterior",
+        "retome a analise anterior",
+        "continue do ponto anterior",
+    ))
+
+
 def _state_from_governed_response(
     governed: dict[str, Any],
     *,
     started: StartedTurn,
+    context_resolution_result: Any | None = None,
 ) -> ConversationStateV2:
+    if context_resolution_result is not None:
+        state = context_resolution_result.resolved_state
+        return ConversationStateV2.model_validate({
+            **state.model_dump(mode="python"),
+            "context_epoch": started.context_epoch,
+            "context_version": started.base_context_version,
+            "last_plan_fingerprint": _fingerprint_json(
+                governed.get("plano_execucao") or {}
+            ),
+            "last_response_fingerprint": _fingerprint_json({
+                "query_id": governed.get("query_id"),
+                "status": governed.get("status"),
+                "view_name": governed.get("view_name"),
+            }),
+        })
     sidecar = governed.get("analytical_contract")
     if sidecar:
         try:
@@ -136,6 +166,7 @@ async def _complete_conversation_turn(
     *,
     started: StartedTurn | None,
     current_user: User,
+    context_resolution_result: Any | None = None,
 ) -> dict[str, Any]:
     if started is None:
         return governed
@@ -154,11 +185,22 @@ async def _complete_conversation_turn(
                 query_node_id=started.query_node_id,
                 base_context_version=started.base_context_version,
                 response_content=response_text[:12000],
-                state=_state_from_governed_response(governed, started=started),
+                state=_state_from_governed_response(
+                    governed,
+                    started=started,
+                    context_resolution_result=context_resolution_result,
+                ),
                 response_fingerprint=_fingerprint_json({
                     "query_id": governed.get("query_id"),
                     "status": governed.get("status"),
                 }),
+                context_resolution_metadata=(
+                    governed.get("context_resolution_metadata") or {}
+                ),
+                reset_context_epoch=bool(
+                    context_resolution_result is not None
+                    and context_resolution_result.relationship.value == "RESET"
+                ),
             ),
         )
     except ConversationStateError as exc:
@@ -457,6 +499,7 @@ async def processar_consulta(
 
     conversation_turn: StartedTurn | None = None
     conversation_server_state: ConversationStateV2 | None = None
+    context_resolution_context: Any | None = None
     if conversation_state_service.postgres_writes_enabled:
         try:
             parent_uuid = None
@@ -465,6 +508,17 @@ async def processar_consulta(
                     parent_uuid = uuid.UUID(str(payload.parent_id))
                 except ValueError:
                     parent_uuid = None
+            if (
+                parent_uuid is None
+                and payload.session_id
+                and (payload.expected_context_version or 0) > 0
+                and _requests_conversation_backtrack(payload.pergunta)
+            ):
+                parent_uuid = await conversation_state_service.resolve_previous_head(
+                    tenant_id=current_user.tenant_id,
+                    user_id=current_user.id,
+                    public_session_id=payload.session_id,
+                )
             conversation_turn = await conversation_state_service.start_turn(
                 tenant_id=current_user.tenant_id,
                 user_id=current_user.id,
@@ -477,10 +531,41 @@ async def processar_consulta(
                 ),
             )
             if conversation_state_service.postgres_is_authority:
-                _, conversation_server_state = await conversation_state_service.load_state(
+                conversation_row, conversation_server_state = await conversation_state_service.load_state(
                     tenant_id=current_user.tenant_id,
                     user_id=current_user.id,
                     public_session_id=conversation_turn.public_session_id,
+                    head_node_id=conversation_turn.parent_node_id,
+                )
+                from config import settings as runtime_settings
+                from services.context_resolution import ContextResolutionContext
+                from datetime import datetime, timezone
+
+                context_resolution_context = ContextResolutionContext(
+                    tenant_id=current_user.tenant_id,
+                    user_id=current_user.id,
+                    session_id=conversation_turn.session_id,
+                    current_node_id=conversation_turn.query_node_id,
+                    parent_node_id=conversation_turn.parent_node_id,
+                    active_head_node_id=conversation_row.active_head_node_id,
+                    context_epoch=conversation_turn.context_epoch,
+                    context_version=conversation_turn.base_context_version,
+                    expected_context_version=payload.expected_context_version,
+                    branch_path=[],
+                    user_role=current_user.role.value,
+                    locale="pt-BR",
+                    timezone="America/Sao_Paulo",
+                    reference_datetime=datetime.now(timezone.utc),
+                    rollout_mode=conversation_state_service.mode,
+                    feature_flags={
+                        "context_resolution_v2": runtime_settings.CONTEXT_RESOLUTION_V2_ENABLED,
+                        "shadow_mode": runtime_settings.CONTEXT_RESOLUTION_V2_SHADOW_MODE,
+                    },
+                    maximum_context_depth=runtime_settings.CONTEXT_RESOLUTION_MAXIMUM_DEPTH,
+                    maximum_inherited_fields=(
+                        runtime_settings.CONTEXT_RESOLUTION_MAXIMUM_INHERITED_FIELDS
+                    ),
+                    source="HTTP_QUERY",
                 )
         except (ConversationStateError, ValueError) as exc:
             if isinstance(exc, ConversationStateError):
@@ -541,11 +626,13 @@ async def processar_consulta(
                 mode=payload.mode,
                 conversation_state=conversation_server_state,
                 postgres_conversation_authority=conversation_state_service.postgres_is_authority,
+                context_resolution_context=context_resolution_context,
             )
         except Exception:
             await _fail_conversation_turn(started=conversation_turn, current_user=current_user)
             raise
         
+        context_resolution_result = res_dict.pop("_context_resolution_result", None)
         governed = await query_response_governance.enrich(
             res_dict,
             db=db,
@@ -558,7 +645,10 @@ async def processar_consulta(
             governed,
             started=conversation_turn,
             current_user=current_user,
+            context_resolution_result=context_resolution_result,
         )
+        if current_user.role != UserRole.ADMIN:
+            governed.pop("context_resolution_metadata", None)
         return QueryResponse.model_validate(governed)
 
     # ── 4. Delegar execução para o pipeline legado da Query Intelligence Engine ─────

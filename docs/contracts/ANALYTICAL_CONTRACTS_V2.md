@@ -1,5 +1,13 @@
 # Contratos Analiticos V2
 
+## Resolucao Conversacional
+
+`QueryIntentV2` do turno atual pode ser resolvido contra o snapshot
+conversacional PostgreSQL autenticado por `lumina.context-resolution/1.0`
+antes do planejamento. O resolvedor preserva periodos e visualizacoes como
+listas, registra origens e nao altera o contrato de entrada in-place. Consulte
+`CONTEXT_RESOLUTION_ENGINE_V2.md`.
+
 ## Objetivo
 
 `lumina.analytics/2.0` e a representacao canonica, tipada e versionada da
