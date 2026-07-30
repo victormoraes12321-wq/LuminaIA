@@ -39,14 +39,22 @@ from routers import tenant as tenant_router
 from routers import metadata_catalog as metadata_catalog_router
 from routers import analytical_packages as analytical_packages_router
 from routers import business_knowledge as business_knowledge_router
+from routers import enterprise_knowledge as enterprise_knowledge_router
 from routers import dashboard_studio as dashboard_studio_router
 from routers import dashboard as dashboard_router
 from routers import dashboard_preferences as dashboard_preferences_router
 from routers import svr as svr_router
 from routers import conversations as conversations_router
+from routers import user_analytical_profile as user_analytical_profile_router
+from routers import supervised_feedback as supervised_feedback_router
+from routers import semantic_retrieval as semantic_retrieval_router
 from services.ai_credential_manager import ai_credential_manager
 from services.ai_invocation_manager import ai_invocation_manager
 from services.scheduler import start_scheduler, stop_scheduler
+from services.enterprise_knowledge.errors import EnterpriseKnowledgeError
+from services.user_analytical_profile.errors import UserProfileError
+from services.supervised_feedback.errors import GovernedFeedbackError
+from services.semantic_retrieval.errors import SemanticRetrievalError
 
 
 # ── Configuração de Logging ────────────────────────────────────
@@ -334,6 +342,105 @@ async def http_exception_handler(
     )
 
 
+@app.exception_handler(EnterpriseKnowledgeError)
+async def enterprise_knowledge_exception_handler(
+    request: Request,
+    exc: EnterpriseKnowledgeError,
+) -> JSONResponse:
+    logger.warning(
+        "Enterprise Knowledge %s em %s %s",
+        exc.code,
+        request.method,
+        request.url.path,
+    )
+    return JSONResponse(
+        status_code=exc.http_status,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "details": exc.details,
+                "path": str(request.url.path),
+            },
+        },
+    )
+
+
+@app.exception_handler(UserProfileError)
+async def user_profile_exception_handler(
+    request: Request,
+    exc: UserProfileError,
+) -> JSONResponse:
+    logger.warning(
+        "User Profile %s em %s %s",
+        exc.code,
+        request.method,
+        request.url.path,
+    )
+    return JSONResponse(
+        status_code=exc.http_status,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "details": exc.details,
+                "path": str(request.url.path),
+            },
+        },
+    )
+
+
+@app.exception_handler(GovernedFeedbackError)
+async def governed_feedback_exception_handler(
+    request: Request,
+    exc: GovernedFeedbackError,
+) -> JSONResponse:
+    logger.warning(
+        "Governed Feedback %s em %s %s",
+        exc.code,
+        request.method,
+        request.url.path,
+    )
+    return JSONResponse(
+        status_code=int(exc.status_code),
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "details": exc.details,
+                "path": str(request.url.path),
+            },
+        },
+    )
+
+
+@app.exception_handler(SemanticRetrievalError)
+async def semantic_retrieval_exception_handler(
+    request: Request,
+    exc: SemanticRetrievalError,
+) -> JSONResponse:
+    logger.warning(
+        "Semantic Retrieval %s em %s %s",
+        exc.code,
+        request.method,
+        request.url.path,
+    )
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "path": str(request.url.path),
+            },
+        },
+    )
+
+
 @app.exception_handler(Exception)
 async def generic_exception_handler(
     request: Request, exc: Exception
@@ -417,6 +524,18 @@ app.include_router(
 
 app.include_router(
     business_knowledge_router.router,
+)
+app.include_router(
+    enterprise_knowledge_router.router,
+)
+app.include_router(
+    user_analytical_profile_router.router,
+)
+app.include_router(
+    supervised_feedback_router.router,
+)
+app.include_router(
+    semantic_retrieval_router.router,
 )
 
 app.include_router(

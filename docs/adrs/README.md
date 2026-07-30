@@ -12,3 +12,7 @@
 - [ADR 0010 - Renderizacao Comparativa Orientada Por Contratos](0010-contract-driven-comparison-rendering.md)
 - [ADR 0011 - PostgreSQL como fonte do estado conversacional](0011-postgresql-conversation-source-of-truth.md)
 - [ADR 0012 - Resolucao deterministica de contexto antes do planejamento](0012-deterministic-context-resolution.md)
+- [ADR 0013 - Conhecimento empresarial publicado e versionado](0013-published-versioned-enterprise-knowledge.md)
+- [ADR 0014 - Perfil analitico pessoal explicito e governado](0014-explicit-governed-user-analytical-profile.md)
+- [ADR 0015 - Feedback humano revisado antes de exemplos e datasets](0015-reviewed-human-feedback-before-training-datasets.md)
+- [ADR 0016 - Recuperacao hibrida governada antes da resolucao canonica](0016-governed-hybrid-semantic-retrieval.md)

@@ -24,6 +24,9 @@ import {
   Filter,
   LayoutDashboard,
   Layers,
+  BookOpen,
+  MessageSquareText,
+  ScanSearch,
 } from 'lucide-react'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
@@ -211,6 +214,11 @@ export function Sidebar({
   const [mobileOpen, setMobileOpen] = useState(false)
   const { user, logout } = useAuth()
   const pathname = usePathname()
+  const knowledgeEnabled = process.env.NEXT_PUBLIC_ENTERPRISE_KNOWLEDGE_ENABLED === 'true'
+  const userProfileEnabled = process.env.NEXT_PUBLIC_USER_ANALYTICAL_PROFILE_ENABLED === 'true'
+  const feedbackEnabled = process.env.NEXT_PUBLIC_SUPERVISED_FEEDBACK_ENABLED === 'true'
+  const feedbackAdminEnabled = process.env.NEXT_PUBLIC_SUPERVISED_FEEDBACK_ADMIN_ENABLED === 'true'
+  const semanticRetrievalEnabled = process.env.NEXT_PUBLIC_SEMANTIC_RETRIEVAL_ENABLED === 'true'
 
   const renderSidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -257,6 +265,51 @@ export function Sidebar({
                 <span>Dashboard Studio</span>
               </Link>
             )}
+
+            {knowledgeEnabled && (
+              <Link
+                href="/dashboard/knowledge"
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                  pathname === '/dashboard/knowledge'
+                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                )}
+              >
+                <BookOpen size={13} className={pathname === '/dashboard/knowledge' ? 'text-lumina-400' : 'text-zinc-500'} />
+                <span>Glossário</span>
+              </Link>
+            )}
+
+            {userProfileEnabled && (
+              <Link
+                href="/dashboard/settings/profile"
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                  pathname === '/dashboard/settings/profile'
+                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                )}
+              >
+                <Settings size={13} className={pathname === '/dashboard/settings/profile' ? 'text-lumina-400' : 'text-zinc-500'} />
+                <span>Meu perfil</span>
+              </Link>
+            )}
+
+            {feedbackEnabled && (
+              <Link
+                href="/dashboard/feedback"
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                  pathname === '/dashboard/feedback'
+                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                )}
+              >
+                <MessageSquareText size={13} />
+                <span>Minhas avaliações</span>
+              </Link>
+            )}
           </div>
         </section>
 
@@ -267,6 +320,34 @@ export function Sidebar({
               <SectionTitle>Administração</SectionTitle>
             </div>
             <div className="space-y-0.5 px-1">
+              {feedbackAdminEnabled && (
+                <Link
+                  href="/dashboard/admin/feedback"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/admin/feedback'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <MessageSquareText size={13} />
+                  <span>Revisar feedback</span>
+                </Link>
+              )}
+              {semanticRetrievalEnabled && user?.role === 'ADMIN' && (
+                <Link
+                  href="/dashboard/admin/semantic"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/admin/semantic'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <ScanSearch size={13} aria-hidden="true" />
+                  <span>Índice semântico</span>
+                </Link>
+              )}
               {/* Gerenciamento de Usuários (Apenas ADMIN) */}
               {user?.role === 'ADMIN' && (
                 <Link

@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "FeedbackCategoryV2": {
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT_VALUE",
+        "INCORRECT_FILTER",
+        "INCORRECT_PERIOD",
+        "INCORRECT_METRIC",
+        "INCORRECT_ENTITY",
+        "INCORRECT_DIMENSION",
+        "INCORRECT_COMPARISON",
+        "INCORRECT_VISUALIZATION",
+        "MISSING_CONTEXT",
+        "UNWANTED_INHERITANCE",
+        "MISSING_INHERITANCE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE_OUTPUT",
+        "PERFORMANCE",
+        "OTHER"
+      ],
+      "title": "FeedbackCategoryV2",
+      "type": "string"
+    },
+    "FeedbackSeverity": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "FeedbackSeverity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "category": {
+      "$ref": "#/$defs/FeedbackCategoryV2"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "checksum_matches": {
+      "title": "Checksum Matches",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "const": "lumina.supervised-feedback/1.0",
+      "default": "lumina.supervised-feedback/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "duplicate_fingerprint": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duplicate Fingerprint"
+    },
+    "eligible_for_collection": {
+      "title": "Eligible For Collection",
+      "type": "boolean"
+    },
+    "persisted": {
+      "const": false,
+      "default": false,
+      "title": "Persisted",
+      "type": "boolean"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "redaction_detected": {
+      "title": "Redaction Detected",
+      "type": "boolean"
+    },
+    "severity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackSeverity"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "target_authorized": {
+      "title": "Target Authorized",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "target_authorized",
+    "checksum_matches",
+    "category",
+    "redaction_detected",
+    "eligible_for_collection",
+    "checksum"
+  ],
+  "title": "FeedbackShadowEvaluationV2",
+  "type": "object"
+}

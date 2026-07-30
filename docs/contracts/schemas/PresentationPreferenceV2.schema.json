@@ -1,0 +1,85 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "chart_granularity": {
+      "default": "AUTO",
+      "enum": [
+        "AUTO",
+        "SUMMARY",
+        "DETAILED"
+      ],
+      "title": "Chart Granularity",
+      "type": "string"
+    },
+    "decimal_places": {
+      "default": 2,
+      "maximum": 8,
+      "minimum": 0,
+      "title": "Decimal Places",
+      "type": "integer"
+    },
+    "kind": {
+      "const": "PRESENTATION",
+      "default": "PRESENTATION",
+      "title": "Kind",
+      "type": "string"
+    },
+    "ordering": {
+      "default": "DEFAULT",
+      "enum": [
+        "DEFAULT",
+        "ASCENDING",
+        "DESCENDING"
+      ],
+      "title": "Ordering",
+      "type": "string"
+    },
+    "page_size": {
+      "default": 25,
+      "maximum": 200,
+      "minimum": 5,
+      "title": "Page Size",
+      "type": "integer"
+    },
+    "preferred_visualization": {
+      "default": "AUTO",
+      "enum": [
+        "AUTO",
+        "TABLE",
+        "BAR_CHART",
+        "LINE_CHART",
+        "PIE_CHART",
+        "KPI_CARD"
+      ],
+      "title": "Preferred Visualization",
+      "type": "string"
+    },
+    "table_density": {
+      "default": "COMFORTABLE",
+      "enum": [
+        "COMPACT",
+        "COMFORTABLE",
+        "SPACIOUS"
+      ],
+      "title": "Table Density",
+      "type": "string"
+    },
+    "table_first": {
+      "default": true,
+      "title": "Table First",
+      "type": "boolean"
+    },
+    "theme": {
+      "default": "SYSTEM",
+      "enum": [
+        "SYSTEM",
+        "LIGHT",
+        "DARK"
+      ],
+      "title": "Theme",
+      "type": "string"
+    }
+  },
+  "title": "PresentationPreferenceV2",
+  "type": "object"
+}

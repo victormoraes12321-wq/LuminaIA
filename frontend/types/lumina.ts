@@ -429,6 +429,41 @@ export interface PublicContextSummary {
   clarification_required: boolean
 }
 
+export interface AppliedPreferenceSummary {
+  applied: Array<{
+    preference_type: string
+    label: string
+    value_label: string
+    origin_label: string
+    removable_this_turn: boolean
+    settings_path: string
+    expires_at: string | null
+  }>
+  ignored: string[]
+  consent_required: string[]
+  has_visible_analytical_default: boolean
+  schema_version: string
+}
+
+export interface SemanticClarificationOption {
+  option_token: string
+  public_label: string
+  entity_type: string
+  domain: string
+  provenance_summary: string
+}
+
+export interface SemanticClarification {
+  clarification_id: string
+  tenant_id: string
+  user_id: string
+  session_id: string
+  mention_id: string
+  question: string
+  options: SemanticClarificationOption[]
+  expires_at: string
+}
+
 // ── API Response ───────────────────────────────────────────────
 
 export interface QueryResponse {
@@ -437,6 +472,7 @@ export interface QueryResponse {
   session_id?: string | null
   query_node_id?: string | null
   response_node_id?: string | null
+  feedback_target_checksum?: string | null
   parent_id?: string | null
   context_version?: number | null
   context_epoch?: number | null
@@ -446,6 +482,8 @@ export interface QueryResponse {
   context_relationship?: string | null
   public_context_summary?: PublicContextSummary | null
   context_resolution_metadata?: Record<string, JsonValue> | null
+  applied_preference_summary?: AppliedPreferenceSummary | null
+  user_profile_metadata?: Record<string, JsonValue> | null
   view_catalog_id: string | null
   view_name: string | null
   chart_type: ChartType | null
@@ -502,6 +540,7 @@ export interface QueryResponse {
   status?: string
   ambiguities?: string[]
   missing_information?: string[]
+  semantic_clarification?: SemanticClarification | null
   goal?: string
 }
 

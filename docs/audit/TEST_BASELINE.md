@@ -1,5 +1,29 @@
 # Baseline Seguro De Testes
 
+## Prompt 13 - 2026-07-30
+
+- Backend integral: `1279 passed, 2 xfailed, 0 failed, 0 XPASS`.
+- Xfails preservados: `LUMINA-GAP-DASH-001` e `LUMINA-GAP-TENANT-001`.
+- PostgreSQL: Docker descartavel em `127.0.0.1:55432/luminaai_test`.
+- Semantic Retrieval dirigido: contratos, normalizacao, ranking, provider,
+  migration v16, build, idempotencia, publication, rollback, stale, eval,
+  clarification, RBAC, multi-tenant, APIs, schemas e goldens aprovados.
+- Schemas: 87 arquivos exportados duas vezes com hashes identicos.
+- OpenAPI: 170 paths e 195 operacoes; 21 paths e 22 operacoes semanticas.
+- Frontend: ESLint, TypeScript e build aprovados.
+- Playwright integral: `260 passed` em desktop, tablet, mobile e ultrawide.
+- AST: 484 arquivos Python do repositorio, zero falhas.
+- Oracle/OpenAI/rede externa: mockados e proibidos pelo runner.
+- Producao: `SEMANTIC_RETRIEVAL_MODE=LEGACY_ONLY`.
+
+Comando backend:
+
+```powershell
+docker compose -f docker-compose.test.yml up -d --wait
+.\scripts\run-backend-tests-safe.ps1 --selection all -q
+docker compose -f docker-compose.test.yml down -v
+```
+
 Data da execucao: 2026-07-28.
 
 ## Veredito
@@ -298,3 +322,144 @@ Validacoes complementares:
 - Oracle, OpenAI e banco operacional nao acessados;
 - nenhuma migration, dependencia ou lockfile alterado;
 - portas `55432`, `3100`, `3002` e `8000` fechadas ao final.
+
+## Certificacao Prompt 10 - 2026-07-29
+
+Foi adicionada a Base de Conhecimento Empresarial Governada
+`lumina.enterprise-knowledge/1.0`, com migration v13, contratos tipados,
+workflow humano, publicacao imutavel, busca lexical, binding ao
+`MetricRegistry`, runtime publicado, API V2 e frontend governado.
+
+| Verificacao | Resultado certificado |
+|---|---:|
+| Backend coletado | 1112 |
+| Backend passed | 1110 |
+| Backend failed | 0 |
+| Backend xfailed | 2 |
+| Backend XPASS | 0 |
+| Duracao backend | 646,49 s |
+| Prompt 10 direcionado | 32 passed |
+| Migration v12/v13 em cadeia | 3 passed |
+| Benchmark estrutural | 1 passed; workload 0,08 s |
+| Playwright | 204 passed, exit code 0 |
+| ESLint | aprovado |
+| TypeScript | aprovado |
+| Build Next.js | aprovado |
+| AST | 410 arquivos, 0 falhas |
+
+Os dois xfails continuam exatamente:
+
+- `LUMINA-GAP-DASH-001`;
+- `LUMINA-GAP-TENANT-001`.
+
+Validacoes adicionais:
+
+- 18 goldens de Knowledge deterministicos;
+- 18 schemas exportados duas vezes, 13 novos, com hashes identicos;
+- OpenAPI aditivo com 104 paths, 120 operacoes e 21 paths Knowledge;
+- PostgreSQL descartavel guardado em `127.0.0.1:55432/luminaai_test`;
+- migration `up -> up -> down -> up` e cadeia `v13 -> v12 -> v12 -> v13`;
+- 1.000 assets, 10.000 versoes, 100 aliases, fila, keyset e cache em teste;
+- Oracle, OpenAI e banco operacional nao acessados;
+- nenhuma dependencia ou lockfile alterado;
+- producao preservada em `LEGACY_ONLY`;
+- blueprint legado restaurado ao hash pre-teste;
+- container, network, volume e portas de teste removidos ao final.
+
+Proxima etapa: `Prompt 11 - Perfil analitico e memoria governada do usuario`.
+
+## Certificacao Prompt 11 - 2026-07-29
+
+Foi adicionado o perfil analitico governado
+`lumina.user-analytical-profile/1.0`, com contratos, consentimento, precedencia,
+CAS, checksum, repository PostgreSQL, migration v14, API propria, frontend,
+transparencia no chat e politicas de privacidade.
+
+| Verificacao | Resultado certificado |
+|---|---:|
+| Backend coletado | 1142 |
+| Backend passed | 1140 |
+| Backend failed | 0 |
+| Backend xfailed | 2 |
+| Backend XPASS | 0 |
+| Duracao backend | 936,79 s |
+| Prompt 11 direcionado | 30 passed |
+| Cadeia de migrations v12/v13/v14 | 5 passed |
+| Playwright | 232 passed, exit code 0 |
+| ESLint | aprovado |
+| TypeScript | aprovado |
+| Build Next.js | aprovado, 17 paginas |
+| AST | 427 arquivos, 0 falhas |
+
+Os dois xfails continuam exatamente:
+
+- `LUMINA-GAP-DASH-001`;
+- `LUMINA-GAP-TENANT-001`.
+
+Validacoes adicionais:
+
+- cenario de quatro turnos com profile aprovado como teste regular;
+- 19 goldens do perfil aprovados;
+- 41 schemas exportados duas vezes com hashes identicos;
+- OpenAPI aditivo com 120 paths e 141 operacoes, reproduzivel;
+- migration `v14 -> v13 -> v12 -> v12 -> v13 -> v14` e
+  `v14 up -> up -> down -> up`;
+- CAS concorrente, consentimento, revogacao, retencao, exportacao, exclusao,
+  IDOR, cross-user e cross-tenant aprovados;
+- frontend do perfil aprovado em desktop, tablet, mobile e ultrawide;
+- Oracle, OpenAI e banco operacional nao acessados;
+- nenhuma dependencia ou lockfile alterado;
+- producao preservada em `LEGACY_ONLY`;
+- blueprint legado restaurado ao hash pre-teste.
+
+Proxima etapa: `Prompt 12 - Feedback governado e aprendizado supervisionado`.
+
+## Certificacao Prompt 12 - 2026-07-29
+
+Foi adicionado o feedback humano governado
+`lumina.supervised-feedback/1.0`, com contratos estritos, redacao
+deterministica, triagem, lifecycle, revisao humana, curadoria, datasets
+imutaveis, exportacao offline, auditoria e retencao.
+
+| Verificacao | Resultado certificado |
+|---|---:|
+| Backend coletado | 1241 |
+| Backend passed | 1239 |
+| Backend failed | 0 |
+| Backend xfailed | 2 |
+| Backend XPASS | 0 |
+| Duracao backend | 932,73 s |
+| Prompt 12 direcionado | 99 passed |
+| Benchmark estrutural | triagem, redacao, manifest e cache em workloads de 10.000 itens |
+| Playwright | 256 passed, exit code 0 |
+| ESLint | aprovado |
+| TypeScript | aprovado |
+| Build Next.js | aprovado, 19 paginas |
+| AST | 456 arquivos, 0 falhas |
+
+Os dois xfails continuam exatamente:
+
+- `LUMINA-GAP-DASH-001`;
+- `LUMINA-GAP-TENANT-001`.
+
+Validacoes adicionais:
+
+- 21 goldens de triagem deterministica aprovados;
+- 69 schemas totais e 28 do Prompt 12 exportados duas vezes com hashes
+  identicos;
+- OpenAPI com 149 paths e 173 operacoes, incluindo 29 paths e 32 operacoes
+  de feedback supervisionado;
+- migration `v15 up -> up -> down -> up` e cadeia
+  `v15 -> v14 -> v13 -> v12`;
+- target de feedback validado contra resposta persistida, tenant, usuario,
+  sessao e checksum;
+- idempotencia, CAS, IDOR, cross-user, cross-tenant, separacao de funcoes,
+  redacao, CSV injection, shadow nao persistente, import dry-run, retencao,
+  streaming e exclusao foram aprovados;
+- frontend aprovado em desktop, tablet, mobile e ultrawide;
+- Oracle, OpenAI e banco operacional nao acessados;
+- nenhuma dependencia ou lockfile alterado;
+- producao preservada em `LEGACY_ONLY`, com flags desligadas.
+
+Proxima etapa: `Prompt 13 - Consumo offline de datasets supervisionados
+explicitamente aprovados`.

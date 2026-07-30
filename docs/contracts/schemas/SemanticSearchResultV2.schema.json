@@ -1,0 +1,511 @@
+{
+  "$defs": {
+    "EntityCanonicalReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Canonical Id",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "permission_requirement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SemanticPermission"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SemanticSourceType"
+        },
+        "source_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_id",
+        "entity_type",
+        "display_label",
+        "tenant_id",
+        "domain",
+        "source_type",
+        "source_id",
+        "source_version"
+      ],
+      "title": "EntityCanonicalReferenceV2",
+      "type": "object"
+    },
+    "EntityResolutionDecisionType": {
+      "enum": [
+        "RESOLVED",
+        "AMBIGUOUS",
+        "UNRESOLVED",
+        "BLOCKED",
+        "NOT_FOUND",
+        "OUT_OF_SCOPE",
+        "STALE_INDEX",
+        "PERMISSION_DENIED"
+      ],
+      "title": "EntityResolutionDecisionType",
+      "type": "string"
+    },
+    "SemanticAmbiguityV2": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_ids": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Candidate Ids",
+          "type": "array"
+        },
+        "margin": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Margin",
+          "type": "number"
+        },
+        "reason_code": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "required_margin": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Required Margin",
+          "type": "number"
+        },
+        "runner_up_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Runner Up Score",
+          "type": "number"
+        },
+        "top_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Top Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "reason_code",
+        "top_score",
+        "runner_up_score",
+        "margin",
+        "required_margin",
+        "candidate_ids"
+      ],
+      "title": "SemanticAmbiguityV2",
+      "type": "object"
+    },
+    "SemanticChannelScoreV2": {
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/SemanticRetrievalChannel"
+        },
+        "contribution": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Contribution",
+          "type": "number"
+        },
+        "evidence_reference": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Reference"
+        },
+        "penalty": {
+          "default": false,
+          "title": "Penalty",
+          "type": "boolean"
+        },
+        "policy_version": {
+          "default": "lumina.semantic-ranking/1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "raw_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Raw Score",
+          "type": "number"
+        },
+        "reason_code": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "weight": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "channel",
+        "raw_score",
+        "weight",
+        "contribution",
+        "reason_code"
+      ],
+      "title": "SemanticChannelScoreV2",
+      "type": "object"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticPermission": {
+      "enum": [
+        "semantic:search",
+        "semantic:resolve",
+        "semantic:read_public_candidate",
+        "semantic:inspect_scores",
+        "semantic:manage_index",
+        "semantic:build_index",
+        "semantic:validate_index",
+        "semantic:publish_index",
+        "semantic:rollback_index",
+        "semantic:deprecate_index",
+        "semantic:run_evaluation",
+        "semantic:audit_read",
+        "semantic:read_restricted_entity"
+      ],
+      "title": "SemanticPermission",
+      "type": "string"
+    },
+    "SemanticRetrievalChannel": {
+      "enum": [
+        "EXACT_CANONICAL",
+        "EXACT_ALIAS",
+        "EXACT_LABEL",
+        "NORMALIZED_EXACT",
+        "PREFIX",
+        "TOKEN_OVERLAP",
+        "CHARACTER_SIMILARITY",
+        "RELATION_EXPANSION",
+        "VECTOR_SIMILARITY",
+        "CONTEXT_COMPATIBILITY",
+        "DOMAIN_COMPATIBILITY",
+        "TYPE_COMPATIBILITY",
+        "PROFILE_TIE_BREAKER",
+        "LEGACY_FALLBACK"
+      ],
+      "title": "SemanticRetrievalChannel",
+      "type": "string"
+    },
+    "SemanticScoreBreakdownV2": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "items": {
+            "$ref": "#/$defs/SemanticChannelScoreV2"
+          },
+          "title": "Channels",
+          "type": "array"
+        },
+        "final_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Final Score",
+          "type": "number"
+        },
+        "penalties": {
+          "minimum": 0.0,
+          "title": "Penalties",
+          "type": "number"
+        },
+        "policy_version": {
+          "default": "lumina.semantic-ranking/1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "positive_score": {
+          "minimum": 0.0,
+          "title": "Positive Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "channels",
+        "positive_score",
+        "penalties",
+        "final_score"
+      ],
+      "title": "SemanticScoreBreakdownV2",
+      "type": "object"
+    },
+    "SemanticSearchCandidateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "default": true,
+          "title": "Allowed",
+          "type": "boolean"
+        },
+        "breakdown": {
+          "$ref": "#/$defs/SemanticScoreBreakdownV2"
+        },
+        "canonical_reference": {
+          "$ref": "#/$defs/EntityCanonicalReferenceV2"
+        },
+        "confidence_band": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "EXACT"
+          ],
+          "title": "Confidence Band",
+          "type": "string"
+        },
+        "document_id": {
+          "format": "uuid",
+          "title": "Document Id",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "index_version_id": {
+          "format": "uuid",
+          "title": "Index Version Id",
+          "type": "string"
+        },
+        "matched_channels": {
+          "items": {
+            "$ref": "#/$defs/SemanticRetrievalChannel"
+          },
+          "title": "Matched Channels",
+          "type": "array"
+        },
+        "public_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Public Label",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        },
+        "warnings": {
+          "default": [],
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "document_id",
+        "canonical_reference",
+        "public_label",
+        "entity_type",
+        "domain",
+        "score",
+        "confidence_band",
+        "matched_channels",
+        "breakdown",
+        "index_version_id"
+      ],
+      "title": "SemanticSearchCandidateV2",
+      "type": "object"
+    },
+    "SemanticSourceType": {
+      "enum": [
+        "ENTERPRISE_KNOWLEDGE",
+        "METRIC_REGISTRY",
+        "TECHNICAL_CATALOG",
+        "ANALYTICAL_ENTITY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CURATED"
+      ],
+      "title": "SemanticSourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ambiguity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticAmbiguityV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "cache_hit": {
+      "default": false,
+      "title": "Cache Hit",
+      "type": "boolean"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/SemanticSearchCandidateV2"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "decision": {
+      "$ref": "#/$defs/EntityResolutionDecisionType"
+    },
+    "index_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Index Version Id"
+    },
+    "normalized_query": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Normalized Query",
+      "type": "string"
+    },
+    "public_explanation": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Public Explanation",
+      "type": "string"
+    },
+    "query_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Query Fingerprint",
+      "type": "string"
+    },
+    "ranking_policy_version": {
+      "default": "lumina.semantic-ranking/1.0",
+      "title": "Ranking Policy Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "selected": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticSearchCandidateV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "threshold_policy_version": {
+      "default": "lumina.semantic-thresholds/1.0",
+      "title": "Threshold Policy Version",
+      "type": "string"
+    },
+    "warnings": {
+      "default": [],
+      "items": {
+        "maxLength": 256,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "decision",
+    "normalized_query",
+    "candidates",
+    "public_explanation",
+    "query_fingerprint"
+  ],
+  "title": "SemanticSearchResultV2",
+  "type": "object"
+}

@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "FeedbackCategoryV2": {
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT_VALUE",
+        "INCORRECT_FILTER",
+        "INCORRECT_PERIOD",
+        "INCORRECT_METRIC",
+        "INCORRECT_ENTITY",
+        "INCORRECT_DIMENSION",
+        "INCORRECT_COMPARISON",
+        "INCORRECT_VISUALIZATION",
+        "MISSING_CONTEXT",
+        "UNWANTED_INHERITANCE",
+        "MISSING_INHERITANCE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE_OUTPUT",
+        "PERFORMANCE",
+        "OTHER"
+      ],
+      "title": "FeedbackCategoryV2",
+      "type": "string"
+    },
+    "FeedbackPriority": {
+      "enum": [
+        "P4",
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "title": "FeedbackPriority",
+      "type": "string"
+    },
+    "FeedbackSeverity": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "FeedbackSeverity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "category": {
+      "$ref": "#/$defs/FeedbackCategoryV2"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "classification_confidence": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Classification Confidence",
+      "type": "integer"
+    },
+    "duplicate_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Duplicate Fingerprint",
+      "type": "string"
+    },
+    "needs_specialist": {
+      "default": false,
+      "title": "Needs Specialist",
+      "type": "boolean"
+    },
+    "priority": {
+      "$ref": "#/$defs/FeedbackPriority"
+    },
+    "review_queue": {
+      "enum": [
+        "GENERAL",
+        "DATA_INTEGRITY",
+        "SECURITY",
+        "CONTEXT",
+        "VISUALIZATION",
+        "PERFORMANCE"
+      ],
+      "title": "Review Queue",
+      "type": "string"
+    },
+    "rule_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Rule Ids",
+      "type": "array"
+    },
+    "severity": {
+      "$ref": "#/$defs/FeedbackSeverity"
+    },
+    "suspected_formula_conflict": {
+      "default": false,
+      "title": "Suspected Formula Conflict",
+      "type": "boolean"
+    },
+    "suspected_security": {
+      "default": false,
+      "title": "Suspected Security",
+      "type": "boolean"
+    },
+    "suspected_tenant_issue": {
+      "default": false,
+      "title": "Suspected Tenant Issue",
+      "type": "boolean"
+    },
+    "triage_id": {
+      "format": "uuid",
+      "title": "Triage Id",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "triage_id",
+    "category",
+    "severity",
+    "priority",
+    "review_queue",
+    "duplicate_fingerprint",
+    "classification_confidence",
+    "checksum"
+  ],
+  "title": "FeedbackTriageResultV2",
+  "type": "object"
+}

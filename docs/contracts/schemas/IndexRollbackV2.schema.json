@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "expected_definition_lock_version": {
+      "minimum": 0,
+      "title": "Expected Definition Lock Version",
+      "type": "integer"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "target_version_id": {
+      "format": "uuid",
+      "title": "Target Version Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "index_id",
+    "target_version_id",
+    "expected_definition_lock_version",
+    "reason"
+  ],
+  "title": "IndexRollbackV2",
+  "type": "object"
+}

@@ -1,10 +1,20 @@
 # LuminaAI
 
+O estado arquitetural mais recente inclui
+`lumina.semantic-retrieval/1.0`: recuperacao tenant-scoped de conhecimento
+publicado, resolucao canonica deterministica e clarification governada antes
+do planner. O rollout permanece `LEGACY_ONLY`. Consulte
+`docs/contracts/SEMANTIC_RETRIEVAL_AND_ENTITY_RESOLUTION_V2.md`.
+
 O estado conversacional escalavel `lumina.conversation-state/1.0` esta
 implementado atras de rollout controlado. Producao permanece `LEGACY_ONLY`;
 consulte [contrato](docs/contracts/CONVERSATION_STATE_V2.md), [ADR
 0011](docs/adrs/0011-postgresql-conversation-source-of-truth.md) e o
 [runbook de retencao](docs/operation/CONVERSATION_RETENTION_RUNBOOK.md).
+O motor deterministico `lumina.context-resolution/1.0` resolve follow-ups,
+correcoes, remocoes, comparacoes, drill-down e branches sem concatenar texto;
+consulte [contrato](docs/contracts/CONTEXT_RESOLUTION_ENGINE_V2.md) e [ADR
+0012](docs/adrs/0012-deterministic-context-resolution.md).
 
 LuminaAI e uma plataforma Enterprise de Business Intelligence com IA, backend FastAPI, frontend Next.js e Data Platform analitica para catalogo, blueprints, pacotes analiticos, runtime de dashboards e governanca multi-tenant.
 
@@ -83,7 +93,8 @@ Sistema completo:
 .\start-luminaai.ps1
 ```
 
-O script sobe o backend em `0.0.0.0:8000` e o frontend em `0.0.0.0:3000`, validando acesso local e pela rede.
+O script operacional usa backend `0.0.0.0:8000` e frontend
+`0.0.0.0:3002`, validando acesso local e pela rede.
 
 Parar:
 
@@ -110,3 +121,47 @@ npm run test:load
 - Validacao Docker nao foi executada localmente porque o binario `docker` nao esta instalado no ambiente usado na revisao.
 - RLS nativo de banco nao foi identificado; o isolamento multi-tenant ocorre principalmente por JWT, filtros `tenant_id` e dependencias de routers.
 - Testes de carga com massa produtiva e `EXPLAIN ANALYZE` real dependem do ambiente final.
+
+## Enterprise Knowledge V2
+
+A Base de Conhecimento governada usa o contrato
+`lumina.enterprise-knowledge/1.0`. Ela versiona definições, aliases, ownership
+e relações sem executar cálculo ou SQL. O `MetricRegistry` permanece
+autoridade numérica.
+
+Produção continua em `ENTERPRISE_KNOWLEDGE_MODE=LEGACY_ONLY`. A migration v13
+não é aplicada automaticamente. Contrato e rollout:
+[`docs/contracts/ENTERPRISE_KNOWLEDGE_BASE_V2.md`](docs/contracts/ENTERPRISE_KNOWLEDGE_BASE_V2.md)
+e
+[`docs/operation/KNOWLEDGE_GOVERNANCE_RUNBOOK.md`](docs/operation/KNOWLEDGE_GOVERNANCE_RUNBOOK.md).
+
+O Docker Desktop passou a estar disponível na certificação de 2026-07-29; a
+observação histórica acima sobre indisponibilidade não se aplica ao Prompt 10.
+
+## Perfil Analitico Governado
+
+Preferencias pessoais usam `lumina.user-analytical-profile/1.0`. O perfil
+preenche somente lacunas depois da resolucao de contexto, nunca muda formulas
+ou numeros e divulga todo default analitico aplicado. Filtros pessoais exigem
+consentimento explicito.
+
+Producao permanece em `USER_ANALYTICAL_PROFILE_MODE=LEGACY_ONLY`; frontend,
+defaults, filtros salvos, exportacao, exclusao, importacao e cache ficam
+desligados. Consulte
+[`docs/contracts/USER_ANALYTICAL_PROFILE_V2.md`](docs/contracts/USER_ANALYTICAL_PROFILE_V2.md)
+e
+[`docs/operation/USER_PROFILE_PRIVACY_RUNBOOK.md`](docs/operation/USER_PROFILE_PRIVACY_RUNBOOK.md).
+
+## Feedback Governado
+
+Avaliacoes de respostas usam `lumina.supervised-feedback/1.0`. O target e uma
+resposta persistida do proprio usuario; texto e correcao passam por redacao e
+triagem deterministicas antes da revisao humana. Feedback aprovado nao altera
+producao nem dispara treinamento.
+
+A migration v15 nao e automatica. Producao permanece em
+`SUPERVISED_FEEDBACK_MODE=LEGACY_ONLY`, com frontend, admin, dataset, exportacao
+e shadow desligados. Consulte
+[`docs/contracts/GOVERNED_FEEDBACK_AND_SUPERVISED_LEARNING_V2.md`](docs/contracts/GOVERNED_FEEDBACK_AND_SUPERVISED_LEARNING_V2.md)
+e
+[`docs/operation/FEEDBACK_REVIEW_AND_DATASET_RUNBOOK.md`](docs/operation/FEEDBACK_REVIEW_AND_DATASET_RUNBOOK.md).

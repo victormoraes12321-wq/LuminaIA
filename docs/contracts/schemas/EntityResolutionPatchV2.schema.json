@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "EntityCanonicalReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Canonical Id",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "permission_requirement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SemanticPermission"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SemanticSourceType"
+        },
+        "source_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_id",
+        "entity_type",
+        "display_label",
+        "tenant_id",
+        "domain",
+        "source_type",
+        "source_id",
+        "source_version"
+      ],
+      "title": "EntityCanonicalReferenceV2",
+      "type": "object"
+    },
+    "EntityResolutionPatchOperationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EntityCanonicalReferenceV2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mention_id": {
+          "format": "uuid",
+          "title": "Mention Id",
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "SET_CANONICAL_METRIC",
+            "SET_CANONICAL_DIMENSION",
+            "SET_CANONICAL_ENTITY",
+            "SET_CANONICAL_FILTER_FIELD",
+            "SET_CANONICAL_FILTER_VALUE",
+            "ATTACH_PROVENANCE",
+            "CREATE_CLARIFICATION",
+            "MARK_UNRESOLVED"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "reason_code": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation",
+        "mention_id",
+        "reason_code"
+      ],
+      "title": "EntityResolutionPatchOperationV2",
+      "type": "object"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticPermission": {
+      "enum": [
+        "semantic:search",
+        "semantic:resolve",
+        "semantic:read_public_candidate",
+        "semantic:inspect_scores",
+        "semantic:manage_index",
+        "semantic:build_index",
+        "semantic:validate_index",
+        "semantic:publish_index",
+        "semantic:rollback_index",
+        "semantic:deprecate_index",
+        "semantic:run_evaluation",
+        "semantic:audit_read",
+        "semantic:read_restricted_entity"
+      ],
+      "title": "SemanticPermission",
+      "type": "string"
+    },
+    "SemanticSourceType": {
+      "enum": [
+        "ENTERPRISE_KNOWLEDGE",
+        "METRIC_REGISTRY",
+        "TECHNICAL_CATALOG",
+        "ANALYTICAL_ENTITY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CURATED"
+      ],
+      "title": "SemanticSourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/EntityResolutionPatchOperationV2"
+      },
+      "title": "Operations",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "operations",
+    "checksum"
+  ],
+  "title": "EntityResolutionPatchV2",
+  "type": "object"
+}

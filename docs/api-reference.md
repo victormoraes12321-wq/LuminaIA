@@ -8,6 +8,13 @@ Fonte: gerado a partir do schema OpenAPI exposto por `backend/main.py`.
 `QueryResponse` devolve sessao, nos, parent, versao, epoch, status e replay
 quando a persistencia PostgreSQL esta habilitada.
 
+Com `lumina.context-resolution/1.0`, a resposta pode adicionar
+`context_relationship` e `public_context_summary`. O resumo informa labels de
+metrica, periodo, dimensao e filtros herdados, alem de campos substituidos,
+removidos, reset e clarification. `context_resolution_metadata` e estrutural e
+fica restrito a `ADMIN`. Conflitos de versao continuam retornando HTTP 409 com
+`actual_context_version`, permitindo retry idempotente.
+
 As rotas autenticadas `/api/v1/conversations` criam, listam, consultam,
 resetam, arquivam, reabrem e excluem sessoes do proprio usuario. Tenant e
 usuario sempre vem do token. Listagens usam cursor keyset e limites fixos.
@@ -1178,3 +1185,139 @@ O renderer preserva o payload recebido e aplica RBAC de apresentacao:
 `CONSULTA` nao recebe diagnostico administrativo, `GESTOR` pode receber
 proveniencia resumida e `ADMIN` pode inspecionar checks e metadados sanitizados.
 SQL, binds e credenciais nao fazem parte da apresentacao nem da exportacao.
+
+## Enterprise Knowledge V2
+
+Prefixo: `/api/v2/enterprise-knowledge`. Todas as rotas exigem JWT/cookie
+válido; tenant e usuário são derivados da sessão autenticada.
+
+| Método | Rota | Permissão |
+| --- | --- | --- |
+| `POST` | `/search` | published read |
+| `GET` | `/glossary` | published read |
+| `GET` | `/published/{canonical_key}` | published read |
+| `GET` | `/metrics/{canonical_metric_id}` | published metric/KPI read |
+| `GET` | `/review-queue` | review |
+| `GET/POST` | `/assets` | read / create |
+| `GET` | `/assets/{asset_id}` | permitted versions |
+| `GET` | `/assets/{asset_id}/versions` | permitted versions |
+| `POST` | `/assets/{asset_id}/drafts` | edit |
+| `PUT` | `/assets/{asset_id}/versions/{version_id}` | edit + CAS |
+| `POST` | `.../submit` | submit |
+| `POST` | `.../review` | approve/reject + separation of duties |
+| `POST` | `.../publish` | publish + checksum/CAS/binding |
+| `POST` | `.../deprecate` | deprecate |
+| `POST` | `/assets/{asset_id}/archive` | archive |
+| `DELETE` | `/assets/{asset_id}` | soft delete, never-published only |
+| `POST` | `/assets/{asset_id}/rollback` | rollback to new draft |
+| `POST` | `/assets/{asset_id}/ownership` | transfer ownership |
+| `POST` | `/assets/{asset_id}/diff` | read |
+| `GET` | `/assets/{asset_id}/audit` | audit read |
+| `POST` | `/imports` | import flag + permission |
+| `GET` | `/exports/{export_format}` | export flag + permission |
+
+Erros usam `error.code`, `error.message` e detalhes estruturais seguros.
+`LEGACY_ONLY` devolve `KNOWLEDGE_FEATURE_DISABLED`; nenhum endpoint V2 acessa
+Oracle, OpenAI ou SQL analítico.
+
+## Perfil Analitico V2
+
+Prefixo: `/api/v2/me`. Todas as rotas derivam tenant e usuario da sessao; nao
+aceitam identificador de dono no path ou payload.
+
+| Metodo | Path | Finalidade |
+|---|---|---|
+| `GET` | `/analytical-profile/capabilities` | modo e capacidades liberadas |
+| `GET` | `/analytical-profile` | perfil completo do dono |
+| `GET` | `/analytical-profile/summary` | resumo minimizado |
+| `GET` | `/analytical-profile/applicable` | preferencias aplicaveis |
+| `POST` | `/preferences` | criar preferencia explicita |
+| `PUT` | `/preferences/{preference_id}` | atualizar com CAS |
+| `POST` | `/preferences/{preference_id}/disable` | desativar |
+| `POST` | `/preferences/{preference_id}/reactivate` | reativar |
+| `DELETE` | `/preferences/{preference_id}` | soft delete |
+| `POST/DELETE` | `/preferences/{preference_id}/consent` | conceder/revogar |
+| `POST` | `/analytical-profile/disable` | desativar perfil |
+| `POST` | `/analytical-profile/reactivate` | reativar perfil |
+| `GET` | `/profile/export` | exportar JSON tipado |
+| `POST` | `/analytical-profile/deletion-requests` | solicitar exclusao idempotente |
+| `GET` | `/analytical-profile/deletion-requests` | consultar solicitacoes |
+| `POST` | `/analytical-profile/import/dry-run` | validar importacao legada |
+| `POST` | `/analytical-profile/import/confirm` | confirmar importacao |
+
+Leitura completa retorna `ETag`; escritas usam `expected_lock_version`.
+`LEGACY_ONLY` falha fechado, exceto a rota de capacidades. Nenhuma rota acessa
+Oracle, OpenAI ou banco operacional.
+
+## Feedback Governado V2
+
+Prefixo: `/api/v2`. Tenant, usuario e papel sempre vem da autenticacao.
+
+| Metodo | Path | Finalidade |
+|---|---|---|
+| `GET` | `/feedback/capabilities` | modo e capacidades |
+| `POST` | `/feedback/shadow-evaluate` | comparar estrutura sem persistir |
+| `POST` | `/me/feedback` | criar feedback proprio |
+| `GET` | `/me/feedback` | listar feedback proprio por keyset |
+| `GET/PATCH` | `/me/feedback/{id}` | ler ou complementar explicacao |
+| `POST` | `/me/feedback/{id}/information-response` | responder pedido de informacao |
+| `POST` | `/me/feedback/{id}/withdraw` | retirar antes da revisao |
+| `GET` | `/me/feedback-export` | exportacao minimizada propria |
+| `POST` | `/me/feedback/{id}/deletion-request` | pedido idempotente |
+| `GET` | `/feedback/review/queue` | fila redigida ADMIN/GESTOR |
+| `GET` | `/feedback/{id}` | obter feedback redigido para review |
+| `GET` | `/feedback/duplicate-groups/{fingerprint}` | inspecionar duplicidade no tenant |
+| `POST` | `/feedback/{id}/reviewer` | atribuir reviewer com CAS |
+| `POST` | `/feedback/{id}/review` | registrar decisao humana |
+| `POST` | `/feedback/{id}/approve` | aprovacao final ADMIN |
+| `POST` | `/feedback/{id}/reject` | rejeicao final ADMIN |
+| `POST` | `/feedback/{id}/request-information` | solicitar complemento |
+| `POST` | `/feedback/{id}/training-candidate` | criar candidato explicito |
+| `GET` | `/feedback/training-candidates` | listar candidatos |
+| `POST` | `/feedback/training-candidates/{id}/validate` | validar candidate |
+| `POST` | `/feedback/training-candidates/{id}/approve` | criar exemplo aprovado |
+| `POST` | `/feedback/training-candidates/{id}/reject` | rejeitar candidate |
+| `GET` | `/feedback/training-examples` | listar exemplos aprovados |
+| `GET` | `/feedback/datasets` | listar snapshots e versoes |
+| `POST` | `/feedback/datasets` | criar snapshot versionado |
+| `GET` | `/feedback/datasets/snapshots/{id}` | obter snapshot explicito |
+| `POST` | `/feedback/datasets/{id}/transition` | revisar/aprovar snapshot |
+| `POST` | `/feedback/datasets/{id}/publish` | publicar versao imutavel |
+| `POST` | `/feedback/datasets/{id}/export` | exportar JSONL offline |
+| `POST` | `/feedback/import/dry-run` | validar JSONL sem persistir |
+| `POST` | `/feedback/retention/expire` | aplicar expiracao governada |
+
+Erros sao tipados, IDOR retorna not found seguro e escritas usam
+`expected_lock_version`. O rollout segue `LEGACY_ONLY -> V2_COLLECT ->
+V2_REVIEW -> V2_CURATE`; `SHADOW` nao persiste feedback.
+
+## Semantic Retrieval V2
+
+Prefixo: `/api/v2/semantic`. Tenant e usuario sao sempre derivados da
+autenticacao. `LEGACY_ONLY` permite somente capabilities.
+
+| Metodo | Path | Finalidade |
+|---|---|---|
+| `GET` | `/capabilities` | modo e capacidades |
+| `POST` | `/search` | busca publica com breakdown redigido |
+| `POST` | `/resolve` | resolver mencoes |
+| `POST` | `/entities/resolve` | alias tipado para resolucao de entidade |
+| `GET` | `/candidates/{document_id}` | detalhe e provenance publica |
+| `POST` | `/clarifications/{id}/resolve` | responder opcao assinada |
+| `POST` | `/admin/indexes/default` | criar definition padrao |
+| `GET/PATCH` | `/admin/indexes[/{id}]` | listar/alterar com CAS |
+| `GET` | `/admin/indexes/{id}/versions` | listar versoes |
+| `GET` | `/admin/indexes/{id}/versions/{version}` | inspecionar build/version |
+| `GET` | `/admin/indexes/{id}/versions/{version}/manifest` | exportar manifest |
+| `POST` | `/admin/indexes/{id}/build` | iniciar build idempotente |
+| `POST` | `/admin/indexes/{id}/publish` | publicar com CAS |
+| `POST` | `/admin/indexes/{id}/rollback` | rollback com historico |
+| `POST` | `/admin/indexes/{id}/versions/{version}/deprecate` | depreciar nao ativa |
+| `GET` | `/admin/indexes/{id}/stale-sources` | detectar fontes alteradas |
+| `POST` | `/admin/search` | inspector com score completo |
+| `POST/GET` | `/admin/indexes/{id}/evaluations` | executar/listar avaliacoes |
+| `GET` | `/admin/audit` | timeline por cursor |
+| `GET` | `/admin/observability` | contadores estruturais |
+
+`top_k`, payloads e paginas sao limitados. Models usam `extra=forbid`; erros
+tipados nao enumeram recursos de outro tenant.

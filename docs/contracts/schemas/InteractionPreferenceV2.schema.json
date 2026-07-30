@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "confirmation_level": {
+      "default": "STANDARD",
+      "enum": [
+        "MINIMAL",
+        "STANDARD",
+        "STRICT"
+      ],
+      "title": "Confirmation Level",
+      "type": "string"
+    },
+    "kind": {
+      "const": "INTERACTION",
+      "default": "INTERACTION",
+      "title": "Kind",
+      "type": "string"
+    },
+    "open_details_by_default": {
+      "default": false,
+      "title": "Open Details By Default",
+      "type": "boolean"
+    },
+    "preserve_expanded_rows": {
+      "default": false,
+      "title": "Preserve Expanded Rows",
+      "type": "boolean"
+    }
+  },
+  "title": "InteractionPreferenceV2",
+  "type": "object"
+}

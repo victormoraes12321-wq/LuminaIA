@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "accessible_labels": {
+      "default": true,
+      "title": "Accessible Labels",
+      "type": "boolean"
+    },
+    "high_contrast": {
+      "default": false,
+      "title": "High Contrast",
+      "type": "boolean"
+    },
+    "kind": {
+      "const": "ACCESSIBILITY",
+      "default": "ACCESSIBILITY",
+      "title": "Kind",
+      "type": "string"
+    },
+    "larger_text": {
+      "default": false,
+      "title": "Larger Text",
+      "type": "boolean"
+    },
+    "reduced_motion": {
+      "default": false,
+      "title": "Reduced Motion",
+      "type": "boolean"
+    }
+  },
+  "title": "AccessibilityPreferenceV2",
+  "type": "object"
+}

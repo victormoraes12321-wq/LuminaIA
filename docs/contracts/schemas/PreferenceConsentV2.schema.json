@@ -1,0 +1,117 @@
+{
+  "$defs": {
+    "ConsentStatus": {
+      "enum": [
+        "GRANTED",
+        "REVOKED",
+        "NOT_REQUIRED",
+        "MISSING"
+      ],
+      "title": "ConsentStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "consent_id": {
+      "format": "uuid",
+      "title": "Consent Id",
+      "type": "string"
+    },
+    "granted_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Granted At"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "policy_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "preference_id": {
+      "format": "uuid",
+      "title": "Preference Id",
+      "type": "string"
+    },
+    "purpose": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Purpose",
+      "type": "string"
+    },
+    "revoked_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revoked At"
+    },
+    "scope": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Scope",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "USER_ACTION",
+        "SYSTEM_PRESENTATION_SETTING"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ConsentStatus"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "consent_id",
+    "preference_id",
+    "tenant_id",
+    "user_id",
+    "purpose",
+    "scope",
+    "status",
+    "policy_version",
+    "source",
+    "lock_version",
+    "checksum"
+  ],
+  "title": "PreferenceConsentV2",
+  "type": "object"
+}

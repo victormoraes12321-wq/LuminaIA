@@ -1,5 +1,17 @@
 # Banco Analitico
 
+## Migration V16 - Semantic Retrieval
+
+`backend/database/migration_v16_0.py` adiciona definitions, versions,
+documents, aliases, relations, terms, representations, publications, events,
+evaluation cases/results e clarifications. FKs compostas preservam tenant;
+versions possuem CAS, checksum e idempotency hash.
+
+A migration e explicita, aditiva, idempotente e nao usa `create_all` ou
+extension obrigatoria. O down exige ambiente de teste descartavel e deve
+ocorrer antes de v15, v14, v13 e v12. Ela nao e aplicada automaticamente no
+startup.
+
 ## Visao Geral
 
 O banco analitico usa PostgreSQL com SQLAlchemy async no backend. Ele armazena tenants, usuarios, catalogos de views, historico, favoritos, metadados, semantic catalog, business knowledge, blueprints, datasets, packages, dashboard templates/instances e fila de sync.

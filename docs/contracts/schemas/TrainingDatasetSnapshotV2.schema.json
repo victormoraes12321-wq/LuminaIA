@@ -1,0 +1,227 @@
+{
+  "$defs": {
+    "DatasetStatus": {
+      "enum": [
+        "DRAFT",
+        "IN_REVIEW",
+        "APPROVED",
+        "PUBLISHED",
+        "REJECTED",
+        "DEPRECATED",
+        "ARCHIVED"
+      ],
+      "title": "DatasetStatus",
+      "type": "string"
+    },
+    "TrainingDatasetManifestV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "lumina.supervised-feedback/1.0",
+          "default": "lumina.supervised-feedback/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dataset_id": {
+          "format": "uuid",
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "example_checksums": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100000,
+          "title": "Example Checksums",
+          "type": "array"
+        },
+        "exclusion_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Exclusion Criteria",
+          "type": "array"
+        },
+        "inclusion_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Inclusion Criteria",
+          "type": "array"
+        },
+        "redaction_policy_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Redaction Policy Version",
+          "type": "string"
+        },
+        "schema_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "version",
+        "schema_version",
+        "redaction_policy_version",
+        "checksum"
+      ],
+      "title": "TrainingDatasetManifestV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "approved_by_user_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approved By User Id"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "created_by_user_id": {
+      "format": "uuid",
+      "title": "Created By User Id",
+      "type": "string"
+    },
+    "dataset_id": {
+      "format": "uuid",
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 1000,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "example_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 100000,
+      "title": "Example Ids",
+      "type": "array"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "manifest": {
+      "$ref": "#/$defs/TrainingDatasetManifestV2"
+    },
+    "name": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "purpose": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Purpose",
+      "type": "string"
+    },
+    "reviewed_by_user_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewed By User Id"
+    },
+    "snapshot_id": {
+      "format": "uuid",
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/DatasetStatus"
+    },
+    "tenant_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tenant Id"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "snapshot_id",
+    "dataset_id",
+    "tenant_id",
+    "version",
+    "name",
+    "description",
+    "purpose",
+    "status",
+    "manifest",
+    "created_by_user_id",
+    "created_at",
+    "lock_version",
+    "checksum"
+  ],
+  "title": "TrainingDatasetSnapshotV2",
+  "type": "object"
+}

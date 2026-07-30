@@ -176,6 +176,10 @@ async def _complete_conversation_turn(
         or governed.get("ia_analise")
         or "Resposta analitica concluida."
     )
+    response_fingerprint = _fingerprint_json({
+        "query_id": governed.get("query_id"),
+        "status": governed.get("status"),
+    })
     try:
         completed = await conversation_state_service.complete_turn(
             tenant_id=current_user.tenant_id,
@@ -190,10 +194,7 @@ async def _complete_conversation_turn(
                     started=started,
                     context_resolution_result=context_resolution_result,
                 ),
-                response_fingerprint=_fingerprint_json({
-                    "query_id": governed.get("query_id"),
-                    "status": governed.get("status"),
-                }),
+                response_fingerprint=response_fingerprint,
                 context_resolution_metadata=(
                     governed.get("context_resolution_metadata") or {}
                 ),
@@ -217,6 +218,7 @@ async def _complete_conversation_turn(
         "context_epoch": completed.context_epoch,
         "conversation_status": "ACTIVE",
         "idempotent_replay": completed.idempotent_replay,
+        "feedback_target_checksum": response_fingerprint,
     })
     return governed
 

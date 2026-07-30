@@ -3,13 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import { HelpCircle, AlertCircle, Send, Check } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { HelpCircle, AlertCircle, Send, Check, Loader2 } from 'lucide-react';
+import { cn, getApiBase } from '@/lib/utils';
+import { useAuth } from '@/context/AuthContext';
+import type { SemanticClarification, SemanticClarificationOption } from '@/types/lumina';
 
 interface ClarificationPanelProps {
   status: 'AMBIGUOUS' | 'MISSING_INFORMATION' | string;
   ambiguities?: string[];
   missingInformation?: string[];
+  semanticClarification?: SemanticClarification | null;
   perguntaOriginal: string;
   onResolve: (resolucao: string) => void;
   className?: string;
@@ -24,6 +27,7 @@ export function ClarificationPanel({
   status,
   ambiguities = [],
   missingInformation = [],
+  semanticClarification,
   perguntaOriginal,
   onResolve,
   className,
@@ -33,22 +37,66 @@ export function ClarificationPanel({
   const [missingData, setMissingData] = useState<Record<string, string>>({});
   const [selectedAmbiguity, setSelectedAmbiguity] = useState<string | null>(null);
   const [customInstructions, setCustomInstructions] = useState<string>('');
+  const [submittingToken, setSubmittingToken] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState('');
+  const { token } = useAuth();
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setMounted(true));
     return () => window.cancelAnimationFrame(frame);
   }, []);
 
-  const isAmbiguous = status === 'AMBIGUOUS';
+  const isAmbiguous = status === 'AMBIGUOUS' || status === 'CLARIFICATION_REQUIRED';
   const isMissingInfo = status === 'MISSING_INFORMATION';
 
-  const handleAmbiguitySelect = (option: string) => {
-    setSelectedAmbiguity(option);
-    setIsClosing(true);
+  const continueWithLabel = (option: string) => {
     const baseQuestion = cleanPerguntaOriginal(perguntaOriginal);
     const extra = customInstructions.trim() ? ` [Instruções: ${customInstructions.trim()}]` : '';
-    const resolvedText = `${baseQuestion} em ${option}${extra}`;
+    const resolvedText = `${baseQuestion} [Entidade confirmada: ${option}]${extra}`;
     onResolve(resolvedText);
+  };
+
+  const handleAmbiguitySelect = async (
+    option: string,
+    semanticOption?: SemanticClarificationOption,
+  ) => {
+    setSelectedAmbiguity(option);
+    setSubmitError('');
+    if (!semanticClarification || !semanticOption) {
+      setIsClosing(true);
+      continueWithLabel(option);
+      return;
+    }
+    setSubmittingToken(semanticOption.option_token);
+    try {
+      const response = await fetch(
+        `${getApiBase()}/api/v2/semantic/clarifications/${semanticClarification.clarification_id}/resolve`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify({
+            session_id: semanticClarification.session_id,
+            option_token: semanticOption.option_token,
+          }),
+        },
+      );
+      if (!response.ok) {
+        const payload = await response.json() as { error?: { message?: string } };
+        throw new Error(payload.error?.message ?? 'Não foi possível confirmar a opção.');
+      }
+      setIsClosing(true);
+      continueWithLabel(option);
+    } catch (caught) {
+      setSubmitError(
+        caught instanceof Error ? caught.message : 'Não foi possível confirmar a opção.',
+      );
+    } finally {
+      setSubmittingToken(null);
+    }
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -93,32 +141,45 @@ export function ClarificationPanel({
           </p>
 
           {/* Seção de Resolução de Ambiguidade */}
-          {isAmbiguous && ambiguities.length > 0 && (
+          {isAmbiguous && (semanticClarification?.options.length || ambiguities.length > 0) && (
             <div className="mt-4">
               <p className="text-[10px] font-bold text-lumina-400 uppercase tracking-widest mb-2.5">
                 Escolha uma das opções abaixo para esclarecer:
               </p>
               <div className="flex flex-col gap-2">
-                {ambiguities.map((option, index) => (
-                  <motion.button
-                    key={index}
-                    whileHover={{ scale: 1.01, x: 2 }}
-                    whileTap={{ scale: 0.99 }}
-                    onClick={() => handleAmbiguitySelect(option)}
-                    className={cn(
-                      'w-full text-left p-3.5 px-4 rounded-xl text-xs font-medium border transition-all cursor-pointer flex items-center justify-between',
-                      selectedAmbiguity === option
-                        ? 'bg-lumina-500/15 border-lumina-500/40 text-lumina-300'
-                        : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700/80 text-zinc-300 hover:text-white hover:bg-zinc-900/60'
-                    )}
-                  >
-                    <span>{option}</span>
-                    {selectedAmbiguity === option && (
-                      <Check size={14} className="text-lumina-400 flex-shrink-0" />
-                    )}
-                  </motion.button>
-                ))}
+                {(semanticClarification?.options.map(option => option.public_label) ?? ambiguities)
+                  .map((option, index) => {
+                    const semanticOption = semanticClarification?.options[index];
+                    const isSubmitting = submittingToken === semanticOption?.option_token;
+                    return (
+                      <motion.button
+                        key={semanticOption?.option_token ?? `${option}-${index}`}
+                        whileHover={{ scale: 1.01, x: 2 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={() => void handleAmbiguitySelect(option, semanticOption)}
+                        disabled={submittingToken !== null}
+                        aria-pressed={selectedAmbiguity === option}
+                        className={cn(
+                          'w-full text-left p-3.5 px-4 rounded-xl text-xs font-medium border transition-all cursor-pointer flex items-center justify-between',
+                          selectedAmbiguity === option
+                            ? 'bg-lumina-500/15 border-lumina-500/40 text-lumina-300'
+                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700/80 text-zinc-300 hover:text-white hover:bg-zinc-900/60',
+                          submittingToken !== null && 'cursor-wait opacity-70',
+                        )}
+                      >
+                        <span>{option}</span>
+                        {isSubmitting ? (
+                          <Loader2 size={14} className="animate-spin flex-shrink-0" aria-hidden="true" />
+                        ) : selectedAmbiguity === option && (
+                          <Check size={14} className="text-lumina-400 flex-shrink-0" />
+                        )}
+                      </motion.button>
+                    );
+                  })}
               </div>
+              {submitError && (
+                <p role="alert" className="mt-3 text-xs text-rose-400">{submitError}</p>
+              )}
 
               {/* Seção de Instruções Personalizadas Opcionais */}
               <div className="mt-4 pt-3 border-t border-zinc-900/80">

@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import get_db
-from models.user import User
+from models.user import User, UserRole
 from routers.dependencies import enforce_password_change
 from services.business.business_knowledge_engine import business_knowledge_engine
 
@@ -23,6 +23,15 @@ router = APIRouter(
     prefix="/api/v1/business-knowledge",
     tags=["Business Knowledge Engine"],
 )
+
+
+def _require_legacy_governance(user: User, *, admin_only: bool = False) -> None:
+    allowed = {UserRole.ADMIN} if admin_only else {UserRole.ADMIN, UserRole.GESTOR}
+    if user.role not in allowed:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Acesso negado para alteração do conhecimento empresarial.",
+        )
 
 
 class ConceptResponse(BaseModel):
@@ -184,6 +193,7 @@ async def register_concept(
     db: AsyncSession = Depends(get_db),
 ) -> ConceptResponse:
     """Register or update a governed business concept."""
+    _require_legacy_governance(current_user)
     concept = await business_knowledge_engine.dictionary.register_concept(
         tenant_id=current_user.tenant_id,
         concept_data=body.model_dump(),
@@ -225,6 +235,7 @@ async def register_kpi(
     db: AsyncSession = Depends(get_db),
 ) -> KPIResponse:
     """Register or update an official KPI."""
+    _require_legacy_governance(current_user)
     kpi = await business_knowledge_engine.kpi_registry.register_kpi(
         tenant_id=current_user.tenant_id,
         kpi_data=body.model_dump(),
@@ -298,6 +309,7 @@ async def execute_rollback(
     db: AsyncSession = Depends(get_db),
 ) -> RollbackResponse:
     """Atomically restore a governed element to a previous version."""
+    _require_legacy_governance(current_user, admin_only=True)
     try:
         res = await business_knowledge_engine.governance.rollback(
             tenant_id=current_user.tenant_id,
@@ -326,6 +338,7 @@ async def seed_bke(
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     """Seed the default BI formulas and cause/effect relationships."""
+    _require_legacy_governance(current_user, admin_only=True)
     f_count = await business_knowledge_engine.formula_engine.seed_formulas(
         current_user.tenant_id,
         db,

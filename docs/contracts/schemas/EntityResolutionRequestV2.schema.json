@@ -1,0 +1,236 @@
+{
+  "$defs": {
+    "EntityMentionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_field": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidate Field"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "end": {
+          "minimum": 1,
+          "title": "End",
+          "type": "integer"
+        },
+        "expected_entity_type": {
+          "$ref": "#/$defs/SemanticEntityType",
+          "default": "UNKNOWN"
+        },
+        "mention_id": {
+          "format": "uuid",
+          "title": "Mention Id",
+          "type": "string"
+        },
+        "normalized_text": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Normalized Text",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "EXPLICIT",
+            "INTENT",
+            "FILTER_FIELD",
+            "FILTER_VALUE",
+            "CONTEXT"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "text": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mention_id",
+        "text",
+        "normalized_text",
+        "start",
+        "end",
+        "source",
+        "confidence"
+      ],
+      "title": "EntityMentionV2",
+      "type": "object"
+    },
+    "EntityResolutionContextV2": {
+      "additionalProperties": false,
+      "properties": {
+        "active_canonical_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Active Canonical Ids",
+          "type": "array"
+        },
+        "domain": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain"
+        },
+        "expected_entity_types": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SemanticEntityType"
+          },
+          "title": "Expected Entity Types",
+          "type": "array"
+        },
+        "permission_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Permission Fingerprint",
+          "type": "string"
+        },
+        "profile_favorite_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Profile Favorite Ids",
+          "type": "array"
+        },
+        "profile_tie_breaker_enabled": {
+          "default": false,
+          "title": "Profile Tie Breaker Enabled",
+          "type": "boolean"
+        },
+        "removed_canonical_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Removed Canonical Ids",
+          "type": "array"
+        },
+        "session_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Session Id"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "user_id",
+        "permission_fingerprint"
+      ],
+      "title": "EntityResolutionContextV2",
+      "type": "object"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "$ref": "#/$defs/EntityResolutionContextV2"
+    },
+    "index_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Index Id"
+    },
+    "mentions": {
+      "items": {
+        "$ref": "#/$defs/EntityMentionV2"
+      },
+      "title": "Mentions",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "mentions",
+    "context"
+  ],
+  "title": "EntityResolutionRequestV2",
+  "type": "object"
+}

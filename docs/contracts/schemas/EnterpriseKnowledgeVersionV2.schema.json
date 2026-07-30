@@ -1,0 +1,1061 @@
+{
+  "$defs": {
+    "AliasSetContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "canonical_target_key": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Target Key",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ALIAS_SET",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+          "title": "Locale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "display_name",
+        "canonical_target_key",
+        "aliases",
+        "domain"
+      ],
+      "title": "AliasSetContentV2",
+      "type": "object"
+    },
+    "BusinessRuleContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "exceptions": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Exceptions",
+          "type": "array"
+        },
+        "exclusions": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Exclusions",
+          "type": "array"
+        },
+        "inclusions": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Inclusions",
+          "type": "array"
+        },
+        "kind": {
+          "const": "BUSINESS_RULE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "scope": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Scope",
+          "type": "array"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Source References",
+          "type": "array"
+        },
+        "statement": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "display_name",
+        "statement",
+        "rationale"
+      ],
+      "title": "BusinessRuleContentV2",
+      "type": "object"
+    },
+    "BusinessTermContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "allowed_examples": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Allowed Examples",
+          "type": "array"
+        },
+        "canonical_name": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Name",
+          "type": "string"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "full_description": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Full Description",
+          "type": "string"
+        },
+        "incorrect_examples": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Incorrect Examples",
+          "type": "array"
+        },
+        "kind": {
+          "const": "BUSINESS_TERM",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+          "title": "Locale",
+          "type": "string"
+        },
+        "related_terms": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Related Terms",
+          "type": "array"
+        },
+        "short_description": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Short Description",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Source References",
+          "type": "array"
+        },
+        "tags": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Tags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "canonical_name",
+        "display_name",
+        "definition",
+        "domain",
+        "short_description",
+        "full_description"
+      ],
+      "title": "BusinessTermContentV2",
+      "type": "object"
+    },
+    "CalendarPolicyContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "closing_policy": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Closing Policy",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "fiscal_year_start_month": {
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Fiscal Year Start Month",
+          "type": "integer"
+        },
+        "holidays_policy": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Holidays Policy",
+          "type": "string"
+        },
+        "kind": {
+          "const": "CALENDAR_POLICY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+          "title": "Locale",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        },
+        "week_start": {
+          "enum": [
+            "MONDAY",
+            "SUNDAY"
+          ],
+          "title": "Week Start",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "display_name",
+        "timezone",
+        "week_start",
+        "fiscal_year_start_month",
+        "holidays_policy",
+        "closing_policy"
+      ],
+      "title": "CalendarPolicyContentV2",
+      "type": "object"
+    },
+    "DataQualityPolicyContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_criteria": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Acceptance Criteria",
+          "type": "array"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "governed_fields": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Governed Fields",
+          "type": "array"
+        },
+        "kind": {
+          "const": "DATA_QUALITY_POLICY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "INFO",
+            "WARNING",
+            "BLOCKING"
+          ],
+          "title": "Severity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "display_name",
+        "definition",
+        "severity",
+        "acceptance_criteria"
+      ],
+      "title": "DataQualityPolicyContentV2",
+      "type": "object"
+    },
+    "DimensionKnowledgeContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "allowed_metrics": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Allowed Metrics",
+          "type": "array"
+        },
+        "canonical_dimension_id": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Dimension Id",
+          "type": "string"
+        },
+        "cardinality_class": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "UNBOUNDED"
+          ],
+          "title": "Cardinality Class",
+          "type": "string"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "entity_type": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Entity Type",
+          "type": "string"
+        },
+        "hierarchy": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Hierarchy",
+          "type": "array"
+        },
+        "incompatible_metrics": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Incompatible Metrics",
+          "type": "array"
+        },
+        "kind": {
+          "const": "DIMENSION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "parent_dimension": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Dimension"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "canonical_dimension_id",
+        "display_name",
+        "definition",
+        "entity_type",
+        "cardinality_class"
+      ],
+      "title": "DimensionKnowledgeContentV2",
+      "type": "object"
+    },
+    "EntityKnowledgeContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "allowed_metrics": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Allowed Metrics",
+          "type": "array"
+        },
+        "attributes": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Attributes",
+          "type": "array"
+        },
+        "business_identity": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Business Identity",
+          "type": "string"
+        },
+        "canonical_entity_id": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Entity Id",
+          "type": "string"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ENTITY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "relationships": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Relationships",
+          "type": "array"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "canonical_entity_id",
+        "display_name",
+        "definition",
+        "business_identity"
+      ],
+      "title": "EntityKnowledgeContentV2",
+      "type": "object"
+    },
+    "KnowledgeLifecycle": {
+      "enum": [
+        "DRAFT",
+        "IN_REVIEW",
+        "APPROVED",
+        "PUBLISHED",
+        "REJECTED",
+        "DEPRECATED",
+        "ARCHIVED"
+      ],
+      "title": "KnowledgeLifecycle",
+      "type": "string"
+    },
+    "KnowledgeRelationType": {
+      "enum": [
+        "SYNONYM_OF",
+        "BROADER_THAN",
+        "NARROWER_THAN",
+        "RELATED_TO",
+        "CALCULATED_FROM",
+        "ALLOWED_DIMENSION",
+        "INCOMPATIBLE_WITH",
+        "OWNED_BY",
+        "SUPERSEDES",
+        "DEPENDS_ON"
+      ],
+      "title": "KnowledgeRelationType",
+      "type": "string"
+    },
+    "KnowledgeSourceReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Authority",
+          "type": "string"
+        },
+        "reference_type": {
+          "enum": [
+            "POLICY",
+            "SYSTEM",
+            "DOCUMENT",
+            "CATALOG",
+            "OWNER_ATTESTATION"
+          ],
+          "title": "Reference Type",
+          "type": "string"
+        },
+        "reference_uri": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Uri"
+        },
+        "reference_version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Version"
+        },
+        "title": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "verified_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verified At"
+        }
+      },
+      "required": [
+        "reference_type",
+        "title",
+        "authority"
+      ],
+      "title": "KnowledgeSourceReferenceV2",
+      "type": "object"
+    },
+    "MetricKnowledgeContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_semantics": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Aggregation Semantics",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Aliases",
+          "type": "array"
+        },
+        "allowed_dimensions": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Allowed Dimensions",
+          "type": "array"
+        },
+        "authoritative_source": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Authoritative Source",
+          "type": "string"
+        },
+        "canonical_metric_id": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Metric Id",
+          "type": "string"
+        },
+        "caveats": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Caveats",
+          "type": "array"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "display_format": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Format",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "exclusions": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Exclusions",
+          "type": "array"
+        },
+        "formula_fingerprint": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Formula Fingerprint"
+        },
+        "formula_reference": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Formula Reference",
+          "type": "string"
+        },
+        "frequency": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Frequency",
+          "type": "string"
+        },
+        "grain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Grain",
+          "type": "string"
+        },
+        "inclusions": {
+          "items": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Inclusions",
+          "type": "array"
+        },
+        "incompatible_dimensions": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Incompatible Dimensions",
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "METRIC",
+            "KPI"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Source References",
+          "type": "array"
+        },
+        "unit": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "canonical_metric_id",
+        "display_name",
+        "definition",
+        "purpose",
+        "unit",
+        "display_format",
+        "aggregation_semantics",
+        "grain",
+        "frequency",
+        "authoritative_source",
+        "formula_reference"
+      ],
+      "title": "MetricKnowledgeContentV2",
+      "type": "object"
+    },
+    "SemanticRelationContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "kind": {
+          "const": "SEMANTIC_RELATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "relation_type": {
+          "$ref": "#/$defs/KnowledgeRelationType"
+        },
+        "source_canonical_key": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Source Canonical Key",
+          "type": "string"
+        },
+        "target_canonical_key": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Target Canonical Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "display_name",
+        "source_canonical_key",
+        "target_canonical_key",
+        "relation_type",
+        "description"
+      ],
+      "title": "SemanticRelationContentV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "author_user_id": {
+      "format": "uuid",
+      "title": "Author User Id",
+      "type": "string"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "content": {
+      "discriminator": {
+        "mapping": {
+          "ALIAS_SET": "#/$defs/AliasSetContentV2",
+          "BUSINESS_RULE": "#/$defs/BusinessRuleContentV2",
+          "BUSINESS_TERM": "#/$defs/BusinessTermContentV2",
+          "CALENDAR_POLICY": "#/$defs/CalendarPolicyContentV2",
+          "DATA_QUALITY_POLICY": "#/$defs/DataQualityPolicyContentV2",
+          "DIMENSION": "#/$defs/DimensionKnowledgeContentV2",
+          "ENTITY": "#/$defs/EntityKnowledgeContentV2",
+          "KPI": "#/$defs/MetricKnowledgeContentV2",
+          "METRIC": "#/$defs/MetricKnowledgeContentV2",
+          "SEMANTIC_RELATION": "#/$defs/SemanticRelationContentV2"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/BusinessTermContentV2"
+        },
+        {
+          "$ref": "#/$defs/MetricKnowledgeContentV2"
+        },
+        {
+          "$ref": "#/$defs/DimensionKnowledgeContentV2"
+        },
+        {
+          "$ref": "#/$defs/EntityKnowledgeContentV2"
+        },
+        {
+          "$ref": "#/$defs/BusinessRuleContentV2"
+        },
+        {
+          "$ref": "#/$defs/AliasSetContentV2"
+        },
+        {
+          "$ref": "#/$defs/CalendarPolicyContentV2"
+        },
+        {
+          "$ref": "#/$defs/DataQualityPolicyContentV2"
+        },
+        {
+          "$ref": "#/$defs/SemanticRelationContentV2"
+        }
+      ],
+      "title": "Content"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "effective_from": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective To"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/KnowledgeLifecycle"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "previous_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Version Id"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "version_id": {
+      "format": "uuid",
+      "title": "Version Id",
+      "type": "string"
+    },
+    "version_number": {
+      "minimum": 1,
+      "title": "Version Number",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version_id",
+    "tenant_id",
+    "asset_id",
+    "version_number",
+    "lifecycle",
+    "content",
+    "checksum",
+    "author_user_id",
+    "lock_version",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "EnterpriseKnowledgeVersionV2",
+  "type": "object"
+}

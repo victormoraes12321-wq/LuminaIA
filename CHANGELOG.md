@@ -1,5 +1,73 @@
 # Changelog
 
+## 2026-07-30 - Semantic Retrieval E Entity Resolution V2
+
+- Adicionado `lumina.semantic-retrieval/1.0` com indice PostgreSQL
+  tenant-scoped, versionado, publicado e imutavel.
+- Adicionados normalizador pt-BR, busca lexical, feature hash local sem rede,
+  ranking/thresholds deterministas, ambiguity e clarification assinada.
+- Enterprise Knowledge publicada e `MetricRegistry` alimentam o indice sem
+  transferir autoridade semantica ou numerica.
+- Integracao apos contexto/perfil aplica patch canonico somente em
+  `V2_AUTHORITATIVE`; filtro field/value permanece separado e o executor nao
+  consulta o indice.
+- Adicionadas migration v16, APIs runtime/admin, cache, RBAC, auditoria,
+  avaliacao sintetica, schemas, goldens, frontend administrativo e Playwright.
+- Producao permanece `LEGACY_ONLY`; nenhuma dependencia, lockfile, Oracle,
+  OpenAI, banco operacional ou download de modelo foi introduzido.
+
+## 2026-07-29 - Feedback Governado e Aprendizado Supervisionado
+
+- Adicionado `lumina.supervised-feedback/1.0`, tenant/user-scoped, com target
+  persistido, redacao, triagem, review humano, CAS e idempotencia.
+- Candidates exigem validacao explicita antes da aprovacao; exemplos e
+  snapshots permanecem separados e publicados sao imutaveis.
+- Adicionados import dry-run, retencao `EXPIRED`, cache apenas de manifest,
+  observabilidade estrutural e exportacao JSONL incremental.
+- Adicionadas APIs de usuario, review e curadoria, telas correspondentes,
+  schemas, goldens, testes PostgreSQL e Playwright.
+- Producao permanece `LEGACY_ONLY`; nenhuma chamada OpenAI/Oracle, treinamento,
+  embedding, dependencia ou alteracao de lockfile foi introduzida.
+
+## 2026-07-29 - Perfil Analitico Governado V2
+
+- Adicionado `lumina.user-analytical-profile/1.0`, isolado por tenant e
+  usuario, com contratos, policies, consentimento, checksum e CAS.
+- O motor deterministico foi integrado depois do contexto e antes do planner;
+  pedido atual, remocao, reset e contexto vencem preferencias pessoais.
+- Adicionados repository/service PostgreSQL, migration v14, eventos, cache,
+  exportacao, exclusao e importacao legada governada.
+- Adicionadas rotas `/api/v2/me`, pagina Meu perfil e transparencia de
+  preferencias aplicadas no chat.
+- Adicionados schemas, goldens, testes backend e Playwright responsivo.
+- Producao permanece `LEGACY_ONLY`; todas as flags iniciam desligadas.
+
+## 2026-07-29 - Enterprise Knowledge V2
+
+- Adicionada a autoridade semantica `lumina.enterprise-knowledge/1.0`.
+- Criados assets estaveis, versoes imutaveis, review, approval, publication,
+  rollback por nova versao, ownership, aliases, relations e eventos.
+- Metric/KPI knowledge agora valida binding sem alterar o `MetricRegistry`.
+- Busca lexical publicada preserva ambiguidade e isolamento de tenant.
+- Adicionadas API `/api/v2/enterprise-knowledge`, migration v13, interface de
+  glossario/governanca, schemas, goldens, testes e runbook.
+- Rollout permanece `LEGACY_ONLY`; frontend, import, export e cache ficam
+  desligados por padrao.
+
+## 2026-07-28 - Context Resolution Engine V2
+
+- Adicionado `lumina.context-resolution/1.0` com contratos Pydantic estritos,
+  policies por campo, relacionamentos tipados e patches discriminados.
+- Follow-up temporal, comparacao de periodos recentes, drill-down, correcao,
+  remocao, negacao, clarification, branch e reset foram integrados ao estado
+  PostgreSQL com CAS e idempotencia.
+- O caminho V2 nao concatena contexto no texto; `SemanticPatch` legado passou
+  a usar allowlist.
+- Adicionados resumo publico no chat e diagnostico estrutural somente para
+  `ADMIN`.
+- Nenhuma migration, dependencia ou lockfile foi alterado; producao permanece
+  `LEGACY_ONLY` e todas as novas flags iniciam desligadas.
+
 ## 2026-07-28 - Conversation State V2
 
 - Adicionados contratos estritos `lumina.conversation-state/1.0`.
@@ -231,3 +299,11 @@
 - Build/testes visuais/load smoke validados.
 - Import cycles runtime zerados.
 - Scorecard e auditoria arquitetural atualizados.
+## 2026-07-29 - Feedback Governado E Aprendizado Supervisionado
+
+- Adicionado `lumina.supervised-feedback/1.0` com contratos estritos, redacao e triagem deterministicas.
+- Implementadas ownership de resposta, idempotencia, CAS, revisao humana e RBAC.
+- Adicionadas migration v15 e 11 tabelas tenant-scoped para feedback, candidatos, exemplos, snapshots e exportacoes.
+- Implementados controles de feedback no chat, historico proprio e fila administrativa por flags.
+- Datasets publicados sao imutaveis, versionados e exportados somente offline; nao existe treinamento automatico.
+- Producao permanece `LEGACY_ONLY` com todas as flags desligadas.

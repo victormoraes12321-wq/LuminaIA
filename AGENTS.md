@@ -292,6 +292,23 @@ banco.
   `context_version`; nunca mantenha lock durante IA ou consulta analitica.
 - Snapshot nao pode conter dataset, SQL, binds, credencial ou payload bruto.
 
+### Autoridade de resolucao de contexto
+
+- A autoridade semantica de heranca e
+  `backend/services/context_resolution/`, versao
+  `lumina.context-resolution/1.0`.
+- O motor recebe `QueryIntentV2`, pergunta atual, snapshot PostgreSQL e
+  contexto autenticado; nao persiste, consulta banco, Oracle ou OpenAI.
+- Explicito prevalece sobre herdado; remocao e negacao nao podem reaparecer no
+  mesmo turno; mudanca de assunto invalida heranca incompativel.
+- `_question_with_inherited_context` e `SemanticPatch` permanecem somente como
+  adapters legados governados.
+- A persistencia do patch ocorre apenas depois da execucao bem-sucedida, por
+  CAS no `ConversationStateService`.
+- Branch continua do snapshot do `parent_id`; sibling, tenant e usuario nunca
+  compartilham contexto.
+- Producao permanece `LEGACY_ONLY`; flags do resolvedor iniciam desligadas.
+
 ### Autoridade temporal
 
 - A autoridade temporal e `backend/services/temporal/`, versao
@@ -305,6 +322,28 @@ banco.
   como limite exclusivo.
 - Mudanca temporal exige corpus, relogio fixo, timezone, leap year, fiscal,
   range/lista/comparacao e compatibilidade legada.
+
+### Autoridade de feedback supervisionado
+
+- A autoridade e `backend/services/supervised_feedback/`, versao
+  `lumina.supervised-feedback/1.0`.
+- Feedback referencia resposta persistida por `response_node_id`, sessao,
+  tenant, usuario e checksum; corpo reenviado pelo cliente nao e autoridade.
+- Redacao e triagem sao deterministicas e nao podem chamar OpenAI ou Oracle.
+- Autor nao revisa o proprio feedback; decisao humana final e separada da
+  classificacao enviada pelo usuario.
+- Feedback aprovado nao altera Knowledge Base, perfil, contexto, formula,
+  SQL, prompt, embedding ou modelo.
+- Candidate, exemplo, snapshot e exportacao sao passos humanos separados.
+- Candidate deve passar por `VALIDATED` antes de `APPROVED`.
+- Snapshot publicado e imutavel; mudanca exige nova versao explicita.
+- Dataset real e tenant-scoped e exportado somente offline; nao existe
+  treinamento ou publicacao automatica.
+- Exportacao de dataset usa cursor e spool; importacao e somente dry-run,
+  estrita, limitada e nao persistente.
+- O rollout usa `SUPERVISED_FEEDBACK_MODE`; producao permanece `LEGACY_ONLY`
+  e progride por `SHADOW`, `V2_COLLECT`, `V2_REVIEW` e `V2_CURATE`; todas as
+  flags iniciam desligadas.
 
 ## 15. Uso de IA e tokens
 
@@ -376,3 +415,73 @@ Relate:
 
 Nunca reverta, sobrescreva ou inclua em commit alteracoes locais que nao foram
 criadas pela tarefa atual.
+
+## 20. Base de conhecimento empresarial
+
+- A autoridade semantica governada e `backend/services/enterprise_knowledge/`,
+  versao `lumina.enterprise-knowledge/1.0`.
+- Somente versoes `PUBLISHED` e vigentes podem entrar no runtime, busca,
+  canonicalizer, intent ou contexto.
+- `MetricRegistry` continua autoridade numerica; Knowledge Base nao calcula,
+  gera SQL ou altera formulas.
+- Asset e versao sao separados. Conteudo aprovado/publicado e imutavel;
+  rollback sempre cria nova versao.
+- Toda operacao exige tenant autenticado. `CONSULTA` le somente publicado e
+  nunca escreve ou ve comentario de review.
+- Autor nao aprova a propria versao. Aprovacao e vinculada ao checksum e
+  publicacao exige CAS.
+- Rollout usa `ENTERPRISE_KNOWLEDGE_MODE`; producao permanece `LEGACY_ONLY`.
+- Migration v13 e explicita, aditiva e possui down somente para teste
+  descartavel.
+
+## 21. Perfil analitico governado
+
+- A autoridade de preferencias pessoais e
+  `backend/services/user_analytical_profile/`, versao
+  `lumina.user-analytical-profile/1.0`.
+- Perfil e sempre isolado por tenant e usuario autenticados. Rotas publicas
+  usam `/api/v2/me`; o cliente nao escolhe o dono.
+- O motor roda depois da resolucao de contexto e antes do planner. Pedido
+  explicito, reset, remocao, correcao e contexto ativo vencem o perfil.
+- Defaults analiticos exigem consentimento ativo e resumo publico na resposta.
+  Apresentacao, localidade e acessibilidade nao podem alterar semantica.
+- Perfil nao armazena pergunta, resposta, dataset, SQL, bind, credencial ou
+  valor empresarial.
+- Referencias pessoais usam IDs canonicos publicados. Perfil nao altera
+  Knowledge Base nem `MetricRegistry`.
+- Planner e executor nao consultam perfil; o executor permanece a unica
+  autoridade numerica.
+- Escritas usam checksum e compare-and-swap. Exclusao e soft delete ou pedido
+  idempotente; auditoria minima e preservada.
+- O rollout usa `USER_ANALYTICAL_PROFILE_MODE`; producao permanece
+  `LEGACY_ONLY`, com todas as flags desligadas.
+- Migration v14 e explicita, aditiva e possui down somente para PostgreSQL de
+  teste descartavel.
+
+## 22. Recuperacao semantica e resolucao de entidades
+
+- A autoridade e `backend/services/semantic_retrieval/`, versao
+  `lumina.semantic-retrieval/1.0`.
+- O motor roda depois de Context Resolution e User Profile, e antes do
+  planner. Somente `V2_AUTHORITATIVE` pode aplicar patch ao intent.
+- Busca usa apenas a versao PostgreSQL `PUBLISHED` ativa do tenant. Draft,
+  feedback bruto, dado proibido, Oracle, OpenAI e banco operacional nao sao
+  fontes.
+- Enterprise Knowledge publicada e `MetricRegistry` fornecem referencias;
+  Knowledge continua autoridade semantica e MetricRegistry numerica.
+- Normalizacao, feature hash, ranking, thresholds e ambiguity sao
+  deterministas e versionados. Empate nunca escolhe o primeiro candidato.
+- Tipo e dominio explicitos filtram candidatos antes do ranking. Perfil e
+  somente desempate fraco consentido.
+- Campo e valor de filtro sao resolvidos separadamente por `mention_id`.
+- Clarification usa estado PostgreSQL tenant/user/session-scoped, token HMAC,
+  expiracao e CAS; ID arbitrario do cliente nao e autoridade.
+- Build cria nova versao e nao publica. Publication e rollback usam CAS,
+  preservam historico, invalidam cache e nao mutam snapshot publicado.
+- Cache inclui tenant, permission fingerprint, index/version, policies,
+  locale, query fingerprint, tipo, dominio, contexto, perfil e top_k.
+- Planner recebe IDs canonicos. Executor nao consulta indice semantico.
+- Rollout usa `SEMANTIC_RETRIEVAL_MODE`; producao permanece `LEGACY_ONLY` e
+  todas as flags funcionais iniciam desligadas.
+- Migration v16 e explicita, aditiva, idempotente e possui down somente para
+  PostgreSQL de teste descartavel.

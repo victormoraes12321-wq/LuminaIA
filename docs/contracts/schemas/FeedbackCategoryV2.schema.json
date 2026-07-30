@@ -1,0 +1,25 @@
+{
+  "enum": [
+    "POSITIVE",
+    "NEGATIVE",
+    "PARTIALLY_CORRECT",
+    "INCORRECT_VALUE",
+    "INCORRECT_FILTER",
+    "INCORRECT_PERIOD",
+    "INCORRECT_METRIC",
+    "INCORRECT_ENTITY",
+    "INCORRECT_DIMENSION",
+    "INCORRECT_COMPARISON",
+    "INCORRECT_VISUALIZATION",
+    "MISSING_CONTEXT",
+    "UNWANTED_INHERITANCE",
+    "MISSING_INHERITANCE",
+    "AMBIGUOUS",
+    "OUT_OF_SCOPE",
+    "UNSAFE_OUTPUT",
+    "PERFORMANCE",
+    "OTHER"
+  ],
+  "title": "FeedbackCategoryV2",
+  "type": "string"
+}

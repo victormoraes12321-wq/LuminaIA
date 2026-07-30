@@ -8,6 +8,12 @@ materializados. Nenhum lock permanece aberto durante execucao analitica.
 `LEGACY_ONLY` continua como default de producao ate migration v12 e rollout
 controlado. Consulte ADR 0011 e `docs/contracts/CONVERSATION_STATE_V2.md`.
 
+O motor `lumina.context-resolution/1.0` fica entre a intencao V2 do turno e o
+planner. Ele recebe o snapshot PostgreSQL da branch, aplica precedencia e
+policies por campo e devolve intent consolidado mais patch tipado. Nao acessa
+dados, SQL, Oracle ou OpenAI. A persistencia ocorre apenas na conclusao
+transacional do turno. Consulte ADR 0012.
+
 ## Visao Geral
 
 O LuminaAI e uma plataforma de BI corporativo orientada por IA. A IA interpreta a intencao, estrutura estrategia analitica/visual e gera blueprints. O backend executa regras, consultas, calculos e persistencia. O frontend renderiza dashboards e interacoes sem calcular regra de negocio.
@@ -130,3 +136,87 @@ O scheduler inicia no lifespan do FastAPI e chama tarefas de sincronizacao. O Sy
 - Em ambiente local, o frontend preserva o mesmo host loopback usado no navegador (`localhost` ou `127.0.0.1`) ao montar a base da API, evitando perda de cookie de sessao.
 - Docker compose nao foi validado localmente por ausencia do binario Docker.
 - RLS nativo em banco nao foi identificado; isolamento ocorre na camada de aplicacao.
+
+## Enterprise Knowledge V2
+
+`enterprise_knowledge_assets` mantém identidade e ownership; versões,
+aprovações, publicações, aliases, relações, eventos e imports vivem em tabelas
+separadas pela migration v13. FKs compostas comprovam o tenant na camada de
+banco.
+
+O runtime lê apenas a versão publicada atual e vigente. O adaptador entrega
+IDs canônicos, labels, domínio e provenance aos consumidores sem expor tabela,
+coluna, SQL ou fórmula executável. `MetricRegistry` e executores
+determinísticos continuam autoridades numérica e de consulta. ADR:
+[`0013`](adrs/0013-published-versioned-enterprise-knowledge.md).
+
+## Perfil Analitico Governado
+
+```text
+Pergunta + sessao autenticada
+-> TemporalNormalizer
+-> ContextResolution
+-> UserPreferenceApplicationEngine
+-> Planner
+-> Executor deterministico
+-> Presentation + resumo publico
+```
+
+O perfil e uma camada de defaults pessoais, nao uma autoridade semantica ou
+numerica. O repository aplica escopo composto de tenant e usuario; o motor
+puro recebe contratos ja carregados, nao consulta banco e nao persiste. O
+planner e o executor nao conhecem o repository do perfil.
+
+Knowledge Base e `MetricRegistry` validam identificadores de referencia sem
+ceder ownership. `ConversationState` continua autoridade de continuidade;
+`SemanticMemory` e `SearchHistory` nao promovem preferencias. ADR:
+[`0014`](adrs/0014-explicit-governed-user-analytical-profile.md).
+
+## Feedback Governado E Dataset Supervisionado
+
+```text
+Resposta persistida
+-> ownership + checksum
+-> redacao deterministica
+-> triagem deterministica
+-> revisao humana
+-> decisao final
+-> candidato explicito
+-> curadoria
+-> snapshot versionado
+-> exportacao offline
+```
+
+`backend/services/supervised_feedback/` e a autoridade do fluxo
+`lumina.supervised-feedback/1.0`. Ela referencia o Conversation State, mas nao
+o altera. Knowledge Base, perfil, planner, executor e MetricRegistry nao sao
+mutados por feedback. Snapshot publicado e imutavel e nao e consumido
+automaticamente por IA. ADR:
+[`0015`](adrs/0015-reviewed-human-feedback-before-training-datasets.md).
+
+## Semantic Retrieval E Entity Resolution
+
+```text
+QueryIntentV2 + contexto resolvido + perfil consentido
+-> mention extraction
+-> indice PostgreSQL PUBLISHED do tenant
+-> permission/type/domain filter
+-> retrieval lexical + feature hash local opcional
+-> ranking + threshold + ambiguity
+-> canonical patch ou clarification
+-> planner
+-> executor deterministico
+```
+
+`backend/services/semantic_retrieval/` e a autoridade de recuperacao
+`lumina.semantic-retrieval/1.0`. Enterprise Knowledge e `MetricRegistry`
+fornecem referencias publicadas, mas nao sao alterados pelo indice. O planner
+recebe IDs canonicos e o executor nao conhece o repository semantico.
+
+Definitions, versions, documents, aliases, terms, representations,
+publications, events, evaluations e clarifications vivem no PostgreSQL pela
+migration v16. Publicacao e rollback usam CAS; o trigger protege snapshots
+publicados. O provider inicial e feature hash deterministico sem rede.
+
+Producao continua `LEGACY_ONLY`. ADR:
+[`0016`](adrs/0016-governed-hybrid-semantic-retrieval.md).

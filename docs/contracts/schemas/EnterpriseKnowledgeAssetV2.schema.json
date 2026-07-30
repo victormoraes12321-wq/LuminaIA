@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "KnowledgeAssetStatus": {
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED",
+        "DELETED"
+      ],
+      "title": "KnowledgeAssetStatus",
+      "type": "string"
+    },
+    "KnowledgeAssetType": {
+      "enum": [
+        "BUSINESS_TERM",
+        "METRIC",
+        "KPI",
+        "DIMENSION",
+        "ENTITY",
+        "BUSINESS_RULE",
+        "ALIAS_SET",
+        "CALENDAR_POLICY",
+        "DATA_QUALITY_POLICY",
+        "SEMANTIC_RELATION"
+      ],
+      "title": "KnowledgeAssetType",
+      "type": "string"
+    },
+    "KnowledgeOwnershipV2": {
+      "additionalProperties": false,
+      "properties": {
+        "accountable_area": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Accountable Area",
+          "type": "string"
+        },
+        "owner_user_id": {
+          "format": "uuid",
+          "title": "Owner User Id",
+          "type": "string"
+        },
+        "steward_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Steward Label",
+          "type": "string"
+        },
+        "transferred_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transferred At"
+        }
+      },
+      "required": [
+        "owner_user_id",
+        "steward_label",
+        "accountable_area"
+      ],
+      "title": "KnowledgeOwnershipV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "asset_type": {
+      "$ref": "#/$defs/KnowledgeAssetType"
+    },
+    "canonical_key": {
+      "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+      "title": "Canonical Key",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "current_published_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Current Published Version Id"
+    },
+    "domain": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Domain",
+      "type": "string"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "ownership": {
+      "$ref": "#/$defs/KnowledgeOwnershipV2"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/KnowledgeAssetStatus"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "asset_id",
+    "tenant_id",
+    "canonical_key",
+    "asset_type",
+    "domain",
+    "ownership",
+    "status",
+    "lock_version",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "EnterpriseKnowledgeAssetV2",
+  "type": "object"
+}

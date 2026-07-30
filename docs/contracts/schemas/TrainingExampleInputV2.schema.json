@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "CanonicalFilterSnapshotV2": {
+      "additionalProperties": false,
+      "properties": {
+        "field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Id",
+          "type": "string"
+        },
+        "operator": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Operator",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "field_id",
+        "operator"
+      ],
+      "title": "CanonicalFilterSnapshotV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dimension_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Dimension Ids",
+      "type": "array"
+    },
+    "entity_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Entity Ids",
+      "type": "array"
+    },
+    "filters": {
+      "items": {
+        "$ref": "#/$defs/CanonicalFilterSnapshotV2"
+      },
+      "maxItems": 100,
+      "title": "Filters",
+      "type": "array"
+    },
+    "intent_kind": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Intent Kind",
+      "type": "string"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "maxLength": 16,
+      "title": "Locale",
+      "type": "string"
+    },
+    "metric_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Metric Ids",
+      "type": "array"
+    },
+    "minimized_question": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Minimized Question",
+      "type": "string"
+    },
+    "relationship": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Relationship"
+    },
+    "requested_visualizations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Requested Visualizations",
+      "type": "array"
+    },
+    "time_windows": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "title": "Time Windows",
+      "type": "array"
+    },
+    "timezone": {
+      "default": "America/Sao_Paulo",
+      "maxLength": 64,
+      "title": "Timezone",
+      "type": "string"
+    }
+  },
+  "required": [
+    "minimized_question",
+    "intent_kind"
+  ],
+  "title": "TrainingExampleInputV2",
+  "type": "object"
+}

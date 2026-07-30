@@ -26,6 +26,11 @@ Esta pasta contem a documentacao tecnica oficial do LuminaAI. Os documentos fora
 - [Compatibilidade V1/V2](contracts/COMPATIBILITY_V1_V2.md)
 - [Normalizador Temporal V2](contracts/TEMPORAL_NORMALIZER_V2.md)
 - [Planner Generico de Comparacoes V2](contracts/COMPARISON_PLANNER_V2.md)
+- [Estado Conversacional V2](contracts/CONVERSATION_STATE_V2.md)
+- [Motor de Resolucao de Contexto V2](contracts/CONTEXT_RESOLUTION_ENGINE_V2.md)
+- [Base de Conhecimento Empresarial V2](contracts/ENTERPRISE_KNOWLEDGE_BASE_V2.md)
+- [Perfil Analitico Governado V2](contracts/USER_ANALYTICAL_PROFILE_V2.md)
+- [Semantic Retrieval e Entity Resolution V2](contracts/SEMANTIC_RETRIEVAL_AND_ENTITY_RESOLUTION_V2.md)
 
 ## Guias Operacionais
 
@@ -62,6 +67,24 @@ Esta pasta contem a documentacao tecnica oficial do LuminaAI. Os documentos fora
 - [Relatorio do Prompt 06](audit/PROMPT_06_COMPARISON_EXECUTOR_REPORT.md)
 - [Apresentacao Comparativa V2](contracts/COMPARISON_PRESENTATION_V2.md)
 - [Relatorio do Prompt 07](audit/PROMPT_07_COMPARISON_RENDERING_REPORT.md)
+- [Relatorio do Prompt 08](audit/PROMPT_08_POSTGRES_CONVERSATION_STATE_REPORT.md)
+- [Relatorio do Prompt 09](audit/PROMPT_09_CONTEXT_RESOLUTION_REPORT.md)
+- [Enterprise Knowledge Base V2](contracts/ENTERPRISE_KNOWLEDGE_BASE_V2.md)
+- [Runbook de governanca do conhecimento](operation/KNOWLEDGE_GOVERNANCE_RUNBOOK.md)
+- [ADR 0013](adrs/0013-published-versioned-enterprise-knowledge.md)
+- [Relatorio do Prompt 10](audit/PROMPT_10_ENTERPRISE_KNOWLEDGE_REPORT.md)
+- [Runbook de privacidade do perfil](operation/USER_PROFILE_PRIVACY_RUNBOOK.md)
+- [ADR 0014](adrs/0014-explicit-governed-user-analytical-profile.md)
+- [Deprecation ledger](architecture/DEPRECATION_LEDGER.md)
+- [Technical debt register](architecture/TECHNICAL_DEBT_REGISTER.md)
+- [Relatorio do Prompt 11](audit/PROMPT_11_USER_ANALYTICAL_PROFILE_REPORT.md)
+- [Feedback governado e aprendizado supervisionado](contracts/GOVERNED_FEEDBACK_AND_SUPERVISED_LEARNING_V2.md)
+- [Runbook de feedback e dataset](operation/FEEDBACK_REVIEW_AND_DATASET_RUNBOOK.md)
+- [ADR 0015](adrs/0015-reviewed-human-feedback-before-training-datasets.md)
+- [Relatorio do Prompt 12](audit/PROMPT_12_GOVERNED_FEEDBACK_REPORT.md)
+- [Runbook do indice semantico](operation/SEMANTIC_INDEX_AND_ENTITY_RESOLUTION_RUNBOOK.md)
+- [ADR 0016](adrs/0016-governed-hybrid-semantic-retrieval.md)
+- [Relatorio do Prompt 13](audit/PROMPT_13_SEMANTIC_RETRIEVAL_REPORT.md)
 
 Esses documentos distinguem codigo confirmado, configuracao, testes,
 documentacao historica e itens que ainda necessitam validacao em runtime.

@@ -255,6 +255,11 @@ class QueryResponse(BaseModel):
     session_id: str | None = Field(default=None, max_length=128)
     query_node_id: uuid.UUID | None = None
     response_node_id: uuid.UUID | None = None
+    feedback_target_checksum: str | None = Field(
+        default=None,
+        pattern=r"^[a-f0-9]{64}$",
+        description="Checksum estrutural da resposta para feedback governado.",
+    )
     parent_id: uuid.UUID | str | None = None
     context_version: int | None = Field(default=None, ge=0)
     context_epoch: int | None = Field(default=None, ge=0)
@@ -269,6 +274,14 @@ class QueryResponse(BaseModel):
     context_resolution_metadata: dict[str, Any] | None = Field(
         default=None,
         description="Telemetria estrutural do resolvedor, exposta somente para ADMIN.",
+    )
+    applied_preference_summary: dict[str, Any] | None = Field(
+        default=None,
+        description="Resumo público e removível das preferências aplicadas.",
+    )
+    user_profile_metadata: dict[str, Any] | None = Field(
+        default=None,
+        description="Telemetria estrutural do perfil; sem conteúdo pessoal detalhado.",
     )
     view_catalog_id: uuid.UUID | None = Field(
         default=None,
@@ -415,6 +428,12 @@ class QueryResponse(BaseModel):
     missing_information: list[str] | None = Field(
         default=None,
         description="Lista de campos obrigatórios ausentes"
+    )
+    semantic_clarification: dict[str, Any] | None = Field(
+        default=None,
+        description=(
+            "Clarificação semântica tipada com opções públicas e tokens assinados."
+        ),
     )
     goal: str | None = Field(
         default=None,

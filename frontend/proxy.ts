@@ -67,11 +67,13 @@ export function proxy(request: NextRequest) {
     const adminOnlyPaths = [
       '/dashboard/admin/users',
       '/dashboard/admin/settings',
+      '/dashboard/admin/semantic',
       '/dashboard/inspector',
       '/dashboard/svr',
     ]
     const managementPaths = [
       '/dashboard/admin/catalog',
+      '/dashboard/admin/feedback',
       '/dashboard/studio',
     ]
     const isAdminOnly = adminOnlyPaths.some(prefix => pathname.startsWith(prefix))

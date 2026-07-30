@@ -1,0 +1,159 @@
+{
+  "normalization": {
+    "code": {
+      "checksum": "7272c81c553739e0a6fdd7fd2227218f4d6de7f7c6fda8468934bd088d9ce6c2",
+      "input": "00123",
+      "normalized": "00123",
+      "possible_code": "00123",
+      "significant_tokens": [
+        "00123"
+      ],
+      "tokens": [
+        "00123"
+      ],
+      "version": "lumina.semantic-normalizer.pt-BR/1.0"
+    },
+    "diacritics": {
+      "checksum": "5d346ac1a3f2d1308061f67c40232ba35b66f23c7dd49c675f5822fee65af5a3",
+      "input": "S\u00e3o Jos\u00e9",
+      "normalized": "sao jose",
+      "possible_code": null,
+      "significant_tokens": [
+        "sao",
+        "jose"
+      ],
+      "tokens": [
+        "sao",
+        "jose"
+      ],
+      "version": "lumina.semantic-normalizer.pt-BR/1.0"
+    },
+    "hyphen": {
+      "checksum": "c5e043f9bcac5e34061b6afc53986706d7270ad899d8ea5d796b9bb5dffbf108",
+      "input": "Ticket-m\u00e9dio",
+      "normalized": "ticket medio",
+      "possible_code": null,
+      "significant_tokens": [
+        "ticket",
+        "medio"
+      ],
+      "tokens": [
+        "ticket",
+        "medio"
+      ],
+      "version": "lumina.semantic-normalizer.pt-BR/1.0"
+    },
+    "stopwords": {
+      "checksum": "d9a6ea12be043da2d7bc88cff90f79310f6e62be3333006827961346a6536783",
+      "input": "receita de vendas",
+      "normalized": "receita de vendas",
+      "possible_code": null,
+      "significant_tokens": [
+        "receita",
+        "vendas"
+      ],
+      "tokens": [
+        "receita",
+        "de",
+        "vendas"
+      ],
+      "version": "lumina.semantic-normalizer.pt-BR/1.0"
+    }
+  },
+  "provider": {
+    "checksum": "0379d19e006880249e3bc08ea4088b39fd96e03254b3ec27069345660d53e90d",
+    "dimension": 64,
+    "fingerprint": "c41b3eba60f3f203a4b6b5f4e879d7bcde69814bbe188e2fb190de9fcc259bf0",
+    "l2_norm": 0.999999999997,
+    "network_required": false,
+    "provider_type": "DETERMINISTIC_FEATURE_HASH",
+    "query": "receita de vendas",
+    "version": "lumina.deterministic-feature-hash/1.0",
+    "vector_prefix": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -0.242535625036,
+      -0.242535625036
+    ]
+  },
+  "ranking": {
+    "channels": [
+      {
+        "channel": "EXACT_ALIAS",
+        "contribution": 0.96,
+        "penalty": false,
+        "raw_score": 1.0,
+        "reason_code": "PUBLISHED_ALIAS",
+        "weight": 0.96
+      },
+      {
+        "channel": "TOKEN_OVERLAP",
+        "contribution": 0.325,
+        "penalty": false,
+        "raw_score": 0.5,
+        "reason_code": "TOKEN_JACCARD",
+        "weight": 0.65
+      }
+    ],
+    "final_score": 0.96,
+    "penalties": 0.0,
+    "policy_version": "lumina.semantic-ranking/1.0",
+    "positive_score": 0.96
+  },
+  "scenarios": [
+    {
+      "expected_decision": "RESOLVED",
+      "expected_id": "faturamento_comercial",
+      "name": "exact canonical",
+      "query": "faturamento_comercial",
+      "required_channel": "EXACT_CANONICAL"
+    },
+    {
+      "expected_decision": "RESOLVED",
+      "expected_id": "faturamento_comercial",
+      "name": "exact alias",
+      "query": "receita de vendas",
+      "required_channel": "EXACT_ALIAS"
+    },
+    {
+      "expected_decision": "AMBIGUOUS",
+      "expected_ids": [
+        "branch.centro",
+        "region.centro"
+      ],
+      "name": "ambiguous entity",
+      "query": "centro"
+    },
+    {
+      "expected_decision": "RESOLVED",
+      "expected_id": "branch.centro",
+      "expected_type": "BRANCH",
+      "name": "type constrained",
+      "query": "centro"
+    },
+    {
+      "expected_decision": "UNRESOLVED",
+      "name": "unresolved entity",
+      "query": "termo inexistente xyz"
+    },
+    {
+      "expected_decision": "UNRESOLVED",
+      "name": "deprecated excluded",
+      "query": "indicador antigo"
+    }
+  ],
+  "schema_version": "lumina.semantic-retrieval-golden/1.0",
+  "thresholds": {
+    "ambiguity_margin": 0.08,
+    "checksum": "326be7fd9c737d2e04aaec40d413c5f4ad4dde5dbcf43682400e1e39374064ab",
+    "maximum_candidates": 10,
+    "maximum_total_candidates": 100,
+    "minimum_automatic_resolution_score": 0.72,
+    "minimum_retrieval_score": 0.3,
+    "policy_version": "lumina.semantic-thresholds/1.0"
+  }
+}

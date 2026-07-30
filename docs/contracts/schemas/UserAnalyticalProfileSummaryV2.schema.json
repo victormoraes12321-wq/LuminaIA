@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "ProfileStatus": {
+      "enum": [
+        "ACTIVE",
+        "DISABLED",
+        "DELETION_PENDING",
+        "DELETED"
+      ],
+      "title": "ProfileStatus",
+      "type": "string"
+    },
+    "UserPreferenceType": {
+      "enum": [
+        "PRESENTATION",
+        "LOCALE",
+        "ACCESSIBILITY",
+        "ANALYTICAL_DEFAULT",
+        "FAVORITE_METRIC",
+        "FAVORITE_DIMENSION",
+        "FAVORITE_ENTITY",
+        "SAVED_FILTER_REFERENCE",
+        "SAVED_QUERY_REFERENCE",
+        "SAVED_DASHBOARD_REFERENCE",
+        "INTERACTION",
+        "PRIVACY",
+        "RETENTION"
+      ],
+      "title": "UserPreferenceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "active_consents": {
+      "minimum": 0,
+      "title": "Active Consents",
+      "type": "integer"
+    },
+    "active_preferences": {
+      "minimum": 0,
+      "title": "Active Preferences",
+      "type": "integer"
+    },
+    "categories": {
+      "items": {
+        "$ref": "#/$defs/UserPreferenceType"
+      },
+      "title": "Categories",
+      "type": "array"
+    },
+    "disabled_preferences": {
+      "minimum": 0,
+      "title": "Disabled Preferences",
+      "type": "integer"
+    },
+    "pending_confirmation": {
+      "minimum": 0,
+      "title": "Pending Confirmation",
+      "type": "integer"
+    },
+    "profile_id": {
+      "format": "uuid",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "profile_version": {
+      "minimum": 1,
+      "title": "Profile Version",
+      "type": "integer"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/ProfileStatus"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "profile_id",
+    "status",
+    "profile_version",
+    "active_preferences",
+    "disabled_preferences",
+    "pending_confirmation",
+    "active_consents",
+    "updated_at"
+  ],
+  "title": "UserAnalyticalProfileSummaryV2",
+  "type": "object"
+}

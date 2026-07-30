@@ -97,6 +97,10 @@ class ConversationNodeRecord(Base):
     __tablename__ = "conversation_nodes"
     __table_args__ = (
         UniqueConstraint("id", "session_id", name="uq_conversation_node_session"),
+        UniqueConstraint(
+            "id", "tenant_id", "user_id",
+            name="uq_conversation_node_owner",
+        ),
         UniqueConstraint("session_id", "sequence_number", name="uq_conversation_node_sequence"),
         ForeignKeyConstraint(
             ["session_id", "tenant_id", "user_id"],

@@ -1,0 +1,71 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "lumina.supervised-feedback/1.0",
+      "default": "lumina.supervised-feedback/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dataset_id": {
+      "format": "uuid",
+      "title": "Dataset Id",
+      "type": "string"
+    },
+    "example_checksums": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100000,
+      "title": "Example Checksums",
+      "type": "array"
+    },
+    "exclusion_criteria": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Exclusion Criteria",
+      "type": "array"
+    },
+    "inclusion_criteria": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Inclusion Criteria",
+      "type": "array"
+    },
+    "redaction_policy_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Redaction Policy Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "dataset_id",
+    "version",
+    "schema_version",
+    "redaction_policy_version",
+    "checksum"
+  ],
+  "title": "TrainingDatasetManifestV2",
+  "type": "object"
+}

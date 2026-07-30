@@ -1,12 +1,16 @@
 # Estado Atual Do Sistema
 
-Data da atualizacao: 2026-07-28
+Data da atualizacao: 2026-07-30
 
 Este documento resume o estado atual do LuminaAI apos as correcoes recentes de
 perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao,
 preferencias de dashboard, auto-cura do catalogo, produtos/estoque, financeiro,
 contratos analiticos V2, normalizacao temporal, planner/executor/renderer
 comparativos e estado conversacional PostgreSQL.
+O estado inclui tambem o motor deterministico
+`lumina.context-resolution/1.0`, ainda desligado em producao.
+Inclui ainda `lumina.semantic-retrieval/1.0`, com indice governado, busca
+deterministica e resolucao canonica, tambem desligado em producao.
 
 ## Resumo Executivo
 
@@ -18,10 +22,22 @@ frontend e Playwright; consulte `docs/audit/TEST_BASELINE.md`.
 
 ## Correcoes Recentes Validadas
 
+- Semantic Retrieval V2 adiciona indice PostgreSQL tenant-scoped, snapshots
+  publicados imutaveis, aliases, busca lexical, feature hash local sem rede,
+  ranking versionado, ambiguity, clarification assinada, cache permission-aware
+  e avaliacao sintetica. O motor roda antes do planner e nao e fonte numerica.
+- A migration v16 e explicita; producao permanece `LEGACY_ONLY` e nenhuma
+  chamada Oracle/OpenAI ou dependencia foi adicionada.
+
 - O estado `lumina.conversation-state/1.0` possui sessoes, nodes, snapshots,
   eventos, idempotencia e CAS no PostgreSQL, com owner tenant+usuario,
   retention, importacao governada e integracao frontend. Producao permanece
   `LEGACY_ONLY` ate migration e rollout operacionais aprovados.
+
+- O resolvedor `lumina.context-resolution/1.0` aplica heranca, correcao,
+  remocao, comparacao, drill-down, clarification, branch e reset sobre
+  `QueryIntentV2`. Ele nao concatena texto no caminho V2, nao acessa dados e
+  persiste somente depois da conclusao com CAS. As flags iniciam desligadas.
 
 - A IA consulta exclusivamente o PostgreSQL analitico sincronizado. Oracle nao faz parte do caminho de perguntas; e usado apenas pela sincronizacao e reconciliacao tecnica.
 - Respostas exibem a ultima atualizacao real e validam matematicamente totais, filiais, transferencias e rankings antes da entrega.
@@ -140,3 +156,63 @@ desligado por padrao e nenhum calculo financeiro e refeito no frontend.
 - A bateria completa de regressao registrada em 2026-07-09 nao foi reexecutada integralmente nesta rodada de documentacao.
 - Docker, carga produtiva, backup/restore real e `EXPLAIN ANALYZE` com massa real continuam dependentes do ambiente final.
 - Arquivos de backup, logs e relatorios historicos podem manter conteudo antigo por rastreabilidade; documentos oficiais apontam para este estado atual quando houver divergencia.
+
+## Base De Conhecimento Empresarial V2
+
+Em 2026-07-29 foi implementada a autoridade semantica governada
+`lumina.enterprise-knowledge/1.0`. Ela separa asset estavel, versoes tipadas,
+aprovacoes, publicacoes, aliases, relacoes, importacoes e eventos em tabelas
+tenant-scoped da migration v13.
+
+O workflow e `DRAFT -> IN_REVIEW -> APPROVED -> PUBLISHED`, com rejeicao,
+depreciacao, archive, ownership, CAS, checksum, separacao de funcoes e rollback
+como nova versao. Apenas conhecimento publicado e vigente entra na busca
+lexical, no cache e nas projecoes minimizadas para canonicalizer, intent e
+contexto. `MetricRegistry` permanece autoridade numerica e conflito de
+fingerprint bloqueia publicacao.
+
+A API versionada possui 21 paths para glossario, consulta publicada, definicao
+de metrica, fila de revisao, governanca, diff, auditoria, importacao e
+exportacao. A pagina `/dashboard/knowledge` oferece glossario de leitura para
+`CONSULTA` e governanca privada para `GESTOR`/`ADMIN`. Producao permanece em
+`ENTERPRISE_KNOWLEDGE_MODE=LEGACY_ONLY`, com frontend, cache, importacao,
+exportacao e override emergencial desligados.
+
+## Perfil Analitico Governado V2
+
+Em 2026-07-29 foi implementado `lumina.user-analytical-profile/1.0`, com
+preferencias pessoais tipadas, consentimento, lifecycle, checksum, CAS,
+repository PostgreSQL, eventos, retencao, cache, exportacao e exclusao.
+
+O motor roda depois da resolucao de contexto e antes do planner. Pedido
+explicito e contexto ativo vencem o perfil; defaults analiticos sem
+consentimento nao sao aplicados. O chat divulga toda preferencia analitica
+usada e permite remocao no proximo turno.
+
+A migration v14 e aditiva e nao roda no startup. A pagina
+`/dashboard/settings/profile` e as rotas `/api/v2/me` permanecem protegidas por
+flags. Producao segue em `USER_ANALYTICAL_PROFILE_MODE=LEGACY_ONLY`.
+
+## Feedback Humano Governado V2
+
+Em 2026-07-29 foi implementado `lumina.supervised-feedback/1.0`. O usuario
+referencia uma resposta persistida por node, sessao e checksum; o backend
+revalida tenant e ownership, redige conteudo sensivel e executa triagem
+deterministica. Nenhum texto de resposta, SQL, dataset ou segredo e aceito como
+evidencia enviada pelo frontend.
+
+Feedback nao altera automaticamente conhecimento, perfil, contexto, planner,
+SQL ou modelo. Somente revisoes humanas aprovadas podem gerar candidatos e
+exemplos; snapshots publicados sao imutaveis e destinados a consumo offline
+governado. A migration v15 e aditiva e nao roda no startup.
+
+As paginas `/dashboard/feedback` e `/dashboard/admin/feedback`, as APIs
+`/api/v2/me/feedback` e `/api/v2/feedback` e todas as funcoes de dataset
+permanecem protegidas por RBAC e feature flags. Producao segue em
+`SUPERVISED_FEEDBACK_MODE=LEGACY_ONLY`.
+
+O rollout progride por `SHADOW`, `V2_COLLECT`, `V2_REVIEW` e `V2_CURATE`.
+Candidates exigem validacao antes da aprovacao; importacao e somente dry-run;
+exportacao JSONL usa cursor, spool e chunks; cache aceita apenas manifest
+publicado. A certificacao final terminou com 1.239 testes backend aprovados,
+dois xfails historicos e 256 testes Playwright aprovados.

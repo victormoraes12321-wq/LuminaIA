@@ -1,5 +1,15 @@
 # Testes Seguros Do LuminaAI
 
+## Semantic Retrieval V2
+
+Os testes cobrem contratos, normalizacao, provider local, ranking, migration
+v16, build idempotente, publication, rollback, stale source, busca, ambiguity,
+clarification, RBAC, multi-tenant, APIs, schemas e goldens. Use exclusivamente
+o runner seguro com PostgreSQL Docker na porta 55432.
+
+O Playwright semantico usa API simulada e `127.0.0.1:3100`; nao reutiliza
+frontend ou backend operacional.
+
 ## Contrato Obrigatorio
 
 Os testes backend usam exclusivamente um PostgreSQL descartavel. A execucao
@@ -56,6 +66,12 @@ O runner:
 
 Nao execute `pytest` diretamente por conveniencia. A coleta direta tambem
 possui guarda fail-closed, mas o runner e o caminho operacional documentado.
+
+O Prompt 09 adiciona suites dedicadas
+`test_context_resolution_engine_v2.py` e
+`test_context_resolution_postgresql_v2.py`, alem do golden
+`golden/context_resolution_v2.json`. Elas participam de `--selection all` e
+nao acessam Oracle ou OpenAI.
 
 ## Dataset Deterministico
 
@@ -166,3 +182,41 @@ O Playwright usa `127.0.0.1:3100`, recusa as portas operacionais
 
 O resultado oficial desta implementacao esta em
 [`docs/audit/TEST_BASELINE.md`](../audit/TEST_BASELINE.md).
+
+## Enterprise Knowledge V2
+
+Testes direcionados:
+
+```powershell
+.\scripts\run-backend-tests-safe.ps1 --selection all -q --tb=short `
+  tests/test_enterprise_knowledge_contracts.py `
+  tests/test_enterprise_knowledge_service.py `
+  tests/test_enterprise_knowledge_api.py `
+  tests/test_enterprise_knowledge_migration.py `
+  tests/test_enterprise_knowledge_goldens.py
+```
+
+O conjunto cobre contracts, lifecycle, CAS, self-approval, publication,
+rollback, MetricRegistry binding, alias ambiguity, effective date, RBAC,
+IDOR, import/export, migration `down/up/up` e goldens. O frontend usa
+`tests/visual/enterprise-knowledge.spec.ts` sem backend operacional.
+
+## Perfil Analitico V2
+
+Testes direcionados:
+
+```powershell
+.\scripts\run-backend-tests-safe.ps1 --selection all -q --tb=short `
+  tests/test_user_analytical_profile_contracts.py `
+  tests/test_user_analytical_profile_service.py `
+  tests/test_user_analytical_profile_api.py `
+  tests/test_user_analytical_profile_migration.py `
+  tests/test_user_analytical_profile_goldens.py `
+  tests/test_user_analytical_profile_performance.py
+```
+
+O conjunto cobre unioes discriminadas, policies, precedencia, consentimento,
+quatro turnos, lifecycle, CAS concorrente, checksum, cache, retencao,
+Knowledge references, IDOR, cross-tenant, exportacao, exclusao, migration
+`up -> up -> down -> up`, goldens e carga estrutural. O frontend usa
+`tests/visual/user-analytical-profile.spec.ts` em quatro viewports.

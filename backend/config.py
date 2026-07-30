@@ -61,6 +61,44 @@ class Settings(BaseSettings):
     CONTEXT_RESOLUTION_V2_FRONTEND_ENABLED: bool = Field(default=False)
     CONTEXT_RESOLUTION_MAXIMUM_DEPTH: int = Field(default=20, ge=1, le=100)
     CONTEXT_RESOLUTION_MAXIMUM_INHERITED_FIELDS: int = Field(default=50, ge=1, le=200)
+    ENTERPRISE_KNOWLEDGE_MODE: str = Field(default="LEGACY_ONLY")
+    ENTERPRISE_KNOWLEDGE_FRONTEND_ENABLED: bool = Field(default=False)
+    ENTERPRISE_KNOWLEDGE_IMPORT_ENABLED: bool = Field(default=False)
+    ENTERPRISE_KNOWLEDGE_EXPORT_ENABLED: bool = Field(default=False)
+    ENTERPRISE_KNOWLEDGE_CACHE_ENABLED: bool = Field(default=False)
+    ENTERPRISE_KNOWLEDGE_CACHE_TTL_SECONDS: int = Field(default=60, ge=1, le=3600)
+    ENTERPRISE_KNOWLEDGE_EMERGENCY_OVERRIDE: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_MODE: str = Field(default="LEGACY_ONLY")
+    USER_ANALYTICAL_PROFILE_FRONTEND_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_DEFAULTS_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_SAVED_FILTERS_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_EXPORT_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_DELETION_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_LEGACY_IMPORT_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_CACHE_ENABLED: bool = Field(default=False)
+    USER_ANALYTICAL_PROFILE_CACHE_TTL_SECONDS: int = Field(default=30, ge=1, le=600)
+    SUPERVISED_FEEDBACK_MODE: str = Field(default="LEGACY_ONLY")
+    SUPERVISED_FEEDBACK_FRONTEND_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_ADMIN_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_DATASET_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_EXPORT_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_SHADOW_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_CACHE_ENABLED: bool = Field(default=False)
+    SUPERVISED_FEEDBACK_CACHE_TTL_SECONDS: int = Field(default=30, ge=1, le=300)
+    SUPERVISED_FEEDBACK_MAX_PAGE_SIZE: int = Field(default=100, ge=1, le=500)
+    SEMANTIC_RETRIEVAL_MODE: str = Field(default="LEGACY_ONLY")
+    SEMANTIC_RETRIEVAL_FRONTEND_ENABLED: bool = Field(default=False)
+    SEMANTIC_ENTITY_INSTANCE_INDEXING_ENABLED: bool = Field(default=False)
+    SEMANTIC_VECTOR_CHANNEL_ENABLED: bool = Field(default=False)
+    SEMANTIC_PROFILE_TIE_BREAKER_ENABLED: bool = Field(default=False)
+    SEMANTIC_APPROVED_FEEDBACK_CORPUS_ENABLED: bool = Field(default=False)
+    SEMANTIC_RESTRICTED_ENTITIES_ENABLED: bool = Field(default=False)
+    SEMANTIC_ADMIN_INSPECTOR_ENABLED: bool = Field(default=False)
+    SEMANTIC_RETRIEVAL_CACHE_ENABLED: bool = Field(default=False)
+    SEMANTIC_RETRIEVAL_CACHE_TTL_SECONDS: int = Field(default=30, ge=1, le=300)
+    SEMANTIC_INCREMENTAL_BUILD_ENABLED: bool = Field(default=False)
+    SEMANTIC_RETRIEVAL_MAX_QUERY_LENGTH: int = Field(default=500, ge=32, le=1000)
+    SEMANTIC_RETRIEVAL_MAX_PAGE_SIZE: int = Field(default=100, ge=1, le=500)
     CONVERSATION_PERSIST_CONTENT: bool = Field(default=True)
     CONVERSATION_CONTENT_KEY_VERSION: str = Field(default="v1", min_length=1, max_length=32)
     CONVERSATION_ACTIVE_TTL_HOURS: int = Field(default=24, ge=1, le=8760)
@@ -202,6 +240,48 @@ class Settings(BaseSettings):
         }
         if normalized not in allowed:
             raise ValueError("CONVERSATION_STATE_MODE invalido")
+        return normalized
+
+    @field_validator("ENTERPRISE_KNOWLEDGE_MODE")
+    @classmethod
+    def validate_enterprise_knowledge_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {"LEGACY_ONLY", "SHADOW_READ", "V2_READ", "V2_READ_WRITE"}
+        if normalized not in allowed:
+            raise ValueError("ENTERPRISE_KNOWLEDGE_MODE invalido")
+        return normalized
+
+    @field_validator("USER_ANALYTICAL_PROFILE_MODE")
+    @classmethod
+    def validate_user_analytical_profile_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {"LEGACY_ONLY", "SHADOW", "V2_READ", "V2_READ_WRITE"}
+        if normalized not in allowed:
+            raise ValueError("USER_ANALYTICAL_PROFILE_MODE invalido")
+        return normalized
+
+    @field_validator("SUPERVISED_FEEDBACK_MODE")
+    @classmethod
+    def validate_supervised_feedback_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {
+            "LEGACY_ONLY",
+            "SHADOW",
+            "V2_COLLECT",
+            "V2_REVIEW",
+            "V2_CURATE",
+        }
+        if normalized not in allowed:
+            raise ValueError("SUPERVISED_FEEDBACK_MODE invalido")
+        return normalized
+
+    @field_validator("SEMANTIC_RETRIEVAL_MODE")
+    @classmethod
+    def validate_semantic_retrieval_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {"LEGACY_ONLY", "SHADOW", "HYBRID_READ", "V2_AUTHORITATIVE"}
+        if normalized not in allowed:
+            raise ValueError("SEMANTIC_RETRIEVAL_MODE invalido")
         return normalized
 
     @model_validator(mode="after")

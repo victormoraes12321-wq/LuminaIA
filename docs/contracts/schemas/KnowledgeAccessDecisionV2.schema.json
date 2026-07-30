@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "KnowledgePermission": {
+      "enum": [
+        "knowledge:read",
+        "knowledge:create",
+        "knowledge:edit",
+        "knowledge:submit",
+        "knowledge:review",
+        "knowledge:approve",
+        "knowledge:publish",
+        "knowledge:reject",
+        "knowledge:deprecate",
+        "knowledge:archive",
+        "knowledge:rollback",
+        "knowledge:transfer_ownership",
+        "knowledge:import",
+        "knowledge:export",
+        "knowledge:audit_read"
+      ],
+      "title": "KnowledgePermission",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed": {
+      "title": "Allowed",
+      "type": "boolean"
+    },
+    "permission": {
+      "$ref": "#/$defs/KnowledgePermission"
+    },
+    "reason_code": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "user_id",
+    "permission",
+    "allowed",
+    "reason_code"
+  ],
+  "title": "KnowledgeAccessDecisionV2",
+  "type": "object"
+}

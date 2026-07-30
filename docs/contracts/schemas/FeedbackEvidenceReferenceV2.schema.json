@@ -1,0 +1,55 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Checksum"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "reference_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reference Id",
+      "type": "string"
+    },
+    "reference_type": {
+      "enum": [
+        "RESPONSE_NODE",
+        "QUERY_NODE",
+        "SEARCH_HISTORY",
+        "VALIDATION_CHECK",
+        "KNOWLEDGE_ASSET",
+        "CONTRACT"
+      ],
+      "title": "Reference Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reference_type",
+    "reference_id"
+  ],
+  "title": "FeedbackEvidenceReferenceV2",
+  "type": "object"
+}

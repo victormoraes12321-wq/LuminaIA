@@ -76,6 +76,8 @@ class NewQueryOrchestrator:
         )
         from services.context_resolution.feature_flags import ContextResolutionFeaturePolicy
         self.context_resolution_policy = ContextResolutionFeaturePolicy.from_settings()
+        from services.semantic_retrieval.feature_flags import SemanticRetrievalFeaturePolicy
+        self.semantic_retrieval_policy = SemanticRetrievalFeaturePolicy.from_settings()
 
     def _erp_sales_filter_sql(self, alias: str = "", filial: Any | None = None) -> str:
         return sales_value_breakdown.commercial_filter_sql(alias, filial)
@@ -2495,6 +2497,7 @@ class NewQueryOrchestrator:
         session_key = session_id or tenant_id
         context_resolution_result = None
         resolved_query_intent = None
+        user_profile_application_result = None
 
         # ── Inicialização do PIPELINE DEBUG ──
         debug_data = {
@@ -2574,6 +2577,24 @@ class NewQueryOrchestrator:
                 payload["context_resolution_metadata"] = safe_resolution_metadata(
                     context_resolution_result
                 )
+            if user_profile_application_result is not None:
+                from services.user_analytical_profile.runtime import (
+                    UserAnalyticalProfileRuntime,
+                )
+                payload["user_profile_metadata"] = (
+                    UserAnalyticalProfileRuntime.safe_metadata(
+                        user_profile_application_result
+                    ).__dict__
+                )
+                if (
+                    not user_profile_application_result.shadow_only
+                    and user_profile_application_result.public_summary.applied
+                ):
+                    payload["applied_preference_summary"] = (
+                        user_profile_application_result.public_summary.model_dump(
+                            mode="json"
+                        )
+                    )
             payload["trace_id"] = str(trace_id)
             payload["query_id"] = str(trace_id)
             payload["request_id"] = str(trace_id)
@@ -2762,6 +2783,116 @@ class NewQueryOrchestrator:
                 if should_author_resolution:
                     context_resolution_result = candidate_resolution
                     resolved_query_intent = candidate_resolution.resolved_intent
+                    if (
+                        settings.USER_ANALYTICAL_PROFILE_MODE != "LEGACY_ONLY"
+                        and candidate_resolution.relationship.value != "RESET"
+                    ):
+                        from database import get_db_context
+                        from models.user import User
+                        from services.user_analytical_profile.runtime import (
+                            UserAnalyticalProfileRuntime,
+                        )
+
+                        async with get_db_context() as profile_db:
+                            profile_user = await profile_db.scalar(
+                                select(User).where(
+                                    User.id == context_resolution_context.user_id,
+                                    User.tenant_id
+                                    == context_resolution_context.tenant_id,
+                                    User.ativo.is_(True),
+                                )
+                            )
+                            if profile_user is not None:
+                                user_profile_application_result = await (
+                                    UserAnalyticalProfileRuntime().resolve_after_context(
+                                        db=profile_db,
+                                        user=profile_user,
+                                        current_question=pergunta,
+                                        conversation_state=conversation_state,
+                                        context_resolution=candidate_resolution,
+                                        request_id=str(trace_id),
+                                    )
+                                )
+                                if user_profile_application_result is not None:
+                                    resolved_query_intent = (
+                                        user_profile_application_result.resolved_intent
+                                    )
+                    semantic_input_intent = (
+                        resolved_query_intent
+                        if resolved_query_intent is not None
+                        else candidate_resolution.resolved_intent
+                    )
+                    if self.semantic_retrieval_policy.can_read_v2:
+                        from services.semantic_retrieval.integration import (
+                            SemanticResolutionRuntime,
+                        )
+
+                        semantic_resolution = await SemanticResolutionRuntime(
+                            self.semantic_retrieval_policy
+                        ).resolve_after_context(
+                            intent=semantic_input_intent,
+                            context=context_resolution_context,
+                        )
+                        if semantic_resolution is not None:
+                            debug_data["semantic_resolution"] = {
+                                "contract": "lumina.semantic-retrieval/1.0",
+                                "mode": self.semantic_retrieval_policy.mode.value,
+                                "readiness": semantic_resolution.result.readiness,
+                                "decision_count": len(
+                                    semantic_resolution.result.decisions
+                                ),
+                                "resolved_count": len(
+                                    semantic_resolution.result.resolved_references
+                                ),
+                                "ambiguity_count": len(
+                                    semantic_resolution.result.ambiguities
+                                ),
+                                "unresolved_count": len(
+                                    semantic_resolution.result.unresolved_mentions
+                                ),
+                                "authored": semantic_resolution.authored,
+                                "index_version_id": (
+                                    str(semantic_resolution.result.index_version_id)
+                                    if semantic_resolution.result.index_version_id
+                                    else None
+                                ),
+                            }
+                            if self.semantic_retrieval_policy.can_author_intent:
+                                resolved_query_intent = (
+                                    semantic_resolution.resolved_intent
+                                )
+                                if semantic_resolution.result.readiness != "READY":
+                                    elapsed = (
+                                        time.perf_counter() - start_time
+                                    ) * 1000
+                                    semantic_clarification = (
+                                        semantic_resolution.result.clarification
+                                    )
+                                    return write_debug_and_return({
+                                        "status": semantic_resolution.result.readiness,
+                                        "goal": pergunta,
+                                        "ambiguities": (
+                                            [
+                                                option.public_label
+                                                for option in semantic_clarification.options
+                                            ]
+                                            if semantic_clarification
+                                            else []
+                                        ),
+                                        "semantic_clarification": (
+                                            semantic_clarification.model_dump(mode="json")
+                                            if semantic_clarification
+                                            else None
+                                        ),
+                                        "resposta_direta": (
+                                            semantic_clarification.question
+                                            if semantic_clarification
+                                            else "Nao consegui identificar a entidade com seguranca."
+                                        ),
+                                        "mensagem": "A consulta precisa de uma confirmacao.",
+                                        "pergunta_original": pergunta,
+                                        "execution_time_ms": elapsed,
+                                    })
                 if (
                     should_author_resolution
                     and candidate_resolution.relationship.value == "RESET"
@@ -2810,6 +2941,42 @@ class NewQueryOrchestrator:
                         "pergunta_original": pergunta,
                         "execution_time_ms": elapsed,
                     })
+            if (
+                not self.context_resolution_policy.can_author_state
+                and self.semantic_retrieval_policy.can_read_v2
+            ):
+                from services.semantic_retrieval.integration import (
+                    SemanticResolutionRuntime,
+                )
+
+                semantic_resolution = await SemanticResolutionRuntime(
+                    self.semantic_retrieval_policy
+                ).resolve_after_context(
+                    intent=candidate_resolution.resolved_intent,
+                    context=context_resolution_context,
+                )
+                if semantic_resolution is not None:
+                    debug_data["semantic_resolution"] = {
+                        "contract": "lumina.semantic-retrieval/1.0",
+                        "mode": self.semantic_retrieval_policy.mode.value,
+                        "readiness": semantic_resolution.result.readiness,
+                        "decision_count": len(semantic_resolution.result.decisions),
+                        "resolved_count": len(
+                            semantic_resolution.result.resolved_references
+                        ),
+                        "ambiguity_count": len(
+                            semantic_resolution.result.ambiguities
+                        ),
+                        "unresolved_count": len(
+                            semantic_resolution.result.unresolved_mentions
+                        ),
+                        "authored": False,
+                        "index_version_id": (
+                            str(semantic_resolution.result.index_version_id)
+                            if semantic_resolution.result.index_version_id
+                            else None
+                        ),
+                    }
         debug_data["temporal_normalization"] = {
             "normalizer_version": temporal_result.normalizer_version,
             "rule_ids": list(temporal_result.rule_ids),

@@ -1,0 +1,125 @@
+{
+  "$defs": {
+    "ProfileAuditEventType": {
+      "enum": [
+        "PROFILE_CREATED",
+        "PROFILE_UPDATED",
+        "PROFILE_DISABLED",
+        "PROFILE_REACTIVATED",
+        "PREFERENCE_CREATED",
+        "PREFERENCE_UPDATED",
+        "PREFERENCE_DISABLED",
+        "PREFERENCE_REACTIVATED",
+        "PREFERENCE_REVOKED",
+        "PREFERENCE_EXPIRED",
+        "PREFERENCE_DELETED",
+        "CONSENT_GRANTED",
+        "CONSENT_REVOKED",
+        "PREFERENCE_APPLIED",
+        "PREFERENCE_SKIPPED",
+        "PREFERENCE_CONFLICT",
+        "EXPORT_REQUESTED",
+        "EXPORT_COMPLETED",
+        "DELETION_REQUESTED",
+        "DELETION_COMPLETED",
+        "IMPORT_DRY_RUN",
+        "IMPORT_COMPLETED",
+        "ACCESS_DENIED",
+        "VERSION_CONFLICT"
+      ],
+      "title": "ProfileAuditEventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actor_user_id": {
+      "format": "uuid",
+      "title": "Actor User Id",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/ProfileAuditEventType"
+    },
+    "metadata_keys": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30,
+      "title": "Metadata Keys",
+      "type": "array"
+    },
+    "preference_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Preference Id"
+    },
+    "profile_id": {
+      "format": "uuid",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "tenant_id",
+    "user_id",
+    "profile_id",
+    "actor_user_id",
+    "event_type",
+    "reason_code",
+    "created_at"
+  ],
+  "title": "PreferenceAuditEventV2",
+  "type": "object"
+}

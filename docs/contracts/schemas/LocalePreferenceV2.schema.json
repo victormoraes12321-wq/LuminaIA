@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "currency_display": {
+      "default": "BRL",
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency Display",
+      "type": "string"
+    },
+    "date_format": {
+      "default": "DD/MM/YYYY",
+      "enum": [
+        "DD/MM/YYYY",
+        "YYYY-MM-DD",
+        "DD MMM YYYY"
+      ],
+      "title": "Date Format",
+      "type": "string"
+    },
+    "kind": {
+      "const": "LOCALE",
+      "default": "LOCALE",
+      "title": "Kind",
+      "type": "string"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Locale",
+      "type": "string"
+    },
+    "number_format": {
+      "default": "pt-BR",
+      "enum": [
+        "pt-BR",
+        "en-US"
+      ],
+      "title": "Number Format",
+      "type": "string"
+    },
+    "timezone": {
+      "default": "America/Sao_Paulo",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Timezone",
+      "type": "string"
+    }
+  },
+  "title": "LocalePreferenceV2",
+  "type": "object"
+}

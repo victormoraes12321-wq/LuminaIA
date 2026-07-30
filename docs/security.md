@@ -1,5 +1,16 @@
 # Seguranca
 
+## Semantic Retrieval V2
+
+O indice e tenant-scoped e permission-aware. Filtros de classificacao, papel,
+tipo e dominio ocorrem antes de score e exposicao. Draft, feedback bruto, PII
+proibida, credenciais, prompt injection e instrucoes executaveis sao
+recusados no build.
+
+Clarification usa token HMAC, tenant, usuario, sessao, expiracao e CAS. Cache
+inclui fingerprint de permissoes. `CONSULTA` nao recebe vetores nem breakdown
+interno. O modulo nao acessa Oracle, OpenAI, rede externa ou SQL livre.
+
 ## JWT E Sessoes
 
 - JWT e gerado/validado em `backend/services/auth_service.py` com PyJWT.
@@ -50,3 +61,16 @@ Middleware de rate limit dedicado nao foi identificado no codigo. Para producao 
 ## LGPD
 
 O codigo possui multi-tenant, autenticacao, auditoria e controles administrativos. Politicas formais de retencao/exclusao LGPD devem ser definidas operacionalmente conforme contrato do cliente.
+
+## Privacidade Do Perfil Analitico
+
+O perfil V2 usa escopo composto de tenant e usuario em toda leitura e escrita.
+Rotas `/api/v2/me` derivam o dono da autenticacao e recusam mass assignment.
+Defaults analiticos exigem consentimento explicito, podem ser revogados e sao
+divulgados na resposta.
+
+O perfil nao guarda pergunta, resposta, dataset, SQL, bind, credencial ou
+valor empresarial. Exportacao e pedido idempotente de exclusao pertencem
+somente ao dono. `ADMIN` pode consultar politica e auditoria minimizada, mas
+nao assumir silenciosamente o perfil privado de outro usuario. Runbook:
+[`operation/USER_PROFILE_PRIVACY_RUNBOOK.md`](operation/USER_PROFILE_PRIVACY_RUNBOOK.md).

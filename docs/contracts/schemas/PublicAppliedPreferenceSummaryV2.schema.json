@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "PublicAppliedPreferenceItemV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "origin_label": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Origin Label",
+          "type": "string"
+        },
+        "preference_type": {
+          "$ref": "#/$defs/UserPreferenceType"
+        },
+        "removable_this_turn": {
+          "default": true,
+          "title": "Removable This Turn",
+          "type": "boolean"
+        },
+        "settings_path": {
+          "default": "/dashboard/settings/profile",
+          "title": "Settings Path",
+          "type": "string"
+        },
+        "value_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Value Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preference_type",
+        "label",
+        "value_label",
+        "origin_label"
+      ],
+      "title": "PublicAppliedPreferenceItemV2",
+      "type": "object"
+    },
+    "UserPreferenceType": {
+      "enum": [
+        "PRESENTATION",
+        "LOCALE",
+        "ACCESSIBILITY",
+        "ANALYTICAL_DEFAULT",
+        "FAVORITE_METRIC",
+        "FAVORITE_DIMENSION",
+        "FAVORITE_ENTITY",
+        "SAVED_FILTER_REFERENCE",
+        "SAVED_QUERY_REFERENCE",
+        "SAVED_DASHBOARD_REFERENCE",
+        "INTERACTION",
+        "PRIVACY",
+        "RETENTION"
+      ],
+      "title": "UserPreferenceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applied": {
+      "items": {
+        "$ref": "#/$defs/PublicAppliedPreferenceItemV2"
+      },
+      "maxItems": 50,
+      "title": "Applied",
+      "type": "array"
+    },
+    "consent_required": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Consent Required",
+      "type": "array"
+    },
+    "has_visible_analytical_default": {
+      "default": false,
+      "title": "Has Visible Analytical Default",
+      "type": "boolean"
+    },
+    "ignored": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Ignored",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "title": "PublicAppliedPreferenceSummaryV2",
+  "type": "object"
+}

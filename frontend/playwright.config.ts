@@ -39,6 +39,12 @@ export default defineConfig({
     url: testBaseURL,
     reuseExistingServer: false,
     timeout: 120_000,
+    env: {
+      ...process.env,
+      NEXT_PUBLIC_SUPERVISED_FEEDBACK_ENABLED: 'true',
+      NEXT_PUBLIC_SUPERVISED_FEEDBACK_ADMIN_ENABLED: 'true',
+      NEXT_PUBLIC_SEMANTIC_RETRIEVAL_ENABLED: 'true',
+    },
   },
   projects: [
     {

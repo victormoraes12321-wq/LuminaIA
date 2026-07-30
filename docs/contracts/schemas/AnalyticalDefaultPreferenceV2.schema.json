@@ -1,0 +1,135 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Canonical Id",
+      "type": "string"
+    },
+    "display_label": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Display Label",
+      "type": "string"
+    },
+    "filter_field_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Filter Field Id"
+    },
+    "filter_operator": {
+      "anyOf": [
+        {
+          "enum": [
+            "EQ",
+            "IN"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Filter Operator"
+    },
+    "filter_values": {
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "maxItems": 100,
+      "title": "Filter Values",
+      "type": "array"
+    },
+    "kind": {
+      "const": "ANALYTICAL_DEFAULT",
+      "default": "ANALYTICAL_DEFAULT",
+      "title": "Kind",
+      "type": "string"
+    },
+    "knowledge_asset_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Knowledge Asset Id"
+    },
+    "limit": {
+      "anyOf": [
+        {
+          "maximum": 1000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Limit"
+    },
+    "period_key": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Period Key"
+    },
+    "target_field": {
+      "enum": [
+        "metric",
+        "dimension",
+        "entity",
+        "filter",
+        "period",
+        "ordering",
+        "limit"
+      ],
+      "title": "Target Field",
+      "type": "string"
+    }
+  },
+  "required": [
+    "target_field",
+    "canonical_id",
+    "display_label"
+  ],
+  "title": "AnalyticalDefaultPreferenceV2",
+  "type": "object"
+}

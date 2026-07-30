@@ -22,6 +22,7 @@ import {
   Clock3,
   Database,
   ShieldCheck,
+  UserRoundCog,
   Wrench,
   ChevronDown,
   ChevronUp
@@ -33,6 +34,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { exportToCSV, exportToExcel, exportToPDF } from '@/lib/exportUtils'
 import { InlineDashboardRuntime } from '@/components/chat/InlineDashboardRuntime'
 import { ClarificationPanel } from '@/components/chat/ClarificationPanel'
+import { FeedbackControls } from '@/components/chat/FeedbackControls'
 import { repairTextEncoding } from '@/lib/textEncoding'
 import { isChartDataTable } from '@/types/lumina'
 import type { AnyChartData, BIAnomaly, ChartDataClarification, ChatMessage, QueryResponse } from '@/types/lumina'
@@ -321,6 +323,7 @@ export function AssistantResponseBlock({
   const [showTrendLine, setShowTrendLine] = useState(false)
   const [showOutliers, setShowOutliers] = useState(false)
   const [showAdminDiagnostics, setShowAdminDiagnostics] = useState(false)
+  const [showAppliedPreferences, setShowAppliedPreferences] = useState(true)
 
   const response = msg.queryResponse
   const uniqueId = `response-block-${msg.id}`
@@ -475,6 +478,7 @@ export function AssistantResponseBlock({
         status={response?.status || 'AMBIGUOUS'}
         ambiguities={ambOptions}
         missingInformation={response?.missing_information || []}
+        semanticClarification={response?.semantic_clarification}
         perguntaOriginal={response?.pergunta_original || displayContent}
         onResolve={onSendQuery}
       />
@@ -636,6 +640,48 @@ export function AssistantResponseBlock({
           </div>
         )}
 
+        {response?.applied_preference_summary?.applied.length && showAppliedPreferences ? (
+          <div
+            className="flex flex-wrap items-center gap-2 border-y py-2.5 text-[11px] no-print"
+            style={{ borderColor: 'rgb(var(--border) / 0.35)' }}
+            data-testid="applied-preference-summary"
+            role="status"
+            aria-label="Preferências aplicadas do seu perfil"
+          >
+            <span className="inline-flex items-center gap-1.5 font-semibold text-zinc-300">
+              <UserRoundCog size={12} className="text-cyan-400" />
+              Aplicado do seu perfil:
+            </span>
+            {response.applied_preference_summary.applied.map(item => (
+              <span key={`${item.preference_type}-${item.label}`} className="text-cyan-300">
+                {repairTextEncoding(item.label)}: {repairTextEncoding(item.value_label)}
+              </span>
+            ))}
+            <button
+              type="button"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-md text-zinc-400 hover:bg-zinc-800 hover:text-white"
+              onClick={() => {
+                const labels = response.applied_preference_summary?.applied
+                  .filter(item => item.removable_this_turn)
+                  .map(item => item.label)
+                  .join(', ')
+                if (labels) onSendQuery(`Nesta análise, não use as preferências: ${labels}.`)
+                setShowAppliedPreferences(false)
+              }}
+              title="Remover preferências desta análise"
+              aria-label="Remover preferências desta análise"
+            >
+              <X size={13} />
+            </button>
+            <a
+              href="/dashboard/settings/profile"
+              className="font-semibold text-zinc-300 underline decoration-zinc-600 underline-offset-2 hover:text-white"
+            >
+              Gerenciar
+            </a>
+          </div>
+        ) : null}
+
         {consistencyErrors.length > 0 && (
           <div className="bg-red-950/20 border border-red-500/30 rounded-3xl p-6 flex flex-col gap-3">
             <div className="flex items-center gap-2 text-red-400 font-bold text-sm">
@@ -789,6 +835,8 @@ export function AssistantResponseBlock({
             ))}
           </div>
         )}
+
+        {response && <FeedbackControls response={response} />}
 
         {user?.role === 'ADMIN' && response?.admin_diagnostics && (
           <div className="border border-zinc-800 rounded-xl overflow-hidden no-print">
