@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "catalog_version": {
+      "title": "Catalog Version",
+      "type": "string"
+    },
+    "dataset": {
+      "title": "Dataset",
+      "type": "string"
+    },
+    "metric_fingerprints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metric Fingerprints",
+      "type": "array"
+    },
+    "relation_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Relation References",
+      "type": "array"
+    },
+    "source_sync_version": {
+      "title": "Source Sync Version",
+      "type": "string"
+    },
+    "tenant_strategy": {
+      "default": "ISOLATED_ANALYTICAL_CLONE",
+      "title": "Tenant Strategy",
+      "type": "string"
+    },
+    "watermark": {
+      "title": "Watermark",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset",
+    "relation_references",
+    "metric_fingerprints",
+    "catalog_version",
+    "source_sync_version",
+    "watermark"
+  ],
+  "title": "MaterializationSourceV2",
+  "type": "object"
+}

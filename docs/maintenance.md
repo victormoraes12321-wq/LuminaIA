@@ -1,5 +1,17 @@
 # Guia De Manutencao
 
+## Migration V21 e retenção do cache
+
+`backend/database/migration_v21_0.py` adiciona 14 tabelas tenant-scoped de Smart
+Cache, materializações e avaliações. Ela não roda no startup e não está
+autorizada para produção. Up/down e cadeia V12–V21 devem ser executados apenas
+no PostgreSQL descartável `127.0.0.1:55432/luminaai_test`, após testes estáticos.
+
+GC deve começar em dry-run, usar tenant e limite, limpar entries/leases
+expiradas, snapshots expirados não publicados e builds falhos antigos, sem
+remover snapshots ativo/anterior. Em incidente, retorne a `LEGACY_ONLY`; use
+rollback de ponteiro para materializações e não faça down de schema em produção.
+
 ## Indice Semantico
 
 Monitore versions, source manifest, stale sources, contagens, avaliacoes,

@@ -1,0 +1,49 @@
+{
+  "$defs": {
+    "InvalidationScope": {
+      "enum": [
+        "KEY",
+        "TAG",
+        "TENANT",
+        "METRIC",
+        "CATALOG",
+        "SYNC",
+        "PERMISSION",
+        "VALIDATION_POLICY",
+        "MATERIALIZATION"
+      ],
+      "title": "InvalidationScope",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "invalidation_scope": {
+      "$ref": "#/$defs/InvalidationScope"
+    },
+    "reason": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "target_identifier": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Identifier"
+    }
+  },
+  "required": [
+    "invalidation_scope",
+    "reason"
+  ],
+  "title": "CacheInvalidationRequestV2",
+  "type": "object"
+}

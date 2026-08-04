@@ -48,6 +48,10 @@ from routers import conversations as conversations_router
 from routers import user_analytical_profile as user_analytical_profile_router
 from routers import supervised_feedback as supervised_feedback_router
 from routers import semantic_retrieval as semantic_retrieval_router
+from routers import ai_tool_registry as ai_tool_registry_router
+from routers import safe_analytical_postgresql as safe_analytical_postgresql_router
+from routers import ai_orchestration as ai_orchestration_router
+from routers import validation_provenance as validation_provenance_router
 from services.ai_credential_manager import ai_credential_manager
 from services.ai_invocation_manager import ai_invocation_manager
 from services.scheduler import start_scheduler, stop_scheduler
@@ -55,6 +59,8 @@ from services.enterprise_knowledge.errors import EnterpriseKnowledgeError
 from services.user_analytical_profile.errors import UserProfileError
 from services.supervised_feedback.errors import GovernedFeedbackError
 from services.semantic_retrieval.errors import SemanticRetrievalError
+from services.ai_tool_registry import AIToolException
+from services.safe_analytical_postgresql.exceptions import AnalyticalError
 
 
 # ── Configuração de Logging ────────────────────────────────────
@@ -441,6 +447,31 @@ async def semantic_retrieval_exception_handler(
     )
 
 
+@app.exception_handler(AIToolException)
+async def ai_tool_exception_handler(
+    request: Request,
+    exc: AIToolException,
+) -> JSONResponse:
+    logger.warning(
+        "AI Tool Registry %s em %s %s",
+        exc.code,
+        request.method,
+        request.url.path,
+    )
+    return JSONResponse(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+                "details": exc.details,
+                "path": str(request.url.path),
+            },
+        },
+    )
+
+
 @app.exception_handler(Exception)
 async def generic_exception_handler(
     request: Request, exc: Exception
@@ -479,6 +510,20 @@ async def generic_exception_handler(
 
 
 # ── Registro de Routers ────────────────────────────────────────
+
+def include_smart_cache_materialization_router_if_enabled(
+    application: FastAPI,
+) -> bool:
+    """Registra o router experimental somente com duas flags server-controlled."""
+    if settings.SMART_CACHE_MATERIALIZATION_MODE == "LEGACY_ONLY":
+        return False
+    if not settings.SMART_CACHE_ADMIN_ENABLED:
+        return False
+
+    from routers import smart_cache_materialization as smart_cache_router
+
+    application.include_router(smart_cache_router.router)
+    return True
 
 app.include_router(
     query_router.router,
@@ -537,6 +582,22 @@ app.include_router(
 app.include_router(
     semantic_retrieval_router.router,
 )
+app.include_router(
+    ai_tool_registry_router.router,
+)
+app.include_router(
+    ai_tool_registry_router.admin_router,
+)
+app.include_router(
+    safe_analytical_postgresql_router.router,
+)
+app.include_router(
+    ai_orchestration_router.router,
+)
+app.include_router(
+    validation_provenance_router.router,
+)
+include_smart_cache_materialization_router_if_enabled(app)
 
 app.include_router(
     dashboard_studio_router.router,

@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-08-04 - Smart Cache e Materialização Governada
+
+- Adicionado `lumina.smart-cache-materialization/1.0` com eligibility
+  determinística, key server-controlled, scope tenant/permission-aware,
+  generations, dependency tags, leases e single-flight.
+- Materializações usam Safe Analytical PostgreSQL, Validation & Provenance,
+  snapshots imutáveis, publicação explícita por CAS, refresh sem auto-publicação,
+  rollback auditado e GC com retenção.
+- Adicionada migration V21 explícita com 14 tabelas tenant-scoped; up, down,
+  idempotência, constraints, índices, cadeia V12–V21 e rollback sintético foram
+  certificados somente em PostgreSQL descartável.
+- Testes agora isolam o repositório de blueprints por run/PID/worker e preservam
+  o arquivo oficial byte a byte.
+- Produção continua `LEGACY_ONLY`, admin false, sem rota/página ativa, migration,
+  cache write, materialização ou rollout.
+
 ## 2026-07-30 - Semantic Retrieval E Entity Resolution V2
 
 - Adicionado `lumina.semantic-retrieval/1.0` com indice PostgreSQL

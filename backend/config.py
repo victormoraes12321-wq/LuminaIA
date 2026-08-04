@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 from functools import lru_cache
+from typing import Literal
 
 from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -98,6 +99,29 @@ class Settings(BaseSettings):
     SEMANTIC_RETRIEVAL_CACHE_TTL_SECONDS: int = Field(default=30, ge=1, le=300)
     SEMANTIC_INCREMENTAL_BUILD_ENABLED: bool = Field(default=False)
     SEMANTIC_RETRIEVAL_MAX_QUERY_LENGTH: int = Field(default=500, ge=32, le=1000)
+    AI_TOOL_REGISTRY_MODE: str = Field(default="LEGACY_ONLY")
+    AI_TOOL_REGISTRY_FRONTEND_ENABLED: bool = Field(default=False)
+    AI_TOOL_REGISTRY_ADMIN_ENABLED: bool = Field(default=False)
+    AI_TOOL_REGISTRY_INSPECTOR_ENABLED: bool = Field(default=False)
+    AI_TOOL_REGISTRY_CACHE_ENABLED: bool = Field(default=False)
+    AI_TOOL_REGISTRY_CACHE_TTL_SECONDS: int = Field(default=60, ge=1, le=600)
+    AI_TOOL_CIRCUIT_BREAKER_ENABLED: bool = Field(default=True)
+    AI_TOOL_RATE_LIMITING_ENABLED: bool = Field(default=True)
+    AI_TOOL_MAX_EXECUTION_TIME_SECONDS: float = Field(default=10.0, ge=0.5, le=60.0)
+    SMART_CACHE_MATERIALIZATION_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_OBSERVE",
+        "V2_CACHE_READ",
+        "V2_CACHE_READ_WRITE",
+        "V2_MATERIALIZATION",
+    ] = Field(default="LEGACY_ONLY")
+    SMART_CACHE_FRONTEND_ENABLED: bool = Field(default=False)
+    SMART_CACHE_ADMIN_ENABLED: bool = Field(default=False)
+    SMART_CACHE_INSPECTOR_ENABLED: bool = Field(default=False)
+    SMART_CACHE_READ_ENABLED: bool = Field(default=False)
+    SMART_CACHE_WRITE_ENABLED: bool = Field(default=False)
+    SMART_MATERIALIZATION_READ_ENABLED: bool = Field(default=False)
+    SMART_MATERIALIZATION_BUILD_ENABLED: bool = Field(default=False)
     SEMANTIC_RETRIEVAL_MAX_PAGE_SIZE: int = Field(default=100, ge=1, le=500)
     CONVERSATION_PERSIST_CONTENT: bool = Field(default=True)
     CONVERSATION_CONTENT_KEY_VERSION: str = Field(default="v1", min_length=1, max_length=32)
@@ -282,6 +306,21 @@ class Settings(BaseSettings):
         allowed = {"LEGACY_ONLY", "SHADOW", "HYBRID_READ", "V2_AUTHORITATIVE"}
         if normalized not in allowed:
             raise ValueError("SEMANTIC_RETRIEVAL_MODE invalido")
+        return normalized
+
+    @field_validator("SMART_CACHE_MATERIALIZATION_MODE")
+    @classmethod
+    def validate_smart_cache_materialization_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {
+            "LEGACY_ONLY",
+            "SHADOW_OBSERVE",
+            "V2_CACHE_READ",
+            "V2_CACHE_READ_WRITE",
+            "V2_MATERIALIZATION",
+        }
+        if normalized not in allowed:
+            raise ValueError("SMART_CACHE_MATERIALIZATION_MODE invalido")
         return normalized
 
     @model_validator(mode="after")

@@ -1,0 +1,202 @@
+{
+  "$defs": {
+    "MaterializationLifecycle": {
+      "enum": [
+        "DRAFT",
+        "IN_REVIEW",
+        "APPROVED",
+        "BUILDING",
+        "VALIDATING",
+        "READY",
+        "PUBLISHED",
+        "STALE",
+        "FAILED",
+        "DISABLED",
+        "DEPRECATED",
+        "ARCHIVED"
+      ],
+      "title": "MaterializationLifecycle",
+      "type": "string"
+    },
+    "MaterializationQueryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_query_spec_id": {
+          "title": "Canonical Query Spec Id",
+          "type": "string"
+        },
+        "dimensions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        },
+        "filters_fingerprint": {
+          "title": "Filters Fingerprint",
+          "type": "string"
+        },
+        "metrics": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metrics",
+          "type": "array"
+        },
+        "time_window_fingerprint": {
+          "title": "Time Window Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_query_spec_id",
+        "metrics",
+        "dimensions",
+        "filters_fingerprint",
+        "time_window_fingerprint"
+      ],
+      "title": "MaterializationQueryV2",
+      "type": "object"
+    },
+    "MaterializationSourceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_version": {
+          "title": "Catalog Version",
+          "type": "string"
+        },
+        "dataset": {
+          "title": "Dataset",
+          "type": "string"
+        },
+        "metric_fingerprints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metric Fingerprints",
+          "type": "array"
+        },
+        "relation_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Relation References",
+          "type": "array"
+        },
+        "source_sync_version": {
+          "title": "Source Sync Version",
+          "type": "string"
+        },
+        "tenant_strategy": {
+          "default": "ISOLATED_ANALYTICAL_CLONE",
+          "title": "Tenant Strategy",
+          "type": "string"
+        },
+        "watermark": {
+          "title": "Watermark",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset",
+        "relation_references",
+        "metric_fingerprints",
+        "catalog_version",
+        "source_sync_version",
+        "watermark"
+      ],
+      "title": "MaterializationSourceV2",
+      "type": "object"
+    },
+    "MaterializationType": {
+      "enum": [
+        "SCALAR_AGGREGATE",
+        "TIME_SERIES_AGGREGATE",
+        "GROUPED_AGGREGATE",
+        "RANKING_AGGREGATE",
+        "DIMENSION_SUMMARY",
+        "STATUS_SUMMARY",
+        "CERTIFIED_FACT_SET",
+        "ROW_LEVEL_DETAIL",
+        "FORBIDDEN"
+      ],
+      "title": "MaterializationType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "canonical_name": {
+      "title": "Canonical Name",
+      "type": "string"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "classification": {
+      "default": "INTERNAL",
+      "title": "Classification",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "lumina.smart-cache-materialization/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/MaterializationLifecycle",
+      "default": "DRAFT"
+    },
+    "lock_version": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "materialization_type": {
+      "$ref": "#/$defs/MaterializationType"
+    },
+    "query": {
+      "$ref": "#/$defs/MaterializationQueryV2"
+    },
+    "source": {
+      "$ref": "#/$defs/MaterializationSourceV2"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    },
+    "version": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "definition_id",
+    "tenant_id",
+    "canonical_name",
+    "materialization_type",
+    "query",
+    "source",
+    "created_at",
+    "updated_at",
+    "checksum"
+  ],
+  "title": "MaterializationDefinitionV2",
+  "type": "object"
+}

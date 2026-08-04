@@ -1,5 +1,23 @@
 # API Reference - LuminaAI
 
+## Smart Cache e Materialização V2
+
+`lumina.smart-cache-materialization/1.0` permanece ausente do OpenAPI de
+produção porque os defaults são `SMART_CACHE_MATERIALIZATION_MODE=LEGACY_ONLY`
+e `SMART_CACHE_ADMIN_ENABLED=false`. Com modo não legado e flag administrativa
+explicitamente habilitados, o router experimental oferece somente:
+
+- `GET /api/v2/cache/statistics`;
+- `POST /api/v2/cache/invalidate`;
+- `POST /api/v2/cache/gc`;
+- `POST /api/v2/cache/materialization/publish`;
+- `POST /api/v2/cache/materialization/rollback`.
+
+Tenant é derivado do JWT. Requests não aceitam tenant como autoridade, raw
+cache key, TTL livre, SQL, binds, connection string ou rows completas.
+`CONSULTA` não administra cache; publish/rollback exigem permission e CAS. O
+contrato experimental não implica disponibilidade nem autorização de rollout.
+
 Fonte: gerado a partir do schema OpenAPI exposto por `backend/main.py`.
 
 ## Estado Conversacional V2

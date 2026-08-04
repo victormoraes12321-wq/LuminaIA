@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "ValidationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "PARTIAL",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "NOT_APPLICABLE",
+        "SKIPPED_DEPENDENCY_FAILED"
+      ],
+      "title": "ValidationStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applied_filters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applied Filters",
+      "type": "array"
+    },
+    "certification_checksum": {
+      "title": "Certification Checksum",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "lumina.validation-provenance/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "data_source_description": {
+      "default": "PostgreSQL Clone Anal\u00edtico Governado",
+      "title": "Data Source Description",
+      "type": "string"
+    },
+    "metric_names": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metric Names",
+      "type": "array"
+    },
+    "period_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Period Description"
+    },
+    "source_last_updated": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Last Updated"
+    },
+    "truncated": {
+      "default": false,
+      "title": "Truncated",
+      "type": "boolean"
+    },
+    "validation_status": {
+      "$ref": "#/$defs/ValidationStatus"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "validation_status",
+    "certification_checksum"
+  ],
+  "title": "PublicProvenanceSummaryV2",
+  "type": "object"
+}

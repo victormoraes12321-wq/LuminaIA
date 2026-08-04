@@ -250,7 +250,7 @@ class EnterpriseKnowledgeService:
             effective_to=row.effective_to,
             lock_version=row.lock_version,
             created_at=row.created_at,
-            updated_at=row.updated_at,
+            updated_at=row.__dict__.get("updated_at") or getattr(row, "created_at", None),
         )
 
     async def create_asset(

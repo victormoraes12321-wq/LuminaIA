@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "failed_builds": {
+      "default": 0,
+      "title": "Failed Builds",
+      "type": "integer"
+    },
+    "published_definitions": {
+      "default": 0,
+      "title": "Published Definitions",
+      "type": "integer"
+    },
+    "stale_snapshots": {
+      "default": 0,
+      "title": "Stale Snapshots",
+      "type": "integer"
+    },
+    "successful_builds": {
+      "default": 0,
+      "title": "Successful Builds",
+      "type": "integer"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "total_builds": {
+      "default": 0,
+      "title": "Total Builds",
+      "type": "integer"
+    },
+    "total_definitions": {
+      "default": 0,
+      "title": "Total Definitions",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tenant_id"
+  ],
+  "title": "MaterializationStatisticsV2",
+  "type": "object"
+}

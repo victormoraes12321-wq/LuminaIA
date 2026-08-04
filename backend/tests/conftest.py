@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import sys
+import uuid
 from pathlib import Path
 
 import pytest
@@ -16,6 +17,10 @@ from testing.database_guard import validate_test_database_environment
 
 # Fail before importing config, database, main, models, routers, or services.
 _test_target = validate_test_database_environment()
+
+# Set before any application import can instantiate the legacy QIE singleton.
+# Each pytest process receives a server-controlled, isolated repository.
+os.environ.setdefault("LUMINA_BLUEPRINT_TEST_RUN_ID", f"pytest-{uuid.uuid4().hex}")
 
 # Test settings override sensitive values that an operational .env might contain.
 # DATABASE_URL is intentionally not rewritten: Settings selects TEST_DATABASE_URL

@@ -1,0 +1,86 @@
+from __future__ import annotations
+
+from enum import Enum
+
+SAFE_ANALYTICAL_POSTGRESQL_VERSION = "lumina.safe-analytical-postgresql/1.0"
+
+
+class AnalyticalTenantStrategyV2(str, Enum):
+    TENANT_COLUMN_REQUIRED = "TENANT_COLUMN_REQUIRED"
+    DEDICATED_TENANT_DATABASE = "DEDICATED_TENANT_DATABASE"
+    CERTIFIED_ROW_LEVEL_SECURITY = "CERTIFIED_ROW_LEVEL_SECURITY"
+    CERTIFIED_TENANT_VIEW = "CERTIFIED_TENANT_VIEW"
+    SYSTEM_GLOBAL_METADATA = "SYSTEM_GLOBAL_METADATA"
+    BLOCKED = "BLOCKED"
+
+
+class AnalyticalCatalogLifecycleV2(str, Enum):
+    DRAFT = "DRAFT"
+    VALIDATING = "VALIDATING"
+    READY = "READY"
+    PUBLISHED = "PUBLISHED"
+    DEPRECATED = "DEPRECATED"
+    DISABLED = "DISABLED"
+    ARCHIVED = "ARCHIVED"
+
+
+class AnalyticalDataClassificationV2(str, Enum):
+    PUBLIC_METADATA = "PUBLIC_METADATA"
+    TENANT_METADATA = "TENANT_METADATA"
+    TENANT_BUSINESS_DATA = "TENANT_BUSINESS_DATA"
+    RESTRICTED_BUSINESS_DATA = "RESTRICTED_BUSINESS_DATA"
+    PERSONAL_DATA = "PERSONAL_DATA"
+    SENSITIVE_PERSONAL_DATA = "SENSITIVE_PERSONAL_DATA"
+    SECRET = "SECRET"
+    FORBIDDEN = "FORBIDDEN"
+
+
+class AnalyticalColumnTypeV2(str, Enum):
+    STRING = "STRING"
+    INTEGER = "INTEGER"
+    DECIMAL = "DECIMAL"
+    BOOLEAN = "BOOLEAN"
+    DATE = "DATE"
+    TIMESTAMP = "TIMESTAMP"
+    UUID = "UUID"
+    ENUM = "ENUM"
+    CURRENCY = "CURRENCY"
+    PERCENTAGE = "PERCENTAGE"
+    QUANTITY = "QUANTITY"
+    IDENTIFIER = "IDENTIFIER"
+
+
+class AnalyticalJoinTypeV2(str, Enum):
+    INNER = "INNER"
+    LEFT = "LEFT"
+
+
+class AnalyticalFilterOperatorV2(str, Enum):
+    EQ = "EQ"
+    NE = "NE"
+    IN = "IN"
+    NOT_IN = "NOT_IN"
+    GT = "GT"
+    GTE = "GTE"
+    LT = "LT"
+    LTE = "LTE"
+    BETWEEN = "BETWEEN"
+    IS_NULL = "IS_NULL"
+    IS_NOT_NULL = "IS_NOT_NULL"
+    STARTS_WITH = "STARTS_WITH"
+    CONTAINS = "CONTAINS"
+    DATE_RANGE = "DATE_RANGE"
+
+
+class AnalyticalBudgetDecisionV2(str, Enum):
+    ALLOWED = "ALLOWED"
+    REDUCED = "REDUCED"
+    BLOCKED = "BLOCKED"
+    REQUIRES_ASYNC = "REQUIRES_ASYNC"
+
+
+class AnalyticalRolloutModeV2(str, Enum):
+    LEGACY_ONLY = "LEGACY_ONLY"
+    SHADOW_VALIDATE = "SHADOW_VALIDATE"
+    V2_VALIDATE = "V2_VALIDATE"
+    V2_EXECUTE = "V2_EXECUTE"

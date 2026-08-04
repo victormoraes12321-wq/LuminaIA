@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "CacheScopeV2": {
+      "additionalProperties": false,
+      "properties": {
+        "classification_ceiling": {
+          "default": "INTERNAL",
+          "title": "Classification Ceiling",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "title": "Locale",
+          "type": "string"
+        },
+        "permission_fingerprint": {
+          "maxLength": 128,
+          "minLength": 16,
+          "title": "Permission Fingerprint",
+          "type": "string"
+        },
+        "policy_version": {
+          "default": "v1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "role": {
+          "default": "CONSULTA",
+          "title": "Role",
+          "type": "string"
+        },
+        "tenant_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "title": "Timezone",
+          "type": "string"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "User Id"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "permission_fingerprint"
+      ],
+      "title": "CacheScopeV2",
+      "type": "object"
+    },
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "analytical_catalog_version": {
+      "title": "Analytical Catalog Version",
+      "type": "string"
+    },
+    "cache_type": {
+      "$ref": "#/$defs/CacheType"
+    },
+    "canonical_period_fingerprint": {
+      "default": "",
+      "title": "Canonical Period Fingerprint",
+      "type": "string"
+    },
+    "canonical_query_fingerprint": {
+      "title": "Canonical Query Fingerprint",
+      "type": "string"
+    },
+    "certification_contract_version": {
+      "default": "lumina.validation-provenance/1.0",
+      "title": "Certification Contract Version",
+      "type": "string"
+    },
+    "compiler_version": {
+      "default": "v1",
+      "title": "Compiler Version",
+      "type": "string"
+    },
+    "filter_structure_fingerprint": {
+      "default": "",
+      "title": "Filter Structure Fingerprint",
+      "type": "string"
+    },
+    "generation_counters": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Generation Counters",
+      "type": "object"
+    },
+    "metric_fingerprints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metric Fingerprints",
+      "type": "array"
+    },
+    "scope": {
+      "$ref": "#/$defs/CacheScopeV2"
+    },
+    "source_sync_version": {
+      "default": "",
+      "title": "Source Sync Version",
+      "type": "string"
+    },
+    "source_watermark": {
+      "default": "",
+      "title": "Source Watermark",
+      "type": "string"
+    },
+    "tool_registry_snapshot": {
+      "default": "v1",
+      "title": "Tool Registry Snapshot",
+      "type": "string"
+    },
+    "validation_policy_version": {
+      "default": "v1.0",
+      "title": "Validation Policy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scope",
+    "cache_type",
+    "canonical_query_fingerprint",
+    "analytical_catalog_version",
+    "metric_fingerprints"
+  ],
+  "title": "CacheLookupRequestV2",
+  "type": "object"
+}

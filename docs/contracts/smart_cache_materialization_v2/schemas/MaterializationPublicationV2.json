@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "active_snapshot_id": {
+      "title": "Active Snapshot Id",
+      "type": "string"
+    },
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "lock_version": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "previous_snapshot_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Snapshot Id"
+    },
+    "publication_id": {
+      "title": "Publication Id",
+      "type": "string"
+    },
+    "published_at": {
+      "title": "Published At",
+      "type": "string"
+    },
+    "published_by": {
+      "title": "Published By",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "publication_id",
+    "definition_id",
+    "tenant_id",
+    "active_snapshot_id",
+    "published_by",
+    "published_at"
+  ],
+  "title": "MaterializationPublicationV2",
+  "type": "object"
+}

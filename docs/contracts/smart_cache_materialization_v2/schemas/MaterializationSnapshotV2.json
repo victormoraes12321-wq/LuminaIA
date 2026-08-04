@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "CertificationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "SUPERSEDED"
+      ],
+      "title": "CertificationStatus",
+      "type": "string"
+    },
+    "FreshnessStatus": {
+      "enum": [
+        "FRESH",
+        "STALE_SOFT",
+        "STALE_HARD",
+        "UNKNOWN",
+        "INVALIDATED"
+      ],
+      "title": "FreshnessStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "built_at": {
+      "title": "Built At",
+      "type": "string"
+    },
+    "certification_id": {
+      "title": "Certification Id",
+      "type": "string"
+    },
+    "certification_status": {
+      "$ref": "#/$defs/CertificationStatus",
+      "default": "VALID"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "fact_count": {
+      "minimum": 0,
+      "title": "Fact Count",
+      "type": "integer"
+    },
+    "freshness": {
+      "$ref": "#/$defs/FreshnessStatus",
+      "default": "FRESH"
+    },
+    "payload_checksum": {
+      "title": "Payload Checksum",
+      "type": "string"
+    },
+    "payload_size_bytes": {
+      "minimum": 0,
+      "title": "Payload Size Bytes",
+      "type": "integer"
+    },
+    "row_count": {
+      "minimum": 0,
+      "title": "Row Count",
+      "type": "integer"
+    },
+    "snapshot_id": {
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "source_sync_version": {
+      "title": "Source Sync Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "tenant_proof_id": {
+      "title": "Tenant Proof Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "watermark": {
+      "title": "Watermark",
+      "type": "string"
+    }
+  },
+  "required": [
+    "snapshot_id",
+    "definition_id",
+    "tenant_id",
+    "version",
+    "row_count",
+    "fact_count",
+    "payload_size_bytes",
+    "certification_id",
+    "tenant_proof_id",
+    "watermark",
+    "source_sync_version",
+    "payload_checksum",
+    "built_at",
+    "checksum"
+  ],
+  "title": "MaterializationSnapshotV2",
+  "type": "object"
+}

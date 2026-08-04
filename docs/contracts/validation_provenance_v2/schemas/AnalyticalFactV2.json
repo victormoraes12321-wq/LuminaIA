@@ -1,0 +1,282 @@
+{
+  "$defs": {
+    "AnalyticalFactValueV2": {
+      "additionalProperties": false,
+      "properties": {
+        "bool_value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bool Value"
+        },
+        "date_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date Value"
+        },
+        "decimal_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Decimal as string representation for exact finance math",
+          "title": "Decimal Value"
+        },
+        "int_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Int Value"
+        },
+        "is_null": {
+          "default": false,
+          "title": "Is Null",
+          "type": "boolean"
+        },
+        "raw_type": {
+          "description": "DECIMAL, INT, STRING, BOOL, DATE, NULL",
+          "title": "Raw Type",
+          "type": "string"
+        },
+        "string_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "String Value"
+        }
+      },
+      "required": [
+        "raw_type"
+      ],
+      "title": "AnalyticalFactValueV2",
+      "type": "object"
+    },
+    "CompletenessStatus": {
+      "enum": [
+        "COMPLETE",
+        "TRUNCATED",
+        "PARTIAL_SOURCE",
+        "PARTIAL_EXECUTION",
+        "MISSING_REQUIRED_FACT",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "title": "CompletenessStatus",
+      "type": "string"
+    },
+    "FactType": {
+      "enum": [
+        "SCALAR_METRIC",
+        "DIMENSION_MEMBER",
+        "GROUPED_METRIC",
+        "COMPARISON_OPERAND",
+        "COMPARISON_DELTA",
+        "COMPARISON_PERCENTAGE",
+        "COUNT",
+        "STATUS",
+        "RANKING_ITEM",
+        "TOTAL",
+        "SUBTOTAL",
+        "FRESHNESS",
+        "TRUNCATION_NOTICE"
+      ],
+      "title": "FactType",
+      "type": "string"
+    },
+    "ValidationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "PARTIAL",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "NOT_APPLICABLE",
+        "SKIPPED_DEPENDENCY_FAILED"
+      ],
+      "title": "ValidationStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "canonical_dimension_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Canonical Dimension Ids",
+      "type": "array"
+    },
+    "canonical_entity_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Canonical Entity Refs",
+      "type": "array"
+    },
+    "canonical_metric_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Canonical Metric Id"
+    },
+    "checksum": {
+      "description": "SHA-256 fact content hash",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "completeness": {
+      "$ref": "#/$defs/CompletenessStatus",
+      "default": "COMPLETE"
+    },
+    "currency": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Currency"
+    },
+    "fact_id": {
+      "description": "Stable fact ID (e.g. FACT-001)",
+      "title": "Fact Id",
+      "type": "string"
+    },
+    "fact_type": {
+      "$ref": "#/$defs/FactType"
+    },
+    "metric_fingerprint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Metric Fingerprint"
+    },
+    "period_end": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Period End"
+    },
+    "period_start": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Period Start"
+    },
+    "scale": {
+      "default": 2,
+      "title": "Scale",
+      "type": "integer"
+    },
+    "source_result_ref": {
+      "description": "Query result checksum or tool invocation ID",
+      "title": "Source Result Ref",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "tenant_proof_checksum": {
+      "description": "Proof checksum ensuring tenant authority",
+      "title": "Tenant Proof Checksum",
+      "type": "string"
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit"
+    },
+    "validation_status": {
+      "$ref": "#/$defs/ValidationStatus",
+      "default": "VALID"
+    },
+    "value": {
+      "$ref": "#/$defs/AnalyticalFactValueV2"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "fact_id",
+    "tenant_id",
+    "fact_type",
+    "value",
+    "source_result_ref",
+    "tenant_proof_checksum",
+    "checksum"
+  ],
+  "title": "AnalyticalFactV2",
+  "type": "object"
+}

@@ -122,17 +122,10 @@ async def test_tenants_have_same_names_but_different_values(expected_baseline) -
     assert tenant_a["faturamento_comercial"] != tenant_b["faturamento_comercial"]
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "LUMINA-GAP-TENANT-001: core summaries query vw_vendas_lm through "
-        "get_db_context without tenant_id; fix belongs to the analytical gateway prompt."
-    ),
-)
-@pytest.mark.known_gap
 @pytest.mark.asyncio
 async def test_core_summary_breakdown_does_not_mix_tenants() -> None:
     binds = {
+        "tenant_id": TENANT_A,
         "start_date": date(2026, 6, 1),
         "end_exclusive": date(2026, 7, 1),
     }

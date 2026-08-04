@@ -1,0 +1,402 @@
+{
+  "$defs": {
+    "CacheEligibilityRequestV2": {
+      "additionalProperties": false,
+      "properties": {
+        "cache_type": {
+          "$ref": "#/$defs/CacheType"
+        },
+        "cancelled": {
+          "default": false,
+          "title": "Cancelled",
+          "type": "boolean"
+        },
+        "certification_status": {
+          "$ref": "#/$defs/CertificationStatus"
+        },
+        "data_classification": {
+          "$ref": "#/$defs/DataClassification",
+          "default": "INTERNAL"
+        },
+        "has_ambiguity": {
+          "default": false,
+          "title": "Has Ambiguity",
+          "type": "boolean"
+        },
+        "has_error": {
+          "default": false,
+          "title": "Has Error",
+          "type": "boolean"
+        },
+        "has_pii": {
+          "default": false,
+          "title": "Has Pii",
+          "type": "boolean"
+        },
+        "is_complete": {
+          "title": "Is Complete",
+          "type": "boolean"
+        },
+        "is_partial": {
+          "default": false,
+          "title": "Is Partial",
+          "type": "boolean"
+        },
+        "is_row_level": {
+          "default": false,
+          "title": "Is Row Level",
+          "type": "boolean"
+        },
+        "is_truncated": {
+          "default": false,
+          "title": "Is Truncated",
+          "type": "boolean"
+        },
+        "metric_fingerprints_valid": {
+          "title": "Metric Fingerprints Valid",
+          "type": "boolean"
+        },
+        "payload_size_bytes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Payload Size Bytes",
+          "type": "integer"
+        },
+        "query_fingerprint_valid": {
+          "title": "Query Fingerprint Valid",
+          "type": "boolean"
+        },
+        "result_checksum_valid": {
+          "title": "Result Checksum Valid",
+          "type": "boolean"
+        },
+        "source_freshness": {
+          "$ref": "#/$defs/FreshnessStatus"
+        },
+        "tenant_proof_valid": {
+          "title": "Tenant Proof Valid",
+          "type": "boolean"
+        },
+        "timed_out": {
+          "default": false,
+          "title": "Timed Out",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "cache_type",
+        "certification_status",
+        "tenant_proof_valid",
+        "query_fingerprint_valid",
+        "result_checksum_valid",
+        "metric_fingerprints_valid",
+        "source_freshness",
+        "is_complete"
+      ],
+      "title": "CacheEligibilityRequestV2",
+      "type": "object"
+    },
+    "CacheKeyComponentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "presentation_policy_fingerprint",
+            "compiler_options_fingerprint",
+            "locale_fingerprint"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 128,
+          "minLength": 16,
+          "pattern": "^[A-Za-z0-9_.:-]+$",
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "CacheKeyComponentV2",
+      "type": "object"
+    },
+    "CacheKeyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "analytical_catalog_version": {
+          "title": "Analytical Catalog Version",
+          "type": "string"
+        },
+        "cache_type": {
+          "$ref": "#/$defs/CacheType"
+        },
+        "canonical_period_fingerprint": {
+          "title": "Canonical Period Fingerprint",
+          "type": "string"
+        },
+        "canonical_query_fingerprint": {
+          "title": "Canonical Query Fingerprint",
+          "type": "string"
+        },
+        "certification_contract_version": {
+          "title": "Certification Contract Version",
+          "type": "string"
+        },
+        "compiler_version": {
+          "title": "Compiler Version",
+          "type": "string"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/CacheKeyComponentV2"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "contract_version": {
+          "default": "lumina.smart-cache-materialization/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "filter_structure_fingerprint": {
+          "title": "Filter Structure Fingerprint",
+          "type": "string"
+        },
+        "generation_counter": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Generation Counter",
+          "type": "integer"
+        },
+        "generation_counters": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Generation Counters",
+          "type": "object"
+        },
+        "metric_fingerprints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metric Fingerprints",
+          "type": "array"
+        },
+        "namespace": {
+          "default": "lumina",
+          "title": "Namespace",
+          "type": "string"
+        },
+        "scope_fingerprint": {
+          "title": "Scope Fingerprint",
+          "type": "string"
+        },
+        "source_sync_version": {
+          "title": "Source Sync Version",
+          "type": "string"
+        },
+        "source_watermark": {
+          "title": "Source Watermark",
+          "type": "string"
+        },
+        "tenant_id": {
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "tenant_strategy": {
+          "title": "Tenant Strategy",
+          "type": "string"
+        },
+        "tool_registry_snapshot": {
+          "title": "Tool Registry Snapshot",
+          "type": "string"
+        },
+        "validation_policy_version": {
+          "title": "Validation Policy Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cache_type",
+        "tenant_id",
+        "scope_fingerprint",
+        "canonical_query_fingerprint",
+        "analytical_catalog_version",
+        "metric_fingerprints",
+        "filter_structure_fingerprint",
+        "canonical_period_fingerprint",
+        "tenant_strategy",
+        "source_sync_version",
+        "source_watermark",
+        "validation_policy_version",
+        "certification_contract_version",
+        "compiler_version",
+        "tool_registry_snapshot"
+      ],
+      "title": "CacheKeyV2",
+      "type": "object"
+    },
+    "CacheScopeV2": {
+      "additionalProperties": false,
+      "properties": {
+        "classification_ceiling": {
+          "default": "INTERNAL",
+          "title": "Classification Ceiling",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "title": "Locale",
+          "type": "string"
+        },
+        "permission_fingerprint": {
+          "maxLength": 128,
+          "minLength": 16,
+          "title": "Permission Fingerprint",
+          "type": "string"
+        },
+        "policy_version": {
+          "default": "v1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "role": {
+          "default": "CONSULTA",
+          "title": "Role",
+          "type": "string"
+        },
+        "tenant_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "title": "Timezone",
+          "type": "string"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "User Id"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "permission_fingerprint"
+      ],
+      "title": "CacheScopeV2",
+      "type": "object"
+    },
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    },
+    "CertificationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "SUPERSEDED"
+      ],
+      "title": "CertificationStatus",
+      "type": "string"
+    },
+    "DataClassification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "PII",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "FreshnessStatus": {
+      "enum": [
+        "FRESH",
+        "STALE_SOFT",
+        "STALE_HARD",
+        "UNKNOWN",
+        "INVALIDATED"
+      ],
+      "title": "FreshnessStatus",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cache_key": {
+      "$ref": "#/$defs/CacheKeyV2"
+    },
+    "certification_id": {
+      "title": "Certification Id",
+      "type": "string"
+    },
+    "dependency_tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependency Tags",
+      "type": "array"
+    },
+    "eligibility": {
+      "$ref": "#/$defs/CacheEligibilityRequestV2"
+    },
+    "payload": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Payload",
+      "type": "object"
+    },
+    "scope": {
+      "$ref": "#/$defs/CacheScopeV2"
+    },
+    "tenant_proof_id": {
+      "title": "Tenant Proof Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scope",
+    "cache_key",
+    "payload",
+    "certification_id",
+    "tenant_proof_id",
+    "eligibility"
+  ],
+  "title": "CacheWriteRequestV2",
+  "type": "object"
+}

@@ -1,5 +1,18 @@
 # Arquitetura Do LuminaAI
 
+## Smart Cache e materializações governadas
+
+`lumina.smart-cache-materialization/1.0` fica depois do Safe Analytical
+PostgreSQL e de Validation & Provenance. O cache só decide eligibility, constrói
+keys server-controlled, lê/escreve resultados certificados e administra
+invalidation, generations e leases; não calcula, certifica nem executa SQL.
+
+Materializações usam definitions versionadas, builds governados e snapshots
+imutáveis. Build produz `READY`, publicação explícita troca o ponteiro ativo por
+CAS, refresh preserva o ativo e rollback mantém histórico. A migration V21 é
+explícita e tenant-scoped. O bootstrap condicional garante zero models, services,
+rotas, tabelas ou tasks Prompt 18 em `LEGACY_ONLY`.
+
 ## Estado Conversacional
 
 O subsistema escalavel usa `lumina.conversation-state/1.0`: PostgreSQL armazena

@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "cache_key_checksum": {
+      "title": "Cache Key Checksum",
+      "type": "string"
+    },
+    "entry_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Entry Id"
+    },
+    "payload_size_bytes": {
+      "default": 0,
+      "title": "Payload Size Bytes",
+      "type": "integer"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "success": {
+      "title": "Success",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "success",
+    "cache_key_checksum",
+    "reason_code"
+  ],
+  "title": "CacheWriteResultV2",
+  "type": "object"
+}

@@ -1,0 +1,19 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tag_type": {
+      "title": "Tag Type",
+      "type": "string"
+    },
+    "tag_value": {
+      "title": "Tag Value",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tag_type",
+    "tag_value"
+  ],
+  "title": "CacheDependencyTagV2",
+  "type": "object"
+}

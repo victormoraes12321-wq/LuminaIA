@@ -1401,6 +1401,7 @@ class NewQueryOrchestrator:
             "start_date": start_date,
             "end_date": end_date,
             "end_exclusive": end_date + timedelta(days=1),
+            "tenant_id": tenant_id,
             **self._erp_sales_filter_binds(selected_filial),
         }
         ranking_rows: List[Dict[str, Any]] = []

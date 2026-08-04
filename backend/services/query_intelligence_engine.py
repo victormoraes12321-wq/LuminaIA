@@ -15,20 +15,22 @@ import logging
 import datetime
 import calendar
 import copy
-from threading import Lock
+from threading import RLock
 from typing import Any, Final
 from pydantic import BaseModel, Field
 
 from services.plan_validator import normalize_text_key, resolve_relative_date_range
+from services.blueprint_storage import (
+    OFFICIAL_BLUEPRINT_PATH,
+    BlueprintJsonRepository,
+    BlueprintRepositoryFactory,
+)
 
 logger = logging.getLogger("luminaai.services.query_intelligence_engine")
 
 # Caminho fÃ­sico do repositÃ³rio de Blueprints
 # Fica em services/blueprints.json para evitar conflito com o mÃ³dulo database.py
-REPOSITORY_PATH: Final[str] = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    "blueprints.json"
-)
+REPOSITORY_PATH: Final[str] = str(OFFICIAL_BLUEPRINT_PATH)
 
 BLUEPRINT_DIRECT_REUSE_THRESHOLD: Final[float] = 0.98
 PACKAGE_PRE_NLU_REUSE_THRESHOLD: Final[float] = 0.99
@@ -336,7 +338,7 @@ def _catalog_gap_for_query(query_text: str, catalog: list[Any]) -> tuple[str, st
     return code, message
 
 # Lock global para operaÃ§Ãµes de I/O thread-safe
-_io_lock = Lock()
+_io_lock = RLock()
 
 
 def _requires_fresh_ai_interpretation(query_text: str) -> bool:
@@ -915,8 +917,11 @@ class _PreliminaryIntention:
 
 
 class QueryIntelligenceEngine:
-    def __init__(self):
+    def __init__(self, blueprint_repository: BlueprintJsonRepository | None = None):
         self.blueprints: list[BlueprintModel] = []
+        self._blueprint_repository = (
+            blueprint_repository or BlueprintRepositoryFactory.create()
+        )
         # MÃ©tricas globais de performance e auditoria
         self.execucoes_com_ia: int = 0
         self.execucoes_sem_ia: int = 0
@@ -930,19 +935,12 @@ class QueryIntelligenceEngine:
         with _io_lock:
             try:
                 # Garante que o diretÃ³rio exista
-                os.makedirs(os.path.dirname(REPOSITORY_PATH), exist_ok=True)
-                
-                if not os.path.exists(REPOSITORY_PATH):
+                if not self._blueprint_repository.exists():
                     logger.info("RepositÃ³rio de Blueprints ausente. Criando starters...")
                     self._create_starter_blueprints()
                     return
 
-                with open(REPOSITORY_PATH, "r", encoding="utf-8") as f:
-                    content = f.read().strip()
-                    if not content:
-                        self._create_starter_blueprints()
-                        return
-                    data = json.loads(content)
+                data = self._blueprint_repository.read()
                     
                 self.blueprints = [BlueprintModel(**bp) for bp in data.get("blueprints", [])]
                 
@@ -973,8 +971,7 @@ class QueryIntelligenceEngine:
                         "tokens_economizados_total": self.tokens_economizados_total,
                     }
                 }
-                with open(REPOSITORY_PATH, "w", encoding="utf-8") as f:
-                    json.dump(data, f, indent=2, ensure_ascii=False)
+                self._blueprint_repository.write(data)
                 logger.debug("RepositÃ³rio de blueprints salvo com sucesso.")
             except Exception as e:
                 logger.error("Falha ao salvar repositÃ³rio de blueprints: %s", e)

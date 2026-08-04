@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SafeAnalyticalPostgreSQLV2",
+  "description": "LuminaAI Governed Analytical PostgreSQL Specification v1.0",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "lumina.safe-analytical-postgresql/1.0"
+    },
+    "catalog_snapshot": {
+      "type": "object",
+      "required": ["snapshot_id", "catalog_version", "lifecycle", "datasets"],
+      "properties": {
+        "snapshot_id": { "type": "string" },
+        "catalog_version": { "type": "string" },
+        "lifecycle": { "type": "string", "enum": ["DRAFT", "VALIDATING", "READY", "PUBLISHED", "DEPRECATED", "DISABLED", "ARCHIVED"] },
+        "datasets": { "type": "object" }
+      }
+    },
+    "isolation_proof": {
+      "type": "object",
+      "required": ["tenant_strategy", "tenant_id", "dataset_id", "proof_checksum"],
+      "properties": {
+        "tenant_strategy": { "type": "string", "enum": ["TENANT_COLUMN_REQUIRED", "DEDICATED_TENANT_DATABASE", "CERTIFIED_ROW_LEVEL_SECURITY", "CERTIFIED_TENANT_VIEW", "SYSTEM_GLOBAL_METADATA", "BLOCKED"] },
+        "tenant_id": { "type": "string" },
+        "proof_checksum": { "type": "string" }
+      }
+    }
+  },
+  "required": ["contract_version"]
+}

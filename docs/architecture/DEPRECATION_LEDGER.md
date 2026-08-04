@@ -1,5 +1,13 @@
 # Deprecation Ledger
 
+## Smart Cache e Materialização V2
+
+| ID | Símbolo ou arquivo | Motivo | Substituto | Flag | Condição objetiva para remoção | Risco | Status |
+|---|---|---|---|---|---|---|---|
+| DEP-CACHE-001 | Reexecução sem cache certificado | Fallback necessário enquanto rollout não for aprovado | Smart Cache V2 | `SMART_CACHE_MATERIALIZATION_MODE` | Todos os tenants com SLO, leakage zero, invalidation e rollback aprovados | Resultado stale ou incompatível se removido cedo | ACTIVE |
+| DEP-CACHE-002 | Blueprints JSON no caminho compartilhado de runtime | Compatibilidade do repositório legado | Storage server-controlled; arquivo temporário em testes | n/a | Migration do repositório de blueprints aprovada separadamente | Corrupção/colisão se testes voltarem a escrever no arquivo real | DEPRECATED_RUNTIME_ONLY |
+| DEP-CACHE-003 | `LEGACY_ONLY` do Prompt 18 | Rollout deliberadamente não autorizado | SHADOW/READ/READ_WRITE/MATERIALIZATION graduais | `SMART_CACHE_MATERIALIZATION_MODE` | Migration operacional, piloto por tenant, SLO e janela de rollback aprovados | Ativação prematura | ACTIVE |
+
 | ID | Componente | Estado | Substituto | Regra De Remocao |
 |---|---|---|---|---|
 | DEP-001 | Preferencia de dashboard legada | DEPRECATED | `lumina.user-analytical-profile/1.0` | Remover somente apos todos os tenants concluirem V2_READ_WRITE e rollback legado expirar. |
@@ -26,3 +34,10 @@ referencia pessoal nunca publica, depreca ou restaura conhecimento.
 
 Nenhum item deste ledger autoriza ativar V2 em producao, consultar Oracle,
 afrouxar tenant/RBAC ou remover o fallback antes das condicoes objetivas.
+
+## AI Orchestration V2
+
+| ID | Simbolo Ou Arquivo | Motivo | Substituto | Consumidores | Flag | Condicao Objetiva Para Remocao | Risco | Etapa | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| DEP-ORCH-001 | Orchestrator legado unconstrained | Falta de orcamentos finitos e state machine | `services/ai_orchestration` V2 | API de consulta | `AI_ORCHESTRATION_MODE` | Rollout V2_GOVERNED aprovado | Divergencia no contrato de resposta | Pos-Prompt 16 | SHADOW |
+| DEP-ORCH-002 | Token Estimator conservador local | Estimativa base em ratio, nao tokenizer neural por modelo | Estimador neural provider-aware | Context Assembler | `AI_ORCHESTRATION_MODE` | Biblioteca de tokenizacao exata certificada sem dependencias externas | Ligeira variacao na margem de seguranca | Etapa futura | ACTIVE |

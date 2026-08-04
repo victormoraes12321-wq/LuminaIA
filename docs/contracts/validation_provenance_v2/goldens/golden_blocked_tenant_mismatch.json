@@ -1,0 +1,6 @@
+{
+  "contract_version": "lumina.validation-provenance/1.0",
+  "critical_issue": "ERR_TENANT_PROOF_MISMATCH",
+  "overall_status": "BLOCKED",
+  "scenario": "Cross Tenant Proof Mismatch Blocked"
+}

@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    },
+    "MaterializationType": {
+      "enum": [
+        "SCALAR_AGGREGATE",
+        "TIME_SERIES_AGGREGATE",
+        "GROUPED_AGGREGATE",
+        "RANKING_AGGREGATE",
+        "DIMENSION_SUMMARY",
+        "STATUS_SUMMARY",
+        "CERTIFIED_FACT_SET",
+        "ROW_LEVEL_DETAIL",
+        "FORBIDDEN"
+      ],
+      "title": "MaterializationType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allow_stale_serving": {
+      "default": false,
+      "title": "Allow Stale Serving",
+      "type": "boolean"
+    },
+    "allow_valid_with_warnings": {
+      "default": false,
+      "title": "Allow Valid With Warnings",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "default": "lumina.smart-cache-materialization/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "default_ttl_seconds": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Default Ttl Seconds",
+      "type": "object"
+    },
+    "disallowed_cache_types": {
+      "items": {
+        "$ref": "#/$defs/CacheType"
+      },
+      "title": "Disallowed Cache Types",
+      "type": "array"
+    },
+    "disallowed_materialization_types": {
+      "items": {
+        "$ref": "#/$defs/MaterializationType"
+      },
+      "title": "Disallowed Materialization Types",
+      "type": "array"
+    },
+    "enable_cache_read": {
+      "default": true,
+      "title": "Enable Cache Read",
+      "type": "boolean"
+    },
+    "enable_cache_write": {
+      "default": true,
+      "title": "Enable Cache Write",
+      "type": "boolean"
+    },
+    "enable_materialization_build": {
+      "default": true,
+      "title": "Enable Materialization Build",
+      "type": "boolean"
+    },
+    "enable_materialization_read": {
+      "default": true,
+      "title": "Enable Materialization Read",
+      "type": "boolean"
+    },
+    "max_payload_bytes": {
+      "default": 10485760,
+      "maximum": 10485760,
+      "minimum": 1,
+      "title": "Max Payload Bytes",
+      "type": "integer"
+    },
+    "policy_id": {
+      "default": "default_cache_policy",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "default": "v1.0",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "single_flight_lease_ttl_seconds": {
+      "default": 30,
+      "maximum": 300,
+      "minimum": 1,
+      "title": "Single Flight Lease Ttl Seconds",
+      "type": "integer"
+    },
+    "stale_soft_grace_seconds": {
+      "default": 300,
+      "title": "Stale Soft Grace Seconds",
+      "type": "integer"
+    }
+  },
+  "title": "SmartCachePolicyV2",
+  "type": "object"
+}

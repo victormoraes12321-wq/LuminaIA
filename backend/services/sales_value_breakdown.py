@@ -73,6 +73,10 @@ class SalesValueBreakdownService:
         prefix = f"{alias}." if alias else ""
         return f"{prefix}dtemissao_ >= :start_date AND {prefix}dtemissao_ < :end_exclusive"
 
+    def tenant_scope_sql(self, alias: str = "lm") -> str:
+        prefix = f"{alias}." if alias else ""
+        return f"AND {prefix}tenant_id = :tenant_id"
+
     def filial_scope_sql(self, alias: str = "lm", filial: Any | None = None) -> str:
         normalized_filial = self.normalize_filial(filial)
         if normalized_filial is None:
@@ -158,6 +162,10 @@ class SalesValueBreakdownService:
             query_binds["sales_filial"] = normalized_filial
         else:
             query_binds.pop("sales_filial", None)
+        tenant_id = query_binds.get("tenant_id")
+        if not tenant_id or not str(tenant_id).strip():
+            raise ValueError("tenant_id e obrigatorio para consultas em sales_value_breakdown")
+        query_binds["tenant_id"] = str(tenant_id).strip()
         return query_binds
 
     def _decimal(self, value: Any) -> Decimal:
@@ -241,6 +249,7 @@ class SalesValueBreakdownService:
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
                 SELECT
@@ -279,6 +288,7 @@ class SalesValueBreakdownService:
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
                 SELECT
@@ -363,6 +373,7 @@ class SalesValueBreakdownService:
                         COALESCE(lm.ptotal_, 0) AS valor
                     FROM vw_vendas_lm lm
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
                 SELECT
@@ -415,6 +426,7 @@ class SalesValueBreakdownService:
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
                 SELECT
@@ -457,6 +469,7 @@ class SalesValueBreakdownService:
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
                 SELECT
@@ -542,7 +555,7 @@ class SalesValueBreakdownService:
         limit: int | None = 10,
         filial: Any | None = None,
     ) -> list[dict[str, Any]]:
-        query_binds = dict(binds)
+        query_binds = self._with_default_binds(binds, filial)
         filial_where = self.filial_scope_sql(alias="lm", filial=filial)
         period_where = self.period_where_sql(alias="lm")
         limit_sql = f"LIMIT {limit}" if limit and limit > 0 else ""
@@ -561,6 +574,7 @@ class SalesValueBreakdownService:
                 ON coalesce(nullif(ltrim(lm.codprod_::text, '0'), ''), '0') = coalesce(nullif(ltrim(p.codigo::text, '0'), ''), '0')
             WHERE lm.tp_ IN (2, 61)
               AND {period_where}
+              {self.tenant_scope_sql("lm")}
               {filial_where}
             GROUP BY 1, 2, 6
             ORDER BY quantidade_vendida DESC, valor_total DESC
@@ -593,7 +607,7 @@ class SalesValueBreakdownService:
         *,
         limit: int | None = 50,
     ) -> list[dict[str, Any]]:
-        query_binds = dict(binds)
+        query_binds = self._with_default_binds(binds)
         limit_sql = f"LIMIT {limit}" if limit and limit > 0 else ""
         sql = text(
             f"""
@@ -606,6 +620,7 @@ class SalesValueBreakdownService:
             FROM vw_financeiro_lm f
             LEFT JOIN vw_clientes_cad_lm c 
                 ON coalesce(nullif(ltrim(f.cliente_id::text, '0'), ''), '0') = coalesce(nullif(ltrim(c.codigo::text, '0'), ''), '0')
+            WHERE f.tenant_id = :tenant_id
             ORDER BY f.data_vencimento ASC
             {limit_sql}
             """
@@ -669,6 +684,7 @@ class SalesValueBreakdownService:
                     FROM vw_vendas_lm lm
                     {join_sql}
                     WHERE {self.period_where_sql("lm")}
+                    {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {extra_where}
                 ),

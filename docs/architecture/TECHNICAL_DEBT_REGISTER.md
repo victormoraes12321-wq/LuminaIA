@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+## Smart Cache e Materialização V2
+
+| ID | Dívida | Risco | Mitigação atual | Saída |
+|---|---|---|---|---|
+| TD-CACHE-001 | Worker/scheduler distribuído de refresh não implementado | Refresh operacional depende de comando explícito | Build/refresh síncronos, lease, timeout e flags desligadas | Implementar job queue tenant-scoped com resume e SLO antes do rollout |
+| TD-CACHE-002 | Inspector frontend existe apenas como componentes inertes | Não há visão operacional no modo experimental | Nenhuma página/link/request em produção; API limitada e admin-gated | Criar página apenas em rollout separado com testes Next/Playwright e RBAC |
+| TD-CACHE-003 | Incremental limitado a watermark previamente verificado | Delta incompleto poderia parecer atual | Fail-closed; full build continua disponível | Certificar tombstones, monotonicidade, replay e equivalência full/incremental |
+| TD-CACHE-004 | Coordenação cross-replica usa lease PostgreSQL sem broker | Contenção pode resultar em retry limitado | TTL, CAS, timeout, recovery e single-flight local | Medir SLO com múltiplas réplicas e adicionar polling governado antes de escala |
+
 | ID | Divida | Risco | Mitigacao Atual | Saida |
 |---|---|---|---|---|
 | TD-001 | Adapter de preferencia de dashboard legado | Duplicacao temporaria de apresentacao | Importa somente campos seguros e marca origem `LEGACY_IMPORT` | Remover depois do rollout integral e janela de rollback. |
@@ -29,3 +38,11 @@ credencial ou dado empresarial no perfil.
 
 As dividas acima nao permitem persistir pergunta, resposta, dataset, SQL,
 bind, credencial ou vetor bruto em telemetria.
+
+## AI Orchestration V2
+
+| ID | Simbolo Ou Arquivo | Motivo | Substituto Planejado | Consumidores | Flag | Condicao Objetiva De Saida | Risco | Etapa | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| TD-ORCH-001 | Execucao sequencial limitada de ferramentas | Chamadas paralelas adiadas nesta fase | Execucao paralela governada com sincronizacao | AI Tool Invocation | `AI_PARALLEL_TOOL_CALLS_ENABLED` | Infraestrutura formal com barreira de seguranca e timeout coletivo | Race condition | Fase futura | BLOCKED |
+| TD-ORCH-002 | Token Estimator conservador | Tokenizador baseado em ratio | Tokenizer neural isolado | Context Assembler | `AI_EXACT_TOKENIZER_ENABLED` | Tokenizer local sem rede validado | Ligeira variacao de estimativa | Fase futura | ACTIVE |
+| TD-ORCH-003 | Fallback de modelo desligado em producao | Feature flag default LEGACY_ONLY | Fallback allowlisted ativo | Orchestrator | `AI_MODEL_FALLBACK_ENABLED` | Certificacao de modelo secundario e teste de falha de provedor | Falha silenciosa de modelo principal | Rollout | ACTIVE |

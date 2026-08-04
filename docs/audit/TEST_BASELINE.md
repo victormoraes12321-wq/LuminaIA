@@ -1,5 +1,28 @@
 # Baseline Seguro De Testes
 
+## Prompt 18 — 2026-08-04
+
+- Backend integral: `1421 passed, 1 xfailed, 0 failed, 0 errors, 0 XPASS`.
+- Único xfail: `LUMINA-GAP-DASH-001`; TENANT-001 é teste regular aprovado.
+- Duração backend final: `1113.16 s`; warnings: 2 de `min_items` Pydantic preexistente.
+- Prompt 18 dirigido: 77 testes (74 backend/DB/bootstrap/blueprints/API mais 3
+  de isolamento frontend), sem skip/xfail.
+- Prompts 14–17 dirigidos: 64 passed; TENANT-001 isolado: 1 passed.
+- V21: up, segundo up idempotente, down, schema/constraints/índices, FK
+  cross-tenant, rollback sintético e cadeia V21→V12→V21 aprovados em
+  `127.0.0.1:55432/luminaai_test`.
+- Blueprints: SHA-256 inicial/final
+  `407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596`.
+- Reprodutibilidade: 47 artefatos Prompt 17/18 reexportados, zero divergências;
+  total atual 127 schemas JSON e 17 goldens JSON; OpenAPI default 190 paths,
+  216 operações e zero path Prompt 18.
+- Frontend: ESLint exit 0 com 8 warnings preexistentes; TypeScript e build exit
+  0; 23 páginas geradas; Playwright `260 passed` em quatro viewports.
+- AST: 652 arquivos Python próprios, zero erros; Docker config exit 0.
+- OpenAI real, Oracle runtime, banco operacional/5432, dependências, lockfiles,
+  segredos, SQL livre armazenado, binds sensíveis e chain of thought: zero.
+- Produção preservada em `LEGACY_ONLY`, admin false, sem rollout.
+
 ## Prompt 13 - 2026-07-30
 
 - Backend integral: `1279 passed, 2 xfailed, 0 failed, 0 XPASS`.
@@ -463,3 +486,91 @@ Validacoes adicionais:
 
 Proxima etapa: `Prompt 13 - Consumo offline de datasets supervisionados
 explicitamente aprovados`.
+
+## Certificação Consolidada Prompts 14–17 — 2026-08-04
+
+Esta seção acrescenta a revalidação atual sem apagar ou reinterpretar o
+histórico acima.
+
+### Evidência histórica
+
+- Prompt 13: `HISTORICAL_CERTIFIED` com 1.279 passed, 2 xfailed, zero failed e
+  zero XPASS.
+- Prompt 14: relatório original sem contagem backend completa;
+  `HISTORICAL_EVIDENCE_UNAVAILABLE` para a quantidade integral.
+- Prompt 15: relatório original registra 10 testes direcionados, não uma suíte
+  completa.
+- Prompt 16: relatório original registra 1.307 passed e 1 xfailed. O número
+  externo 1.327 não possui log oficial preservado e não é adotado como fato.
+- Prompt 17: `HISTORICAL_CERTIFIED` com 1.345 passed, 1 xfailed, zero failed e
+  zero XPASS.
+
+### Baseline consolidada atual
+
+| Validação | Resultado |
+|---|---:|
+| Coleta | 1.349 testes; 0 erros |
+| Backend completo | 1.348 passed |
+| Failed | 0 |
+| Xfailed | 1 |
+| XPASS | 0 |
+| Warnings | 2 |
+| Duração | 1.248,40 s |
+| Único xfail | `LUMINA-GAP-DASH-001` |
+| Playwright | 260 passed; 4 viewports; exit 0 |
+| AST | 641 analisados; 0 erros |
+| OpenAPI | 190 paths; 216 operações |
+
+`LUMINA-GAP-TENANT-001` é teste regular aprovado desde a correção do core
+summary. A revalidação isolada de
+`test_safe_baseline_database.py::test_core_summary_breakdown_does_not_mix_tenants`
+passou, sem xfail ou skip, com tenant derivado dos binds confiáveis.
+
+### Componentes e migrations
+
+- Prompt 14: `lumina.ai-tool-registry/1.0`, migration v17, 17 testes
+  direcionados atuais aprovados.
+- Prompt 15: `lumina.safe-analytical-postgresql/1.0`, migration v18, 250 testes
+  direcionados atuais aprovados.
+- Prompt 16: `lumina.ai-orchestration/1.0`, migration v19, 20 testes
+  direcionados atuais aprovados.
+- Prompt 17: `lumina.validation-provenance/1.0`, migration v20, 17 testes
+  direcionados atuais aprovados.
+- Cadeia v20→v12→v20 e dupla execução idempotente de v17–v20 aprovadas.
+- Migration v21 não foi importada nem executada; zero tabelas Prompt 18.
+
+### Reprodutibilidade e frontend
+
+- 93 schemas JSON existentes; 6 do exporter oficial do Prompt 17.
+- 13 goldens JSON existentes; 2 do exporter oficial do Prompt 17.
+- Schemas, goldens e OpenAPI exportados duas vezes sem diferença.
+- Hash schemas: `f2561ac639e85ed21e13c74f56d1ad93ec90cbcccad87c9d8f540cb789094ada`.
+- Hash goldens: `3058d508844c15796d8d3316a983675f1ea6afeea229ca7780e1ece332034ba9`.
+- Hash lógico OpenAPI:
+  `cec948f1b6a9ddcec538eea7a6fd5615905dc03967752aa70cdd351431c02552`.
+- ESLint exit 0 com 8 warnings preexistentes; TypeScript e build aprovados.
+- Build: 23 páginas geradas e 21 rotas listadas.
+- Prompt 18 em `LEGACY_ONLY`: nenhuma rota backend ou página frontend ativa.
+
+### Segurança e fingerprint
+
+- PostgreSQL descartável: `127.0.0.1:55432/luminaai_test`.
+- OpenAI real, Oracle runtime e banco operacional: zero acessos.
+- Dependências e lockfiles preservados; zero segredo real no escopo permitido.
+- Produção permanece `LEGACY_ONLY` para os componentes governados.
+- Branch: `codex/phase-ai-orchestration-prompts-14-18`.
+- Checkpoint: `c5d7621f2b7b3c4c0138a704685ac048515f49db`.
+- Hash do diff rastreado:
+  `c1195ce3e0cf3be9a28f0e1f4d6baeb529ee91b1`.
+- Manifesto não rastreado permitido:
+  `598d95dd1a2bfe3127d649b14ff497e9c030cffacd4e43cb232c7a730cf2c617`.
+
+O fingerprint foi obtido antes da escrita da reconciliação documental e não
+inclui os próprios relatórios. Os arquivos protegidos terminaram com seus
+hashes iniciais; em particular, `backend/services/blueprints.json` foi
+restaurado para
+`407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596`
+após a suíte legada gravar dados sintéticos temporários.
+
+Detalhes e inventário:
+`docs/audit/PHASE_14_17_CONSOLIDATED_CERTIFICATION_EVIDENCE.md`.

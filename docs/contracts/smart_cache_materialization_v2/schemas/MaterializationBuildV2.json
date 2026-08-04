@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "MaterializationBuildStatus": {
+      "enum": [
+        "BUILDING",
+        "VALIDATING",
+        "READY",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "title": "MaterializationBuildStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "build_duration_ms": {
+      "default": 0.0,
+      "minimum": 0.0,
+      "title": "Build Duration Ms",
+      "type": "number"
+    },
+    "build_id": {
+      "title": "Build Id",
+      "type": "string"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Completed At"
+    },
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Code"
+    },
+    "snapshot_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Snapshot Id"
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/MaterializationBuildStatus"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "build_id",
+    "definition_id",
+    "tenant_id",
+    "version",
+    "status",
+    "started_at"
+  ],
+  "title": "MaterializationBuildV2",
+  "type": "object"
+}

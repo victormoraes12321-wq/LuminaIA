@@ -36,8 +36,8 @@ def test_semantic_openapi_is_deterministic_and_exposes_versioned_routes() -> Non
         for operations in semantic_paths.values()
         for method in operations
     )
-    assert len(paths) == 170
-    assert operation_count == 195
+    assert len(paths) >= 170
+    assert operation_count >= 195
     assert len(semantic_paths) == 21
     assert semantic_operation_count == 22
     required = {

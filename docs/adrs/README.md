@@ -16,3 +16,6 @@
 - [ADR 0014 - Perfil analitico pessoal explicito e governado](0014-explicit-governed-user-analytical-profile.md)
 - [ADR 0015 - Feedback humano revisado antes de exemplos e datasets](0015-reviewed-human-feedback-before-training-datasets.md)
 - [ADR 0016 - Recuperacao hibrida governada antes da resolucao canonica](0016-governed-hybrid-semantic-retrieval.md)
+- [ADR 0019 - Orquestração da IA como Máquina de Estados Limitada por Budgets e Policies](0019-ai-orchestration-state-machine-and-token-budgeting.md)
+- [ADR 0020 - Respostas Analíticas Certificadas por Fatos, Claims e Proveniência](0020-certified-analytical-responses-via-facts-claims-provenance.md)
+- [ADR 0021 - Cache certificado e snapshots imutáveis de materialização](0021-certified-cache-and-immutable-materialization-snapshots.md)

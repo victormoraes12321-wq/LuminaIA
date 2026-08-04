@@ -1,0 +1,154 @@
+{
+  "$defs": {
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cache_key_checksum": {
+      "title": "Cache Key Checksum",
+      "type": "string"
+    },
+    "cache_type": {
+      "$ref": "#/$defs/CacheType"
+    },
+    "certification_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Certification Id"
+    },
+    "classification": {
+      "default": "INTERNAL",
+      "title": "Classification",
+      "type": "string"
+    },
+    "compiler_version": {
+      "title": "Compiler Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "entry_id": {
+      "title": "Entry Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "title": "Expires At",
+      "type": "string"
+    },
+    "generation": {
+      "default": 1,
+      "minimum": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "hit_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Hit Count",
+      "type": "integer"
+    },
+    "metric_fingerprints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metric Fingerprints",
+      "type": "array"
+    },
+    "payload_size_bytes": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Payload Size Bytes",
+      "type": "integer"
+    },
+    "permission_fingerprint": {
+      "title": "Permission Fingerprint",
+      "type": "string"
+    },
+    "query_fingerprint": {
+      "title": "Query Fingerprint",
+      "type": "string"
+    },
+    "scope_fingerprint": {
+      "title": "Scope Fingerprint",
+      "type": "string"
+    },
+    "source_sync_version": {
+      "title": "Source Sync Version",
+      "type": "string"
+    },
+    "source_watermark": {
+      "title": "Source Watermark",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "tenant_proof_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tenant Proof Id"
+    },
+    "tool_registry_snapshot": {
+      "title": "Tool Registry Snapshot",
+      "type": "string"
+    },
+    "validation_policy_version": {
+      "title": "Validation Policy Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "entry_id",
+    "tenant_id",
+    "cache_type",
+    "cache_key_checksum",
+    "scope_fingerprint",
+    "permission_fingerprint",
+    "query_fingerprint",
+    "metric_fingerprints",
+    "source_sync_version",
+    "source_watermark",
+    "validation_policy_version",
+    "compiler_version",
+    "tool_registry_snapshot",
+    "created_at",
+    "expires_at"
+  ],
+  "title": "CacheEntryMetadataV2",
+  "type": "object"
+}

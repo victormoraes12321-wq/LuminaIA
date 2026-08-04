@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "generation": {
+      "default": 1,
+      "minimum": 0,
+      "title": "Generation",
+      "type": "integer"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "target_scope": {
+      "title": "Target Scope",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "target_scope",
+    "reason",
+    "updated_at"
+  ],
+  "title": "CacheGenerationV2",
+  "type": "object"
+}

@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_query_spec_id": {
+      "title": "Canonical Query Spec Id",
+      "type": "string"
+    },
+    "dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "filters_fingerprint": {
+      "title": "Filters Fingerprint",
+      "type": "string"
+    },
+    "metrics": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "time_window_fingerprint": {
+      "title": "Time Window Fingerprint",
+      "type": "string"
+    }
+  },
+  "required": [
+    "canonical_query_spec_id",
+    "metrics",
+    "dimensions",
+    "filters_fingerprint",
+    "time_window_fingerprint"
+  ],
+  "title": "MaterializationQueryV2",
+  "type": "object"
+}

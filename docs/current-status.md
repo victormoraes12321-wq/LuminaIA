@@ -1,6 +1,16 @@
 # Estado Atual Do Sistema
 
-Data da atualizacao: 2026-07-30
+Data da atualizacao: 2026-08-04
+
+## Prompt 18 certificado e não ativado
+
+Smart Cache e Materialização Governada (`lumina.smart-cache-materialization/1.0`)
+foram implementados e certificados em ambiente descartável. A V21, cache reads/
+writes, materializações e API administrativa continuam desligados em produção:
+`SMART_CACHE_MATERIALIZATION_MODE=LEGACY_ONLY` e
+`SMART_CACHE_ADMIN_ENABLED=false`. O backend completo aprovou 1421 testes com
+um único xfail conhecido (`LUMINA-GAP-DASH-001`); frontend aprovou lint com 8
+warnings preexistentes, TypeScript, build e 260 testes Playwright.
 
 Este documento resume o estado atual do LuminaAI apos as correcoes recentes de
 perguntas criticas, continuidade de conversa, ranking, descontos, login/sessao,

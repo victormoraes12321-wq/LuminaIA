@@ -1,0 +1,128 @@
+{
+  "$defs": {
+    "ValidationContextV2": {
+      "additionalProperties": false,
+      "properties": {
+        "orchestration_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Orchestration Run Id"
+        },
+        "permissions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Permissions",
+          "type": "array"
+        },
+        "policy_version": {
+          "default": "1.0.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        },
+        "roles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "session_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Session Id"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "user_id",
+        "request_id"
+      ],
+      "title": "ValidationContextV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "$ref": "#/$defs/ValidationContextV2"
+    },
+    "proposed_claims": {
+      "items": {
+        "type": "object"
+      },
+      "title": "Proposed Claims",
+      "type": "array"
+    },
+    "proposed_facts": {
+      "items": {
+        "type": "object"
+      },
+      "title": "Proposed Facts",
+      "type": "array"
+    },
+    "response_draft_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Response Draft Text"
+    },
+    "result_payload": {
+      "description": "Analytical result payload to validate",
+      "title": "Result Payload",
+      "type": "object"
+    },
+    "tenant_proof": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tenant Proof"
+    }
+  },
+  "required": [
+    "context",
+    "result_payload"
+  ],
+  "title": "ValidationRequestV2",
+  "type": "object"
+}

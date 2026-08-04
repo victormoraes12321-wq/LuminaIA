@@ -1,0 +1,44 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "from_snapshot_id": {
+      "title": "From Snapshot Id",
+      "type": "string"
+    },
+    "rollback_id": {
+      "title": "Rollback Id",
+      "type": "string"
+    },
+    "rolled_back_at": {
+      "title": "Rolled Back At",
+      "type": "string"
+    },
+    "rolled_back_by": {
+      "title": "Rolled Back By",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "to_snapshot_id": {
+      "title": "To Snapshot Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "rollback_id",
+    "definition_id",
+    "tenant_id",
+    "from_snapshot_id",
+    "to_snapshot_id",
+    "rolled_back_by",
+    "rolled_back_at"
+  ],
+  "title": "MaterializationRollbackV2",
+  "type": "object"
+}

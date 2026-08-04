@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    },
+    "CertificationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "SUPERSEDED"
+      ],
+      "title": "CertificationStatus",
+      "type": "string"
+    },
+    "DataClassification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "PII",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "FreshnessStatus": {
+      "enum": [
+        "FRESH",
+        "STALE_SOFT",
+        "STALE_HARD",
+        "UNKNOWN",
+        "INVALIDATED"
+      ],
+      "title": "FreshnessStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cache_type": {
+      "$ref": "#/$defs/CacheType"
+    },
+    "cancelled": {
+      "default": false,
+      "title": "Cancelled",
+      "type": "boolean"
+    },
+    "certification_status": {
+      "$ref": "#/$defs/CertificationStatus"
+    },
+    "data_classification": {
+      "$ref": "#/$defs/DataClassification",
+      "default": "INTERNAL"
+    },
+    "has_ambiguity": {
+      "default": false,
+      "title": "Has Ambiguity",
+      "type": "boolean"
+    },
+    "has_error": {
+      "default": false,
+      "title": "Has Error",
+      "type": "boolean"
+    },
+    "has_pii": {
+      "default": false,
+      "title": "Has Pii",
+      "type": "boolean"
+    },
+    "is_complete": {
+      "title": "Is Complete",
+      "type": "boolean"
+    },
+    "is_partial": {
+      "default": false,
+      "title": "Is Partial",
+      "type": "boolean"
+    },
+    "is_row_level": {
+      "default": false,
+      "title": "Is Row Level",
+      "type": "boolean"
+    },
+    "is_truncated": {
+      "default": false,
+      "title": "Is Truncated",
+      "type": "boolean"
+    },
+    "metric_fingerprints_valid": {
+      "title": "Metric Fingerprints Valid",
+      "type": "boolean"
+    },
+    "payload_size_bytes": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Payload Size Bytes",
+      "type": "integer"
+    },
+    "query_fingerprint_valid": {
+      "title": "Query Fingerprint Valid",
+      "type": "boolean"
+    },
+    "result_checksum_valid": {
+      "title": "Result Checksum Valid",
+      "type": "boolean"
+    },
+    "source_freshness": {
+      "$ref": "#/$defs/FreshnessStatus"
+    },
+    "tenant_proof_valid": {
+      "title": "Tenant Proof Valid",
+      "type": "boolean"
+    },
+    "timed_out": {
+      "default": false,
+      "title": "Timed Out",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "cache_type",
+    "certification_status",
+    "tenant_proof_valid",
+    "query_fingerprint_valid",
+    "result_checksum_valid",
+    "metric_fingerprints_valid",
+    "source_freshness",
+    "is_complete"
+  ],
+  "title": "CacheEligibilityRequestV2",
+  "type": "object"
+}

@@ -1,0 +1,46 @@
+{
+  "$defs": {
+    "CacheDecision": {
+      "enum": [
+        "HIT",
+        "MISS",
+        "BYPASS",
+        "STALE",
+        "INVALID",
+        "EXPIRED",
+        "PERMISSION_CHANGED",
+        "CLASSIFICATION_BLOCKED",
+        "CERTIFICATION_INVALID",
+        "CHECKSUM_MISMATCH",
+        "REFRESH_REQUIRED",
+        "LEASE_HELD",
+        "ERROR"
+      ],
+      "title": "CacheDecision",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "$ref": "#/$defs/CacheDecision"
+    },
+    "eligible": {
+      "title": "Eligible",
+      "type": "boolean"
+    },
+    "reason_code": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "eligible",
+    "decision",
+    "reason_code"
+  ],
+  "title": "CacheEligibilityDecisionV2",
+  "type": "object"
+}

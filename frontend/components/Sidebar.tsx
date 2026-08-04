@@ -27,6 +27,8 @@ import {
   BookOpen,
   MessageSquareText,
   ScanSearch,
+  Cpu,
+  ShieldCheck,
 } from 'lucide-react'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
@@ -346,6 +348,48 @@ export function Sidebar({
                 >
                   <ScanSearch size={13} aria-hidden="true" />
                   <span>Índice semântico</span>
+                </Link>
+              )}
+              {user?.role === 'ADMIN' && (
+                <Link
+                  href="/dashboard/admin/tools"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/admin/tools'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <Cpu size={13} aria-hidden="true" />
+                  <span>Ferramentas da IA</span>
+                </Link>
+              )}
+              {user?.role === 'ADMIN' && (
+                <Link
+                  href="/dashboard/admin/orchestration"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/admin/orchestration'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <Cpu size={13} aria-hidden="true" />
+                  <span>Orquestração da IA</span>
+                </Link>
+              )}
+              {user?.role === 'ADMIN' && (
+                <Link
+                  href="/dashboard/admin/validation"
+                  className={cn(
+                    'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                    pathname === '/dashboard/admin/validation'
+                      ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                      : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                  )}
+                >
+                  <ShieldCheck size={13} aria-hidden="true" />
+                  <span>Validação & Proveniência</span>
                 </Link>
               )}
               {/* Gerenciamento de Usuários (Apenas ADMIN) */}
