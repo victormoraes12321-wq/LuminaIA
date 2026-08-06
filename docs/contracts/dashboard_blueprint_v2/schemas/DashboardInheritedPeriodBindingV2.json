@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "period_type": {
+      "const": "INHERITED_DASHBOARD",
+      "title": "Period Type",
+      "type": "string"
+    },
+    "source": {
+      "const": "DASHBOARD_CONTEXT",
+      "default": "DASHBOARD_CONTEXT",
+      "title": "Source",
+      "type": "string"
+    }
+  },
+  "required": [
+    "period_type"
+  ],
+  "title": "DashboardInheritedPeriodBindingV2",
+  "type": "object"
+}

@@ -77,14 +77,6 @@ def test_conversation_graph_creation_and_node_connections():
     assert graph_updated.nodes[node_id_2].parent_id == node_id_1
     assert node_id_2 in graph_updated.nodes[node_id_1].children_ids
 
-@pytest.mark.known_gap
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "LUMINA-GAP-DASH-001 / dashboard V2: a atualizacao visual local ainda "
-        "retorna FULL_RENDERING em vez do contrato UI_MODIFIED."
-    ),
-)
 def test_visual_only_update_intercepts_correctly():
     manager = ConversationGraphManager()
     session_id = "test_session_2"
@@ -117,6 +109,92 @@ def test_visual_only_update_intercepts_correctly():
     # Garante que adicionou um novo nó no grafo para a operação visual
     new_graph = manager.get_graph(session_id)
     assert len(new_graph.nodes) == 2
+    assert new_graph.nodes[node_id].dashboard_state.chart_type == VisualizationType.TABLE
+    assert new_graph.nodes[new_graph.current_node_id].execution_result.metadata == {
+        "visual_update_only": True
+    }
+
+
+def test_visual_only_update_does_not_intercept_semantic_change():
+    manager = ConversationGraphManager()
+    session_id = "test_session_visual_semantic_negative"
+    node = ConversationNode(
+        node_id="node_semantic_source",
+        user_query="Faturamento mensal",
+        canonical_plan=CanonicalPlan(
+            status=ExecutionStatus.READY,
+            intent=IntentType.LIST,
+            goal="Listar faturamento",
+            entities=["Venda"],
+            metrics=["Venda.receita_total"],
+            dimensions=[],
+        ),
+        dashboard_state=DashboardState(chart_type=VisualizationType.TABLE),
+        execution_result=ExecutionResult(
+            status=ExecutionStatus.READY,
+            dataset=[{"mes": "Jan", "ptotal_": 1500}],
+            row_count=1,
+            execution_time_ms=5.0,
+        ),
+        query_context=QueryContext(
+            dataset_id="node_semantic_source",
+            row_count=1,
+            execution_time_ms=5.0,
+        ),
+    )
+    manager.add_node(session_id, node)
+
+    result = manager.try_visual_only_update(
+        "troque a metrica para margem liquida",
+        manager.get_graph(session_id),
+        session_id,
+        uuid.uuid4(),
+    )
+
+    assert result is None
+    graph = manager.get_graph(session_id)
+    assert graph.current_node_id == "node_semantic_source"
+    assert len(graph.nodes) == 1
+
+
+def test_visual_only_update_requires_an_active_certified_dataset():
+    manager = ConversationGraphManager()
+    session_id = "test_session_visual_without_dataset"
+    node = ConversationNode(
+        node_id="node_without_dataset",
+        user_query="Faturamento mensal",
+        canonical_plan=CanonicalPlan(
+            status=ExecutionStatus.READY,
+            intent=IntentType.LIST,
+            goal="Listar faturamento",
+            entities=["Venda"],
+            metrics=["Venda.receita_total"],
+            dimensions=[],
+        ),
+        dashboard_state=DashboardState(chart_type=VisualizationType.TABLE),
+        execution_result=ExecutionResult(
+            status=ExecutionStatus.READY,
+            dataset=[],
+            row_count=0,
+            execution_time_ms=1.0,
+        ),
+        query_context=QueryContext(
+            dataset_id="node_without_dataset",
+            row_count=0,
+            execution_time_ms=1.0,
+        ),
+    )
+    manager.add_node(session_id, node)
+
+    result = manager.try_visual_only_update(
+        "mudar para grafico de barras",
+        manager.get_graph(session_id),
+        session_id,
+        uuid.uuid4(),
+    )
+
+    assert result is None
+    assert len(manager.get_graph(session_id).nodes) == 1
 
 def test_drill_down_local_filter():
     manager = ConversationGraphManager()

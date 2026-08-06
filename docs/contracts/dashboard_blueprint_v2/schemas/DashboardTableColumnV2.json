@@ -1,0 +1,48 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "column_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Column Id",
+      "type": "string"
+    },
+    "column_kind": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "STATUS"
+      ],
+      "title": "Column Kind",
+      "type": "string"
+    },
+    "label": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "sortable": {
+      "default": true,
+      "title": "Sortable",
+      "type": "boolean"
+    },
+    "source_binding_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Binding Id",
+      "type": "string"
+    },
+    "visible": {
+      "default": true,
+      "title": "Visible",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "column_id",
+    "source_binding_id",
+    "column_kind",
+    "label"
+  ],
+  "title": "DashboardTableColumnV2",
+  "type": "object"
+}

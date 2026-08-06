@@ -113,43 +113,54 @@ async def test_v21_rejects_cross_tenant_dependency_fk() -> None:
             ),
             {"id": entry_id, "tenant": tenant_a, "hash": "a" * 64},
         )
-    with pytest.raises(DBAPIError):
-        async with get_db_context() as session:
-            await session.execute(
-                text(
-                    "INSERT INTO smart_cache_entry_dependencies (id, tenant_id, entry_id, tag) VALUES (gen_random_uuid(), :tenant, :entry, 'metric:sales')"
-                ),
-                {"tenant": tenant_b, "entry": entry_id},
-            )
-    await migration.run_down(confirm_test_only=True)
-    await migration.run_up()
+    try:
+        with pytest.raises(DBAPIError):
+            async with get_db_context() as session:
+                await session.execute(
+                    text(
+                        "INSERT INTO smart_cache_entry_dependencies (id, tenant_id, entry_id, tag) VALUES (gen_random_uuid(), :tenant, :entry, 'metric:sales')"
+                    ),
+                    {"tenant": tenant_b, "entry": entry_id},
+                )
+        await migration.run_down(confirm_test_only=True)
+    finally:
+        await migration.run_up()
 
 
 @pytest.mark.asyncio
 async def test_v21_ddl_rolls_back_transactionally_on_synthetic_failure() -> None:
     migration = _load(21)
-    await migration.run_down(confirm_test_only=True)
-    with pytest.raises(DBAPIError):
-        await migration.run_up(
-            statements=[migration.UP_STATEMENTS[0], "SELECT 1 / 0;"]
-        )
-    async with get_db_context() as session:
-        exists = await session.scalar(
-            text("SELECT to_regclass('public.smart_cache_policies') IS NOT NULL")
-        )
-    assert exists is False
-    await migration.run_up()
+    try:
+        await migration.run_down(confirm_test_only=True)
+        with pytest.raises(DBAPIError):
+            await migration.run_up(
+                statements=[migration.UP_STATEMENTS[0], "SELECT 1 / 0;"]
+            )
+        async with get_db_context() as session:
+            exists = await session.scalar(
+                text("SELECT to_regclass('public.smart_cache_policies') IS NOT NULL")
+            )
+        assert exists is False
+    finally:
+        await migration.run_up()
+
+
+from testing.test_database import reset_and_seed_test_database
+from database import engine
 
 
 @pytest.mark.asyncio
 async def test_complete_chain_v21_to_v12_and_v12_to_v21() -> None:
-    modules = {version: _load(version) for version in range(13, 22)}
-    for version in range(13, 22):
-        await modules[version].run_up()
-    for version in range(21, 12, -1):
-        await _down(modules[version])
-    for version in range(13, 22):
-        await modules[version].run_up()
+    modules = {version: _load(version) for version in range(13, 24)}
+    try:
+        for version in range(13, 24):
+            await modules[version].run_up()
+        for version in range(23, 12, -1):
+            await _down(modules[version])
+    finally:
+        for version in range(13, 24):
+            await modules[version].run_up()
+        await reset_and_seed_test_database(engine)
 
     async with get_db_context() as session:
         tables = set(

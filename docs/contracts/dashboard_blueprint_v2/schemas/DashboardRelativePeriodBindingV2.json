@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_period_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Canonical Period Id",
+      "type": "string"
+    },
+    "offset": {
+      "default": 0,
+      "maximum": 120,
+      "minimum": -120,
+      "title": "Offset",
+      "type": "integer"
+    },
+    "period_type": {
+      "const": "RELATIVE",
+      "title": "Period Type",
+      "type": "string"
+    },
+    "relation": {
+      "enum": [
+        "CURRENT",
+        "PREVIOUS",
+        "ROLLING",
+        "TO_DATE"
+      ],
+      "title": "Relation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "period_type",
+    "canonical_period_id",
+    "relation"
+  ],
+  "title": "DashboardRelativePeriodBindingV2",
+  "type": "object"
+}

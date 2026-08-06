@@ -629,8 +629,10 @@ async def test_thousand_nodes_append_and_keyset_pagination_remain_bounded() -> N
                 content_ciphertext=protected.ciphertext,
                 content_key_version=protected.key_version,
                 content_fingerprint=protected.fingerprint,
+                flush=False,
             )
             parent_id = node.id
+        await db.flush()
     append_seconds = time.perf_counter() - started_at
     assert append_seconds < 30
 

@@ -1,0 +1,169 @@
+{
+  "$defs": {
+    "DashboardBreakpointV2": {
+      "enum": [
+        "MOBILE",
+        "TABLET",
+        "DESKTOP",
+        "ULTRAWIDE"
+      ],
+      "title": "DashboardBreakpointV2",
+      "type": "string"
+    },
+    "DashboardGridItemV2": {
+      "additionalProperties": false,
+      "properties": {
+        "fallback_widget_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fallback Widget Id"
+        },
+        "height": {
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        },
+        "reading_order": {
+          "maximum": 999,
+          "minimum": 0,
+          "title": "Reading Order",
+          "type": "integer"
+        },
+        "visible": {
+          "default": true,
+          "title": "Visible",
+          "type": "boolean"
+        },
+        "widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Widget Id",
+          "type": "string"
+        },
+        "width": {
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        },
+        "x": {
+          "maximum": 15,
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "maximum": 999,
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "widget_id",
+        "x",
+        "y",
+        "width",
+        "height",
+        "reading_order"
+      ],
+      "title": "DashboardGridItemV2",
+      "type": "object"
+    },
+    "DashboardGridV2": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Columns",
+          "type": "integer"
+        },
+        "gap_px": {
+          "default": 16,
+          "maximum": 48,
+          "minimum": 0,
+          "title": "Gap Px",
+          "type": "integer"
+        },
+        "padding_px": {
+          "default": 16,
+          "maximum": 64,
+          "minimum": 0,
+          "title": "Padding Px",
+          "type": "integer"
+        },
+        "row_height_policy": {
+          "default": "CONTENT_AWARE",
+          "pattern": "^(CONTENT_AWARE|FIXED_SMALL|FIXED_MEDIUM|FIXED_LARGE)$",
+          "title": "Row Height Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "columns"
+      ],
+      "title": "DashboardGridV2",
+      "type": "object"
+    },
+    "DashboardResponsiveBreakpointV2": {
+      "additionalProperties": false,
+      "properties": {
+        "breakpoint": {
+          "$ref": "#/$defs/DashboardBreakpointV2"
+        },
+        "grid": {
+          "$ref": "#/$defs/DashboardGridV2"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/DashboardGridItemV2"
+          },
+          "maxItems": 64,
+          "minItems": 1,
+          "title": "Items",
+          "type": "array"
+        },
+        "minimum_width_px": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Minimum Width Px",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "breakpoint",
+        "minimum_width_px",
+        "grid",
+        "items"
+      ],
+      "title": "DashboardResponsiveBreakpointV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "breakpoints": {
+      "items": {
+        "$ref": "#/$defs/DashboardResponsiveBreakpointV2"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Breakpoints",
+      "type": "array"
+    }
+  },
+  "required": [
+    "breakpoints"
+  ],
+  "title": "DashboardLayoutV2",
+  "type": "object"
+}

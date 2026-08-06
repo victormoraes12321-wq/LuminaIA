@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "DashboardCapabilityV2": {
+      "enum": [
+        "dashboard:view",
+        "dashboard:filter",
+        "dashboard:drilldown",
+        "dashboard:export",
+        "dashboard:edit_visual",
+        "dashboard:edit_semantic",
+        "dashboard:review",
+        "dashboard:publish",
+        "dashboard:archive",
+        "dashboard:view_provenance"
+      ],
+      "title": "DashboardCapabilityV2",
+      "type": "string"
+    },
+    "DashboardClassificationV2": {
+      "enum": [
+        "PUBLIC_METADATA",
+        "TENANT_METADATA",
+        "TENANT_BUSINESS_DATA",
+        "RESTRICTED_BUSINESS_DATA",
+        "PERSONAL_DATA",
+        "SENSITIVE_PERSONAL_DATA",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "DashboardClassificationV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Future server-controlled envelope. It is never embedded in a blueprint.",
+  "properties": {
+    "authority": {
+      "const": "TRUSTED_BACKEND",
+      "default": "TRUSTED_BACKEND",
+      "title": "Authority",
+      "type": "string"
+    },
+    "classification_ceiling": {
+      "$ref": "#/$defs/DashboardClassificationV2"
+    },
+    "permissions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/DashboardCapabilityV2"
+      },
+      "maxItems": 10,
+      "title": "Permissions",
+      "type": "array"
+    },
+    "roles": {
+      "items": {
+        "enum": [
+          "CONSULTA",
+          "GESTOR",
+          "ADMIN"
+        ],
+        "type": "string"
+      },
+      "maxItems": 3,
+      "minItems": 1,
+      "title": "Roles",
+      "type": "array"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "maxLength": 128,
+      "minLength": 3,
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "user_id",
+    "roles",
+    "classification_ceiling"
+  ],
+  "title": "DashboardBlueprintExecutionContextV2",
+  "type": "object"
+}

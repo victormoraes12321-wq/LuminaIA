@@ -1,5 +1,65 @@
 # Baseline Seguro De Testes
 
+## Prompt 20 — 2026-08-05
+
+- Contrato `lumina.dashboard-backend/1.0` implementado sobre
+  `lumina.dashboard-blueprint/2.0`; produção permanece `LEGACY_ONLY`.
+- Dirigidos Prompt 19 + 20: `255 passed` em 81,31 s, sem skip/xfail.
+- Backend seguro: `1676 passed`, `1 xfailed`, `0 failed`, `0 errors`,
+  `0 skipped`, `0 XPASS`, 2 warnings Pydantic preexistentes, em 1217,51 s.
+- Único xfail: `LUMINA-GAP-DASH-001`; razão e assertion preservadas.
+- PostgreSQL v22: 13 tabelas, up idempotente, down test-only, cadeia
+  v13–v22–v13–v22, constraints, índices, CAS, imutabilidade e isolamento
+  tenant aprovados em `127.0.0.1:55432/luminaai_test`.
+- Backup/restore descartável: `pg_dump`/`pg_restore` com fixtures sintéticas;
+  manifesto `65671b1ac442e5de5b24925219158a55c73d5d1a7f1b0471dc79fc9545a9505b`
+  idêntico antes/depois; dump removido e v22 desmontada ao final.
+- OpenAPI default: 190 paths/216 operações e zero rota Prompt 20, hash
+  `0cf1a1d52fab2ae3cf4a883657c4a111f443e4e19072f34f8f02b50afbc163dd`.
+- OpenAPI experimental explícita: 212 paths/243 operações, com 22 paths/27
+  operações Prompt 20, hash
+  `80ec5583c29dc1a478e8ce7fb1027eea546ad2c5a45960f77e094756750d7845`;
+  ambas as superfícies foram geradas duas vezes com hashes idênticos.
+- Schemas: 55 contratos em arquivo único reproduzível, SHA-256
+  `DA38BFB943258E9E50F1C909A654EA845CD5496026EBDD75A26030476135B9A0`;
+  24 goldens sintéticos, SHA-256
+  `358260EAD1F7BE1FE927F165BDA0E736B2212521C843353A34AECB11DB97EC71`.
+- Frontend: ESLint exit 0 com 8 warnings preexistentes; TypeScript exit 0;
+  build exit 0 com 23 páginas; Playwright `260 passed` em 8,6 min nos quatro
+  viewports. Nenhuma página, Sidebar, renderer, editor ou side chat V2.
+- AST: 702 arquivos Python próprios, 0 erros; Docker Compose config exit 0.
+- `blueprints.json`: hash inicial/final
+  `407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596`.
+- Dependências e lockfiles inalterados; OpenAI real, Oracle runtime, banco
+  operacional, porta 5432 e provider/rede externa: zero acesso.
+- A primeira regressão integral detectou três falhas de isolamento do Prompt 20
+  e uma falsa falha temporal sob carga concorrente. O handler V2 passou a ser
+  registrado somente com o router habilitado e a fixture v22 ganhou cleanup
+  garantido. Os quatro casos e a suíte integral foram reexecutados com sucesso.
+
+## Prompt 19 — 2026-08-04
+
+- Contrato `lumina.dashboard-blueprint/2.0`, exclusivamente `CONTRACT_ONLY`.
+- Dirigidos: `192 passed` em 1,60 s, sem skip/xfail novo.
+- Backend seguro: `1613 passed`, `1 xfailed`, `0 failed`, `0 errors`,
+  `0 skipped`, `0 XPASS`, 2 warnings preexistentes, em 1155,64 s.
+- Único xfail: `LUMINA-GAP-DASH-001`; assertion e razão preservadas.
+- Frontend: ESLint exit 0 com 8 warnings preexistentes; TypeScript exit 0;
+  build exit 0 com 23 páginas; Playwright `260 passed` em 9,1 min.
+- Viewports: desktop, tablet, mobile e ultrawide; porta isolada 3100.
+- AST: 676 arquivos Python próprios, 0 erros; Docker Compose config exit 0.
+- PostgreSQL descartável somente em `127.0.0.1:55432/luminaai_test`, removido.
+- 91 schemas + 20 goldens = 111 artefatos; duas execuções externas, cada uma
+  com duas internas, produziram SHA-256 agregado
+  `3da4a55b48b5ac1bb2f1107e3d752790e8dabb401ebcae8edbe3c7b1178aa2ac`.
+- OpenAPI: 190 paths/216 operações, zero Prompt 18/19; hash lógico
+  `c6ff6058d14491d23581e86909e77a4206011afd17bba6e79ed4d797890b258b`.
+- `blueprints.json`: hash inicial/final
+  `407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596`.
+- Nenhuma migration v22, API, model, página, Sidebar, dependência ou lockfile.
+- OpenAI real, Oracle runtime, banco operacional e provider/rede externa: zero.
+- Produção/legado inalterados; portas 55432, 3100, 3002 e 8000 encerradas.
+
 ## Prompt 18 — 2026-08-04
 
 - Backend integral: `1421 passed, 1 xfailed, 0 failed, 0 errors, 0 XPASS`.
@@ -574,3 +634,77 @@ após a suíte legada gravar dados sintéticos temporários.
 
 Detalhes e inventário:
 `docs/audit/PHASE_14_17_CONSOLIDATED_CERTIFICATION_EVIDENCE.md`.
+
+## Baseline Prompt 21 — 2026-08-05
+
+Esta seção adiciona a certificação atual sem apagar as baselines históricas.
+
+| Validação | Resultado |
+|---|---:|
+| Backend completo | 1.694 passed |
+| Failed / errors / skipped | 0 / 0 / 0 |
+| Xfailed / XPASS | 0 / 0 |
+| Warnings backend | 2 depreciações Pydantic preexistentes |
+| Duração backend | 1.186,89 s |
+| Prompts 19/20 + TENANT-001 + DASH-001 + Prompt 21 dirigidos | 278 passed |
+| Playwright | 372 passed em 607,1 s |
+| Viewports | desktop, tablet, mobile e ultrawide |
+| ESLint | exit 0; 8 warnings preexistentes |
+| TypeScript | exit 0 |
+| Build Next.js | exit 0; 24 tarefas de página; 4 rotas V2 dinâmicas |
+| AST Python próprio | 704 arquivos; 0 erros |
+| Docker config | exit 0 |
+
+OpenAPI foi gerada em processos independentes duas vezes por modo:
+
+- default `LEGACY_ONLY`: 190 paths, 216 operações,
+  `e13d88b46e1a546725fe629ac797f8e0d489ff2f82cd8009e20ae37ff8fcaf25`;
+- experimental Prompt 20: 212 paths, 243 operações,
+  `724116d02bb5b5062be4ccd37ec30216982de541db8acec816be52b04b26411d`.
+
+As contagens de paths/operações permanecem iguais ao Prompt 20. Os hashes
+mudaram porque `POST /api/v1/query/` recebeu schemas opcionais de contexto/ação
+do side chat; nenhum endpoint foi adicionado pelo Prompt 21.
+
+`LUMINA-GAP-DASH-001` agora é teste regular: a correção copia o dashboard state
+histórico, aplica visual-only update e retorna `UI_MODIFIED`; mudança semântica,
+dataset não certificado e estado ausente falham fechado. O hash inicial/final de
+`backend/services/blueprints.json` é
+`407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596`.
+
+Produção continua `LEGACY_ONLY`. A prova separada confirmou 404, Sidebar sem
+link e zero request V2 nesse modo. OpenAI real, Oracle, banco operacional, porta
+5432, provider e rede externa tiveram zero acesso. Nenhuma migration v23,
+dependência ou alteração de lockfile foi criada.
+
+## Prompt 22.1 — Estabilização de Timing e Certificação Final (2026-08-06)
+
+Esta seção estende a baseline do Prompt 22 com os resultados oficiais da estabilização de timing e duas rodadas integrais consecutivas com 0 falhas, 0 erros e 0 skips.
+
+| Validação | Resultado |
+|---|---:|
+| Backend integral (Rodada 1) | 1774 passed em 1258.84 s (0:20:58) |
+| Backend integral (Rodada 2) | 1774 passed em 1385.47 s (0:23:05) |
+| Failed / errors / skipped | 0 / 0 / 0 em ambas as rodadas |
+| Xfailed / XPASS | 0 / 0 em ambas as rodadas |
+| Warnings backend | 2 depreciações Pydantic preexistentes sobre `min_items` |
+| Playwright visual (Rodada 1) | 392 passed (10.8 m) |
+| Playwright visual (Rodada 2) | 392 passed (10.4 m) |
+| Playwright failed / skipped | 0 / 0 em ambas as rodadas |
+| Viewports Playwright | desktop, tablet, mobile e ultrawide |
+| ESLint | exit 0; 8 warnings preexistentes |
+| TypeScript (`npx tsc --noEmit`) | exit 0 |
+| Build Next.js | exit 0; 25 páginas geradas |
+| AST Python próprio | 100% OK |
+| Docker config | exit 0 (`docker-compose.test.yml`) |
+| SHA256 `blueprints.json` | `407D5C65B7A38A805C073F064A0C1CD9AF6290C8BCBE18809CA645CD81042596` |
+| OpenAPI DEFAULT | 190 paths, 216 operações, 0 paths Prompt 22 |
+| OpenAPI EXPERIMENTAL | 223 paths, 255 operações, 11 paths Prompt 22 |
+
+As duas flutuações temporais preexistentes foram eliminadas deterministicamente sem mascarar ou desabilitar testes:
+1. `test_thousand_nodes_append_and_keyset_pagination_remain_bounded`: reduzido de 40,32 s sob carga para **0,81 s** no backend repository.
+2. `cancelled and stale side-chat responses`: manipuladores de rotas limpos sob `abort` e `close`, eliminando o bloqueio de workers no Playwright.
+3. Rollback da v12 em `test_dashboard_ai_assistance_v2_migration_chain`: tratado com segurança sem alterar arquivos de migrações históricas.
+
+Decisão de Checkpoint para os Prompts 19–22: **AUTORIZADO**.
+

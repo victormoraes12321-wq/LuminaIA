@@ -122,6 +122,40 @@ class Settings(BaseSettings):
     SMART_CACHE_WRITE_ENABLED: bool = Field(default=False)
     SMART_MATERIALIZATION_READ_ENABLED: bool = Field(default=False)
     SMART_MATERIALIZATION_BUILD_ENABLED: bool = Field(default=False)
+    DASHBOARD_BACKEND_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_VALIDATE",
+        "V2_AUTHORING",
+        "V2_PUBLISHED_READ",
+        "V2_RUNTIME",
+    ] = Field(default="LEGACY_ONLY")
+    DASHBOARD_ADMIN_APIS_ENABLED: bool = Field(default=False)
+    DASHBOARD_RUNTIME_APIS_ENABLED: bool = Field(default=False)
+    DASHBOARD_PUBLISHING_ENABLED: bool = Field(default=False)
+    DASHBOARD_ROLLBACK_ENABLED: bool = Field(default=False)
+    DASHBOARD_COLLABORATORS_ENABLED: bool = Field(default=False)
+    DASHBOARD_RUNTIME_CACHE_ENABLED: bool = Field(default=False)
+    DASHBOARD_MATERIALIZATION_ENABLED: bool = Field(default=False)
+    DASHBOARD_AUDIT_ENABLED: bool = Field(default=False)
+    DASHBOARD_LEGACY_IMPORT_DRY_RUN_ENABLED: bool = Field(default=False)
+    DASHBOARD_TENANT_ALLOWLIST: tuple[str, ...] = Field(default=())
+    DASHBOARD_AI_ASSISTANCE_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_ANALYZE",
+        "AI_PROPOSAL_PREVIEW",
+        "AI_DRAFT_CREATE",
+        "AI_ASSISTED_EDIT",
+    ] = Field(default="LEGACY_ONLY")
+    DASHBOARD_AI_APIS_ENABLED: bool = Field(default=False)
+    DASHBOARD_AI_FRONTEND_ENABLED: bool = Field(default=False)
+    DASHBOARD_AI_FAKE_PROVIDER_ENABLED: bool = Field(default=False)
+    DASHBOARD_AI_FEEDBACK_ENABLED: bool = Field(default=False)
+    DASHBOARD_AI_EVALUATIONS_ENABLED: bool = Field(default=False)
+    DASHBOARD_AI_TENANT_ALLOWLIST: tuple[str, ...] = Field(default=())
+    DASHBOARD_AI_MAX_INPUT_CHARACTERS: int = Field(default=4000, ge=128, le=20000)
+    DASHBOARD_AI_MAX_OUTPUT_TOKENS: int = Field(default=1200, ge=64, le=4000)
+    DASHBOARD_AI_MAX_TOOL_CALLS: int = Field(default=12, ge=0, le=32)
+    DASHBOARD_AI_MAX_DURATION_MS: int = Field(default=15000, ge=100, le=60000)
     SEMANTIC_RETRIEVAL_MAX_PAGE_SIZE: int = Field(default=100, ge=1, le=500)
     CONVERSATION_PERSIST_CONTENT: bool = Field(default=True)
     CONVERSATION_CONTENT_KEY_VERSION: str = Field(default="v1", min_length=1, max_length=32)
@@ -321,6 +355,24 @@ class Settings(BaseSettings):
         }
         if normalized not in allowed:
             raise ValueError("SMART_CACHE_MATERIALIZATION_MODE invalido")
+        return normalized
+
+    @field_validator("DASHBOARD_BACKEND_MODE")
+    @classmethod
+    def validate_dashboard_backend_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {"LEGACY_ONLY", "SHADOW_VALIDATE", "V2_AUTHORING", "V2_PUBLISHED_READ", "V2_RUNTIME"}
+        if normalized not in allowed:
+            raise ValueError("DASHBOARD_BACKEND_MODE invalido")
+        return normalized
+
+    @field_validator("DASHBOARD_AI_ASSISTANCE_MODE")
+    @classmethod
+    def validate_dashboard_ai_assistance_mode(cls, v: str) -> str:
+        normalized = str(v).upper().strip()
+        allowed = {"LEGACY_ONLY", "SHADOW_ANALYZE", "AI_PROPOSAL_PREVIEW", "AI_DRAFT_CREATE", "AI_ASSISTED_EDIT"}
+        if normalized not in allowed:
+            raise ValueError("DASHBOARD_AI_ASSISTANCE_MODE invalido")
         return normalized
 
     @model_validator(mode="after")

@@ -21,40 +21,45 @@ BASE_URL = "http://testserver/api/v1"
 
 @pytest_asyncio.fixture
 async def admin_client():
-    """Retorna um cliente logado como ADMIN após resetar a senha, lidando com ambos estados de senha."""
+    """Retorna um cliente logado como ADMIN após garantir a redefinição de senha via API."""
     async with AsyncClient(transport=ASGITransport(app=app), base_url=BASE_URL) as client:
-        # 1. Tenta fazer login com a senha redefinida (caso outro teste já tenha alterado)
+        # 1. Tenta login com a nova senha
         login_res = await client.post("/auth/login", json={
             "email": "admin@luminaai.demo",
             "password": "NewAdminLumina@2026"
         })
         
-        if login_res.status_code == 200:
-            token_final = login_res.json()["access_token"]
-        else:
-            # 2. Se falhar, faz login com a senha padrão e redefine
+        current_pwd = "NewAdminLumina@2026"
+        if login_res.status_code != 200:
+            # 2. Tenta login com a senha padrão
+            current_pwd = "AdminLumina@2026"
             login_res = await client.post("/auth/login", json={
                 "email": "admin@luminaai.demo",
-                "password": "AdminLumina@2026"
+                "password": current_pwd
             })
-            login_data = login_res.json()
-            token = login_data["access_token"]
             
-            # Reseta a senha para sair da trava de primeiro acesso
-            headers = {"Authorization": f"Bearer {token}"}
-            await client.post("/auth/change-password", json={
-                "old_password": "AdminLumina@2026",
-                "new_password": "NewAdminLumina@2026"
-            }, headers=headers)
-            
-            # Loga com a nova senha
-            login_res2 = await client.post("/auth/login", json={
-                "email": "admin@luminaai.demo",
-                "password": "NewAdminLumina@2026"
-            })
-            token_final = login_res2.json()["access_token"]
+        assert login_res.status_code == 200, f"Login admin falhou: {login_res.status_code} - {login_res.text}"
+        data = login_res.json()
         
-        # Injeta headers
+        # 3. Se ainda precisa alterar a senha, chama /auth/change-password via API
+        if data.get("must_change_password"):
+            token = data["access_token"]
+            headers = {"Authorization": f"Bearer {token}"}
+            target_pwd = "NewAdminLumina@2026" if current_pwd == "AdminLumina@2026" else "AdminLumina@2026_alt"
+            
+            pwd_res = await client.post("/auth/change-password", json={
+                "old_password": current_pwd,
+                "new_password": target_pwd
+            }, headers=headers)
+            assert pwd_res.status_code == 200, f"Alteração de senha falhou: {pwd_res.status_code} - {pwd_res.text}"
+            
+            login_res = await client.post("/auth/login", json={
+                "email": "admin@luminaai.demo",
+                "password": target_pwd
+            })
+            assert login_res.status_code == 200, f"Re-login pós-senha falhou: {login_res.status_code} - {login_res.text}"
+
+        token_final = login_res.json()["access_token"]
         client.headers.update({"Authorization": f"Bearer {token_final}"})
         yield client
 

@@ -1,0 +1,70 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "display_alias": {
+      "anyOf": [
+        {
+          "maxLength": 120,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Display Alias"
+    },
+    "expected_aggregation": {
+      "enum": [
+        "SUM",
+        "AVERAGE",
+        "COUNT",
+        "MIN",
+        "MAX",
+        "NONE"
+      ],
+      "title": "Expected Aggregation",
+      "type": "string"
+    },
+    "expected_fingerprint": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 8,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Fingerprint"
+    },
+    "expected_unit": {
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Expected Unit",
+      "type": "string"
+    },
+    "metric_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Metric Id",
+      "type": "string"
+    },
+    "metric_registry_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Metric Registry Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "metric_id",
+    "metric_registry_version",
+    "expected_unit",
+    "expected_aggregation"
+  ],
+  "title": "DashboardMetricBindingV2",
+  "type": "object"
+}

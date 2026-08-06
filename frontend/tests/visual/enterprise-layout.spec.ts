@@ -48,6 +48,7 @@ const instance = {
 }
 
 async function mockEnterpriseApi(page: Page) {
+  await page.route('**/api/v2/dashboards**', route => route.fulfill({ json: [] }))
   await page.route('**/api/v1/**', async route => {
     const url = route.request().url()
     const method = route.request().method()

@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "fallback_widget_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Fallback Widget Id"
+    },
+    "height": {
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "reading_order": {
+      "maximum": 999,
+      "minimum": 0,
+      "title": "Reading Order",
+      "type": "integer"
+    },
+    "visible": {
+      "default": true,
+      "title": "Visible",
+      "type": "boolean"
+    },
+    "widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Widget Id",
+      "type": "string"
+    },
+    "width": {
+      "maximum": 16,
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    },
+    "x": {
+      "maximum": 15,
+      "minimum": 0,
+      "title": "X",
+      "type": "integer"
+    },
+    "y": {
+      "maximum": 999,
+      "minimum": 0,
+      "title": "Y",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "widget_id",
+    "x",
+    "y",
+    "width",
+    "height",
+    "reading_order"
+  ],
+  "title": "DashboardGridItemV2",
+  "type": "object"
+}

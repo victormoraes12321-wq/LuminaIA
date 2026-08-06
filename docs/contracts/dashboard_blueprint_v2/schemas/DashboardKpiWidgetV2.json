@@ -1,0 +1,544 @@
+{
+  "$defs": {
+    "DashboardCurrencyFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "currency_code": {
+          "enum": [
+            "BRL",
+            "USD",
+            "EUR"
+          ],
+          "title": "Currency Code",
+          "type": "string"
+        },
+        "decimal_places": {
+          "default": 2,
+          "maximum": 4,
+          "minimum": 0,
+          "title": "Decimal Places",
+          "type": "integer"
+        },
+        "display": {
+          "default": "SYMBOL",
+          "enum": [
+            "SYMBOL",
+            "CODE",
+            "NAME"
+          ],
+          "title": "Display",
+          "type": "string"
+        }
+      },
+      "required": [
+        "currency_code"
+      ],
+      "title": "DashboardCurrencyFormattingV2",
+      "type": "object"
+    },
+    "DashboardDateFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "DATE_SHORT",
+            "DATE_LONG",
+            "MONTH_YEAR",
+            "YEAR",
+            "DATETIME"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "timezone_policy": {
+          "default": "DASHBOARD",
+          "enum": [
+            "DASHBOARD",
+            "TENANT",
+            "USER"
+          ],
+          "title": "Timezone Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format"
+      ],
+      "title": "DashboardDateFormattingV2",
+      "type": "object"
+    },
+    "DashboardEmptyStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "RESET_FILTERS",
+            "CHANGE_PERIOD"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Message",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "message"
+      ],
+      "title": "DashboardEmptyStateV2",
+      "type": "object"
+    },
+    "DashboardErrorStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "RETRY",
+            "OPEN_PROVENANCE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "expose_diagnostics": {
+          "default": false,
+          "title": "Expose Diagnostics",
+          "type": "boolean"
+        },
+        "message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Message",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "message"
+      ],
+      "title": "DashboardErrorStateV2",
+      "type": "object"
+    },
+    "DashboardFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DashboardCurrencyFormattingV2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "date": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DashboardDateFormattingV2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "locale": {
+          "const": "pt-BR",
+          "default": "pt-BR",
+          "title": "Locale",
+          "type": "string"
+        },
+        "number": {
+          "$ref": "#/$defs/DashboardNumberFormattingV2"
+        },
+        "percentage_display": {
+          "anyOf": [
+            {
+              "enum": [
+                "ALREADY_PERCENT",
+                "RATIO_TO_PERCENT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Percentage Display"
+        },
+        "theme_token": {
+          "$ref": "#/$defs/DashboardThemeTokenV2",
+          "default": "PRIMARY"
+        }
+      },
+      "title": "DashboardFormattingV2",
+      "type": "object"
+    },
+    "DashboardLoadingStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "announce_to_screen_reader": {
+          "default": true,
+          "title": "Announce To Screen Reader",
+          "type": "boolean"
+        },
+        "label": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Label",
+          "type": "string"
+        },
+        "presentation": {
+          "default": "SKELETON",
+          "enum": [
+            "SKELETON",
+            "PROGRESS",
+            "TEXT"
+          ],
+          "title": "Presentation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label"
+      ],
+      "title": "DashboardLoadingStateV2",
+      "type": "object"
+    },
+    "DashboardNumberFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_fraction_digits": {
+          "default": 2,
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Maximum Fraction Digits",
+          "type": "integer"
+        },
+        "minimum_fraction_digits": {
+          "default": 0,
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Minimum Fraction Digits",
+          "type": "integer"
+        },
+        "negative_display": {
+          "default": "MINUS",
+          "enum": [
+            "MINUS",
+            "PARENTHESES"
+          ],
+          "title": "Negative Display",
+          "type": "string"
+        },
+        "null_display": {
+          "default": "SEM_VALOR",
+          "enum": [
+            "SEM_VALOR",
+            "TRACO",
+            "VAZIO"
+          ],
+          "title": "Null Display",
+          "type": "string"
+        },
+        "style": {
+          "default": "DECIMAL",
+          "enum": [
+            "DECIMAL",
+            "INTEGER",
+            "COMPACT"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "unit_visible": {
+          "default": true,
+          "title": "Unit Visible",
+          "type": "boolean"
+        }
+      },
+      "title": "DashboardNumberFormattingV2",
+      "type": "object"
+    },
+    "DashboardThemeTokenV2": {
+      "enum": [
+        "PRIMARY",
+        "SECONDARY",
+        "POSITIVE",
+        "NEGATIVE",
+        "WARNING",
+        "NEUTRAL",
+        "INFO",
+        "SERIES_1",
+        "SERIES_2",
+        "SERIES_3",
+        "SERIES_4",
+        "SERIES_5",
+        "SERIES_6",
+        "SERIES_7",
+        "SERIES_8"
+      ],
+      "title": "DashboardThemeTokenV2",
+      "type": "string"
+    },
+    "DashboardWidgetAccessibilityV2": {
+      "additionalProperties": false,
+      "properties": {
+        "accessible_description": {
+          "maxLength": 500,
+          "minLength": 8,
+          "title": "Accessible Description",
+          "type": "string"
+        },
+        "accessible_name": {
+          "maxLength": 160,
+          "minLength": 2,
+          "title": "Accessible Name",
+          "type": "string"
+        },
+        "chart_text_summary_required": {
+          "default": false,
+          "title": "Chart Text Summary Required",
+          "type": "boolean"
+        },
+        "focus_behavior": {
+          "default": "CONTAINER",
+          "enum": [
+            "CONTAINER",
+            "FIRST_CONTROL",
+            "NOT_FOCUSABLE"
+          ],
+          "title": "Focus Behavior",
+          "type": "string"
+        },
+        "summary_template": {
+          "maxLength": 500,
+          "minLength": 8,
+          "title": "Summary Template",
+          "type": "string"
+        },
+        "table_alternative_required": {
+          "default": false,
+          "title": "Table Alternative Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "accessible_name",
+        "accessible_description",
+        "summary_template"
+      ],
+      "title": "DashboardWidgetAccessibilityV2",
+      "type": "object"
+    },
+    "DashboardWidgetIdentityV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_name": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Canonical Name",
+          "type": "string"
+        },
+        "widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "widget_id",
+        "canonical_name"
+      ],
+      "title": "DashboardWidgetIdentityV2",
+      "type": "object"
+    },
+    "DashboardWidgetStatesV2": {
+      "additionalProperties": false,
+      "properties": {
+        "empty": {
+          "$ref": "#/$defs/DashboardEmptyStateV2"
+        },
+        "error": {
+          "$ref": "#/$defs/DashboardErrorStateV2"
+        },
+        "loading": {
+          "$ref": "#/$defs/DashboardLoadingStateV2"
+        },
+        "partial_message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Partial Message",
+          "type": "string"
+        },
+        "permission_denied_message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Permission Denied Message",
+          "type": "string"
+        },
+        "stale_message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Stale Message",
+          "type": "string"
+        },
+        "truncated_message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Truncated Message",
+          "type": "string"
+        },
+        "unavailable_message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Unavailable Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "loading",
+        "empty",
+        "partial_message",
+        "stale_message",
+        "truncated_message",
+        "error",
+        "permission_denied_message",
+        "unavailable_message"
+      ],
+      "title": "DashboardWidgetStatesV2",
+      "type": "object"
+    },
+    "DashboardWidgetTitleV2": {
+      "additionalProperties": false,
+      "properties": {
+        "subtitle": {
+          "anyOf": [
+            {
+              "maxLength": 320,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subtitle"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "visible": {
+          "default": true,
+          "title": "Visible",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "DashboardWidgetTitleV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "accessibility": {
+      "$ref": "#/$defs/DashboardWidgetAccessibilityV2"
+    },
+    "binding_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Binding Id",
+      "type": "string"
+    },
+    "expected_result_shape": {
+      "enum": [
+        "SCALAR",
+        "COMPARISON"
+      ],
+      "title": "Expected Result Shape",
+      "type": "string"
+    },
+    "formatting": {
+      "$ref": "#/$defs/DashboardFormattingV2"
+    },
+    "identity": {
+      "$ref": "#/$defs/DashboardWidgetIdentityV2"
+    },
+    "states": {
+      "$ref": "#/$defs/DashboardWidgetStatesV2"
+    },
+    "theme_token": {
+      "$ref": "#/$defs/DashboardThemeTokenV2",
+      "default": "PRIMARY"
+    },
+    "title": {
+      "$ref": "#/$defs/DashboardWidgetTitleV2"
+    },
+    "trend_display": {
+      "default": "NONE",
+      "enum": [
+        "NONE",
+        "DIRECTION",
+        "SPARKLINE_REFERENCE"
+      ],
+      "title": "Trend Display",
+      "type": "string"
+    },
+    "unit_display": {
+      "default": "AUTO",
+      "enum": [
+        "AUTO",
+        "SHOW",
+        "HIDE"
+      ],
+      "title": "Unit Display",
+      "type": "string"
+    },
+    "visible": {
+      "default": true,
+      "title": "Visible",
+      "type": "boolean"
+    },
+    "widget_type": {
+      "const": "KPI",
+      "title": "Widget Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "identity",
+    "title",
+    "binding_id",
+    "accessibility",
+    "states",
+    "widget_type",
+    "expected_result_shape"
+  ],
+  "title": "DashboardKpiWidgetV2",
+  "type": "object"
+}

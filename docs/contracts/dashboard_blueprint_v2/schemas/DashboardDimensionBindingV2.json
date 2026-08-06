@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "dimension_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Dimension Id",
+      "type": "string"
+    },
+    "display_label": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Display Label",
+      "type": "string"
+    },
+    "drilldown_eligible": {
+      "default": false,
+      "title": "Drilldown Eligible",
+      "type": "boolean"
+    },
+    "grouping_intent": {
+      "enum": [
+        "CATEGORY",
+        "TIME_BUCKET",
+        "HIERARCHY",
+        "NONE"
+      ],
+      "title": "Grouping Intent",
+      "type": "string"
+    },
+    "maximum_visual_cardinality": {
+      "default": 20,
+      "maximum": 250,
+      "minimum": 1,
+      "title": "Maximum Visual Cardinality",
+      "type": "integer"
+    },
+    "null_handling": {
+      "default": "PRESERVE",
+      "enum": [
+        "PRESERVE",
+        "LABEL_UNKNOWN",
+        "OMIT"
+      ],
+      "title": "Null Handling",
+      "type": "string"
+    },
+    "sorting_intent": {
+      "enum": [
+        "ASC",
+        "DESC",
+        "METRIC_ASC",
+        "METRIC_DESC",
+        "NONE"
+      ],
+      "title": "Sorting Intent",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dimension_id",
+    "display_label",
+    "grouping_intent",
+    "sorting_intent"
+  ],
+  "title": "DashboardDimensionBindingV2",
+  "type": "object"
+}

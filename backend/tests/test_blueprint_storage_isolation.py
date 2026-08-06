@@ -65,6 +65,8 @@ def test_qie_reads_and_writes_only_isolated_repository() -> None:
 
     initial_hash = _sha256(OFFICIAL_BLUEPRINT_PATH)
     repository = BlueprintRepositoryFactory.create(_test_env(), process_id=104)
+    if repository.exists():
+        repository.location.path.unlink()
     assert not repository.exists()
 
     engine = QueryIntelligenceEngine(repository)
@@ -76,6 +78,8 @@ def test_qie_reads_and_writes_only_isolated_repository() -> None:
     stored = repository.read()
     assert stored["global_metrics"]["execucoes_sem_ia"] == 1
     assert _sha256(OFFICIAL_BLUEPRINT_PATH) == initial_hash
+    if repository.exists():
+        repository.location.path.unlink()
 
 
 def test_atomic_concurrent_writes_never_mix_documents() -> None:
@@ -90,10 +94,14 @@ def test_atomic_concurrent_writes_never_mix_documents() -> None:
     document = repository.read()
     assert document["values"] == [document["writer"]] * 100
     assert not list(repository.location.path.parent.glob("*.tmp"))
+    if repository.exists():
+        repository.location.path.unlink()
 
 
 def test_aborted_temporary_write_cannot_touch_official_repository(monkeypatch) -> None:
     repository = BlueprintRepositoryFactory.create(_test_env(), process_id=106)
+    if repository.exists():
+        repository.location.path.unlink()
     initial_hash = _sha256(OFFICIAL_BLUEPRINT_PATH)
 
     def fail_replace(source, destination):

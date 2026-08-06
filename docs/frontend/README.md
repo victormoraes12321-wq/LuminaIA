@@ -114,3 +114,28 @@ validada pelo backend. Flags:
 
 - `NEXT_PUBLIC_SUPERVISED_FEEDBACK_ENABLED`;
 - `NEXT_PUBLIC_SUPERVISED_FEEDBACK_ADMIN_ENABLED`.
+
+## Dashboards governados V2
+
+As rotas `/dashboard/v2`, `/dashboard/v2/[dashboardId]`, `/edit` e `/history`
+consomem exclusivamente `lumina.dashboard-backend/1.0` e
+`lumina.dashboard-blueprint/2.0`. O registry estático suporta 16 widgets,
+fallback textual de charts, partial/stale/truncated explícitos, filtros,
+cross-filter, drilldown, proveniência, editor manual e lifecycle humano.
+
+O side chat envia contexto sanitizado pela API de query existente. Ações livres,
+HTML, URL arbitrária, semantic patch, publish e rollback falham fechado. Visual
+patch só atualiza a UI depois de preview, confirmação, CAS e resposta do backend.
+O transporte do chat expõe connecting/receiving/complete, cancelamento,
+falha retryable e confirmação de action; chunks nunca executam ações antes do
+envelope completo. Reset de sessão aborta e limpa o contexto local.
+`DASHBOARD_UI_MODE=LEGACY_ONLY` permanece default e não monta a superfície V2.
+
+## Dashboard AI Assistance V2
+
+`/dashboard/v2/new` é server-guarded e apresenta objetivo, público, período,
+dimensões e preferência visual. O preview reutiliza o renderer Prompt 21 com
+placeholders, evidencia riscos/checksums e nunca sintetiza fatos. Revisão,
+aceite e aplicação são ações distintas; respostas obsoletas são descartadas e
+requests podem ser cancelados. Editor e side chat apenas abrem o fluxo
+governado. Em `LEGACY_ONLY` a rota redireciona e faz zero requests Prompt 22.

@@ -1,0 +1,113 @@
+{
+  "accepted_proposal": {
+    "applied": false,
+    "status": "ACCEPTED"
+  },
+  "ambiguity": {
+    "code": "DASHBOARD_AI_METRIC_AMBIGUOUS",
+    "status": "NEEDS_CLARIFICATION"
+  },
+  "applied_draft": {
+    "dashboard_lifecycle": "DRAFT",
+    "published": false,
+    "status": "APPLIED"
+  },
+  "clarification": {
+    "kind": "METRIC",
+    "options": [
+      "metric.revenue.gross",
+      "metric.revenue.net"
+    ],
+    "status": "NEEDS_CLARIFICATION"
+  },
+  "comparison_proposal": {
+    "lifecycle": "DRAFT",
+    "status": "READY_FOR_REVIEW",
+    "template": "COMPARATIVE_ANALYSIS"
+  },
+  "creation_request": {
+    "instruction": "Painel executivo sintético",
+    "operation": "CREATE_DASHBOARD"
+  },
+  "design_spec": {
+    "metrics": [
+      "metric.revenue.total"
+    ],
+    "period": "period.last.closed.month",
+    "template": "EXECUTIVE_OVERVIEW"
+  },
+  "evidence_summary": {
+    "authority": "MetricRegistry",
+    "canonical_reference": "metric.revenue.total"
+  },
+  "executive_proposal": {
+    "lifecycle": "DRAFT",
+    "status": "READY_FOR_REVIEW",
+    "template": "EXECUTIVE_OVERVIEW"
+  },
+  "feedback_reference": {
+    "automatic_learning": false,
+    "workflow": "lumina.supervised-feedback/1.0"
+  },
+  "financial_proposal": {
+    "lifecycle": "DRAFT",
+    "status": "READY_FOR_REVIEW",
+    "template": "FINANCIAL_OVERVIEW"
+  },
+  "injection_blocked": {
+    "code": "DASHBOARD_AI_PROMPT_INJECTION_BLOCKED",
+    "status": "BLOCKED"
+  },
+  "intent": {
+    "metrics": [
+      "metric.revenue.total"
+    ],
+    "objective": "Painel executivo sintético"
+  },
+  "legacy_only": {
+    "mode": "LEGACY_ONLY",
+    "new_paths": 0,
+    "new_requests": 0
+  },
+  "public_rationale": {
+    "chain_of_thought": false,
+    "summary": "Seleção baseada em referências canônicas."
+  },
+  "publish_blocked": {
+    "code": "DASHBOARD_AI_OPERATION_FORBIDDEN",
+    "status": "BLOCKED"
+  },
+  "ranking_proposal": {
+    "lifecycle": "DRAFT",
+    "status": "READY_FOR_REVIEW",
+    "template": "PRODUCT_RANKING"
+  },
+  "rejected_proposal": {
+    "applied": false,
+    "status": "REJECTED"
+  },
+  "sales_proposal": {
+    "lifecycle": "DRAFT",
+    "status": "READY_FOR_REVIEW",
+    "template": "SALES_PERFORMANCE"
+  },
+  "semantic_patch_proposal": {
+    "application": "NEW_DRAFT_REVISION",
+    "kind": "SEMANTIC",
+    "status": "READY_FOR_REVIEW"
+  },
+  "shadow": {
+    "applied": false,
+    "mode": "SHADOW_ANALYZE",
+    "persisted_proposal": false
+  },
+  "unknown_metric_blocked": {
+    "code": "DASHBOARD_AI_UNKNOWN_METRIC",
+    "status": "BLOCKED"
+  },
+  "visual_proposal": {
+    "kind": "VISUAL",
+    "semantic_change": false,
+    "status": "READY_FOR_REVIEW"
+  }
+}

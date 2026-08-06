@@ -60,3 +60,11 @@ Quando a pergunta seguinte nao informa periodo, o historico da conversa pode for
 - A IA nao deve inventar indicadores fora do conhecimento disponivel.
 - Interpretacoes de baixa confianca devem solicitar refinamento/confirmacao conforme fluxo implementado.
 - Perguntas prioritarias de vendas devem manter regressao automatizada/deterministica antes de alteracoes no prompt.
+
+## Dashboard AI Assistance V2
+
+A assistência de dashboards usa o roteamento governado existente somente para
+extração de intenção. O provider não retorna Blueprint, patch, SQL, permissão,
+identificador físico, dados ou valores. Tools são uma allowlist estática de
+metadados/validação. O builder determinístico produz a proposta, e o Prompt 20
+aplica somente após aceite humano. Provider real e rollout estão desabilitados.

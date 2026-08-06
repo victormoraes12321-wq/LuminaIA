@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "default": "NONE",
+      "enum": [
+        "NONE",
+        "RESET_FILTERS",
+        "CHANGE_PERIOD"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Message",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "message"
+  ],
+  "title": "DashboardEmptyStateV2",
+  "type": "object"
+}

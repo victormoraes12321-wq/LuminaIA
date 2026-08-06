@@ -485,3 +485,73 @@ criadas pela tarefa atual.
   todas as flags funcionais iniciam desligadas.
 - Migration v16 e explicita, aditiva, idempotente e possui down somente para
   PostgreSQL de teste descartavel.
+
+## 23. Dashboard Blueprint V2
+
+- A autoridade contratual declarativa e `backend/contracts/dashboard_blueprint_v2/`, versao `lumina.dashboard-blueprint/2.0`.
+- No Prompt 19 o estado e somente `CONTRACT_ONLY`: nao existe API, model, migration, repository, runtime, pagina, renderer, editor ou side chat V2.
+- Blueprint nao concede permission, nao escolhe tenant/usuario e nao contem SQL, formula, identificador fisico, dataset, credencial ou valor empresarial.
+- Widgets, filtros, periodos e interacoes usam unions fechadas; registries sao estaticos e nao carregam plugins ou imports dinamicos.
+- Patches visuais e semanticos sao separados; mudanca semantica exige nova revision e revalidacao.
+- Canonicalizacao e checksums sao deterministas. Adapter legado somente propoe e nunca persiste ou modifica a origem.
+- `backend/services/blueprints.json`, modelos e runtime legados permanecem autoridade operacional ate rollout futuro aprovado.
+- Persistencia, renderer e proposta por IA dependem dos Prompts 20, 21 e 22; nenhuma dessas etapas e autorizada pelo contrato.
+
+## 24. Backend governado de dashboards
+
+- A autoridade backend V2 e `backend/services/dashboard_backend_v2/`, versao
+  `lumina.dashboard-backend/1.0`; ela consome somente Blueprint V2 validado.
+- Tenant, usuario, role, ownership e grants sao server-controlled. Roles de
+  colaborador restringem RBAC global e nunca o elevam.
+- Revisoes, reviews, approvals, publications e auditoria sao imutaveis;
+  active publication, metadata, head e collaborators usam CAS.
+- Rollback cria nova publication; nunca apaga ou reativa linha historica.
+- Runtime aceita somente publication ativa, reutiliza Safe Analytical
+  PostgreSQL, Validation & Provenance e Smart Cache, e preserva Decimal,
+  classification, freshness, partial e provenance.
+- Migration v22 e explicita, aditiva e excluida de `create_all`; down existe
+  somente para PostgreSQL descartavel de teste.
+- O rollout usa `DASHBOARD_BACKEND_MODE`; producao permanece `LEGACY_ONLY`,
+  todas as flags ficam desligadas e a allowlist vazia.
+- Prompt 20 nao cria pagina, renderer, editor, side chat ou geracao por IA.
+
+## 25. Interface governada de dashboards e side chat
+
+- A autoridade de apresentação V2 é `frontend/components/dashboard-v2/`, versão
+  `lumina.dashboard-ui-sidechat/1.0`.
+- `DASHBOARD_UI_MODE` é server-controlled e permanece `LEGACY_ONLY` por padrão;
+  a flag pública apenas controla ergonomia e nunca concede acesso.
+- Rotas `/dashboard/v2`, runtime, editor e histórico usam guard server-side e
+  capabilities efetivas do backend. A Sidebar só aparece após capability real.
+- O registry dos 16 widgets é estático. Widget ou result shape desconhecido
+  falha fechado e os demais widgets permanecem disponíveis.
+- O navegador não calcula métrica, delta, percentual, ranking ou null; apenas
+  apresenta os valores tipados retornados pelo runtime certificado.
+- Cross-filter e drilldown só usam interações declaradas no Blueprint ativo.
+- Side chat reutiliza `/api/v1/query/` com contexto mínimo e action union fechada;
+  não recebe SQL, dataset completo ou blueprint inteiro e não publica, aprova,
+  executa rollback, gerencia colaboradores ou aplica semantic patch.
+- Visual patch exige preview, confirmação humana, idempotency key, CAS e nova
+  revisão do backend. `UI_MODIFIED` só ocorre após confirmação e preserva o
+  checksum semântico.
+- Requests são cancelados em unmount, logout, troca de usuário/tenant e nova
+  geração; respostas antigas não sobrescrevem estado novo.
+- Prompt 21 não autoriza Prompt 22, rollout produtivo, migration v23, nova
+  dependência ou alteração de lockfile.
+
+## 25. Assistência governada de dashboards por IA
+
+- A autoridade é `backend/services/dashboard_ai_assistance_v2/`, versão
+  `lumina.dashboard-ai-assistance/1.0`.
+- O modelo interpreta somente intenção; resolução canônica, clarificação,
+  design spec, Blueprint, patches, checksums e aplicação são determinísticos.
+- Proposta, versão, evidência, decisão e auditoria são imutáveis. Aceite não
+  aplica; aplicação é request separado e cria apenas DRAFT via Prompt 20.
+- IA não publica, aprova, executa rollback, gerencia colaboradores, transfere
+  ownership, executa SQL/analytics ou consulta Oracle.
+- Toda operação é tenant/user-scoped e respeita RBAC e grants reais. Entrada
+  não concede tenant, role, permission, provider, tool ou canonical ID.
+- O rollout usa `DASHBOARD_AI_ASSISTANCE_MODE`; produção permanece
+  `LEGACY_ONLY`, APIs/frontend desligados e allowlist vazia.
+- Migration v23 é explícita, aditiva, excluída de `create_all` e possui down
+  somente para PostgreSQL descartável de teste.

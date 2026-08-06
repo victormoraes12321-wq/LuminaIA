@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -34,6 +34,8 @@ import { cn, formatRelativeTime } from '@/lib/utils'
 import { Badge } from '@/components/ui/Badge'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { useAuth } from '@/context/AuthContext'
+import { listDashboardsV2 } from '@/lib/dashboard-v2/client'
+import { getPublicDashboardUiMode } from '@/lib/dashboard-v2/config'
 import type { ChartType, FavoriteItem, HistoryItem } from '@/types/lumina'
 
 // ── Chart type icons ───────────────────────────────────────────
@@ -221,6 +223,18 @@ export function Sidebar({
   const feedbackEnabled = process.env.NEXT_PUBLIC_SUPERVISED_FEEDBACK_ENABLED === 'true'
   const feedbackAdminEnabled = process.env.NEXT_PUBLIC_SUPERVISED_FEEDBACK_ADMIN_ENABLED === 'true'
   const semanticRetrievalEnabled = process.env.NEXT_PUBLIC_SEMANTIC_RETRIEVAL_ENABLED === 'true'
+  const dashboardUiMode = getPublicDashboardUiMode()
+  const [governedDashboardsVisible, setGovernedDashboardsVisible] = useState(false)
+  const shouldCheckGovernedDashboards = dashboardUiMode !== 'LEGACY_ONLY' && Boolean(user)
+
+  useEffect(() => {
+    if (!shouldCheckGovernedDashboards) return
+    const controller = new AbortController()
+    listDashboardsV2(controller.signal).then(items => {
+      setGovernedDashboardsVisible(items.some(item => item.effective_capabilities.includes('dashboard:view')))
+    }).catch(() => setGovernedDashboardsVisible(false))
+    return () => controller.abort()
+  }, [shouldCheckGovernedDashboards, user])
 
   const renderSidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -265,6 +279,21 @@ export function Sidebar({
               >
                 <LayoutDashboard size={13} className={pathname === '/dashboard/studio' ? 'text-lumina-400' : 'text-zinc-500'} />
                 <span>Dashboard Studio</span>
+              </Link>
+            )}
+
+            {shouldCheckGovernedDashboards && governedDashboardsVisible && (
+              <Link
+                href="/dashboard/v2"
+                className={cn(
+                  'w-full flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-left text-xs font-semibold transition-colors',
+                  pathname.startsWith('/dashboard/v2')
+                    ? 'bg-[rgb(var(--bg-elevated))] text-lumina-400'
+                    : 'text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--bg-elevated))]',
+                )}
+              >
+                <ShieldCheck size={13} className={pathname.startsWith('/dashboard/v2') ? 'text-lumina-400' : 'text-zinc-500'} />
+                <span>Dashboards governados</span>
               </Link>
             )}
 

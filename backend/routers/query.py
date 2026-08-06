@@ -613,6 +613,17 @@ async def processar_consulta(
         history_list = []
         if payload.history:
             history_list = [{"role": h.role, "content": h.content} for h in payload.history]
+        if payload.dashboard_context is not None:
+            # The existing conversational pipeline receives only the strict,
+            # public envelope.  Full blueprints, result rows, SQL, binds,
+            # credentials and permission grants are not part of this schema.
+            history_list.append({
+                "role": "assistant",
+                "content": (
+                    "Contexto público do dashboard governado: "
+                    + payload.dashboard_context.model_dump_json(exclude_none=True)
+                )[:2000],
+            })
             
         try:
             res_dict = await new_query_orchestrator.run_pipeline(

@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "announce_to_screen_reader": {
+      "default": true,
+      "title": "Announce To Screen Reader",
+      "type": "boolean"
+    },
+    "label": {
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Label",
+      "type": "string"
+    },
+    "presentation": {
+      "default": "SKELETON",
+      "enum": [
+        "SKELETON",
+        "PROGRESS",
+        "TEXT"
+      ],
+      "title": "Presentation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "label"
+  ],
+  "title": "DashboardLoadingStateV2",
+  "type": "object"
+}

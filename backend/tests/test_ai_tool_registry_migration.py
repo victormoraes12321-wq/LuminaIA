@@ -22,8 +22,11 @@ pytestmark = [pytest.mark.integration, pytest.mark.database]
 
 @pytest.mark.asyncio
 async def test_migration_v17_idempotency() -> None:
-    await run_down(confirm_test_only=True)
-    res_up1 = await run_up()
+    try:
+        await run_down(confirm_test_only=True)
+    finally:
+        res_up1 = await run_up()
+
     assert res_up1["status"] == "success"
     assert len(res_up1["tables"]) == 12
 
@@ -42,16 +45,17 @@ async def test_migration_v17_idempotency() -> None:
 
 @pytest.mark.asyncio
 async def test_migration_v17_down_up_cycle() -> None:
-    res_down = await run_down(confirm_test_only=True)
-    assert res_down["status"] == "success"
+    try:
+        res_down = await run_down(confirm_test_only=True)
+        assert res_down["status"] == "success"
 
-    async with get_db_context() as session:
-        for t in TABLES:
-            chk = await session.execute(
-                text("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = :t)"),
-                {"t": t},
-            )
-            assert chk.scalar() is False, f"Table '{t}' still exists after migration_v17 DOWN."
-
-    res_up = await run_up()
-    assert res_up["status"] == "success"
+        async with get_db_context() as session:
+            for t in TABLES:
+                chk = await session.execute(
+                    text("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = :t)"),
+                    {"t": t},
+                )
+                assert chk.scalar() is False, f"Table '{t}' still exists after migration_v17 DOWN."
+    finally:
+        res_up = await run_up()
+        assert res_up["status"] == "success"

@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "DashboardPatchOperationKindV2": {
+      "enum": [
+        "ADD",
+        "REPLACE",
+        "REMOVE",
+        "MOVE"
+      ],
+      "title": "DashboardPatchOperationKindV2",
+      "type": "string"
+    },
+    "DashboardPatchOperationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "from_path": {
+          "anyOf": [
+            {
+              "maxLength": 240,
+              "minLength": 2,
+              "pattern": "^/[a-z0-9_./:-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From Path"
+        },
+        "operation": {
+          "$ref": "#/$defs/DashboardPatchOperationKindV2"
+        },
+        "path": {
+          "maxLength": 240,
+          "minLength": 2,
+          "pattern": "^/[a-z0-9_./:-]+$",
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "operation",
+        "path"
+      ],
+      "title": "DashboardPatchOperationV2",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "base_blueprint_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Base Blueprint Checksum",
+      "type": "string"
+    },
+    "base_semantic_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Base Semantic Checksum",
+      "type": "string"
+    },
+    "base_visual_revision": {
+      "minimum": 1,
+      "title": "Base Visual Revision",
+      "type": "integer"
+    },
+    "blueprint_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Blueprint Id",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/DashboardPatchOperationV2"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "title": "Operations",
+      "type": "array"
+    },
+    "patch_type": {
+      "const": "VISUAL",
+      "default": "VISUAL",
+      "title": "Patch Type",
+      "type": "string"
+    },
+    "target_visual_revision": {
+      "minimum": 2,
+      "title": "Target Visual Revision",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "blueprint_id",
+    "base_blueprint_checksum",
+    "base_semantic_checksum",
+    "base_visual_revision",
+    "target_visual_revision",
+    "operations"
+  ],
+  "title": "DashboardVisualPatchV2",
+  "type": "object"
+}

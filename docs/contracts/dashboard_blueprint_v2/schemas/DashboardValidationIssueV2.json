@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "DashboardValidationSeverityV2": {
+      "enum": [
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ],
+      "title": "DashboardValidationSeverityV2",
+      "type": "string"
+    },
+    "DashboardValidationStageV2": {
+      "enum": [
+        "CONTRACT",
+        "IDENTITY",
+        "VERSION",
+        "LIFECYCLE",
+        "SECURITY",
+        "CLASSIFICATION",
+        "PERMISSIONS",
+        "LAYOUT",
+        "WIDGETS",
+        "DATA_BINDINGS",
+        "FILTERS",
+        "INTERACTIONS",
+        "FORMATTING",
+        "ACCESSIBILITY",
+        "PROVENANCE",
+        "COMPATIBILITY",
+        "CANONICALIZATION"
+      ],
+      "title": "DashboardValidationStageV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "blocking": {
+      "default": false,
+      "title": "Blocking",
+      "type": "boolean"
+    },
+    "code": {
+      "pattern": "^[A-Z][A-Z0-9_]{2,79}$",
+      "title": "Code",
+      "type": "string"
+    },
+    "field_path": {
+      "anyOf": [
+        {
+          "maxLength": 240,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Field Path"
+    },
+    "message": {
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Message",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/DashboardValidationSeverityV2"
+    },
+    "stage": {
+      "$ref": "#/$defs/DashboardValidationStageV2"
+    }
+  },
+  "required": [
+    "code",
+    "stage",
+    "severity",
+    "message"
+  ],
+  "title": "DashboardValidationIssueV2",
+  "type": "object"
+}

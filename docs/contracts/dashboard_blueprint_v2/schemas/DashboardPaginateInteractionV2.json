@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "PAGINATE",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "page_size_options": {
+      "default": [
+        10,
+        25,
+        50
+      ],
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Page Size Options",
+      "type": "array"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type"
+  ],
+  "title": "DashboardPaginateInteractionV2",
+  "type": "object"
+}

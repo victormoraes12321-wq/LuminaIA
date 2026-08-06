@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "blueprint_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Blueprint Id",
+      "type": "string"
+    },
+    "canonical_name": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Canonical Name",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 1000,
+      "minLength": 8,
+      "title": "Description",
+      "type": "string"
+    },
+    "locale": {
+      "const": "pt-BR",
+      "default": "pt-BR",
+      "title": "Locale",
+      "type": "string"
+    },
+    "timezone_policy": {
+      "default": "TENANT_AUTHORITY",
+      "enum": [
+        "TENANT_AUTHORITY",
+        "USER_THEN_TENANT",
+        "APPLICATION_DEFAULT"
+      ],
+      "title": "Timezone Policy",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 160,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "blueprint_id",
+    "canonical_name",
+    "title",
+    "description"
+  ],
+  "title": "DashboardIdentityV2",
+  "type": "object"
+}

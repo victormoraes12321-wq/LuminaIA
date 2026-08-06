@@ -78,6 +78,20 @@ logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 logger = logging.getLogger("luminaai.main")
 
+EXPLICIT_MIGRATION_ONLY_TABLES = frozenset({
+    "dashboards_v2", "dashboard_revisions_v2", "dashboard_reviews_v2",
+    "dashboard_approvals_v2", "dashboard_publications_v2",
+    "dashboard_active_publications_v2", "dashboard_collaborators_v2",
+    "dashboard_access_policies_v2", "dashboard_audit_events_v2",
+    "dashboard_runtime_executions_v2", "dashboard_widget_executions_v2",
+    "dashboard_evaluation_cases_v2", "dashboard_evaluation_results_v2",
+    "dashboard_ai_proposals_v2", "dashboard_ai_proposal_versions_v2",
+    "dashboard_ai_clarifications_v2", "dashboard_ai_evidence_v2",
+    "dashboard_ai_decisions_v2", "dashboard_ai_runs_v2",
+    "dashboard_ai_audit_events_v2", "dashboard_ai_evaluation_cases_v2",
+    "dashboard_ai_evaluation_results_v2",
+})
+
 
 MAX_REQUEST_BODY_BYTES = 2 * 1024 * 1024
 RATE_LIMIT_WINDOW_SECONDS = 60.0
@@ -120,7 +134,11 @@ async def lifespan(app: FastAPI):
             await conn.execute(sqlalchemy.text("SELECT 1"))
             from database import Base
             import models  # Garante registro de todos os modelos ORM
-            await conn.run_sync(Base.metadata.create_all)
+            startup_tables = [
+                table for table in Base.metadata.tables.values()
+                if table.name not in EXPLICIT_MIGRATION_ONLY_TABLES
+            ]
+            await conn.run_sync(lambda sync_connection: Base.metadata.create_all(sync_connection, tables=startup_tables))
         logger.info("✅ PostgreSQL conectado e tabelas sincronizadas com sucesso")
     except Exception as exc:
         # Log de erro mas não impede o startup —
@@ -472,6 +490,23 @@ async def ai_tool_exception_handler(
     )
 
 
+async def dashboard_backend_exception_handler(
+    request: Request, exc: Exception
+) -> JSONResponse:
+    code = getattr(exc, "code", "DASHBOARD_RUNTIME_UNAVAILABLE")
+    status_code = getattr(exc, "status_code", status.HTTP_500_INTERNAL_SERVER_ERROR)
+    public_payload = getattr(exc, "public_payload", None)
+    payload = public_payload() if callable(public_payload) else {
+        "code": code,
+        "message": "Dashboard backend indisponivel.",
+    }
+    logger.warning("Dashboard Backend %s em %s %s", code, request.method, request.url.path)
+    return JSONResponse(
+        status_code=status_code,
+        content={"success": False, "error": {**payload, "path": str(request.url.path)}},
+    )
+
+
 @app.exception_handler(Exception)
 async def generic_exception_handler(
     request: Request, exc: Exception
@@ -523,6 +558,35 @@ def include_smart_cache_materialization_router_if_enabled(
     from routers import smart_cache_materialization as smart_cache_router
 
     application.include_router(smart_cache_router.router)
+    return True
+
+
+def include_dashboard_backend_v2_router_if_enabled(application: FastAPI) -> bool:
+    """Keep the governed V2 API absent from the default production surface."""
+    if settings.DASHBOARD_BACKEND_MODE == "LEGACY_ONLY":
+        return False
+    if not (settings.DASHBOARD_ADMIN_APIS_ENABLED or settings.DASHBOARD_RUNTIME_APIS_ENABLED):
+        return False
+    from routers import dashboard_backend_v2 as dashboard_backend_router
+    from services.dashboard_backend_v2.errors import DashboardBackendError
+
+    application.add_exception_handler(DashboardBackendError, dashboard_backend_exception_handler)
+    application.include_router(dashboard_backend_router.router)
+    return True
+
+
+def include_dashboard_ai_assistance_v2_router_if_enabled(application: FastAPI) -> bool:
+    """Keep all Prompt 22 paths absent from the default OpenAPI surface."""
+    if settings.DASHBOARD_AI_ASSISTANCE_MODE == "LEGACY_ONLY" or not settings.DASHBOARD_AI_APIS_ENABLED:
+        return False
+    from routers import dashboard_ai_assistance_v2 as dashboard_ai_router
+    from services.dashboard_ai_assistance_v2.errors import DashboardAiAssistanceError
+
+    async def handler(_request: Request, exc: DashboardAiAssistanceError) -> JSONResponse:
+        return JSONResponse(status_code=exc.http_status, content={"detail": {"code": exc.code, "message": exc.message}})
+
+    application.add_exception_handler(DashboardAiAssistanceError, handler)
+    application.include_router(dashboard_ai_router.router)
     return True
 
 app.include_router(
@@ -598,6 +662,8 @@ app.include_router(
     validation_provenance_router.router,
 )
 include_smart_cache_materialization_router_if_enabled(app)
+include_dashboard_backend_v2_router_if_enabled(app)
+include_dashboard_ai_assistance_v2_router_if_enabled(app)
 
 app.include_router(
     dashboard_studio_router.router,

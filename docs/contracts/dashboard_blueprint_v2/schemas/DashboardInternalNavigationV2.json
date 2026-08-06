@@ -1,0 +1,76 @@
+{
+  "$defs": {
+    "DashboardNavigationParameterV2": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Parameter Id",
+          "type": "string"
+        },
+        "source_binding_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Binding Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parameter_id",
+        "source_binding_id"
+      ],
+      "title": "DashboardNavigationParameterV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dashboard_reference": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Dashboard Reference",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "INTERNAL_NAVIGATION",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "parameters": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/DashboardNavigationParameterV2"
+      },
+      "maxItems": 12,
+      "title": "Parameters",
+      "type": "array"
+    },
+    "route_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Route Id",
+      "type": "string"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type",
+    "route_id",
+    "dashboard_reference"
+  ],
+  "title": "DashboardInternalNavigationV2",
+  "type": "object"
+}

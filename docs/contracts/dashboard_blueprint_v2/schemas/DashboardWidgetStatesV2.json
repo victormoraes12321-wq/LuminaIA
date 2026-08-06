@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "DashboardEmptyStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "RESET_FILTERS",
+            "CHANGE_PERIOD"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Message",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "message"
+      ],
+      "title": "DashboardEmptyStateV2",
+      "type": "object"
+    },
+    "DashboardErrorStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "RETRY",
+            "OPEN_PROVENANCE"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "expose_diagnostics": {
+          "default": false,
+          "title": "Expose Diagnostics",
+          "type": "boolean"
+        },
+        "message": {
+          "maxLength": 320,
+          "minLength": 4,
+          "title": "Message",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "message"
+      ],
+      "title": "DashboardErrorStateV2",
+      "type": "object"
+    },
+    "DashboardLoadingStateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "announce_to_screen_reader": {
+          "default": true,
+          "title": "Announce To Screen Reader",
+          "type": "boolean"
+        },
+        "label": {
+          "maxLength": 120,
+          "minLength": 2,
+          "title": "Label",
+          "type": "string"
+        },
+        "presentation": {
+          "default": "SKELETON",
+          "enum": [
+            "SKELETON",
+            "PROGRESS",
+            "TEXT"
+          ],
+          "title": "Presentation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label"
+      ],
+      "title": "DashboardLoadingStateV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "empty": {
+      "$ref": "#/$defs/DashboardEmptyStateV2"
+    },
+    "error": {
+      "$ref": "#/$defs/DashboardErrorStateV2"
+    },
+    "loading": {
+      "$ref": "#/$defs/DashboardLoadingStateV2"
+    },
+    "partial_message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Partial Message",
+      "type": "string"
+    },
+    "permission_denied_message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Permission Denied Message",
+      "type": "string"
+    },
+    "stale_message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Stale Message",
+      "type": "string"
+    },
+    "truncated_message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Truncated Message",
+      "type": "string"
+    },
+    "unavailable_message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Unavailable Message",
+      "type": "string"
+    }
+  },
+  "required": [
+    "loading",
+    "empty",
+    "partial_message",
+    "stale_message",
+    "truncated_message",
+    "error",
+    "permission_denied_message",
+    "unavailable_message"
+  ],
+  "title": "DashboardWidgetStatesV2",
+  "type": "object"
+}

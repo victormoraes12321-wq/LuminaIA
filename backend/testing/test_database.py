@@ -43,6 +43,21 @@ def _bootstrap_sql() -> str:
     return path.read_text(encoding="utf-8")
 
 
+EXPLICIT_MIGRATION_ONLY_TABLES = frozenset({
+    "dashboards_v2", "dashboard_revisions_v2", "dashboard_reviews_v2",
+    "dashboard_approvals_v2", "dashboard_publications_v2",
+    "dashboard_active_publications_v2", "dashboard_collaborators_v2",
+    "dashboard_access_policies_v2", "dashboard_audit_events_v2",
+    "dashboard_runtime_executions_v2", "dashboard_widget_executions_v2",
+    "dashboard_evaluation_cases_v2", "dashboard_evaluation_results_v2",
+    "dashboard_ai_proposals_v2", "dashboard_ai_proposal_versions_v2",
+    "dashboard_ai_clarifications_v2", "dashboard_ai_evidence_v2",
+    "dashboard_ai_decisions_v2", "dashboard_ai_runs_v2",
+    "dashboard_ai_audit_events_v2", "dashboard_ai_evaluation_cases_v2",
+    "dashboard_ai_evaluation_results_v2",
+})
+
+
 async def bootstrap_test_database(engine: Any) -> None:
     """Create test-only schema after both URL and connected-target validation."""
 
@@ -58,7 +73,11 @@ async def bootstrap_test_database(engine: Any) -> None:
         from database import Base
         import models  # noqa: F401
 
-        await connection.run_sync(Base.metadata.create_all)
+        startup_tables = [
+            table for table in Base.metadata.tables.values()
+            if table.name not in EXPLICIT_MIGRATION_ONLY_TABLES
+        ]
+        await connection.run_sync(lambda sync_connection: Base.metadata.create_all(sync_connection, tables=startup_tables))
     _BOOTSTRAPPED = True
 
 
@@ -70,14 +89,22 @@ async def reset_and_seed_test_database(engine: Any) -> None:
     from services.auth_service import get_password_hash
 
     model_tables = [table.name for table in Base.metadata.sorted_tables]
-    table_names = [*model_tables, *TEST_TABLES]
-    quoted_tables = ", ".join(f'"{name}"' for name in table_names)
+    all_candidate_tables = [*model_tables, *TEST_TABLES]
 
     async with engine.begin() as connection:
         await validate_connected_test_database(connection, target)
-        await connection.execute(
-            text(f"TRUNCATE TABLE {quoted_tables} RESTART IDENTITY CASCADE")
+
+        existing_tables = set(
+            (await connection.execute(
+                text("SELECT tablename FROM pg_tables WHERE schemaname = 'public'")
+            )).scalars().all()
         )
+        table_names = [name for name in all_candidate_tables if name in existing_tables]
+        if table_names:
+            quoted_tables = ", ".join(f'"{name}"' for name in table_names)
+            await connection.execute(
+                text(f"TRUNCATE TABLE {quoted_tables} RESTART IDENTITY CASCADE")
+            )
 
         admin_hash = get_password_hash("AdminLumina@2026")
         user_hash = get_password_hash("SyntheticUser@2026")

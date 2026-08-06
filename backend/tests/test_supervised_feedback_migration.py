@@ -36,10 +36,12 @@ def dsn() -> str:
 
 @pytest.mark.asyncio
 async def test_migration_v15_idempotent_down_and_chain_compatibility() -> None:
-    await V15.run_down(confirm_test_only=True, dsn=dsn())
-    await V12.run_up(dsn())
-    await V13.run_up(dsn=dsn())
-    await V14.run_up(dsn=dsn())
+    try:
+        await V15.run_down(confirm_test_only=True, dsn=dsn())
+    finally:
+        await V12.run_up(dsn())
+        await V13.run_up(dsn=dsn())
+        await V14.run_up(dsn=dsn())
 
     first = await V15.run_up(dsn=dsn())
     second = await V15.run_up(dsn=dsn())
@@ -59,17 +61,19 @@ async def test_migration_v15_idempotent_down_and_chain_compatibility() -> None:
     finally:
         await conn.close()
 
-    await V15.run_down(confirm_test_only=True, dsn=dsn())
-    conn = await asyncpg.connect(dsn())
     try:
-        for table in V15.TABLES:
-            assert await conn.fetchval("SELECT to_regclass($1)", f"public.{table}") is None
-        assert await conn.fetchval(
-            "SELECT EXISTS (SELECT 1 FROM lumina_schema_migrations WHERE version='14.0')"
-        )
+        await V15.run_down(confirm_test_only=True, dsn=dsn())
+        conn = await asyncpg.connect(dsn())
+        try:
+            for table in V15.TABLES:
+                assert await conn.fetchval("SELECT to_regclass($1)", f"public.{table}") is None
+            assert await conn.fetchval(
+                "SELECT EXISTS (SELECT 1 FROM lumina_schema_migrations WHERE version='14.0')"
+            )
+        finally:
+            await conn.close()
     finally:
-        await conn.close()
-    await V15.run_up(dsn=dsn())
+        await V15.run_up(dsn=dsn())
 
 
 @pytest.mark.asyncio

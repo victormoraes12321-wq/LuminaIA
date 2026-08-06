@@ -1339,3 +1339,57 @@ autenticacao. `LEGACY_ONLY` permite somente capabilities.
 
 `top_k`, payloads e paginas sao limitados. Models usam `extra=forbid`; erros
 tipados nao enumeram recursos de outro tenant.
+
+## Dashboard Blueprint V2 — ausência deliberada de API
+
+`lumina.dashboard-blueprint/2.0` é somente fundação offline. O Prompt 19 não
+adiciona router, endpoint, operação OpenAPI, request frontend ou página. A
+OpenAPI padrão permanece com 190 paths e 216 operações; zero path pertence ao
+Dashboard Blueprint V2. API futura depende do Prompt 20 e de tenant/RBAC, CAS,
+publication lifecycle e migration aprovados.
+
+## Backend Governado de Dashboards V2 — superfície condicional
+
+O Prompt 20 implementa 22 paths e 27 operações sob `/api/v2/dashboards`, mas o
+router não é montado no default `LEGACY_ONLY`. Sua presença exige modo V2 e ao
+menos uma flag explícita de API. Authoring, publishing, rollback, collaborators,
+audit e runtime ainda possuem guards próprios e tenant allowlist opcional.
+
+Grupos de operações condicionais:
+
+- authoring: criar, listar, detalhar, alterar draft, clone e archive;
+- revisions: listar, obter, comparar, criar e aplicar patches tipados;
+- review: submit, approve e reject;
+- publication: publicar, listar histórico, obter ativa e rollback;
+- access: listar/adicionar/alterar/remover colaboradores;
+- runtime: planejar, executar e obter proveniência;
+- audit: timeline governada.
+
+Todas as rotas autenticam e derivam tenant/user/role do token. Requests não
+aceitam tenant como autoridade, SQL, identificador físico, connection string ou
+mass assignment de ownership. IDOR e cross-tenant falham sem revelar o recurso.
+O contrato completo está em
+[`GOVERNED_DASHBOARD_BACKEND_V2.md`](contracts/GOVERNED_DASHBOARD_BACKEND_V2.md).
+
+## Extensão opcional do side chat de dashboard
+
+O Prompt 21 não adiciona path. `POST /api/v1/query/` aceita opcionalmente
+`dashboard_context`, envelope estrito `lumina.dashboard-ui-sidechat/1.0`, e pode
+retornar `dashboard_action` em union discriminada fechada. O servidor deriva
+tenant e usuário da sessão; o contexto não inclui SQL, binds, rows, credenciais
+ou Blueprint completo. Clientes antigos continuam válidos porque ambos os
+campos são opcionais.
+
+A OpenAPI final mantém 190 paths/216 operações no default e 212/243 no modo
+experimental do Prompt 20. Os hashes mudaram apenas pelo schema opcional da
+query, não por novo endpoint.
+
+## Dashboard AI Assistance V2 (condicional)
+
+Quando `DASHBOARD_AI_APIS_ENABLED=true` e o modo permite, `/api/v2/dashboard-ai`
+expõe create/list/get, clarificação, revisão, accept/reject/cancel, aplicação,
+evidência, auditoria e avaliação offline. Não existem endpoints de publish,
+approve, rollback, collaborator, ownership, SQL ou raw provider output. Tenant,
+usuário e capacidades são derivados da sessão. Default permanece 190
+paths/216 operações e zero paths Prompt 22; o modo experimental combinado dos
+Prompts 20 e 22 possui 223 paths/255 operações e 11 paths Prompt 22.

@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 from contracts.analytical_v2 import AnalyticalResponseV2
 from models.view_catalog import ChartType
+from schemas.dashboard_ui_sidechat import DashboardSideChatActionV2, DashboardSideChatContextV2
 
 
 # ── Request ───────────────────────────────────────────────────
@@ -88,6 +89,10 @@ class QueryRequest(BaseModel):
         default=None,
         ge=0,
         description="Versao server-side esperada pelo cliente para detectar concorrencia.",
+    )
+    dashboard_context: DashboardSideChatContextV2 | None = Field(
+        default=None,
+        description="Envelope público mínimo para o side chat governado de dashboards V2.",
     )
 
     @field_validator("mode")
@@ -278,6 +283,10 @@ class QueryResponse(BaseModel):
     applied_preference_summary: dict[str, Any] | None = Field(
         default=None,
         description="Resumo público e removível das preferências aplicadas.",
+    )
+    dashboard_action: DashboardSideChatActionV2 | None = Field(
+        default=None,
+        description="Ação estruturada e fechada solicitada pelo side chat; texto livre nunca é executável.",
     )
     user_profile_metadata: dict[str, Any] | None = Field(
         default=None,

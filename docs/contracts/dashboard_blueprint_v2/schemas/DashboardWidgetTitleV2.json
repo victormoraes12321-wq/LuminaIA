@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "subtitle": {
+      "anyOf": [
+        {
+          "maxLength": 320,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Subtitle"
+    },
+    "title": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "visible": {
+      "default": true,
+      "title": "Visible",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "title": "DashboardWidgetTitleV2",
+  "type": "object"
+}

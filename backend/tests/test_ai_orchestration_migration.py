@@ -39,16 +39,17 @@ async def test_migration_v19_idempotency() -> None:
 
 @pytest.mark.asyncio
 async def test_migration_v19_down_up_cycle() -> None:
-    res_down = await run_down()
-    assert res_down["status"] == "SUCCESS"
+    try:
+        res_down = await run_down()
+        assert res_down["status"] == "SUCCESS"
 
-    async with get_db_context() as session:
-        for t in TABLES:
-            chk = await session.execute(
-                text("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = :t)"),
-                {"t": t},
-            )
-            assert chk.scalar() is False, f"Table '{t}' still exists after migration_v19 DOWN."
-
-    res_up = await run_up()
-    assert res_up["status"] == "SUCCESS"
+        async with get_db_context() as session:
+            for t in TABLES:
+                chk = await session.execute(
+                    text("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = :t)"),
+                    {"t": t},
+                )
+                assert chk.scalar() is False, f"Table '{t}' still exists after migration_v19 DOWN."
+    finally:
+        res_up = await run_up()
+        assert res_up["status"] == "SUCCESS"

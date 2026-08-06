@@ -233,3 +233,81 @@ publicados. O provider inicial e feature hash deterministico sem rede.
 
 Producao continua `LEGACY_ONLY`. ADR:
 [`0016`](adrs/0016-governed-hybrid-semantic-retrieval.md).
+
+## Dashboard Blueprint V2
+
+```text
+referências analíticas canônicas
+-> blueprint declarativo estrito
+-> validação fail-closed
+-> canonicalização UTF-8/NFC
+-> checksums semântico e visual independentes
+-> artefato CONTRACT_ONLY
+```
+
+`backend/contracts/dashboard_blueprint_v2/` define
+`lumina.dashboard-blueprint/2.0`; `backend/services/dashboard_blueprint_v2/`
+contém somente validação, canonicalização, registries, fixtures e adapter puro.
+O contrato não é integrado ao runtime, banco ou frontend nesta fase. O legado,
+incluindo `services/blueprints.json`, continua operacional. Persistência,
+renderer e geração assistida pertencem aos Prompts 20, 21 e 22 e continuam não
+autorizados. ADR:
+[`0022`](adrs/0022-dashboard-blueprints-as-versioned-declarative-contracts.md).
+
+## Backend Governado de Dashboards V2
+
+```text
+autenticação (tenant/user/RBAC)
+-> dashboard draft + revision imutável
+-> validação Blueprint V2
+-> review e approval humanos
+-> publication imutável + active pointer CAS
+-> runtime plan canônico
+-> Safe Analytical PostgreSQL
+-> Validation & Provenance
+-> Smart Cache/materialização publicada
+-> resultado tipado + auditoria estrutural
+```
+
+`backend/services/dashboard_backend_v2/` implementa a autoridade de lifecycle,
+revisions, publication, rollback, colaboração e runtime do contrato
+`lumina.dashboard-backend/1.0`. A migration V22 mantém dados em 13 tabelas
+tenant-scoped e não é executada por `create_all`. O router `/api/v2/dashboards`
+é condicional e fica ausente em `LEGACY_ONLY`; esse continua sendo o default.
+
+O runtime não compila SQL, não consulta Oracle e não calcula fórmulas. Ele
+delega a autoridades existentes e mantém checksums, classification, permission
+scope, freshness, partial e provenance. Não há frontend V2 no Prompt 20. ADR:
+[`0023`](adrs/0023-governed-dashboard-revisions-publication-and-runtime.md).
+
+## Interface Governada de Dashboards e Side Chat
+
+```text
+guard server-side + sessão HttpOnly + capability backend
+-> biblioteca e publication ativa
+-> runtime tipado do Prompt 20
+-> registry estático de 16 widgets
+-> filtros / cross-filter / drilldown declarados
+-> proveniência pública
+-> editor manual com preview, CAS e idempotência
+-> side chat com contexto mínimo e action union fechada
+-> envelope incremental completo antes de qualquer action
+-> visual patch confirmado
+-> nova revisão + UI_MODIFIED
+```
+
+`frontend/components/dashboard-v2/` e `frontend/lib/dashboard-v2/` implementam
+`lumina.dashboard-ui-sidechat/1.0`. O frontend não recalcula fatos e não eleva
+RBAC. `LEGACY_ONLY` continua default e torna rotas, link e requests V2 ausentes.
+O endpoint conversacional existente recebeu apenas envelopes opcionais estritos;
+nenhum path OpenAPI foi criado. ADR: [`0024`](adrs/0024-governed-dashboard-ui-and-contextual-side-chat.md).
+
+## Assistência governada de dashboards
+
+O Prompt 22 acrescenta `dashboard_ai_assistance_v2` entre a intenção humana e
+as autoridades dos Prompts 19–21. O modelo produz intenção estrita; resolução,
+clarificação, design, síntese, patches, validação e checksums são
+determinísticos. Propostas versionadas exigem revisão e aceite humano; uma
+segunda operação aplica somente DRAFT pelo backend Prompt 20. Migration v23
+persiste o workflow com isolamento composto e histórico imutável. Produção
+permanece `LEGACY_ONLY`. ADR: [`0025`](adrs/0025-ai-dashboard-proposals-with-deterministic-synthesis-and-human-approval.md).

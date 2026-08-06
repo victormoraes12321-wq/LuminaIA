@@ -30,9 +30,11 @@ def _dsn() -> str:
 
 @pytest.mark.asyncio
 async def test_migration_v14_up_idempotent_down_and_v13_compatibility() -> None:
-    await _MODULE.run_down(confirm_test_only=True, dsn=_dsn())
-    await _V13.run_up(dsn=_dsn())
-    first = await _MODULE.run_up(dsn=_dsn())
+    try:
+        await _MODULE.run_down(confirm_test_only=True, dsn=_dsn())
+    finally:
+        await _V13.run_up(dsn=_dsn())
+        first = await _MODULE.run_up(dsn=_dsn())
     second = await _MODULE.run_up(dsn=_dsn())
     assert first["tables"] == sorted(_MODULE.TABLES)
     assert second["tables"] == first["tables"]
@@ -50,17 +52,19 @@ async def test_migration_v14_up_idempotent_down_and_v13_compatibility() -> None:
     finally:
         await conn.close()
 
-    await _MODULE.run_down(confirm_test_only=True, dsn=_dsn())
-    conn = await asyncpg.connect(_dsn())
     try:
-        for table in _MODULE.TABLES:
-            assert await conn.fetchval("SELECT to_regclass($1)", f"public.{table}") is None
-        assert await conn.fetchval(
-            "SELECT EXISTS (SELECT 1 FROM lumina_schema_migrations WHERE version='13.0')"
-        )
+        await _MODULE.run_down(confirm_test_only=True, dsn=_dsn())
+        conn = await asyncpg.connect(_dsn())
+        try:
+            for table in _MODULE.TABLES:
+                assert await conn.fetchval("SELECT to_regclass($1)", f"public.{table}") is None
+            assert await conn.fetchval(
+                "SELECT EXISTS (SELECT 1 FROM lumina_schema_migrations WHERE version='13.0')"
+            )
+        finally:
+            await conn.close()
     finally:
-        await conn.close()
-    await _MODULE.run_up(dsn=_dsn())
+        await _MODULE.run_up(dsn=_dsn())
 
 
 @pytest.mark.asyncio

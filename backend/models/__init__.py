@@ -26,6 +26,32 @@ from models.dashboard_template import DashboardTemplate
 from models.dashboard_instance import DashboardInstance
 from models.dashboard_preference import DashboardPreference
 from models.dashboard_studio_version import DashboardStudioVersion
+from models.dashboard_backend_v2 import (
+    DashboardAccessPolicyModelV2,
+    DashboardActivePublicationModelV2,
+    DashboardApprovalModelV2,
+    DashboardAuditEventModelV2,
+    DashboardCollaboratorModelV2,
+    DashboardEvaluationCaseModelV2,
+    DashboardEvaluationResultModelV2,
+    DashboardModelV2,
+    DashboardPublicationModelV2,
+    DashboardRevisionModelV2,
+    DashboardReviewModelV2,
+    DashboardRuntimeExecutionModelV2,
+    DashboardWidgetExecutionModelV2,
+)
+from models.dashboard_ai_assistance_v2 import (
+    DashboardAiAuditEventModelV2,
+    DashboardAiClarificationModelV2,
+    DashboardAiDecisionModelV2,
+    DashboardAiEvaluationCaseModelV2,
+    DashboardAiEvaluationResultModelV2,
+    DashboardAiEvidenceModelV2,
+    DashboardAiProposalModelV2,
+    DashboardAiProposalVersionModelV2,
+    DashboardAiRunModelV2,
+)
 from models.business_concept import BusinessConcept
 from models.business_kpi import BusinessKPI
 from models.business_formula import BusinessFormula
@@ -146,6 +172,28 @@ __all__: list[str] = [
     "DashboardInstance",
     "DashboardPreference",
     "DashboardStudioVersion",
+    "DashboardModelV2",
+    "DashboardRevisionModelV2",
+    "DashboardReviewModelV2",
+    "DashboardApprovalModelV2",
+    "DashboardPublicationModelV2",
+    "DashboardActivePublicationModelV2",
+    "DashboardCollaboratorModelV2",
+    "DashboardAccessPolicyModelV2",
+    "DashboardAuditEventModelV2",
+    "DashboardRuntimeExecutionModelV2",
+    "DashboardWidgetExecutionModelV2",
+    "DashboardEvaluationCaseModelV2",
+    "DashboardEvaluationResultModelV2",
+    "DashboardAiProposalModelV2",
+    "DashboardAiProposalVersionModelV2",
+    "DashboardAiClarificationModelV2",
+    "DashboardAiEvidenceModelV2",
+    "DashboardAiDecisionModelV2",
+    "DashboardAiRunModelV2",
+    "DashboardAiAuditEventModelV2",
+    "DashboardAiEvaluationCaseModelV2",
+    "DashboardAiEvaluationResultModelV2",
     "BusinessConcept",
     "BusinessKPI",
     "BusinessFormula",

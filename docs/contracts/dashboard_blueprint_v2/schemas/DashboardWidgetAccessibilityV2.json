@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "accessible_description": {
+      "maxLength": 500,
+      "minLength": 8,
+      "title": "Accessible Description",
+      "type": "string"
+    },
+    "accessible_name": {
+      "maxLength": 160,
+      "minLength": 2,
+      "title": "Accessible Name",
+      "type": "string"
+    },
+    "chart_text_summary_required": {
+      "default": false,
+      "title": "Chart Text Summary Required",
+      "type": "boolean"
+    },
+    "focus_behavior": {
+      "default": "CONTAINER",
+      "enum": [
+        "CONTAINER",
+        "FIRST_CONTROL",
+        "NOT_FOCUSABLE"
+      ],
+      "title": "Focus Behavior",
+      "type": "string"
+    },
+    "summary_template": {
+      "maxLength": 500,
+      "minLength": 8,
+      "title": "Summary Template",
+      "type": "string"
+    },
+    "table_alternative_required": {
+      "default": false,
+      "title": "Table Alternative Required",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "accessible_name",
+    "accessible_description",
+    "summary_template"
+  ],
+  "title": "DashboardWidgetAccessibilityV2",
+  "type": "object"
+}

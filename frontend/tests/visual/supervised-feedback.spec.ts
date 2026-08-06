@@ -109,6 +109,10 @@ async function commonRoutes(
   feedbackHandler?: (route: Route) => Promise<void>,
 ) {
   await page.route('**/api/v2/**', async route => {
+    const url = new URL(route.request().url())
+    if (route.request().method() === 'GET' && url.pathname === '/api/v2/dashboards') {
+      return route.fulfill({ json: [] })
+    }
     if (feedbackHandler) return feedbackHandler(route)
     return route.fulfill({ json: [] })
   })

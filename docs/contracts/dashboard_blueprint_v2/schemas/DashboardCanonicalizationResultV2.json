@@ -1,0 +1,90 @@
+{
+  "$defs": {
+    "DashboardChecksumSetV2": {
+      "additionalProperties": false,
+      "properties": {
+        "accessibility_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Accessibility Checksum",
+          "type": "string"
+        },
+        "bindings_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Bindings Checksum",
+          "type": "string"
+        },
+        "blueprint_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Blueprint Checksum",
+          "type": "string"
+        },
+        "filters_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Filters Checksum",
+          "type": "string"
+        },
+        "interactions_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Interactions Checksum",
+          "type": "string"
+        },
+        "layout_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Layout Checksum",
+          "type": "string"
+        },
+        "semantic_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Semantic Checksum",
+          "type": "string"
+        },
+        "visual_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Visual Checksum",
+          "type": "string"
+        },
+        "widgets_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Widgets Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "blueprint_checksum",
+        "semantic_checksum",
+        "visual_checksum",
+        "layout_checksum",
+        "widgets_checksum",
+        "bindings_checksum",
+        "filters_checksum",
+        "interactions_checksum",
+        "accessibility_checksum"
+      ],
+      "title": "DashboardChecksumSetV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "canonical_json": {
+      "maxLength": 1000000,
+      "minLength": 2,
+      "title": "Canonical Json",
+      "type": "string"
+    },
+    "checksums": {
+      "$ref": "#/$defs/DashboardChecksumSetV2"
+    },
+    "contract_version": {
+      "default": "lumina.dashboard-blueprint/2.0",
+      "title": "Contract Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "canonical_json",
+    "checksums"
+  ],
+  "title": "DashboardCanonicalizationResultV2",
+  "type": "object"
+}

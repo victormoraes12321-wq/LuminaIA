@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "DashboardCapabilityV2": {
+      "enum": [
+        "dashboard:view",
+        "dashboard:filter",
+        "dashboard:drilldown",
+        "dashboard:export",
+        "dashboard:edit_visual",
+        "dashboard:edit_semantic",
+        "dashboard:review",
+        "dashboard:publish",
+        "dashboard:archive",
+        "dashboard:view_provenance"
+      ],
+      "title": "DashboardCapabilityV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "fallback": {
+      "default": "SHOW_MESSAGE",
+      "enum": [
+        "DISABLE",
+        "SHOW_MESSAGE",
+        "OPEN_TABLE"
+      ],
+      "title": "Fallback",
+      "type": "string"
+    },
+    "hierarchy_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Hierarchy Id",
+      "type": "string"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "DRILLDOWN",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "permission_requirement": {
+      "$ref": "#/$defs/DashboardCapabilityV2",
+      "default": "dashboard:drilldown"
+    },
+    "source_dimension_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Dimension Id",
+      "type": "string"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    },
+    "target_dashboard_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Dashboard Id"
+    },
+    "target_dimension_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Target Dimension Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type",
+    "source_dimension_id",
+    "target_dimension_id",
+    "hierarchy_id"
+  ],
+  "title": "DashboardDrilldownV2",
+  "type": "object"
+}

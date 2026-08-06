@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "end_date": {
+      "format": "date",
+      "title": "End Date",
+      "type": "string"
+    },
+    "period_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Period Id",
+      "type": "string"
+    },
+    "period_type": {
+      "const": "FIXED",
+      "title": "Period Type",
+      "type": "string"
+    },
+    "start_date": {
+      "format": "date",
+      "title": "Start Date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "period_type",
+    "period_id",
+    "start_date",
+    "end_date"
+  ],
+  "title": "DashboardFixedPeriodBindingV2",
+  "type": "object"
+}

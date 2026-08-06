@@ -28,8 +28,9 @@ async def test_migration_v20_0_up_and_idempotency():
 
 @pytest.mark.asyncio
 async def test_migration_v20_0_down():
-    res_down = await run_down()
-    assert res_down["status"] == "SUCCESS"
-
-    res_reup = await run_up()
-    assert res_reup["status"] == "SUCCESS"
+    try:
+        res_down = await run_down()
+        assert res_down["status"] == "SUCCESS"
+    finally:
+        res_reup = await run_up()
+        assert res_reup["status"] == "SUCCESS"

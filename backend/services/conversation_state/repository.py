@@ -192,9 +192,12 @@ class ConversationStateRepository:
         search_history_id: uuid.UUID | None = None,
         plan_fingerprint: str | None = None,
         response_fingerprint: str | None = None,
+        flush: bool = True,
     ) -> ConversationNodeRecord:
         created_at = utc_now()
+        node_id = uuid.uuid4()
         node = ConversationNodeRecord(
+            id=node_id,
             session_id=row.id,
             tenant_id=row.tenant_id,
             user_id=row.user_id,
@@ -223,7 +226,8 @@ class ConversationStateRepository:
         row.lock_version += 1
         row.updated_at = utc_now()
         self.db.add(node)
-        await self.db.flush()
+        if flush:
+            await self.db.flush()
         return node
 
     async def load_snapshot(

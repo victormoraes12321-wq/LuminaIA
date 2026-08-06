@@ -1,5 +1,59 @@
 # Technical Debt Register
 
+## Reconciliação Prompt 21 — 2026-08-05
+
+As linhas históricas abaixo permanecem intactas. Para o estado atual, esta
+reconciliação prevalece sobre itens que ainda descrevem o frontend como ausente.
+
+| ID | Estado após Prompt 21 | Risco/limitação remanescente | Status |
+|---|---|---|---|
+| TD-DASH-UI-001 | Renderer, editor manual e side chat implementados | Coexistência com renderer/página legados até rollout formal | ACTIVE |
+| TD-DASH-UI-002 | `LUMINA-GAP-DASH-001` resolvido com teste regular | Nenhum xfail/XPASS remanescente | RESOLVED |
+| TD-DASH-UI-003 | IA de criação e semantic edit por chat ausentes | Dependem do Prompt 22; não autorizados aqui | PLANNED |
+| TD-DASH-UI-004 | Publish/rollback por chat proibidos | Permanecem decisões humanas fora do chat | BY_DESIGN |
+| TD-DASH-UI-005 | Rollout produtivo bloqueado | Backup, migration V22, allowlist, SLO e aprovação formal | BLOCKED |
+| TD-DASH-UI-006 | Load test e benchmark visual não executados | Exigem ambiente dedicado e baseline aprovada | PLANNED |
+| TD-DASH-UI-007 | Colaboração em tempo real ausente | CRUD governado existe; coedição/live presence é futura | FUTURE |
+| TD-DASH-UI-008 | Offline mode ausente | Não armazenar dataset ou lista autoritativa no navegador | FUTURE |
+| TD-DASH-UI-009 | Export de dashboard futuro | CSV existente não foi ampliado sem contrato | FUTURE |
+| TD-DASH-UI-010 | Navegação cross-dashboard futura | Drilldown atual permanece declarado e local | FUTURE |
+| TD-DASH-UI-011 | Editor mobile usa controles numéricos/teclado | Drag-and-drop touch avançado não foi introduzido | ACTIVE |
+| TD-DASH-UI-012 | Mudança persistente de chart type é semântica no Blueprint 2.0 | Side chat visual não pode alterar `widget_type` sem nova versão contratual | BLOCKED_BY_CONTRACT |
+
+## Backend Governado de Dashboards V2
+
+| ID | Dívida/adiamento | Mitigação atual | Saída exigida | Status |
+|---|---|---|---|---|
+| TD-DASH-BE-001 | Frontend V2 ausente | Router default ausente e tipos apenas contratuais | Prompt 21 certificado | PLANNED |
+| TD-DASH-BE-002 | Renderer visual adiado | Backend retorna dados tipados, não HTML | Renderer sem recálculo no Prompt 21 | PLANNED |
+| TD-DASH-BE-003 | Editor e drag-and-drop adiados | Patches strict e allowlisted | Editor com CAS e acessibilidade | PLANNED |
+| TD-DASH-BE-004 | Side chat adiado | Nenhum texto conversacional no blueprint | Prompt 21 com contexto governado | PLANNED |
+| TD-DASH-BE-005 | Geração/edição por IA adiada | Zero chamada OpenAI no backend V2 | Prompt 22 com proposta e revisão humana | PLANNED |
+| TD-DASH-BE-006 | Migração efetiva do legado adiada | Adapter somente dry-run, sem persistência | Tarefa explícita de inventário/reconciliação | BLOCKED |
+| TD-DASH-BE-007 | Rollout produtivo bloqueado | `LEGACY_ONLY`, flags off, allowlist vazia | Change approval, piloto e rollback operacional | BLOCKED |
+| TD-DASH-BE-008 | Backup produtivo não executado | Restore drill apenas descartável | Política, criptografia e ensaio aprovados por DBA | BLOCKED |
+| TD-DASH-BE-009 | Load test não executado | Budgets e limites fechados | Ambiente dedicado e SLO aprovados | PLANNED |
+| TD-DASH-BE-010 | `LUMINA-GAP-DASH-001` aberto | Único xfail estrito, sem mascaramento | Integração visual-only no Prompt 21 | OPEN |
+| TD-DASH-BE-011 | Runtime V2 desativado | Autoridades reutilizadas e guards fail-closed | Piloto allowlisted com telemetria | BLOCKED |
+| TD-DASH-BE-012 | Data export de dashboard | Resultado completo não é persistido por default | Contrato de export/retention futuro | FUTURE |
+| TD-DASH-BE-013 | Colaboração avançada | Roles fechadas e CAS básico | Teams, ownership transfer e revogação em massa governados | FUTURE |
+| TD-DASH-BE-014 | Scheduled refresh | Materialização somente publicada/fresh | Scheduler tenant-scoped com lease/SLO | FUTURE |
+
+## Dashboard Blueprint V2
+
+| ID | Dívida | Risco | Mitigação atual | Saída planejada | Status |
+|---|---|---|---|---|---|
+| TD-DASH-001 | Runtime e persistência V2 implementados, porém desativados | Ativação prematura sem operação aprovada | `LEGACY_ONLY`; legado preservado | Rollout controlado após Prompt 21 e aprovações | BLOCKED |
+| TD-DASH-002 | Renderer visual, editor e side chat ausentes | Sem experiência V2/capabilities | Nenhuma página, Sidebar ou request criada | Prompt 21 | PLANNED |
+| TD-DASH-003 | Geração por IA ausente | Automação não disponível | Origem de IA é somente enum; zero chamada | Prompt 22 | PLANNED |
+| TD-DASH-004 | `LUMINA-GAP-DASH-001` continua aberto | Estado não preserva `UI_MODIFIED` | Único xfail estrito mantido | Resolver sem mascarar assertion | OPEN |
+| TD-DASH-005 | Adapter parcial e widgets legados não suportados | Revisão manual de parte do corpus | Warnings e status PARTIAL/UNSUPPORTED | Corpus e adapters versionados | ACTIVE |
+| TD-DASH-006 | Limites contratuais provisórios | Volume real pode requerer ajuste | Limites fechados/testes de abuso | Benchmark isolado e versão compatível | ACTIVE |
+| TD-DASH-007 | Navegação cross-dashboard futura | Drill paths ficam locais | Somente navegação interna allowlisted | Capability autenticada anti-IDOR | FUTURE |
+
+Ausências deliberadas adicionais: frontend, editor, side chat, renderer,
+migração efetiva do legado e rollout. Esta dívida não autoriza ativação parcial.
+
 ## Smart Cache e Materialização V2
 
 | ID | Dívida | Risco | Mitigação atual | Saída |
@@ -46,3 +100,16 @@ bind, credencial ou vetor bruto em telemetria.
 | TD-ORCH-001 | Execucao sequencial limitada de ferramentas | Chamadas paralelas adiadas nesta fase | Execucao paralela governada com sincronizacao | AI Tool Invocation | `AI_PARALLEL_TOOL_CALLS_ENABLED` | Infraestrutura formal com barreira de seguranca e timeout coletivo | Race condition | Fase futura | BLOCKED |
 | TD-ORCH-002 | Token Estimator conservador | Tokenizador baseado em ratio | Tokenizer neural isolado | Context Assembler | `AI_EXACT_TOKENIZER_ENABLED` | Tokenizer local sem rede validado | Ligeira variacao de estimativa | Fase futura | ACTIVE |
 | TD-ORCH-003 | Fallback de modelo desligado em producao | Feature flag default LEGACY_ONLY | Fallback allowlisted ativo | Orchestrator | `AI_MODEL_FALLBACK_ENABLED` | Certificacao de modelo secundario e teste de falha de provedor | Falha silenciosa de modelo principal | Rollout | ACTIVE |
+
+## Dashboard AI Assistance V2
+
+| ID | Item | Estado e condição de saída |
+|---|---|---|
+| TD-DAI-001 | Provider real, benchmark e avaliação humana produtiva ausentes | Bloqueado até certificação e aprovação operacional |
+| TD-DAI-002 | Rollout, load test e backup produtivo não executados | Produção permanece `LEGACY_ONLY`; executar somente em fase autorizada |
+| TD-DAI-003 | Somente pt-BR e templates iniciais | Outros locales/templates e cross-dashboard generation ficam para evolução governada |
+| TD-DAI-004 | Monitoramento de qualidade semântica e retention operacional futuros | Definir SLO, painel e política antes do rollout |
+| TD-DAI-005 | Geração baseada em sample de dataset | Proibida; exige nova decisão arquitetural para qualquer mudança |
+
+A migration v23 foi criada e certificada apenas em PostgreSQL descartável; sua
+aplicação produtiva e backup real continuam fora de escopo.

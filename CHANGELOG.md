@@ -1,5 +1,46 @@
 # Changelog
 
+## 2026-08-05 - Interface Governada de Dashboards e Side Chat
+
+- Adicionada `lumina.dashboard-ui-sidechat/1.0` com quatro rotas server-guarded,
+  biblioteca, shell responsivo, registry estático dos 16 widgets e proveniência.
+- Adicionados filtros, cross-filter, drilldown, editor visual/semântico manual,
+  CAS, idempotência, lifecycle humano, histórico e colaboradores.
+- Side chat contextual reutiliza a query existente com contexto mínimo e ações
+  fechadas; semantic edit, publish e rollback por chat permanecem bloqueados.
+- O transporte incremental expõe connecting/receiving/complete, cancelamento,
+  retry explícito e confirmação de ação somente após o envelope completo;
+  reset de sessão aborta e limpa o contexto local.
+- `LUMINA-GAP-DASH-001` foi resolvido por fluxo real visual-only → patch →
+  confirmação backend → nova revisão → `UI_MODIFIED`, com zero xfail.
+- Produção permanece `LEGACY_ONLY`; nenhuma migration, dependência, lockfile,
+  endpoint novo ou chamada de IA foi adicionada.
+
+## 2026-08-04 - Backend Governado de Dashboards V2
+
+- Adicionado `lumina.dashboard-backend/1.0` com contratos estritos, ownership
+  server-controlled, revisions imutáveis, review, approval, publication por CAS,
+  supersession, rollback, colaboração tenant-scoped e auditoria append-only.
+- Adicionada migration V22 explícita e aditiva com 13 tabelas; startup e
+  bootstrap genéricos não podem criá-las sem migration.
+- Runtime V2 reutiliza Safe Analytical PostgreSQL, Validation & Provenance,
+  Smart Cache e materializações publicadas, preservando `Decimal`, partial,
+  freshness, classification e provenance.
+- Adicionados routers condicionais, schemas, goldens, tipos TypeScript, testes
+  PostgreSQL, cadeia V22–V12–V22 e ensaio descartável de backup/restore.
+- Produção continua `LEGACY_ONLY`, todas as flags desligadas, allowlist vazia e
+  nenhuma página, Sidebar, renderer, editor, side chat ou geração por IA.
+
+## 2026-08-04 - Dashboard Blueprint V2 Contract-Only
+
+- Adicionado `lumina.dashboard-blueprint/2.0` com contratos Pydantic estritos,
+  unions discriminadas, registries estáticos e layout responsivo tipado.
+- Adicionados validação fail-closed, canonicalização determinística, checksums
+  visual/semântico, patches separados e adapter legado puro.
+- Exportados 91 schemas e 20 goldens reproduzíveis, além de tipos TypeScript.
+- Nenhuma API, migration, model, runtime, página frontend ou ativação de
+  produção foi introduzida; `blueprints.json` permanece legado e protegido.
+
 ## 2026-08-04 - Smart Cache e Materialização Governada
 
 - Adicionado `lumina.smart-cache-materialization/1.0` com eligibility
@@ -323,3 +364,11 @@
 - Implementados controles de feedback no chat, historico proprio e fila administrativa por flags.
 - Datasets publicados sao imutaveis, versionados e exportados somente offline; nao existe treinamento automatico.
 - Producao permanece `LEGACY_ONLY` com todas as flags desligadas.
+
+## 2026-08-05 - Assistência governada para dashboards
+
+- Adicionado `lumina.dashboard-ai-assistance/1.0`, com intenção tipada e síntese determinística de Blueprint V2 e patches.
+- Adicionados lifecycle de propostas, clarificações, versões imutáveis, evidência, decisão humana, CAS e aplicação separada somente em DRAFT.
+- Adicionadas migration v23 e APIs condicionais de propostas, revisão, decisão, aplicação, evidência, auditoria e avaliação offline.
+- Adicionados wizard `/dashboard/v2/new`, assistência no editor e integração explícita com side chat.
+- Produção permanece `LEGACY_ONLY`; provider real, rollout e publicação por IA continuam desabilitados.

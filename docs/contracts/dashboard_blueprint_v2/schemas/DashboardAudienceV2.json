@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "audience_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Audience Ids",
+      "type": "array"
+    },
+    "minimum_role": {
+      "default": "CONSULTA",
+      "enum": [
+        "CONSULTA",
+        "GESTOR",
+        "ADMIN"
+      ],
+      "title": "Minimum Role",
+      "type": "string"
+    }
+  },
+  "required": [
+    "audience_ids"
+  ],
+  "title": "DashboardAudienceV2",
+  "type": "object"
+}

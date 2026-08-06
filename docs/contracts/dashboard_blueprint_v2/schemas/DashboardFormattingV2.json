@@ -1,0 +1,203 @@
+{
+  "$defs": {
+    "DashboardCurrencyFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "currency_code": {
+          "enum": [
+            "BRL",
+            "USD",
+            "EUR"
+          ],
+          "title": "Currency Code",
+          "type": "string"
+        },
+        "decimal_places": {
+          "default": 2,
+          "maximum": 4,
+          "minimum": 0,
+          "title": "Decimal Places",
+          "type": "integer"
+        },
+        "display": {
+          "default": "SYMBOL",
+          "enum": [
+            "SYMBOL",
+            "CODE",
+            "NAME"
+          ],
+          "title": "Display",
+          "type": "string"
+        }
+      },
+      "required": [
+        "currency_code"
+      ],
+      "title": "DashboardCurrencyFormattingV2",
+      "type": "object"
+    },
+    "DashboardDateFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "enum": [
+            "DATE_SHORT",
+            "DATE_LONG",
+            "MONTH_YEAR",
+            "YEAR",
+            "DATETIME"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "timezone_policy": {
+          "default": "DASHBOARD",
+          "enum": [
+            "DASHBOARD",
+            "TENANT",
+            "USER"
+          ],
+          "title": "Timezone Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "format"
+      ],
+      "title": "DashboardDateFormattingV2",
+      "type": "object"
+    },
+    "DashboardNumberFormattingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_fraction_digits": {
+          "default": 2,
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Maximum Fraction Digits",
+          "type": "integer"
+        },
+        "minimum_fraction_digits": {
+          "default": 0,
+          "maximum": 6,
+          "minimum": 0,
+          "title": "Minimum Fraction Digits",
+          "type": "integer"
+        },
+        "negative_display": {
+          "default": "MINUS",
+          "enum": [
+            "MINUS",
+            "PARENTHESES"
+          ],
+          "title": "Negative Display",
+          "type": "string"
+        },
+        "null_display": {
+          "default": "SEM_VALOR",
+          "enum": [
+            "SEM_VALOR",
+            "TRACO",
+            "VAZIO"
+          ],
+          "title": "Null Display",
+          "type": "string"
+        },
+        "style": {
+          "default": "DECIMAL",
+          "enum": [
+            "DECIMAL",
+            "INTEGER",
+            "COMPACT"
+          ],
+          "title": "Style",
+          "type": "string"
+        },
+        "unit_visible": {
+          "default": true,
+          "title": "Unit Visible",
+          "type": "boolean"
+        }
+      },
+      "title": "DashboardNumberFormattingV2",
+      "type": "object"
+    },
+    "DashboardThemeTokenV2": {
+      "enum": [
+        "PRIMARY",
+        "SECONDARY",
+        "POSITIVE",
+        "NEGATIVE",
+        "WARNING",
+        "NEUTRAL",
+        "INFO",
+        "SERIES_1",
+        "SERIES_2",
+        "SERIES_3",
+        "SERIES_4",
+        "SERIES_5",
+        "SERIES_6",
+        "SERIES_7",
+        "SERIES_8"
+      ],
+      "title": "DashboardThemeTokenV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "currency": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DashboardCurrencyFormattingV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "date": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DashboardDateFormattingV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "locale": {
+      "const": "pt-BR",
+      "default": "pt-BR",
+      "title": "Locale",
+      "type": "string"
+    },
+    "number": {
+      "$ref": "#/$defs/DashboardNumberFormattingV2"
+    },
+    "percentage_display": {
+      "anyOf": [
+        {
+          "enum": [
+            "ALREADY_PERCENT",
+            "RATIO_TO_PERCENT"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Percentage Display"
+    },
+    "theme_token": {
+      "$ref": "#/$defs/DashboardThemeTokenV2",
+      "default": "PRIMARY"
+    }
+  },
+  "title": "DashboardFormattingV2",
+  "type": "object"
+}

@@ -1,0 +1,44 @@
+{
+  "$defs": {
+    "DashboardValidationStatusV2": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "INVALID",
+        "BLOCKED",
+        "UNSUPPORTED_VERSION"
+      ],
+      "title": "DashboardValidationStatusV2",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 300,
+      "minLength": 4,
+      "title": "Description",
+      "type": "string"
+    },
+    "expected_status": {
+      "$ref": "#/$defs/DashboardValidationStatusV2"
+    },
+    "payload": {
+      "$ref": "#/$defs/JsonValue"
+    }
+  },
+  "required": [
+    "case_id",
+    "description",
+    "payload",
+    "expected_status"
+  ],
+  "title": "DashboardEvaluationCaseV2",
+  "type": "object"
+}

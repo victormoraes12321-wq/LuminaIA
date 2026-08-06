@@ -20,13 +20,17 @@ pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.securit
 
 @pytest.mark.asyncio
 async def test_migration_v13_up_idempotent_down_and_up_again() -> None:
-    await run_down(confirm_test_only=True)
-    first = await run_up()
+    try:
+        await run_down(confirm_test_only=True)
+    finally:
+        first = await run_up()
     second = await run_up()
     assert first["tables"] == sorted(TABLES)
     assert second["tables"] == first["tables"]
     assert "fk_knowledge_asset_published_version" in first["constraints"]
     assert "idx_knowledge_alias_lookup" in first["indexes"]
-    await run_down(confirm_test_only=True)
-    final = await run_up()
+    try:
+        await run_down(confirm_test_only=True)
+    finally:
+        final = await run_up()
     assert final["tables"] == sorted(TABLES)

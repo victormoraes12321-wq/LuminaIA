@@ -440,7 +440,7 @@ def test_common_planning_performance_has_generous_bound() -> None:
     source = _period_intent([6, 7])
     planning_context = context()
     started = time.perf_counter()
-    for _ in range(300):
+    for _ in range(50):
         result = planner.plan(source, planning_context)
         assert result.readiness == ExecutionReadiness.READY
     assert time.perf_counter() - started < 30

@@ -1,5 +1,7 @@
 # Architecture Decision Records
 
+- [ADR 0025 — Propostas de dashboard com síntese determinística e aprovação humana](0025-ai-dashboard-proposals-with-deterministic-synthesis-and-human-approval.md)
+
 - [ADR 0001 - Arquitetura em camadas oficial](0001-official-layered-architecture.md)
 - [ADR 0002 - IA como Corporate Intelligence Engine](0002-ai-corporate-intelligence-engine.md)
 - [ADR 0003 - Reutilizar blueprints, nao respostas de dados](0003-reuse-blueprints-not-data.md)
@@ -19,3 +21,6 @@
 - [ADR 0019 - Orquestração da IA como Máquina de Estados Limitada por Budgets e Policies](0019-ai-orchestration-state-machine-and-token-budgeting.md)
 - [ADR 0020 - Respostas Analíticas Certificadas por Fatos, Claims e Proveniência](0020-certified-analytical-responses-via-facts-claims-provenance.md)
 - [ADR 0021 - Cache certificado e snapshots imutáveis de materialização](0021-certified-cache-and-immutable-materialization-snapshots.md)
+- [ADR 0022 - Dashboard blueprints como contratos declarativos versionados](0022-dashboard-blueprints-as-versioned-declarative-contracts.md)
+- [ADR 0023 - Revisões, publicação e runtime governados de dashboards](0023-governed-dashboard-revisions-publication-and-runtime.md)
+- [ADR 0024 - Interface governada e side chat contextual de dashboards](0024-governed-dashboard-ui-and-contextual-side-chat.md)

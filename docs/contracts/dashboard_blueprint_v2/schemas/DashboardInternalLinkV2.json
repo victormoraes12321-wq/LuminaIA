@@ -1,0 +1,22 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "route_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Route Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "label",
+    "route_id"
+  ],
+  "title": "DashboardInternalLinkV2",
+  "type": "object"
+}

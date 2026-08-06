@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "filter_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Filter Id",
+      "type": "string"
+    },
+    "period_type": {
+      "const": "FILTER_DRIVEN",
+      "title": "Period Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "period_type",
+    "filter_id"
+  ],
+  "title": "DashboardFilterDrivenPeriodBindingV2",
+  "type": "object"
+}

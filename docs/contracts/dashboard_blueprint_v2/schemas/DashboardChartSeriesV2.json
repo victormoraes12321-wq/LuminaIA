@@ -1,0 +1,55 @@
+{
+  "$defs": {
+    "DashboardThemeTokenV2": {
+      "enum": [
+        "PRIMARY",
+        "SECONDARY",
+        "POSITIVE",
+        "NEGATIVE",
+        "WARNING",
+        "NEUTRAL",
+        "INFO",
+        "SERIES_1",
+        "SERIES_2",
+        "SERIES_3",
+        "SERIES_4",
+        "SERIES_5",
+        "SERIES_6",
+        "SERIES_7",
+        "SERIES_8"
+      ],
+      "title": "DashboardThemeTokenV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "metric_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Metric Id",
+      "type": "string"
+    },
+    "series_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Series Id",
+      "type": "string"
+    },
+    "theme_token": {
+      "$ref": "#/$defs/DashboardThemeTokenV2"
+    }
+  },
+  "required": [
+    "series_id",
+    "metric_id",
+    "label",
+    "theme_token"
+  ],
+  "title": "DashboardChartSeriesV2",
+  "type": "object"
+}

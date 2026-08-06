@@ -127,7 +127,10 @@ class ConversationGraphManager:
             start_time = time.perf_counter()
             
             # Cria novo estado do dashboard mantendo as referências
-            state = current_node.dashboard_state
+            # Visual updates branch from the active node.  The previous node is
+            # immutable history and must not be changed through a shared model
+            # reference while the new visual revision is being prepared.
+            state = current_node.dashboard_state.model_copy(deep=True)
             if new_chart_type:
                 state.chart_type = new_chart_type
             if sort_col:
@@ -184,7 +187,9 @@ class ConversationGraphManager:
                 "query_id": str(trace_id),
                 "trace_id": str(trace_id),
                 "request_id": str(trace_id),
-                "status": "FULL_RENDERING",
+                # A visual-only operation reuses the certified dataset and does
+                # not require the analytical pipeline or a full rendering pass.
+                "status": "UI_MODIFIED",
                 "pergunta_original": pergunta,
                 "resposta_direta": f"Atualizei a visualização do dashboard para {state.chart_type.value} conforme solicitado.",
                 "ia_justificativa": "Atualização visual executada localmente em memória RAM.",

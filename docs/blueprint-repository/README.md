@@ -30,3 +30,38 @@ Blueprints possuem historico, versao e metadados de qualidade. A evolucao deve p
 - Blueprint nao deve conter SQL final de execucao.
 - Blueprint nao deve armazenar dados de resposta.
 - Mudancas devem passar pelo Validator/Business Layer.
+
+## Dashboard Blueprint V2 (fundação isolada)
+
+O contrato `lumina.dashboard-blueprint/2.0` está em
+`docs/contracts/DASHBOARD_BLUEPRINT_V2.md`. É estrito, versionado e separa
+revisões visuais de semânticas, mas permanece `CONTRACT_ONLY` no Prompt 19.
+
+Os repositórios, modelos e `backend/services/blueprints.json` continuam legados
+e não foram migrados. O adapter V2 apenas gera proposta sintética sem escrever
+ou alterar a origem. Persistência depende do Prompt 20; renderer/editor e side
+chat do Prompt 21; proposta por IA do Prompt 22.
+
+## Backend governado V2
+
+O Prompt 20 adiciona storage PostgreSQL separado para
+`lumina.dashboard-backend/1.0`. Revisions, approvals e publications são
+imutáveis; active publication usa CAS; clone não copia authority; runtime só
+aceita publicação ativa e delega execução/certificação às autoridades existentes.
+
+Isso não migra nem escreve `backend/services/blueprints.json`. O adapter legado
+continua somente dry-run. `LEGACY_ONLY` mantém este repositório e runtime legados
+como autoridade produtiva até rollout futuro formalmente aprovado.
+
+## Consumo da interface V2
+
+O Prompt 21 passou a consumir somente revisions validadas e publications ativas
+do backend governado. Renderer, editor e side chat nunca escrevem neste
+repositório legado nem em `backend/services/blueprints.json`. Visual updates
+viram `DashboardVisualPatchV2`; semantic updates manuais permanecem separadas e
+voltam a DRAFT/revalidação. Geração assistida continua reservada ao Prompt 22.
+
+O Prompt 22 agora implementa essa reserva por propostas governadas. A síntese
+consome exclusivamente Blueprint V2 validado e nunca grava neste repositório
+legado ou em `backend/services/blueprints.json`. Aplicar uma proposta aceita
+delega ao Prompt 20 e cria somente DRAFT ou nova revisão DRAFT.

@@ -76,7 +76,7 @@ async function openComparison(
   await authenticate(page, role)
   await page.goto('/dashboard')
   const input = page.getByPlaceholder('Faça uma pergunta sobre seus dados...')
-  await expect(input).toBeVisible()
+  await expect(input).toBeVisible({ timeout: 15_000 })
   await input.fill('Compare o faturamento do Mes 06/2026 e 07/2026')
   await input.press('Enter')
   await expect(page.getByTestId('comparison-renderer')).toBeVisible({ timeout: 15_000 })

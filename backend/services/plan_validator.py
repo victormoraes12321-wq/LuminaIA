@@ -1,4 +1,4 @@
-﻿"""
+"""
 LuminaAI â€” Plan Validator, Corrector, and Normalization Layer (v5.6)
 ------------------------------------------------------------------
 Esta camada intermediÃ¡ria valida, corrige e normaliza qualquer plano de consulta

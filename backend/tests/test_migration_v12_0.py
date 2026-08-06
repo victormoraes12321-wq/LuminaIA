@@ -63,6 +63,32 @@ _SEMANTIC_MIGRATION = importlib.util.module_from_spec(_SEMANTIC_SPEC)
 _SEMANTIC_SPEC.loader.exec_module(_SEMANTIC_MIGRATION)
 
 
+import inspect
+
+from database import engine
+
+
+def _load_migration_version(version: int):
+    path = Path(__file__).resolve().parents[1] / "database" / f"migration_v{version}_0.py"
+    spec = importlib.util.spec_from_file_location(f"lumina_migration_v{version}_0_compat", path)
+    assert spec and spec.loader
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+async def _run_down_version(version: int):
+    mod = _load_migration_version(version)
+    params = inspect.signature(mod.run_down).parameters
+    if "confirm_test_only" in params:
+        if "dsn" in params:
+            await mod.run_down(confirm_test_only=True, dsn=_dsn())
+        else:
+            await mod.run_down(confirm_test_only=True)
+    else:
+        await mod.run_down()
+
+
 pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.security]
 
 
@@ -79,11 +105,9 @@ async def test_migration_up_idempotent_down_and_up_again() -> None:
     assert second["tables"] == sorted(TABLES)
     assert set(first["indexes"]) == set(second["indexes"])
 
-    # Downstream migrations must be removed before the migration they depend on.
-    await _SEMANTIC_MIGRATION.run_down(confirm_test_only=True, dsn=_dsn())
-    await _FEEDBACK_MIGRATION.run_down(confirm_test_only=True, dsn=_dsn())
-    await _PROFILE_MIGRATION.run_down(confirm_test_only=True, dsn=_dsn())
-    await _KNOWLEDGE_MIGRATION.run_down(confirm_test_only=True, dsn=_dsn())
+    # Downstream migrations must be removed in reverse order before v12 migration.
+    for version in range(23, 12, -1):
+        await _run_down_version(version)
     try:
         await run_down(confirm_test_only=True, dsn=_dsn())
         conn = await asyncpg.connect(_dsn())
@@ -99,20 +123,16 @@ async def test_migration_up_idempotent_down_and_up_again() -> None:
 
         restored = await run_up(_dsn())
         assert restored["tables"] == sorted(TABLES)
-        restored_knowledge = await _KNOWLEDGE_MIGRATION.run_up(_dsn())
-        assert restored_knowledge["tables"] == sorted(_KNOWLEDGE_MIGRATION.TABLES)
-        restored_profile = await _PROFILE_MIGRATION.run_up(_dsn())
-        assert restored_profile["tables"] == sorted(_PROFILE_MIGRATION.TABLES)
-        restored_feedback = await _FEEDBACK_MIGRATION.run_up(_dsn())
-        assert restored_feedback["tables"] == sorted(_FEEDBACK_MIGRATION.TABLES)
-        restored_semantic = await _SEMANTIC_MIGRATION.run_up(_dsn())
-        assert restored_semantic["tables"] == sorted(_SEMANTIC_MIGRATION.TABLES)
+        for version in range(13, 24):
+            mod = _load_migration_version(version)
+            await mod.run_up()
     finally:
         await run_up(_dsn())
-        await _KNOWLEDGE_MIGRATION.run_up(_dsn())
-        await _PROFILE_MIGRATION.run_up(_dsn())
-        await _FEEDBACK_MIGRATION.run_up(_dsn())
-        await _SEMANTIC_MIGRATION.run_up(_dsn())
+        for version in range(13, 24):
+            mod = _load_migration_version(version)
+            await mod.run_up()
+        from testing.test_database import reset_and_seed_test_database
+        await reset_and_seed_test_database(engine)
 
 
 @pytest.mark.asyncio
