@@ -1,0 +1,69 @@
+{
+  "$defs": {
+    "SecurityControlStatusV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "NOT_CONFIGURED",
+        "BLOCKED",
+        "MANUAL_REVIEW_REQUIRED"
+      ],
+      "title": "SecurityControlStatusV2",
+      "type": "string"
+    },
+    "SecuritySeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "SecuritySeverityV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "affected_component": {
+      "maxLength": 160,
+      "minLength": 2,
+      "title": "Affected Component",
+      "type": "string"
+    },
+    "evidence": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Evidence",
+      "type": "string"
+    },
+    "finding_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Finding Id",
+      "type": "string"
+    },
+    "remediation": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Remediation",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/SecuritySeverityV2"
+    },
+    "status": {
+      "$ref": "#/$defs/SecurityControlStatusV2"
+    }
+  },
+  "required": [
+    "finding_id",
+    "severity",
+    "affected_component",
+    "evidence",
+    "remediation",
+    "status"
+  ],
+  "title": "SecurityFindingV2",
+  "type": "object"
+}

@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "ThreatSurfaceKindV2": {
+      "enum": [
+        "HTTP",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "TENANT",
+        "API",
+        "DASHBOARD",
+        "AI",
+        "POST_SYNC",
+        "OBSERVABILITY",
+        "EVALUATIONS",
+        "WORK_QUEUE",
+        "DATA",
+        "CACHE",
+        "SYNC",
+        "MIGRATION",
+        "STARTUP",
+        "BACKGROUND",
+        "FRONTEND",
+        "FILESYSTEM",
+        "NETWORK",
+        "SECRETS",
+        "LOGGING",
+        "OPENAPI",
+        "TEST_BOUNDARY",
+        "ROLLOUT"
+      ],
+      "title": "ThreatSurfaceKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "controls": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Controls",
+      "type": "array"
+    },
+    "surface": {
+      "$ref": "#/$defs/ThreatSurfaceKindV2"
+    },
+    "threats": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Threats",
+      "type": "array"
+    },
+    "trust_authority": {
+      "maxLength": 300,
+      "minLength": 3,
+      "title": "Trust Authority",
+      "type": "string"
+    },
+    "untrusted_inputs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Untrusted Inputs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "surface",
+    "trust_authority",
+    "untrusted_inputs",
+    "threats",
+    "controls"
+  ],
+  "title": "ThreatSurfaceV2",
+  "type": "object"
+}

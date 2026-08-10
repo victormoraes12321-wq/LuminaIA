@@ -1,0 +1,45 @@
+{
+  "$defs": {
+    "SecurityControlStatusV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "NOT_CONFIGURED",
+        "BLOCKED",
+        "MANUAL_REVIEW_REQUIRED"
+      ],
+      "title": "SecurityControlStatusV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "disclosure_count": {
+      "minimum": 0,
+      "title": "Disclosure Count",
+      "type": "integer"
+    },
+    "mutation_count": {
+      "minimum": 0,
+      "title": "Mutation Count",
+      "type": "integer"
+    },
+    "status": {
+      "$ref": "#/$defs/SecurityControlStatusV2"
+    },
+    "subsystem": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Subsystem",
+      "type": "string"
+    }
+  },
+  "required": [
+    "subsystem",
+    "disclosure_count",
+    "mutation_count",
+    "status"
+  ],
+  "title": "TenantIsolationCheckV2",
+  "type": "object"
+}

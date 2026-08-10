@@ -41,6 +41,7 @@ async def _down(version: int, module) -> None:
         elif version in {17, 21, 22, 23}:
             await module.run_down(confirm_test_only=True)
         else:
+            # v18, v19, v20, v24 and others use plain run_down()
             await module.run_down()
     except Exception as exc:
         if version == 12 and "lumina_schema_migrations" in str(exc):
@@ -54,12 +55,12 @@ from testing.test_database import reset_and_seed_test_database
 
 @pytest.mark.asyncio
 async def test_migration_chain_down_v23_to_v12_and_up_v12_to_v23() -> None:
-    modules = {version: _load(version) for version in range(12, 24)}
+    modules = {version: _load(version) for version in range(12, 25)}
     try:
-        for version in range(23, 11, -1):
+        for version in range(24, 11, -1):
             await _down(version, modules[version])
     finally:
-        for version in range(12, 24):
+        for version in range(12, 25):
             await _up(version, modules[version])
         await reset_and_seed_test_database(engine)
 

@@ -1,0 +1,159 @@
+[
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "dashboard_backend",
+      "safe_pg",
+      "validation_provenance"
+    ],
+    "feature": "DASHBOARD_V2_READ",
+    "kill_switch_required": true,
+    "required_migration": 22,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "dashboard_backend",
+      "blueprint_v2",
+      "audit"
+    ],
+    "feature": "DASHBOARD_V2_AUTHORING",
+    "kill_switch_required": true,
+    "required_migration": 22,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "dashboard_v2",
+      "ai_orchestration",
+      "governed_tools",
+      "safe_pg",
+      "validation_provenance"
+    ],
+    "feature": "DASHBOARD_AI",
+    "kill_switch_required": true,
+    "required_migration": 23,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "sync_reconciliation_certified",
+      "post_sync_feature"
+    ],
+    "feature": "POST_SYNC_INSIGHTS",
+    "kill_switch_required": true,
+    "required_migration": 24,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "observability_storage",
+      "redaction",
+      "cardinality_guard"
+    ],
+    "feature": "OBSERVABILITY_V2",
+    "kill_switch_required": true,
+    "required_migration": 25,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "observability_v2",
+      "evaluation_registry",
+      "synthetic_corpus"
+    ],
+    "feature": "EVALUATIONS_V2",
+    "kill_switch_required": true,
+    "required_migration": 25,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test",
+      "staging",
+      "production"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "work_queue_storage",
+      "observability_v2",
+      "worker_enable"
+    ],
+    "feature": "WORK_QUEUE_V2",
+    "kill_switch_required": true,
+    "required_migration": 26,
+    "rollback_types": [
+      "FEATURE",
+      "APPLICATION"
+    ]
+  },
+  {
+    "allowed_environments": [
+      "test"
+    ],
+    "contract_version": "lumina.security-migration-rollout/1.0",
+    "dependency_ids": [
+      "work_queue_v2",
+      "synthetic_test_environment"
+    ],
+    "feature": "PERFORMANCE_CERTIFICATION",
+    "kill_switch_required": true,
+    "required_migration": 26,
+    "rollback_types": [
+      "FEATURE"
+    ]
+  }
+]

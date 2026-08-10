@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "WorkQueueErrorClassV2": {
+      "enum": [
+        "DATABASE_TRANSIENT",
+        "TEMPORARY_RESOURCE_EXHAUSTION",
+        "LEASE_LOST",
+        "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+        "TIMEOUT_RETRYABLE",
+        "VALIDATION_ERROR",
+        "PERMISSION_DENIED",
+        "TENANT_MISMATCH",
+        "CONTRACT_ERROR",
+        "UNSAFE_REQUEST",
+        "IDEMPOTENCY_CONFLICT",
+        "CLASSIFICATION_BLOCK",
+        "UNKNOWN_JOB_TYPE",
+        "UNKNOWN_ERROR"
+      ],
+      "title": "WorkQueueErrorClassV2",
+      "type": "string"
+    },
+    "WorkQueueJobTypeV2": {
+      "enum": [
+        "POST_SYNC_INSIGHT_RUN",
+        "MATERIALIZATION_BUILD",
+        "MATERIALIZATION_REFRESH",
+        "CACHE_REFRESH",
+        "EVALUATION_RUN",
+        "DASHBOARD_BACKGROUND_REFRESH",
+        "ANALYTICAL_BACKGROUND_QUERY",
+        "SYNC_POST_PROCESSING"
+      ],
+      "title": "WorkQueueJobTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dead_letter_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Dead Letter Id",
+      "type": "string"
+    },
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "job_type": {
+      "$ref": "#/$defs/WorkQueueJobTypeV2"
+    },
+    "total_attempts": {
+      "minimum": 1,
+      "title": "Total Attempts",
+      "type": "integer"
+    },
+    "last_error_class": {
+      "$ref": "#/$defs/WorkQueueErrorClassV2"
+    },
+    "sanitized_error_message": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sanitized Error Message",
+      "type": "string"
+    },
+    "moved_to_dead_letter_at": {
+      "format": "date-time",
+      "title": "Moved To Dead Letter At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dead_letter_id",
+    "job_id",
+    "tenant_id",
+    "job_type",
+    "total_attempts",
+    "last_error_class",
+    "sanitized_error_message",
+    "moved_to_dead_letter_at"
+  ],
+  "title": "WorkQueueDeadLetterV2",
+  "type": "object"
+}

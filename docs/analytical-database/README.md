@@ -64,3 +64,8 @@ As perguntas prioritarias de faturamento, ticket medio, desconto e ranking usam 
 
 - RLS nativo de PostgreSQL nao foi identificado no codigo; o isolamento ocorre via aplicacao.
 - EXPLAIN ANALYZE com dados reais deve ser executado no ambiente final.
+# Compatibility gate Prompt 26
+
+O schema testado atual é 26, com mínimo 12 e máximo 26. Versão futura desconhecida,
+migration ausente ou objeto crítico faltante bloqueiam readiness. Migration v27 é
+`NOT_REQUIRED`; DDL futuro exige target guard e advisory lock.

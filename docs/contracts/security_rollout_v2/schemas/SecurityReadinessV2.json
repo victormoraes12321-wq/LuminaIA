@@ -1,0 +1,253 @@
+{
+  "$defs": {
+    "SecurityControlStatusV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "NOT_CONFIGURED",
+        "BLOCKED",
+        "MANUAL_REVIEW_REQUIRED"
+      ],
+      "title": "SecurityControlStatusV2",
+      "type": "string"
+    },
+    "SecurityControlV2": {
+      "additionalProperties": false,
+      "properties": {
+        "control_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "justification": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Justification"
+        },
+        "severity": {
+          "$ref": "#/$defs/SecuritySeverityV2"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        },
+        "surface": {
+          "$ref": "#/$defs/ThreatSurfaceKindV2"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 3,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "surface",
+        "status",
+        "severity",
+        "title",
+        "evidence"
+      ],
+      "title": "SecurityControlV2",
+      "type": "object"
+    },
+    "SecurityFindingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_component": {
+          "maxLength": 160,
+          "minLength": 2,
+          "title": "Affected Component",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "finding_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "remediation": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Remediation",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/SecuritySeverityV2"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        }
+      },
+      "required": [
+        "finding_id",
+        "severity",
+        "affected_component",
+        "evidence",
+        "remediation",
+        "status"
+      ],
+      "title": "SecurityFindingV2",
+      "type": "object"
+    },
+    "SecuritySeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "SecuritySeverityV2",
+      "type": "string"
+    },
+    "TenantIsolationCheckV2": {
+      "additionalProperties": false,
+      "properties": {
+        "disclosure_count": {
+          "minimum": 0,
+          "title": "Disclosure Count",
+          "type": "integer"
+        },
+        "mutation_count": {
+          "minimum": 0,
+          "title": "Mutation Count",
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        },
+        "subsystem": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Subsystem",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subsystem",
+        "disclosure_count",
+        "mutation_count",
+        "status"
+      ],
+      "title": "TenantIsolationCheckV2",
+      "type": "object"
+    },
+    "ThreatSurfaceKindV2": {
+      "enum": [
+        "HTTP",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "TENANT",
+        "API",
+        "DASHBOARD",
+        "AI",
+        "POST_SYNC",
+        "OBSERVABILITY",
+        "EVALUATIONS",
+        "WORK_QUEUE",
+        "DATA",
+        "CACHE",
+        "SYNC",
+        "MIGRATION",
+        "STARTUP",
+        "BACKGROUND",
+        "FRONTEND",
+        "FILESYSTEM",
+        "NETWORK",
+        "SECRETS",
+        "LOGGING",
+        "OPENAPI",
+        "TEST_BOUNDARY",
+        "ROLLOUT"
+      ],
+      "title": "ThreatSurfaceKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "pattern": "^lumina\\.security-migration-rollout/1\\.0$",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "controls": {
+      "items": {
+        "$ref": "#/$defs/SecurityControlV2"
+      },
+      "title": "Controls",
+      "type": "array"
+    },
+    "critical_failures": {
+      "minimum": 0,
+      "title": "Critical Failures",
+      "type": "integer"
+    },
+    "failed_controls": {
+      "minimum": 0,
+      "title": "Failed Controls",
+      "type": "integer"
+    },
+    "findings": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SecurityFindingV2"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "passed_controls": {
+      "minimum": 0,
+      "title": "Passed Controls",
+      "type": "integer"
+    },
+    "ready": {
+      "title": "Ready",
+      "type": "boolean"
+    },
+    "tenant_checks": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/TenantIsolationCheckV2"
+      },
+      "title": "Tenant Checks",
+      "type": "array"
+    },
+    "total_controls": {
+      "minimum": 0,
+      "title": "Total Controls",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "controls",
+    "total_controls",
+    "passed_controls",
+    "failed_controls",
+    "critical_failures",
+    "ready"
+  ],
+  "title": "SecurityReadinessV2",
+  "type": "object"
+}

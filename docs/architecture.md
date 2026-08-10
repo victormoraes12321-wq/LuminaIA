@@ -1,5 +1,12 @@
 # Arquitetura Do LuminaAI
 
+## Encerramento da fase de operações
+
+O Prompt 26 adiciona policy/evidence pura em `backend/services/security_rollout_v2/`,
+sem novo domínio, API, página ou banco. Ela conecta inventário, configuração,
+schema compatibility, security readiness, canary e rollback. O runtime continua
+legado e desligado; rollout futuro exige autorização separada.
+
 ## Smart Cache e materializações governadas
 
 `lumina.smart-cache-materialization/1.0` fica depois do Safe Analytical

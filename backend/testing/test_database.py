@@ -55,6 +55,13 @@ EXPLICIT_MIGRATION_ONLY_TABLES = frozenset({
     "dashboard_ai_decisions_v2", "dashboard_ai_runs_v2",
     "dashboard_ai_audit_events_v2", "dashboard_ai_evaluation_cases_v2",
     "dashboard_ai_evaluation_results_v2",
+    # Prompt 23 — migration v24
+    "post_sync_insight_policies_v2", "post_sync_insight_outbox_v2",
+    "post_sync_insight_runs_v2", "post_sync_insight_detector_executions_v2",
+    "post_sync_insight_candidates_v2", "post_sync_insights_v2",
+    "post_sync_insight_evidence_v2", "post_sync_insight_user_states_v2",
+    "post_sync_insight_audit_events_v2", "post_sync_insight_evaluation_cases_v2",
+    "post_sync_insight_evaluation_results_v2",
 })
 
 

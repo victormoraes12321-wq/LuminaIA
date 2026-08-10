@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "max_active_jobs": {
+      "default": 3,
+      "maximum": 50,
+      "minimum": 1,
+      "title": "Max Active Jobs",
+      "type": "integer"
+    },
+    "max_queued_jobs": {
+      "default": 50,
+      "maximum": 5000,
+      "minimum": 1,
+      "title": "Max Queued Jobs",
+      "type": "integer"
+    },
+    "current_active_jobs": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Current Active Jobs",
+      "type": "integer"
+    },
+    "current_queued_jobs": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Current Queued Jobs",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tenant_id"
+  ],
+  "title": "WorkQueueTenantQuotaV2",
+  "type": "object"
+}

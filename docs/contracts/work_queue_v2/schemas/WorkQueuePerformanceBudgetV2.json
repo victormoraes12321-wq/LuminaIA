@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "max_latency_p95_ms": {
+      "default": 500.0,
+      "minimum": 1.0,
+      "title": "Max Latency P95 Ms",
+      "type": "number"
+    },
+    "min_throughput_rps": {
+      "default": 10.0,
+      "minimum": 0.1,
+      "title": "Min Throughput Rps",
+      "type": "number"
+    },
+    "max_db_connections_percent": {
+      "default": 80.0,
+      "maximum": 100.0,
+      "minimum": 10.0,
+      "title": "Max Db Connections Percent",
+      "type": "number"
+    },
+    "max_error_rate_percent": {
+      "default": 1.0,
+      "maximum": 100.0,
+      "minimum": 0.0,
+      "title": "Max Error Rate Percent",
+      "type": "number"
+    }
+  },
+  "title": "WorkQueuePerformanceBudgetV2",
+  "type": "object"
+}

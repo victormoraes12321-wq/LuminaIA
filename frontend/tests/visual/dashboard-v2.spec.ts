@@ -1,4 +1,5 @@
 import { expect, test, type Page, type Route } from '@playwright/test'
+import { dashboardModeAllowsAuthoring, parseDashboardUiMode } from '../../lib/dashboard-v2/config'
 import {
   dashboardBlueprintFixture,
   dashboardDetailFixture,
@@ -10,6 +11,7 @@ import {
 
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3100'
 const dashboardUiTestMode = process.env.PLAYWRIGHT_DASHBOARD_UI_MODE || 'V2_SIDE_CHAT'
+const currentDashboardUiMode = parseDashboardUiMode(dashboardUiTestMode)
 
 const user = { id: 'user-admin', nome: 'Admin Lumina', email: 'admin@lumina.test', role: 'ADMIN', tenant_id: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11', must_change_password: false }
 
@@ -57,7 +59,7 @@ async function mockDashboardApis(page: Page, options: MockOptions = {}) {
     if (path.endsWith('/revisions') && method === 'GET') return route.fulfill({ json: [dashboardRevisionFixture, revisedDashboardFixture()] })
     if (path.endsWith('/publications') && method === 'GET') return route.fulfill({ json: [detail.active_publication] })
     if (path === '/api/v2/dashboards' && method === 'GET') return route.fulfill({ json: dashboardListFixture })
-    if (path === '/api/v2/dashboards/dashboard.sales.001' && method === 'GET') return route.fulfill({ json: detail })
+    if ((path === '/api/v2/dashboards/dashboard.sales.001' || path.endsWith('/dashboard.sales.001')) && method === 'GET') return route.fulfill({ json: detail })
     return route.fulfill({ status: 404, json: { detail: { code: 'DASHBOARD_NOT_FOUND', message: 'Dashboard não encontrado.' } } })
   })
 }
@@ -331,6 +333,10 @@ test('manual editor separates visual and semantic patches and supports keyboard-
   await authenticate(page)
   await mockDashboardApis(page)
   await page.goto('/dashboard/v2/dashboard.sales.001/edit')
+  if (!dashboardModeAllowsAuthoring(currentDashboardUiMode)) {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await expect(page.getByTestId('dashboard-v2-editor')).toBeVisible()
   const title = page.getByLabel('Título')
   await title.fill('Preview manual')
@@ -346,6 +352,10 @@ test('CAS conflict never overwrites and offers governed reload', async ({ page }
   await authenticate(page)
   await mockDashboardApis(page, { visualPatchConflict: true })
   await page.goto('/dashboard/v2/dashboard.sales.001/edit')
+  if (!dashboardModeAllowsAuthoring(currentDashboardUiMode)) {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await page.getByLabel('Título').fill('Mudança conflitante')
   await page.getByRole('button', { name: 'Criar revisão' }).click()
   await expect(page.getByRole('heading', { name: 'Conflito de revisão' })).toBeVisible()
@@ -356,6 +366,10 @@ test('history preserves revisions and collaborator role without elevating RBAC',
   await authenticate(page)
   await mockDashboardApis(page)
   await page.goto('/dashboard/v2/dashboard.sales.001/history')
+  if (!dashboardModeAllowsAuthoring(currentDashboardUiMode)) {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await expect(page.getByTestId('dashboard-v2-history')).toBeVisible()
   await expect(page.getByText('EDITOR_VISUAL')).toBeVisible()
   await expect(page.getByText(/rollback sempre cria nova publicação/)).toBeVisible()
@@ -366,6 +380,10 @@ test('human lifecycle confirmations and collaborator management use governed end
   await authenticate(page)
   await mockDashboardApis(page, { detail })
   await page.goto('/dashboard/v2/dashboard.sales.001/history')
+  if (!dashboardModeAllowsAuthoring(currentDashboardUiMode)) {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   const confirmation = page.getByLabel('Confirmo a ação selecionada')
   await confirmation.check()
   await page.getByRole('button', { name: 'Aprovar revisão' }).click()

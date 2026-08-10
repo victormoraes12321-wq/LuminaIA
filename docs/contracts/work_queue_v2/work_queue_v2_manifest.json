@@ -1,0 +1,148 @@
+{
+  "contract_version": "lumina.scale-queues-performance/1.0",
+  "job_types": [
+    "POST_SYNC_INSIGHT_RUN",
+    "MATERIALIZATION_BUILD",
+    "MATERIALIZATION_REFRESH",
+    "CACHE_REFRESH",
+    "EVALUATION_RUN",
+    "DASHBOARD_BACKGROUND_REFRESH",
+    "ANALYTICAL_BACKGROUND_QUERY",
+    "SYNC_POST_PROCESSING"
+  ],
+  "priorities": [
+    "CRITICAL",
+    "HIGH",
+    "NORMAL",
+    "LOW",
+    "BACKGROUND"
+  ],
+  "statuses": [
+    "QUEUED",
+    "CLAIMED",
+    "RUNNING",
+    "RETRY_WAIT",
+    "SUCCEEDED",
+    "BLOCKED",
+    "CANCEL_REQUESTED",
+    "CANCELLED",
+    "FAILED",
+    "DEAD_LETTER",
+    "EXPIRED"
+  ],
+  "error_classes": [
+    "DATABASE_TRANSIENT",
+    "TEMPORARY_RESOURCE_EXHAUSTION",
+    "LEASE_LOST",
+    "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+    "TIMEOUT_RETRYABLE",
+    "VALIDATION_ERROR",
+    "PERMISSION_DENIED",
+    "TENANT_MISMATCH",
+    "CONTRACT_ERROR",
+    "UNSAFE_REQUEST",
+    "IDEMPOTENCY_CONFLICT",
+    "CLASSIFICATION_BLOCK",
+    "UNKNOWN_JOB_TYPE",
+    "UNKNOWN_ERROR"
+  ],
+  "concurrency_classes": [
+    "GLOBAL",
+    "PER_TENANT",
+    "PER_JOB_TYPE",
+    "PER_CONCURRENCY_CLASS",
+    "DB_BOUND",
+    "CPU_BOUND",
+    "AI_BOUND",
+    "MATERIALIZATION_BOUND",
+    "BACKGROUND"
+  ],
+  "backpressure_states": [
+    "NORMAL",
+    "ELEVATED",
+    "SATURATED",
+    "REJECTING",
+    "DRAINING"
+  ],
+  "admission_decisions": [
+    "ACCEPT",
+    "ACCEPT_DELAYED",
+    "DEFER",
+    "REJECT_RETRYABLE",
+    "BLOCK"
+  ],
+  "registered_job_specs": [
+    {
+      "job_type": "POST_SYNC_INSIGHT_RUN",
+      "default_priority": "HIGH",
+      "max_attempts": 3,
+      "timeout_seconds": 120.0,
+      "concurrency_class": "CPU_BOUND",
+      "cancellation_supported": true,
+      "description": "Executa o pipeline determinístico de Post-Sync Insights"
+    },
+    {
+      "job_type": "MATERIALIZATION_BUILD",
+      "default_priority": "NORMAL",
+      "max_attempts": 3,
+      "timeout_seconds": 300.0,
+      "concurrency_class": "MATERIALIZATION_BOUND",
+      "cancellation_supported": true,
+      "description": "Constrói materialização de catálogo/cubo analítico"
+    },
+    {
+      "job_type": "MATERIALIZATION_REFRESH",
+      "default_priority": "NORMAL",
+      "max_attempts": 3,
+      "timeout_seconds": 180.0,
+      "concurrency_class": "MATERIALIZATION_BOUND",
+      "cancellation_supported": true,
+      "description": "Atualiza incrementalmente materialização analítica"
+    },
+    {
+      "job_type": "CACHE_REFRESH",
+      "default_priority": "LOW",
+      "max_attempts": 2,
+      "timeout_seconds": 60.0,
+      "concurrency_class": "DB_BOUND",
+      "cancellation_supported": true,
+      "description": "Pré-aquece entrada de Smart Cache"
+    },
+    {
+      "job_type": "EVALUATION_RUN",
+      "default_priority": "BACKGROUND",
+      "max_attempts": 2,
+      "timeout_seconds": 180.0,
+      "concurrency_class": "CPU_BOUND",
+      "cancellation_supported": true,
+      "description": "Executa suíte de avaliação de regressão"
+    },
+    {
+      "job_type": "DASHBOARD_BACKGROUND_REFRESH",
+      "default_priority": "LOW",
+      "max_attempts": 2,
+      "timeout_seconds": 90.0,
+      "concurrency_class": "BACKGROUND",
+      "cancellation_supported": true,
+      "description": "Atualiza widgets de dashboard em background"
+    },
+    {
+      "job_type": "ANALYTICAL_BACKGROUND_QUERY",
+      "default_priority": "NORMAL",
+      "max_attempts": 3,
+      "timeout_seconds": 120.0,
+      "concurrency_class": "DB_BOUND",
+      "cancellation_supported": true,
+      "description": "Executa consulta analítica longa em background"
+    },
+    {
+      "job_type": "SYNC_POST_PROCESSING",
+      "default_priority": "HIGH",
+      "max_attempts": 3,
+      "timeout_seconds": 180.0,
+      "concurrency_class": "CPU_BOUND",
+      "cancellation_supported": true,
+      "description": "Processamento pós-sincronização de catálogo"
+    }
+  ]
+}

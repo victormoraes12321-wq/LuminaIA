@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    },
+    "RollbackTypeV2": {
+      "enum": [
+        "FEATURE",
+        "APPLICATION",
+        "DATABASE",
+        "DATA_EFFECT"
+      ],
+      "title": "RollbackTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed_environments": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Environments",
+      "type": "array"
+    },
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "dependency_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dependency Ids",
+      "type": "array"
+    },
+    "feature": {
+      "$ref": "#/$defs/GovernedFeatureV2"
+    },
+    "kill_switch_required": {
+      "default": true,
+      "title": "Kill Switch Required",
+      "type": "boolean"
+    },
+    "required_migration": {
+      "minimum": 0,
+      "title": "Required Migration",
+      "type": "integer"
+    },
+    "rollback_types": {
+      "items": {
+        "$ref": "#/$defs/RollbackTypeV2"
+      },
+      "title": "Rollback Types",
+      "type": "array"
+    }
+  },
+  "required": [
+    "feature",
+    "required_migration",
+    "dependency_ids",
+    "allowed_environments",
+    "rollback_types"
+  ],
+  "title": "FeatureRolloutPolicyV2",
+  "type": "object"
+}

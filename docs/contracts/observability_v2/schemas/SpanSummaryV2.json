@@ -1,0 +1,132 @@
+{
+  "$defs": {
+    "SpanCategoryV2": {
+      "enum": [
+        "HTTP_REQUEST",
+        "AUTHORIZATION",
+        "CONTEXT_RESOLUTION",
+        "INTENT_EXTRACTION",
+        "SEMANTIC_RETRIEVAL",
+        "TOOL_INVOCATION",
+        "QUERY_PLANNING",
+        "QUERY_EXECUTION",
+        "VALIDATION",
+        "CACHE_LOOKUP",
+        "MATERIALIZATION_LOOKUP",
+        "DASHBOARD_PLAN",
+        "DASHBOARD_WIDGET_EXECUTION",
+        "AI_ORCHESTRATION",
+        "POST_SYNC_INSIGHT_RUN",
+        "SYNC",
+        "RECONCILIATION"
+      ],
+      "title": "SpanCategoryV2",
+      "type": "string"
+    },
+    "SpanStatusV2": {
+      "enum": [
+        "OK",
+        "ERROR",
+        "CANCELLED",
+        "TIMEOUT",
+        "BLOCKED",
+        "PARTIAL",
+        "DEGRADED"
+      ],
+      "title": "SpanStatusV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "span_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Span Id",
+      "type": "string"
+    },
+    "parent_span_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Span Id"
+    },
+    "name": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "category": {
+      "$ref": "#/$defs/SpanCategoryV2"
+    },
+    "status": {
+      "$ref": "#/$defs/SpanStatusV2"
+    },
+    "start_time": {
+      "format": "date-time",
+      "title": "Start Time",
+      "type": "string"
+    },
+    "duration_ms": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Duration Ms"
+    },
+    "sanitized_attributes": {
+      "default": [],
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Sanitized Attributes",
+      "type": "array"
+    },
+    "error_class": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Class"
+    }
+  },
+  "required": [
+    "span_id",
+    "name",
+    "category",
+    "status",
+    "start_time",
+    "duration_ms"
+  ],
+  "title": "SpanSummaryV2",
+  "type": "object"
+}

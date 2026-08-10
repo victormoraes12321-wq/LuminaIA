@@ -156,6 +156,72 @@ class Settings(BaseSettings):
     DASHBOARD_AI_MAX_OUTPUT_TOKENS: int = Field(default=1200, ge=64, le=4000)
     DASHBOARD_AI_MAX_TOOL_CALLS: int = Field(default=12, ge=0, le=32)
     DASHBOARD_AI_MAX_DURATION_MS: int = Field(default=15000, ge=100, le=60000)
+    POST_SYNC_INSIGHTS_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_DETECT",
+        "V2_INSIGHTS_READ",
+        "V2_INSIGHTS_PUBLISH",
+        "V2_INSIGHTS_AUTO_RUN",
+    ] = Field(default="LEGACY_ONLY")
+    POST_SYNC_INSIGHTS_APIS_ENABLED: bool = Field(default=False)
+    POST_SYNC_INSIGHTS_FRONTEND_ENABLED: bool = Field(default=False)
+    POST_SYNC_INSIGHTS_OUTBOX_CONSUMER_ENABLED: bool = Field(default=False)
+    POST_SYNC_INSIGHTS_AUTO_RUN_ENABLED: bool = Field(default=False)
+    POST_SYNC_INSIGHTS_TENANT_ALLOWLIST: tuple[str, ...] = Field(default=())
+    OBSERVABILITY_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_OBSERVE",
+        "V2_OBSERVABILITY_READ",
+        "V2_EVALUATIONS",
+    ] = Field(default="LEGACY_ONLY")
+    OBSERVABILITY_APIS_ENABLED: bool = Field(default=False)
+    OBSERVABILITY_FRONTEND_ENABLED: bool = Field(default=False)
+    WORK_QUEUE_MODE: Literal[
+        "LEGACY_ONLY",
+        "SHADOW_QUEUE",
+        "V2_BACKGROUND_JOBS",
+        "V2_QUEUE_ADMIN",
+        "V2_PERFORMANCE_CERTIFICATION",
+    ] = Field(default="LEGACY_ONLY")
+    WORK_QUEUE_APIS_ENABLED: bool = Field(default=False)
+    WORK_QUEUE_FRONTEND_ENABLED: bool = Field(default=False)
+    WORK_QUEUE_WORKER_ENABLED: bool = Field(default=False)
+    WORK_QUEUE_MAX_CONCURRENCY: int = Field(default=10, ge=1, le=100)
+    WORK_QUEUE_PER_TENANT_CONCURRENCY: int = Field(default=3, ge=1, le=50)
+    WORK_QUEUE_LEASE_DURATION_SECONDS: int = Field(default=60, ge=5, le=3600)
+    WORK_QUEUE_HEARTBEAT_INTERVAL_SECONDS: int = Field(default=15, ge=1, le=600)
+    WORK_QUEUE_TENANT_ALLOWLIST: tuple[str, ...] = Field(default=())
+    PERFORMANCE_CERTIFICATION_MODE: bool = Field(default=False)
+    SECURITY_ROLLOUT_MODE: Literal[
+        "LEGACY_ONLY",
+        "AUDIT_ONLY",
+        "V2_READINESS",
+    ] = Field(default="LEGACY_ONLY")
+    SECURITY_ROLLOUT_APIS_ENABLED: bool = Field(default=False)
+    ROLLOUT_EXECUTION_ENABLED: bool = Field(default=False)
+    ROLLOUT_STAGE: Literal[
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK",
+    ] = Field(default="DISABLED")
+    ROLLOUT_CANARY_PERCENTAGE: int = Field(default=0, ge=0, le=100)
+    ROLLOUT_CANARY_TENANT_ALLOWLIST: tuple[str, ...] = Field(default=())
+    V2_GLOBAL_EMERGENCY_DISABLE: bool = Field(default=True)
+    KILL_SWITCH_DASHBOARD_V2_READ: bool = Field(default=True)
+    KILL_SWITCH_DASHBOARD_V2_AUTHORING: bool = Field(default=True)
+    KILL_SWITCH_DASHBOARD_AI: bool = Field(default=True)
+    KILL_SWITCH_POST_SYNC_INSIGHTS: bool = Field(default=True)
+    KILL_SWITCH_OBSERVABILITY_V2: bool = Field(default=True)
+    KILL_SWITCH_EVALUATIONS_V2: bool = Field(default=True)
+    KILL_SWITCH_WORK_QUEUE_V2: bool = Field(default=True)
+    KILL_SWITCH_PERFORMANCE_CERTIFICATION: bool = Field(default=True)
+    INSPECTOR_REPLAY_ENABLED: bool = Field(default=False)
     SEMANTIC_RETRIEVAL_MAX_PAGE_SIZE: int = Field(default=100, ge=1, le=500)
     CONVERSATION_PERSIST_CONTENT: bool = Field(default=True)
     CONVERSATION_CONTENT_KEY_VERSION: str = Field(default="v1", min_length=1, max_length=32)
@@ -396,6 +462,29 @@ class Settings(BaseSettings):
             <= self.CONVERSATION_PURGE_AFTER_DAYS
         ):
             raise ValueError("Conversation retention periods must be ordered.")
+        if self.CORS_ALLOW_CREDENTIALS and "*" in self.CORS_ORIGINS:
+            raise ValueError("CORS com credentials exige allowlist explicita; wildcard e proibido.")
+        if self.ENVIRONMENT == "production":
+            if any("localhost" in origin or "127.0.0.1" in origin for origin in self.CORS_ORIGINS):
+                raise ValueError("CORS de producao exige origins explicitas do deployment, sem localhost.")
+            unsafe_test_flags = (
+                self.LUMINA_TESTING
+                or self.MOCK_ORACLE
+                or self.MOCK_OPENAI
+                or self.DASHBOARD_AI_FAKE_PROVIDER_ENABLED
+                or self.PERFORMANCE_CERTIFICATION_MODE
+            )
+            unsafe_rollout = (
+                self.ROLLOUT_EXECUTION_ENABLED
+                or self.ROLLOUT_STAGE != "DISABLED"
+                or self.ROLLOUT_CANARY_PERCENTAGE != 0
+                or bool(self.ROLLOUT_CANARY_TENANT_ALLOWLIST)
+                or self.WORK_QUEUE_WORKER_ENABLED
+            )
+            if unsafe_test_flags:
+                raise ValueError("Flags de teste, provider fake ou performance sao proibidas em producao.")
+            if unsafe_rollout:
+                raise ValueError("Worker, canary e rollout real sao proibidos no baseline de producao.")
         return self
 
     # ── Propriedades Derivadas ─────────────────────────────────

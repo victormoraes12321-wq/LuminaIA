@@ -1,0 +1,211 @@
+{
+  "$defs": {
+    "SpanCategoryV2": {
+      "enum": [
+        "HTTP_REQUEST",
+        "AUTHORIZATION",
+        "CONTEXT_RESOLUTION",
+        "INTENT_EXTRACTION",
+        "SEMANTIC_RETRIEVAL",
+        "TOOL_INVOCATION",
+        "QUERY_PLANNING",
+        "QUERY_EXECUTION",
+        "VALIDATION",
+        "CACHE_LOOKUP",
+        "MATERIALIZATION_LOOKUP",
+        "DASHBOARD_PLAN",
+        "DASHBOARD_WIDGET_EXECUTION",
+        "AI_ORCHESTRATION",
+        "POST_SYNC_INSIGHT_RUN",
+        "SYNC",
+        "RECONCILIATION"
+      ],
+      "title": "SpanCategoryV2",
+      "type": "string"
+    },
+    "SpanStatusV2": {
+      "enum": [
+        "OK",
+        "ERROR",
+        "CANCELLED",
+        "TIMEOUT",
+        "BLOCKED",
+        "PARTIAL",
+        "DEGRADED"
+      ],
+      "title": "SpanStatusV2",
+      "type": "string"
+    },
+    "SpanSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "span_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Span Id",
+          "type": "string"
+        },
+        "parent_span_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Span Id"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/SpanCategoryV2"
+        },
+        "status": {
+          "$ref": "#/$defs/SpanStatusV2"
+        },
+        "start_time": {
+          "format": "date-time",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "duration_ms": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duration Ms"
+        },
+        "sanitized_attributes": {
+          "default": [],
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Sanitized Attributes",
+          "type": "array"
+        },
+        "error_class": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Class"
+        }
+      },
+      "required": [
+        "span_id",
+        "name",
+        "category",
+        "status",
+        "start_time",
+        "duration_ms"
+      ],
+      "title": "SpanSummaryV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "trace_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "root_span_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Root Span Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tenant Id"
+    },
+    "route_template": {
+      "maxLength": 256,
+      "title": "Route Template",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "total_duration_ms": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Total Duration Ms"
+    },
+    "status": {
+      "$ref": "#/$defs/SpanStatusV2"
+    },
+    "span_count": {
+      "minimum": 1,
+      "title": "Span Count",
+      "type": "integer"
+    },
+    "spans": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SpanSummaryV2"
+      },
+      "title": "Spans",
+      "type": "array"
+    }
+  },
+  "required": [
+    "trace_id",
+    "root_span_id",
+    "route_template",
+    "started_at",
+    "total_duration_ms",
+    "status",
+    "span_count"
+  ],
+  "title": "TraceSummaryV2",
+  "type": "object"
+}

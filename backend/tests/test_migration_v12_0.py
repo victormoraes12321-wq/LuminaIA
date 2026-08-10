@@ -106,7 +106,7 @@ async def test_migration_up_idempotent_down_and_up_again() -> None:
     assert set(first["indexes"]) == set(second["indexes"])
 
     # Downstream migrations must be removed in reverse order before v12 migration.
-    for version in range(23, 12, -1):
+    for version in range(24, 12, -1):
         await _run_down_version(version)
     try:
         await run_down(confirm_test_only=True, dsn=_dsn())
@@ -123,12 +123,12 @@ async def test_migration_up_idempotent_down_and_up_again() -> None:
 
         restored = await run_up(_dsn())
         assert restored["tables"] == sorted(TABLES)
-        for version in range(13, 24):
+        for version in range(13, 25):
             mod = _load_migration_version(version)
             await mod.run_up()
     finally:
         await run_up(_dsn())
-        for version in range(13, 24):
+        for version in range(13, 25):
             mod = _load_migration_version(version)
             await mod.run_up()
         from testing.test_database import reset_and_seed_test_database

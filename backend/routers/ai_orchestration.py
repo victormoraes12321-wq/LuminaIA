@@ -29,8 +29,9 @@ _policy_service = AIOrchestrationPolicyService()
 _prompt_template_service = AIPromptTemplateService()
 
 
-def _require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str, Any]:
-    role = str(user.get("role") or "").upper()
+def _require_admin(user: Any = Depends(get_current_user)) -> Any:
+    role_value = getattr(user.role, "value", user.role)
+    role = str(role_value or "").upper()
     if role != "ADMIN":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -42,12 +43,12 @@ def _require_admin(user: Dict[str, Any] = Depends(get_current_user)) -> Dict[str
 @router.post("/run", response_model=AIOrchestrationResponseV2)
 async def run_ai_orchestration(
     payload: AIOrchestrationRequestV2,
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ) -> AIOrchestrationResponseV2:
     """Runs governed AI orchestration for authenticated user and tenant."""
-    tenant_id = str(current_user["tenant_id"])
-    user_id = str(current_user["id"])
-    user_role = str(current_user.get("role") or "CONSULTA")
+    tenant_id = str(current_user.tenant_id)
+    user_id = str(current_user.id)
+    user_role = str(getattr(current_user.role, "value", current_user.role) or "CONSULTA")
 
     try:
         return await _orchestrator.execute_orchestration(
@@ -57,16 +58,16 @@ async def run_ai_orchestration(
             user_roles=[user_role],
         )
     except Exception as exc:
-        logger.error("[AIOrchestrationRouter] Execution error: %s", str(exc), exc_info=True)
+        logger.error("[AIOrchestrationRouter] failure type=%s", type(exc).__name__)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Erro durante orquestracao de IA: {str(exc)}",
+            detail="Erro durante orquestracao de IA.",
         ) from exc
 
 
 @router.get("/models")
 async def list_model_definitions(
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ) -> List[Dict[str, Any]]:
     """Lists registered canonical models in the server-controlled Model Registry."""
     models = _model_router.list_models()
@@ -75,7 +76,7 @@ async def list_model_definitions(
 
 @router.get("/providers")
 async def list_provider_definitions(
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ) -> List[Dict[str, Any]]:
     """Lists registered provider adapters."""
     providers = _model_router.list_providers()
@@ -84,7 +85,7 @@ async def list_provider_definitions(
 
 @router.get("/prompts")
 async def list_prompt_templates(
-    current_user: Dict[str, Any] = Depends(get_current_user),
+    current_user: Any = Depends(get_current_user),
 ) -> List[Dict[str, Any]]:
     """Lists active prompt templates and version histories."""
     templates = _prompt_template_service.list_templates()
@@ -98,10 +99,10 @@ class PolicyUpdatePayload(BaseModel):
 
 @router.get("/policies")
 async def get_orchestration_policies(
-    admin_user: Dict[str, Any] = Depends(_require_admin),
+    admin_user: Any = Depends(_require_admin),
 ) -> Dict[str, Any]:
     """Returns active model and provider policies for tenant."""
-    tenant_id = str(admin_user["tenant_id"])
+    tenant_id = str(admin_user.tenant_id)
     mp = _policy_service.get_model_policy(tenant_id)
     pp = _policy_service.get_provider_policy(tenant_id)
     return {
@@ -114,11 +115,11 @@ async def get_orchestration_policies(
 @router.post("/inspector/simulate")
 async def simulate_inspection(
     payload: AIOrchestrationRequestV2,
-    admin_user: Dict[str, Any] = Depends(_require_admin),
+    admin_user: Any = Depends(_require_admin),
 ) -> Dict[str, Any]:
     """Synthetic dry-run inspection tool for ADMIN users."""
-    tenant_id = str(admin_user["tenant_id"])
-    user_id = str(admin_user["id"])
+    tenant_id = str(admin_user.tenant_id)
+    user_id = str(admin_user.id)
 
     response = await _orchestrator.execute_orchestration(
         request=payload,

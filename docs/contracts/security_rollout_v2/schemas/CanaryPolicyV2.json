@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "allowed_environments": {
+      "default": [
+        "test",
+        "staging"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Environments",
+      "type": "array"
+    },
+    "explicit_internal_tenants": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Explicit Internal Tenants",
+      "type": "array"
+    },
+    "percentage": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Percentage",
+      "type": "integer"
+    },
+    "policy_version": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "real_tenant_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Real Tenant Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "policy_version",
+    "percentage"
+  ],
+  "title": "CanaryPolicyV2",
+  "type": "object"
+}

@@ -1,5 +1,11 @@
 # Guia De Manutencao
 
+## Segurança de migration e rollout
+
+DDL futuro exige target guard, backup aprovado, compatibility manifest e advisory
+lock. Nunca executar migration concorrente ou `down` produtivo automático. O
+runbook do Prompt 26 exige emergency disable e rollback antes de rollout.
+
 ## Migration V21 e retenção do cache
 
 `backend/database/migration_v21_0.py` adiciona 14 tabelas tenant-scoped de Smart

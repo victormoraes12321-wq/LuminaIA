@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "bucket": {
+      "maximum": 9999,
+      "minimum": 0,
+      "title": "Bucket",
+      "type": "integer"
+    },
+    "eligible": {
+      "title": "Eligible",
+      "type": "boolean"
+    },
+    "policy_version": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "reason_code": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_version",
+    "bucket",
+    "eligible",
+    "reason_code"
+  ],
+  "title": "CanaryAssignmentV2",
+  "type": "object"
+}

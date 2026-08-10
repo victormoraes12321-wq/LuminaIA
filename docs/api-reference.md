@@ -1,5 +1,11 @@
 # API Reference - LuminaAI
 
+## Prompt 26
+
+O Prompt 26 não adiciona paths. Clientes não escolhem tenant, stage, bucket,
+kill switch ou migration. Validation V2 deriva tenant/user da sessão autenticada.
+Inspector replay legado falha fechado e trace sem ownership tenant-scoped não é revelado.
+
 ## Smart Cache e Materialização V2
 
 `lumina.smart-cache-materialization/1.0` permanece ausente do OpenAPI de

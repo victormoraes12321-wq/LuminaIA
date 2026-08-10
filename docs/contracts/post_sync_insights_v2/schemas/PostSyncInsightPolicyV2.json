@@ -1,0 +1,257 @@
+{
+  "$defs": {
+    "PostSyncInsightBaselinePolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_type": {
+          "$ref": "#/$defs/PostSyncInsightBaselineTypeV2"
+        },
+        "lookback_window_days": {
+          "default": 30,
+          "maximum": 365,
+          "minimum": 1,
+          "title": "Lookback Window Days",
+          "type": "integer"
+        },
+        "minimum_observations": {
+          "default": 5,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Minimum Observations",
+          "type": "integer"
+        },
+        "allow_zero_baseline_percentage": {
+          "default": false,
+          "title": "Allow Zero Baseline Percentage",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "baseline_type"
+      ],
+      "title": "PostSyncInsightBaselinePolicyV2",
+      "type": "object"
+    },
+    "PostSyncInsightBaselineTypeV2": {
+      "enum": [
+        "PREVIOUS_SUCCESSFUL_SYNC",
+        "PREVIOUS_CLOSED_PERIOD",
+        "SAME_PERIOD_PREVIOUS_CYCLE",
+        "ROLLING_BASELINE",
+        "PUBLISHED_TARGET",
+        "PREVIOUS_RANKING_SNAPSHOT"
+      ],
+      "title": "PostSyncInsightBaselineTypeV2",
+      "type": "string"
+    },
+    "PostSyncInsightPriorityPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "max_insights_per_run": {
+          "default": 5,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Max Insights Per Run",
+          "type": "integer"
+        },
+        "min_severity_to_publish": {
+          "$ref": "#/$defs/PostSyncInsightSeverityV2",
+          "default": "LOW"
+        },
+        "prioritize_target_breaches": {
+          "default": true,
+          "title": "Prioritize Target Breaches",
+          "type": "boolean"
+        }
+      },
+      "title": "PostSyncInsightPriorityPolicyV2",
+      "type": "object"
+    },
+    "PostSyncInsightSeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "PostSyncInsightSeverityV2",
+      "type": "string"
+    },
+    "PostSyncInsightSuppressionPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "suppression_window_hours": {
+          "default": 24,
+          "maximum": 720,
+          "minimum": 1,
+          "title": "Suppression Window Hours",
+          "type": "integer"
+        },
+        "max_duplicate_occurrences": {
+          "default": 1,
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Max Duplicate Occurrences",
+          "type": "integer"
+        },
+        "suppress_on_reconciliation_error": {
+          "default": true,
+          "title": "Suppress On Reconciliation Error",
+          "type": "boolean"
+        },
+        "suppress_on_partial_sync": {
+          "default": true,
+          "title": "Suppress On Partial Sync",
+          "type": "boolean"
+        }
+      },
+      "title": "PostSyncInsightSuppressionPolicyV2",
+      "type": "object"
+    },
+    "PostSyncInsightThresholdPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "metric_key": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Metric Key",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "GT",
+            "GTE",
+            "LT",
+            "LTE",
+            "OUTSIDE_RANGE",
+            "INSIDE_RANGE"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "target_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Target Value"
+        },
+        "high_threshold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "High Threshold"
+        },
+        "low_threshold": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Low Threshold"
+        },
+        "unit": {
+          "default": "BRL",
+          "maxLength": 16,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_key",
+        "operator",
+        "target_value"
+      ],
+      "title": "PostSyncInsightThresholdPolicyV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "policy_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "default": "1.0.0",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "lumina.post-sync-insights/1.0",
+      "default": "lumina.post-sync-insights/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "enabled_detectors": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Enabled Detectors",
+      "type": "array"
+    },
+    "baseline_policy": {
+      "$ref": "#/$defs/PostSyncInsightBaselinePolicyV2"
+    },
+    "threshold_policies": {
+      "items": {
+        "$ref": "#/$defs/PostSyncInsightThresholdPolicyV2"
+      },
+      "title": "Threshold Policies",
+      "type": "array"
+    },
+    "suppression_policy": {
+      "$ref": "#/$defs/PostSyncInsightSuppressionPolicyV2"
+    },
+    "priority_policy": {
+      "$ref": "#/$defs/PostSyncInsightPriorityPolicyV2"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_id",
+    "tenant_id",
+    "baseline_policy",
+    "suppression_policy",
+    "priority_policy",
+    "checksum"
+  ],
+  "title": "PostSyncInsightPolicyV2",
+  "type": "object"
+}

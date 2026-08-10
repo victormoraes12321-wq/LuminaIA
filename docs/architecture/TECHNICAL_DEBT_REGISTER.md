@@ -1,5 +1,19 @@
 # Technical Debt Register
 
+## Security, migration e rollout V2
+
+| ID | Dívida futura | Mitigação atual | Saída exigida |
+|---|---|---|---|
+| TD-P26-001 | canary e aprovação de SLO produtivos não executados | percentage 0, allowlist vazia, kill switches ativos | change approval separado |
+| TD-P26-002 | alerting externo/WAF/trusted proxy ausentes | headers/CORS/rate limits e forwarded headers sem autoridade | infraestrutura aprovada |
+| TD-P26-003 | secret manager externo depende do deployment | managers internos e redaction | integração no ambiente real |
+| TD-P26-004 | broker/autoscaling/multi-region ausentes | queue PostgreSQL, leases e worker off | capacity, pool tuning e DR produtivos |
+| TD-P26-005 | load/penetration/DR produtivos não executados | corpus e testes isolados | ensaios externos autorizados |
+| TD-P26-006 | trace buffer sem owner tenant | detalhe retorna 404 não revelador | storage tenant-scoped |
+| TD-P26-007 | frontend proxy apenas decodifica JWT | backend verifica assinatura/tenant/RBAC | guarda server-side futuro |
+
+Nenhuma dívida autoriza rollout, worker, migration ou canary real.
+
 ## Reconciliação Prompt 21 — 2026-08-05
 
 As linhas históricas abaixo permanecem intactas. Para o estado atual, esta

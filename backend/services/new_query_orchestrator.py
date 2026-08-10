@@ -1,4 +1,5 @@
 import uuid
+import hashlib
 import time
 import logging
 import calendar
@@ -2559,13 +2560,15 @@ class NewQueryOrchestrator:
                 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "runtime-logs", "debug")
                 os.makedirs(log_dir, exist_ok=True)
 
-                debug_json = json.dumps(debug_data, indent=4, default=str, ensure_ascii=False)
+                from services.security_rollout_v2.sanitization import security_payload_sanitizer
+                safe_debug_data = security_payload_sanitizer.sanitize_debug_trace(debug_data)
+                debug_json = json.dumps(safe_debug_data, indent=4, default=str, ensure_ascii=False)
                 with open(os.path.join(log_dir, f"debug_{trace_id}.json"), "w", encoding="utf-8") as f:
                     f.write(debug_json)
                 with open(os.path.join(log_dir, "debug_steps.json"), "w", encoding="utf-8") as f:
                     f.write(debug_json)
             except Exception as e_log:
-                logger.error("Erro ao salvar log de debug em disco: %s", e_log)
+                logger.error("Erro ao salvar log de debug em disco | type=%s", type(e_log).__name__)
 
         def write_debug_and_return(payload: dict) -> dict:
             if context_resolution_result is not None:
@@ -2600,7 +2603,8 @@ class NewQueryOrchestrator:
             payload["query_id"] = str(trace_id)
             payload["request_id"] = str(trace_id)
             save_debug_logs(payload)
-            payload["debug_info"] = debug_data
+            from services.security_rollout_v2.sanitization import security_payload_sanitizer
+            payload["debug_info"] = security_payload_sanitizer.sanitize_debug_trace(debug_data)
             if context_resolution_result is not None:
                 payload["_context_resolution_result"] = context_resolution_result
             return payload
@@ -2668,14 +2672,16 @@ class NewQueryOrchestrator:
                 log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "runtime-logs", "debug")
                 os.makedirs(log_dir, exist_ok=True)
 
-                debug_json = json.dumps(debug_data, indent=4, default=str, ensure_ascii=False)
+                from services.security_rollout_v2.sanitization import security_payload_sanitizer
+                safe_debug_data = security_payload_sanitizer.sanitize_debug_trace(debug_data)
+                debug_json = json.dumps(safe_debug_data, indent=4, default=str, ensure_ascii=False)
                 with open(os.path.join(log_dir, f"debug_{trace_id}.json"), "w", encoding="utf-8") as f:
                     f.write(debug_json)
                 # Sobrescreve trace global da última execução
                 with open(os.path.join(log_dir, "debug_steps.json"), "w", encoding="utf-8") as f:
                     f.write(debug_json)
             except Exception as e_log:
-                logger.error("Erro ao salvar log de debug em disco: %s", e_log)
+                logger.error("Erro ao salvar log de debug em disco | type=%s", type(e_log).__name__)
 
         def write_debug_and_return(payload: dict) -> dict:
             if context_resolution_result is not None:
@@ -2692,7 +2698,8 @@ class NewQueryOrchestrator:
             payload["query_id"] = str(trace_id)
             payload["request_id"] = str(trace_id)
             save_debug_logs(payload)
-            payload["debug_info"] = debug_data
+            from services.security_rollout_v2.sanitization import security_payload_sanitizer
+            payload["debug_info"] = security_payload_sanitizer.sanitize_debug_trace(debug_data)
             if context_resolution_result is not None:
                 payload["_context_resolution_result"] = context_resolution_result
             return payload
@@ -3796,7 +3803,10 @@ class NewQueryOrchestrator:
         exec_res = ExecutionResult(
             status=ExecutionStatus.READY,
             dataset=normalized_rows,
-            metadata={"sql": sql, "binds": str(binds)},
+            metadata={
+                "query_fingerprint": hashlib.sha256(sql.encode("utf-8")).hexdigest(),
+                "bind_count": len(binds or {}),
+            },
             execution_time_ms=elapsed,
             row_count=len(normalized_rows)
         )
@@ -3844,7 +3854,7 @@ class NewQueryOrchestrator:
             "warnings": explanation.warnings,
             "execution_time_ms": elapsed,
             "telemetry": {
-                "sql": sql,
+                "query_fingerprint": hashlib.sha256(sql.encode("utf-8")).hexdigest(),
                 "timings": {"total_pipeline": elapsed}
             }
         }

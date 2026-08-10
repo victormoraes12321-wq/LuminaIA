@@ -1,0 +1,37 @@
+{
+  "$defs": {
+    "DeploymentCompatibilityStateV2": {
+      "enum": [
+        "COMPATIBLE",
+        "DEGRADED",
+        "BLOCKED"
+      ],
+      "title": "DeploymentCompatibilityStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "reason": {
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "scenario_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/DeploymentCompatibilityStateV2"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "state",
+    "reason"
+  ],
+  "title": "DeploymentCompatibilityV2",
+  "type": "object"
+}

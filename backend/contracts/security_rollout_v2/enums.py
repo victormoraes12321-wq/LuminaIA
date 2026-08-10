@@ -1,0 +1,151 @@
+"""Closed enums for governed security, migration compatibility and rollout."""
+from __future__ import annotations
+
+from enum import Enum
+
+
+class SecuritySeverityV2(str, Enum):
+    INFO = "INFO"
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class SecurityControlStatusV2(str, Enum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+    NOT_CONFIGURED = "NOT_CONFIGURED"
+    BLOCKED = "BLOCKED"
+    MANUAL_REVIEW_REQUIRED = "MANUAL_REVIEW_REQUIRED"
+
+
+class ThreatSurfaceKindV2(str, Enum):
+    HTTP = "HTTP"
+    AUTHENTICATION = "AUTHENTICATION"
+    AUTHORIZATION = "AUTHORIZATION"
+    TENANT = "TENANT"
+    API = "API"
+    DASHBOARD = "DASHBOARD"
+    AI = "AI"
+    POST_SYNC = "POST_SYNC"
+    OBSERVABILITY = "OBSERVABILITY"
+    EVALUATIONS = "EVALUATIONS"
+    WORK_QUEUE = "WORK_QUEUE"
+    DATA = "DATA"
+    CACHE = "CACHE"
+    SYNC = "SYNC"
+    MIGRATION = "MIGRATION"
+    STARTUP = "STARTUP"
+    BACKGROUND = "BACKGROUND"
+    FRONTEND = "FRONTEND"
+    FILESYSTEM = "FILESYSTEM"
+    NETWORK = "NETWORK"
+    SECRETS = "SECRETS"
+    LOGGING = "LOGGING"
+    OPENAPI = "OPENAPI"
+    TEST_BOUNDARY = "TEST_BOUNDARY"
+    ROLLOUT = "ROLLOUT"
+
+
+class ConfigurationReadinessStateV2(str, Enum):
+    READY = "READY"
+    DEGRADED = "DEGRADED"
+    BLOCKED = "BLOCKED"
+
+
+class SchemaCompatibilityStateV2(str, Enum):
+    COMPATIBLE = "COMPATIBLE"
+    UPGRADE_REQUIRED = "UPGRADE_REQUIRED"
+    APPLICATION_TOO_OLD = "APPLICATION_TOO_OLD"
+    DATABASE_TOO_NEW = "DATABASE_TOO_NEW"
+    UNKNOWN = "UNKNOWN"
+    BLOCKED = "BLOCKED"
+
+
+class GovernedFeatureV2(str, Enum):
+    DASHBOARD_V2_READ = "DASHBOARD_V2_READ"
+    DASHBOARD_V2_AUTHORING = "DASHBOARD_V2_AUTHORING"
+    DASHBOARD_AI = "DASHBOARD_AI"
+    POST_SYNC_INSIGHTS = "POST_SYNC_INSIGHTS"
+    OBSERVABILITY_V2 = "OBSERVABILITY_V2"
+    EVALUATIONS_V2 = "EVALUATIONS_V2"
+    WORK_QUEUE_V2 = "WORK_QUEUE_V2"
+    PERFORMANCE_CERTIFICATION = "PERFORMANCE_CERTIFICATION"
+
+
+class FeatureRolloutStageV2(str, Enum):
+    DISABLED = "DISABLED"
+    AUDIT_ONLY = "AUDIT_ONLY"
+    SHADOW = "SHADOW"
+    INTERNAL = "INTERNAL"
+    CANARY = "CANARY"
+    EXPANDED = "EXPANDED"
+    FULL = "FULL"
+    PAUSED = "PAUSED"
+    ROLLED_BACK = "ROLLED_BACK"
+
+
+class RolloutReadinessStateV2(str, Enum):
+    NOT_READY = "NOT_READY"
+    READY_FOR_AUDIT = "READY_FOR_AUDIT"
+    READY_FOR_SHADOW = "READY_FOR_SHADOW"
+    READY_FOR_INTERNAL = "READY_FOR_INTERNAL"
+    READY_FOR_CANARY = "READY_FOR_CANARY"
+    READY_FOR_EXPANSION = "READY_FOR_EXPANSION"
+    READY_FOR_FULL = "READY_FOR_FULL"
+    PAUSED = "PAUSED"
+    BLOCKED = "BLOCKED"
+
+
+class RolloutDecisionV2(str, Enum):
+    DENY = "DENY"
+    ALLOW_AUDIT = "ALLOW_AUDIT"
+    ALLOW_SHADOW = "ALLOW_SHADOW"
+    ALLOW_INTERNAL = "ALLOW_INTERNAL"
+    ALLOW_CANARY = "ALLOW_CANARY"
+    ALLOW_EXPANSION = "ALLOW_EXPANSION"
+    PAUSE = "PAUSE"
+    ROLLBACK = "ROLLBACK"
+
+
+class KillSwitchStateV2(str, Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+
+class GateOutcomeV2(str, Enum):
+    PASS = "PASS"
+    DENY = "DENY"
+    BLOCKED = "BLOCKED"
+
+
+class CapabilityDecisionV2(str, Enum):
+    ALLOW = "ALLOW"
+    DENY = "DENY"
+
+
+class RollbackTypeV2(str, Enum):
+    FEATURE = "FEATURE"
+    APPLICATION = "APPLICATION"
+    DATABASE = "DATABASE"
+    DATA_EFFECT = "DATA_EFFECT"
+
+
+class DeploymentCompatibilityStateV2(str, Enum):
+    COMPATIBLE = "COMPATIBLE"
+    DEGRADED = "DEGRADED"
+    BLOCKED = "BLOCKED"
+
+
+class OperationalReadinessStateV2(str, Enum):
+    READY = "READY"
+    DEGRADED = "DEGRADED"
+    BLOCKED = "BLOCKED"
+
+
+class IncidentReadinessStateV2(str, Enum):
+    READY = "READY"
+    MANUAL_REVIEW_REQUIRED = "MANUAL_REVIEW_REQUIRED"
+    BLOCKED = "BLOCKED"

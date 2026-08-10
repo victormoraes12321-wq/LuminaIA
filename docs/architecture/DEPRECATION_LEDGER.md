@@ -1,5 +1,17 @@
 # Deprecation Ledger
 
+## Encerramento operacional — Prompt 26
+
+| ID | Legado preservado | Substituto/controle | Condição objetiva de retirada | Status |
+|---|---|---|---|---|
+| DEP-P26-001 | paths analíticos e dashboard legados | rollout registry V2 | zero consumidor, canary/SLO/rollback produtivos aprovados | ACTIVE_LEGACY |
+| DEP-P26-002 | feature flags ad hoc | inventário e gates `lumina.security-migration-rollout/1.0` | consumidores migrados para policy estática | ACTIVE_TRANSITION |
+| DEP-P26-003 | `create_task`/background legado | Work Queue V2 | worker produtivo, idempotência, capacity e drain certificados | ACTIVE_LEGACY |
+| DEP-P26-004 | inspector/replay legado | trace estrutural tenant-scoped futuro | ownership, redaction e replay seguro certificados | DISABLED_NOT_REMOVED |
+| DEP-P26-005 | background sync legado | queue governada futura | equivalência, reconciliation, rollback e SLO aprovados | ACTIVE_LEGACY |
+
+Nenhum legado foi removido ou habilitado. Produção permanece `LEGACY_ONLY`.
+
 ## Interface de dashboards — Prompt 21
 
 | ID | Legado preservado | Substituto governado | Condição para rollout/remoção | Status |

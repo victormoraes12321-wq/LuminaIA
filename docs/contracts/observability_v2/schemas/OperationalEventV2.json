@@ -1,0 +1,131 @@
+{
+  "$defs": {
+    "OperationalEventTypeV2": {
+      "enum": [
+        "REQUEST_STARTED",
+        "REQUEST_COMPLETED",
+        "REQUEST_FAILED",
+        "REQUEST_CANCELLED",
+        "REQUEST_BLOCKED",
+        "AUTH_ALLOWED",
+        "AUTH_DENIED",
+        "TENANT_ISOLATION_BLOCKED",
+        "QUERY_PLAN_CREATED",
+        "QUERY_EXECUTION_STARTED",
+        "QUERY_EXECUTION_COMPLETED",
+        "QUERY_EXECUTION_FAILED",
+        "VALIDATION_COMPLETED",
+        "VALIDATION_BLOCKED",
+        "CACHE_HIT",
+        "CACHE_MISS",
+        "CACHE_WRITE",
+        "CACHE_INVALIDATED",
+        "MATERIALIZATION_HIT",
+        "MATERIALIZATION_MISS",
+        "AI_RUN_STARTED",
+        "AI_RUN_COMPLETED",
+        "AI_RUN_CANCELLED",
+        "AI_BUDGET_EXCEEDED",
+        "AI_TOOL_CALLED",
+        "AI_TOOL_BLOCKED",
+        "DASHBOARD_RUNTIME_STARTED",
+        "DASHBOARD_RUNTIME_COMPLETED",
+        "DASHBOARD_RUNTIME_PARTIAL",
+        "DASHBOARD_MUTATION_CONFLICT",
+        "SYNC_STARTED",
+        "SYNC_COMPLETED",
+        "SYNC_FAILED",
+        "RECONCILIATION_COMPLETED",
+        "POST_SYNC_INSIGHT_RUN_STARTED",
+        "POST_SYNC_INSIGHT_RUN_COMPLETED",
+        "POST_SYNC_INSIGHT_RUN_BLOCKED",
+        "POST_SYNC_INSIGHT_PUBLISHED",
+        "EVALUATION_RUN_STARTED",
+        "EVALUATION_RUN_COMPLETED",
+        "EVALUATION_REGRESSION_DETECTED"
+      ],
+      "title": "OperationalEventTypeV2",
+      "type": "string"
+    },
+    "TelemetryClassificationV2": {
+      "enum": [
+        "PUBLIC_OPERATIONAL",
+        "TENANT_OPERATIONAL",
+        "INTERNAL_OPERATIONAL",
+        "RESTRICTED_OPERATIONAL",
+        "PERSONAL_DATA",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "TelemetryClassificationV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/OperationalEventTypeV2"
+    },
+    "classification": {
+      "$ref": "#/$defs/TelemetryClassificationV2"
+    },
+    "trace_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "span_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Span Id",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "service": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Service",
+      "type": "string"
+    },
+    "attributes": {
+      "default": [],
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Attributes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type",
+    "classification",
+    "trace_id",
+    "span_id",
+    "timestamp",
+    "service"
+  ],
+  "title": "OperationalEventV2",
+  "type": "object"
+}

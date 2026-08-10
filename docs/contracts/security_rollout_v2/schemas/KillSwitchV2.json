@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    },
+    "KillSwitchStateV2": {
+      "enum": [
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "title": "KillSwitchStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "feature": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/GovernedFeatureV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reason_code": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "source": {
+      "pattern": "^(SERVER_CONFIGURATION|TEST_SIMULATION)$",
+      "title": "Source",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/KillSwitchStateV2"
+    }
+  },
+  "required": [
+    "state",
+    "source",
+    "reason_code"
+  ],
+  "title": "KillSwitchV2",
+  "type": "object"
+}

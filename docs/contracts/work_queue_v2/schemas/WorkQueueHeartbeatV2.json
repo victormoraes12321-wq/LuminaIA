@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "worker_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Worker Id",
+      "type": "string"
+    },
+    "lease_version": {
+      "minimum": 1,
+      "title": "Lease Version",
+      "type": "integer"
+    },
+    "heartbeat_at": {
+      "format": "date-time",
+      "title": "Heartbeat At",
+      "type": "string"
+    },
+    "extended_expires_at": {
+      "format": "date-time",
+      "title": "Extended Expires At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_id",
+    "worker_id",
+    "lease_version",
+    "heartbeat_at",
+    "extended_expires_at"
+  ],
+  "title": "WorkQueueHeartbeatV2",
+  "type": "object"
+}

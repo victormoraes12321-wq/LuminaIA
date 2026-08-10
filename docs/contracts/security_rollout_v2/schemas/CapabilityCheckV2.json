@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "CapabilityDecisionV2": {
+      "enum": [
+        "ALLOW",
+        "DENY"
+      ],
+      "title": "CapabilityDecisionV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "authority_source": {
+      "maxLength": 200,
+      "minLength": 3,
+      "title": "Authority Source",
+      "type": "string"
+    },
+    "capability": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Capability",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/CapabilityDecisionV2"
+    },
+    "role": {
+      "pattern": "^(ADMIN|GESTOR|CONSULTA)$",
+      "title": "Role",
+      "type": "string"
+    }
+  },
+  "required": [
+    "role",
+    "capability",
+    "decision",
+    "authority_source"
+  ],
+  "title": "CapabilityCheckV2",
+  "type": "object"
+}

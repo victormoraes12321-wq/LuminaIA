@@ -1,0 +1,290 @@
+{
+  "$defs": {
+    "WorkQueueErrorClassV2": {
+      "enum": [
+        "DATABASE_TRANSIENT",
+        "TEMPORARY_RESOURCE_EXHAUSTION",
+        "LEASE_LOST",
+        "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+        "TIMEOUT_RETRYABLE",
+        "VALIDATION_ERROR",
+        "PERMISSION_DENIED",
+        "TENANT_MISMATCH",
+        "CONTRACT_ERROR",
+        "UNSAFE_REQUEST",
+        "IDEMPOTENCY_CONFLICT",
+        "CLASSIFICATION_BLOCK",
+        "UNKNOWN_JOB_TYPE",
+        "UNKNOWN_ERROR"
+      ],
+      "title": "WorkQueueErrorClassV2",
+      "type": "string"
+    },
+    "WorkQueueJobErrorV2": {
+      "additionalProperties": false,
+      "properties": {
+        "error_class": {
+          "$ref": "#/$defs/WorkQueueErrorClassV2"
+        },
+        "message": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "failed_at": {
+          "format": "date-time",
+          "title": "Failed At",
+          "type": "string"
+        },
+        "context_data": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Context Data",
+          "type": "object"
+        }
+      },
+      "required": [
+        "error_class",
+        "message",
+        "retryable",
+        "failed_at"
+      ],
+      "title": "WorkQueueJobErrorV2",
+      "type": "object"
+    },
+    "WorkQueueJobPayloadEnvelopeV2": {
+      "additionalProperties": false,
+      "properties": {
+        "job_type": {
+          "$ref": "#/$defs/WorkQueueJobTypeV2"
+        },
+        "payload_version": {
+          "default": "1.0",
+          "maxLength": 16,
+          "minLength": 1,
+          "title": "Payload Version",
+          "type": "string"
+        },
+        "canonical_reference_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Reference Id",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "payload_checksum": {
+          "maxLength": 64,
+          "minLength": 64,
+          "title": "Payload Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "job_type",
+        "canonical_reference_id",
+        "payload_checksum"
+      ],
+      "title": "WorkQueueJobPayloadEnvelopeV2",
+      "type": "object"
+    },
+    "WorkQueueJobPriorityV2": {
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "NORMAL",
+        "LOW",
+        "BACKGROUND"
+      ],
+      "title": "WorkQueueJobPriorityV2",
+      "type": "string"
+    },
+    "WorkQueueJobStatusV2": {
+      "enum": [
+        "QUEUED",
+        "CLAIMED",
+        "RUNNING",
+        "RETRY_WAIT",
+        "SUCCEEDED",
+        "BLOCKED",
+        "CANCEL_REQUESTED",
+        "CANCELLED",
+        "FAILED",
+        "DEAD_LETTER",
+        "EXPIRED"
+      ],
+      "title": "WorkQueueJobStatusV2",
+      "type": "string"
+    },
+    "WorkQueueJobTypeV2": {
+      "enum": [
+        "POST_SYNC_INSIGHT_RUN",
+        "MATERIALIZATION_BUILD",
+        "MATERIALIZATION_REFRESH",
+        "CACHE_REFRESH",
+        "EVALUATION_RUN",
+        "DASHBOARD_BACKGROUND_REFRESH",
+        "ANALYTICAL_BACKGROUND_QUERY",
+        "SYNC_POST_PROCESSING"
+      ],
+      "title": "WorkQueueJobTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "default": "lumina.scale-queues-performance/1.0",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "job_type": {
+      "$ref": "#/$defs/WorkQueueJobTypeV2"
+    },
+    "priority": {
+      "$ref": "#/$defs/WorkQueueJobPriorityV2",
+      "default": "NORMAL"
+    },
+    "status": {
+      "$ref": "#/$defs/WorkQueueJobStatusV2",
+      "default": "QUEUED"
+    },
+    "payload_envelope": {
+      "$ref": "#/$defs/WorkQueueJobPayloadEnvelopeV2"
+    },
+    "idempotency_key": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "idempotency_fingerprint": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Idempotency Fingerprint",
+      "type": "string"
+    },
+    "attempts_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Attempts Count",
+      "type": "integer"
+    },
+    "max_attempts": {
+      "default": 3,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Max Attempts",
+      "type": "integer"
+    },
+    "assigned_worker_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Assigned Worker Id"
+    },
+    "lease_version": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Lease Version",
+      "type": "integer"
+    },
+    "available_at": {
+      "format": "date-time",
+      "title": "Available At",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "claimed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Claimed At"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Completed At"
+    },
+    "last_error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WorkQueueJobErrorV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "job_id",
+    "tenant_id",
+    "job_type",
+    "payload_envelope",
+    "idempotency_key",
+    "idempotency_fingerprint",
+    "available_at",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "WorkQueueJobV2",
+  "type": "object"
+}

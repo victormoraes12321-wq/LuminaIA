@@ -45,10 +45,13 @@ test('server guard exposes no route or request in LEGACY_ONLY', async ({ page })
 })
 
 test('wizard renders governed evidence and structural placeholders without fake facts', async ({ page }) => {
-  test.skip(aiMode === 'LEGACY_ONLY')
   await authenticate(page); await mockBase(page)
   await page.route('**/api/v2/dashboard-ai/proposals', route => route.fulfill({ status: 201, json: readyProposal() }))
   await page.goto('/dashboard/v2/new')
+  if (aiMode === 'LEGACY_ONLY') {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await page.getByRole('button', { name: 'Gerar proposta' }).click()
   await expect(page.getByText('Pronta para revisão humana')).toBeVisible()
   await expect(page.getByTestId('dashboard-ai-blueprint-preview')).toBeVisible()
@@ -59,12 +62,15 @@ test('wizard renders governed evidence and structural placeholders without fake 
 })
 
 test('typed clarification must be answered before a reviewable proposal appears', async ({ page }) => {
-  test.skip(aiMode === 'LEGACY_ONLY')
   await authenticate(page); await mockBase(page)
   const needs = { ...readyProposal('NEEDS_CLARIFICATION', 4), latest: undefined, clarification: { proposal_id: 'proposal.ai.001', proposal_version: 1, lock_version: 1, expires_at: '2026-08-05T12:15:00Z', questions: [{ question_id: 'question.revenue.001', kind: 'METRIC', prompt: 'Você quer faturamento comercial ou bruto?', allow_multiple: false, options: [{ option_id: 'option.commercial', label: 'Faturamento comercial', description: 'Receita comercial governada.', canonical_reference: 'metric.revenue' }, { option_id: 'option.gross', label: 'Faturamento bruto', description: 'Total bruto governado.', canonical_reference: 'metric.gross.revenue' }] }] } }
   await page.route('**/api/v2/dashboard-ai/proposals', route => route.fulfill({ status: 201, json: needs }))
   await page.route('**/api/v2/dashboard-ai/proposals/*/clarifications', route => route.fulfill({ json: readyProposal() }))
   await page.goto('/dashboard/v2/new')
+  if (aiMode === 'LEGACY_ONLY') {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await page.getByRole('textbox', { name: 'Objetivo', exact: true }).fill('Criar painel de faturamento')
   await page.getByRole('button', { name: 'Gerar proposta' }).click()
   await expect(page.getByTestId('dashboard-ai-clarification')).toBeVisible()
@@ -73,20 +79,22 @@ test('typed clarification must be answered before a reviewable proposal appears'
 })
 
 test('human revision appends a new immutable proposal version', async ({ page }) => {
-  test.skip(aiMode === 'LEGACY_ONLY')
   await authenticate(page); await mockBase(page)
   const first = readyProposal()
   const second = { ...readyProposal('READY_FOR_REVIEW', 11), current_version: 2, latest: { ...readyProposal().latest!, version: 2 } }
   await page.route('**/api/v2/dashboard-ai/proposals', route => route.fulfill({ status: 201, json: first }))
   await page.route('**/api/v2/dashboard-ai/proposals/proposal.ai.001/revise', route => route.fulfill({ json: second }))
   await page.goto('/dashboard/v2/new')
+  if (aiMode === 'LEGACY_ONLY') {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await page.getByRole('button', { name: 'Gerar proposta' }).click()
   await page.getByRole('button', { name: 'Gerar nova versão' }).click()
   await expect(page.getByText('v2 · CAS 11')).toBeVisible()
 })
 
 test('accept and apply are separate human actions and only the second creates DRAFT', async ({ page }) => {
-  test.skip(aiMode === 'LEGACY_ONLY' || aiMode === 'AI_PROPOSAL_PREVIEW')
   await authenticate(page); await mockBase(page)
   let state = readyProposal()
   let accepts = 0, applies = 0
@@ -95,6 +103,10 @@ test('accept and apply are separate human actions and only the second creates DR
   await page.route('**/api/v2/dashboard-ai/proposals/proposal.ai.001/accept', route => { accepts += 1; state = readyProposal('ACCEPTED', 7); return route.fulfill({ json: { decision_id: 'decision.ai.001' } }) })
   await page.route('**/api/v2/dashboard-ai/proposals/proposal.ai.001/apply', route => { applies += 1; state = { ...readyProposal('APPLIED', 9), applied_dashboard_id: 'dashboard.ai.001', applied_revision_id: 'revision.ai.001' }; return route.fulfill({ json: { proposal_id: 'proposal.ai.001', proposal_version: 1, status: 'APPLIED', dashboard_id: 'dashboard.ai.001', revision_id: 'revision.ai.001', replayed: false } }) })
   await page.goto('/dashboard/v2/new')
+  if (aiMode === 'LEGACY_ONLY' || aiMode === 'AI_PROPOSAL_PREVIEW') {
+    await expect(page.getByRole('heading', { name: '404' })).toBeVisible()
+    return
+  }
   await page.getByRole('button', { name: 'Gerar proposta' }).click()
   await page.getByRole('button', { name: 'Aceitar esta versão' }).click()
   await expect.poll(() => accepts).toBe(1)

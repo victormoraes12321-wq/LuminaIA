@@ -1,0 +1,218 @@
+{
+  "$defs": {
+    "PostSyncInsightComparisonV2": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_fact": {
+          "$ref": "#/$defs/PostSyncInsightFactV2"
+        },
+        "current_fact": {
+          "$ref": "#/$defs/PostSyncInsightFactV2"
+        },
+        "absolute_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Absolute Delta"
+        },
+        "percentage_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Percentage Delta"
+        },
+        "formatted_delta": {
+          "maxLength": 64,
+          "title": "Formatted Delta",
+          "type": "string"
+        },
+        "formatted_percentage": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Formatted Percentage"
+        },
+        "direction": {
+          "enum": [
+            "UP",
+            "DOWN",
+            "FLAT",
+            "STABLE"
+          ],
+          "title": "Direction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "baseline_fact",
+        "current_fact",
+        "absolute_delta",
+        "formatted_delta",
+        "direction"
+      ],
+      "title": "PostSyncInsightComparisonV2",
+      "type": "object"
+    },
+    "PostSyncInsightFactV2": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_key": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "fact_label": {
+          "maxLength": 128,
+          "title": "Fact Label",
+          "type": "string"
+        },
+        "numeric_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Numeric Value"
+        },
+        "formatted_value": {
+          "maxLength": 64,
+          "title": "Formatted Value",
+          "type": "string"
+        },
+        "unit": {
+          "default": "BRL",
+          "maxLength": 16,
+          "title": "Unit",
+          "type": "string"
+        },
+        "period_label": {
+          "maxLength": 64,
+          "title": "Period Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_key",
+        "fact_label",
+        "numeric_value",
+        "formatted_value",
+        "period_label"
+      ],
+      "title": "PostSyncInsightFactV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "evidence_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "sync_run_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Sync Run Id",
+      "type": "string"
+    },
+    "source_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "watermark": {
+      "maxLength": 64,
+      "title": "Watermark",
+      "type": "string"
+    },
+    "metric_key": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Metric Key",
+      "type": "string"
+    },
+    "metric_label": {
+      "maxLength": 128,
+      "title": "Metric Label",
+      "type": "string"
+    },
+    "formula": {
+      "maxLength": 255,
+      "title": "Formula",
+      "type": "string"
+    },
+    "current_period": {
+      "maxLength": 64,
+      "title": "Current Period",
+      "type": "string"
+    },
+    "baseline_period": {
+      "maxLength": 64,
+      "title": "Baseline Period",
+      "type": "string"
+    },
+    "comparison": {
+      "$ref": "#/$defs/PostSyncInsightComparisonV2"
+    },
+    "facts": {
+      "items": {
+        "$ref": "#/$defs/PostSyncInsightFactV2"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "reconciliation_verified": {
+      "default": true,
+      "title": "Reconciliation Verified",
+      "type": "boolean"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "tenant_id",
+    "sync_run_id",
+    "source_id",
+    "watermark",
+    "metric_key",
+    "metric_label",
+    "formula",
+    "current_period",
+    "baseline_period",
+    "comparison",
+    "checksum"
+  ],
+  "title": "PostSyncInsightEvidenceV2",
+  "type": "object"
+}

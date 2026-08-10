@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "WorkQueueAdmissionDecisionKindV2": {
+      "enum": [
+        "ACCEPT",
+        "ACCEPT_DELAYED",
+        "DEFER",
+        "REJECT_RETRYABLE",
+        "BLOCK"
+      ],
+      "title": "WorkQueueAdmissionDecisionKindV2",
+      "type": "string"
+    },
+    "WorkQueueJobTypeV2": {
+      "enum": [
+        "POST_SYNC_INSIGHT_RUN",
+        "MATERIALIZATION_BUILD",
+        "MATERIALIZATION_REFRESH",
+        "CACHE_REFRESH",
+        "EVALUATION_RUN",
+        "DASHBOARD_BACKGROUND_REFRESH",
+        "ANALYTICAL_BACKGROUND_QUERY",
+        "SYNC_POST_PROCESSING"
+      ],
+      "title": "WorkQueueJobTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "decision": {
+      "$ref": "#/$defs/WorkQueueAdmissionDecisionKindV2"
+    },
+    "job_type": {
+      "$ref": "#/$defs/WorkQueueJobTypeV2"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "suggested_retry_delay_seconds": {
+      "anyOf": [
+        {
+          "maximum": 3600.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Suggested Retry Delay Seconds"
+    }
+  },
+  "required": [
+    "decision",
+    "job_type",
+    "tenant_id",
+    "reason"
+  ],
+  "title": "WorkQueueAdmissionDecisionV2",
+  "type": "object"
+}

@@ -175,3 +175,8 @@ CAS e checksums sao deterministicos. Revisao, candidato, exemplo, snapshot e
 exportacao sao etapas separadas. Nao ha chamada a Oracle/OpenAI, treinamento
 automatico ou alteracao de Knowledge/Profile/Context. Producao inicia em
 `SUPERVISED_FEEDBACK_MODE=LEGACY_ONLY`.
+# Prompt 26 — security readiness
+
+O backend agora recusa tenant/user derivados de headers arbitrários, sanitiza
+erros/traces e mantém inspector replay fail-closed. A policy Prompt 26 não cria
+router: configuração, schema e rollout são autoridades internas server-side.

@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "default": "lumina.observability-metrics-evaluations/1.0",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "request_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Request Id",
+      "type": "string"
+    },
+    "trace_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "root_span_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Root Span Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tenant Id"
+    },
+    "user_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "User Id"
+    },
+    "route_template": {
+      "maxLength": 256,
+      "title": "Route Template",
+      "type": "string"
+    },
+    "method": {
+      "maxLength": 16,
+      "title": "Method",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "trace_id",
+    "root_span_id",
+    "route_template",
+    "method",
+    "started_at"
+  ],
+  "title": "ObservabilityContextV2",
+  "type": "object"
+}

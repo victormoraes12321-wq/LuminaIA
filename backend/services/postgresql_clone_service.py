@@ -1,4 +1,5 @@
 import asyncio
+import hashlib
 import logging
 import json
 import uuid
@@ -865,7 +866,8 @@ async def execute_clone_view(
             sql += f" LIMIT ${len(values) + 1}"
             values.append(500)
 
-    logger.info("Executando query no PostgreSQL clonado: %s | Params: %s", sql, values)
+    query_fingerprint = hashlib.sha256(sql.encode("utf-8")).hexdigest()
+    logger.info("Executando query governada no PostgreSQL clonado | fingerprint=%s | bind_count=%d", query_fingerprint, len(values))
     try:
         rows = await connection.fetch(sql, *values)
         results = []
@@ -874,5 +876,5 @@ async def execute_clone_view(
             results.append(_enrich_semantic_aliases(row_dict))
         return results
     except Exception as exc:
-        logger.error("Erro ao executar a query no PostgreSQL clonado '%s': %s", sql, exc)
-        raise RuntimeError(f"Falha na base de dados clonada ao processar a análise: {exc}") from exc
+        logger.error("Falha na query governada do PostgreSQL clonado | fingerprint=%s | type=%s", query_fingerprint, type(exc).__name__)
+        raise RuntimeError("Falha na base de dados clonada ao processar a analise.") from exc

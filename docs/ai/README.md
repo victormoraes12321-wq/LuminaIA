@@ -68,3 +68,8 @@ extração de intenção. O provider não retorna Blueprint, patch, SQL, permiss
 identificador físico, dados ou valores. Tools são uma allowlist estática de
 metadados/validação. O builder determinístico produz a proposta, e o Prompt 20
 aplica somente após aceite humano. Provider real e rollout estão desabilitados.
+# Gate de rollout Prompt 26
+
+Provider/model/role/tenant enviados pelo cliente ou modelo nunca são autoridade.
+Dashboard AI continua `LEGACY_ONLY`; kill switch e security readiness precedem
+qualquer execução futura. Prompt/CoT/raw provider output não entram em trace público.

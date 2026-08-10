@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "PerformanceLoadLevelV2": {
+      "enum": [
+        "SMALL",
+        "MEDIUM",
+        "LARGE"
+      ],
+      "title": "PerformanceLoadLevelV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "load_level": {
+      "$ref": "#/$defs/PerformanceLoadLevelV2"
+    },
+    "total_jobs_processed": {
+      "minimum": 1,
+      "title": "Total Jobs Processed",
+      "type": "integer"
+    },
+    "duration_seconds": {
+      "minimum": 0.001,
+      "title": "Duration Seconds",
+      "type": "number"
+    },
+    "throughput_jobs_per_second": {
+      "minimum": 0.0,
+      "title": "Throughput Jobs Per Second",
+      "type": "number"
+    },
+    "p50_latency_ms": {
+      "minimum": 0.0,
+      "title": "P50 Latency Ms",
+      "type": "number"
+    },
+    "p95_latency_ms": {
+      "minimum": 0.0,
+      "title": "P95 Latency Ms",
+      "type": "number"
+    },
+    "p99_latency_ms": {
+      "minimum": 0.0,
+      "title": "P99 Latency Ms",
+      "type": "number"
+    },
+    "min_latency_ms": {
+      "minimum": 0.0,
+      "title": "Min Latency Ms",
+      "type": "number"
+    },
+    "max_latency_ms": {
+      "minimum": 0.0,
+      "title": "Max Latency Ms",
+      "type": "number"
+    },
+    "success_count": {
+      "minimum": 0,
+      "title": "Success Count",
+      "type": "integer"
+    },
+    "error_count": {
+      "minimum": 0,
+      "title": "Error Count",
+      "type": "integer"
+    },
+    "dead_letter_count": {
+      "minimum": 0,
+      "title": "Dead Letter Count",
+      "type": "integer"
+    },
+    "singleflight_coalesced_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Singleflight Coalesced Count",
+      "type": "integer"
+    },
+    "executed_at": {
+      "format": "date-time",
+      "title": "Executed At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "load_level",
+    "total_jobs_processed",
+    "duration_seconds",
+    "throughput_jobs_per_second",
+    "p50_latency_ms",
+    "p95_latency_ms",
+    "p99_latency_ms",
+    "min_latency_ms",
+    "max_latency_ms",
+    "success_count",
+    "error_count",
+    "dead_letter_count",
+    "executed_at"
+  ],
+  "title": "WorkQueuePerformanceResultV2",
+  "type": "object"
+}

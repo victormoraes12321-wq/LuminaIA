@@ -1,0 +1,788 @@
+{
+  "$defs": {
+    "ConfigurationReadinessStateV2": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED"
+      ],
+      "title": "ConfigurationReadinessStateV2",
+      "type": "string"
+    },
+    "ConfigurationReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking_reasons": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocking Reasons",
+          "type": "array"
+        },
+        "contract_version": {
+          "default": "lumina.security-migration-rollout/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "controls": {
+          "items": {
+            "$ref": "#/$defs/SecurityControlV2"
+          },
+          "title": "Controls",
+          "type": "array"
+        },
+        "state": {
+          "$ref": "#/$defs/ConfigurationReadinessStateV2"
+        }
+      },
+      "required": [
+        "state",
+        "controls"
+      ],
+      "title": "ConfigurationReadinessV2",
+      "type": "object"
+    },
+    "FeatureRolloutStageV2": {
+      "enum": [
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK"
+      ],
+      "title": "FeatureRolloutStageV2",
+      "type": "string"
+    },
+    "GateOutcomeV2": {
+      "enum": [
+        "PASS",
+        "DENY",
+        "BLOCKED"
+      ],
+      "title": "GateOutcomeV2",
+      "type": "string"
+    },
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    },
+    "IncidentReadinessStateV2": {
+      "enum": [
+        "READY",
+        "MANUAL_REVIEW_REQUIRED",
+        "BLOCKED"
+      ],
+      "title": "IncidentReadinessStateV2",
+      "type": "string"
+    },
+    "IncidentReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "break_glass_status": {
+          "pattern": "^(BREAK_GLASS_NOT_IMPLEMENTED|GOVERNED)$",
+          "title": "Break Glass Status",
+          "type": "string"
+        },
+        "evidence_preservation_available": {
+          "title": "Evidence Preservation Available",
+          "type": "boolean"
+        },
+        "runbook_available": {
+          "title": "Runbook Available",
+          "type": "boolean"
+        },
+        "state": {
+          "$ref": "#/$defs/IncidentReadinessStateV2"
+        }
+      },
+      "required": [
+        "state",
+        "runbook_available",
+        "evidence_preservation_available",
+        "break_glass_status"
+      ],
+      "title": "IncidentReadinessV2",
+      "type": "object"
+    },
+    "MigrationCompatibilityV2": {
+      "additionalProperties": false,
+      "properties": {
+        "application_contract_version": {
+          "maxLength": 128,
+          "minLength": 3,
+          "title": "Application Contract Version",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "lumina.security-migration-rollout/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "current_schema_version": {
+          "minimum": 0,
+          "title": "Current Schema Version",
+          "type": "integer"
+        },
+        "maximum_tested_schema_version": {
+          "minimum": 0,
+          "title": "Maximum Tested Schema Version",
+          "type": "integer"
+        },
+        "minimum_supported_schema_version": {
+          "minimum": 0,
+          "title": "Minimum Supported Schema Version",
+          "type": "integer"
+        },
+        "missing_objects": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Objects",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        },
+        "required_schema_version": {
+          "minimum": 0,
+          "title": "Required Schema Version",
+          "type": "integer"
+        },
+        "state": {
+          "$ref": "#/$defs/SchemaCompatibilityStateV2"
+        }
+      },
+      "required": [
+        "current_schema_version",
+        "minimum_supported_schema_version",
+        "maximum_tested_schema_version",
+        "required_schema_version",
+        "application_contract_version",
+        "state",
+        "reason"
+      ],
+      "title": "MigrationCompatibilityV2",
+      "type": "object"
+    },
+    "MigrationReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "advisory_lock_available": {
+          "title": "Advisory Lock Available",
+          "type": "boolean"
+        },
+        "compatibility": {
+          "$ref": "#/$defs/MigrationCompatibilityV2"
+        },
+        "drift_detected": {
+          "title": "Drift Detected",
+          "type": "boolean"
+        },
+        "historical_migrations_intact": {
+          "title": "Historical Migrations Intact",
+          "type": "boolean"
+        },
+        "ready": {
+          "title": "Ready",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "compatibility",
+        "advisory_lock_available",
+        "historical_migrations_intact",
+        "drift_detected",
+        "ready"
+      ],
+      "title": "MigrationReadinessV2",
+      "type": "object"
+    },
+    "OperationalReadinessStateV2": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED"
+      ],
+      "title": "OperationalReadinessStateV2",
+      "type": "string"
+    },
+    "OperationalReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking_reasons": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocking Reasons",
+          "type": "array"
+        },
+        "health_alive": {
+          "title": "Health Alive",
+          "type": "boolean"
+        },
+        "ready_for_traffic": {
+          "title": "Ready For Traffic",
+          "type": "boolean"
+        },
+        "state": {
+          "$ref": "#/$defs/OperationalReadinessStateV2"
+        }
+      },
+      "required": [
+        "state",
+        "health_alive",
+        "ready_for_traffic"
+      ],
+      "title": "OperationalReadinessV2",
+      "type": "object"
+    },
+    "RollbackPlanV2": {
+      "additionalProperties": false,
+      "properties": {
+        "database_down_automatic": {
+          "default": false,
+          "title": "Database Down Automatic",
+          "type": "boolean"
+        },
+        "disable_mechanism": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "Disable Mechanism",
+          "type": "string"
+        },
+        "feature": {
+          "$ref": "#/$defs/GovernedFeatureV2"
+        },
+        "in_flight_policy": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "In Flight Policy",
+          "type": "string"
+        },
+        "persistent_data_policy": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "Persistent Data Policy",
+          "type": "string"
+        },
+        "previous_app_compatible": {
+          "title": "Previous App Compatible",
+          "type": "boolean"
+        },
+        "rollback_types": {
+          "items": {
+            "$ref": "#/$defs/RollbackTypeV2"
+          },
+          "title": "Rollback Types",
+          "type": "array"
+        },
+        "validation_steps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "feature",
+        "rollback_types",
+        "disable_mechanism",
+        "in_flight_policy",
+        "persistent_data_policy",
+        "previous_app_compatible",
+        "validation_steps"
+      ],
+      "title": "RollbackPlanV2",
+      "type": "object"
+    },
+    "RollbackReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking_reasons": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocking Reasons",
+          "type": "array"
+        },
+        "contract_version": {
+          "default": "lumina.security-migration-rollout/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "plans": {
+          "items": {
+            "$ref": "#/$defs/RollbackPlanV2"
+          },
+          "title": "Plans",
+          "type": "array"
+        },
+        "ready": {
+          "title": "Ready",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "plans",
+        "ready"
+      ],
+      "title": "RollbackReadinessV2",
+      "type": "object"
+    },
+    "RollbackTypeV2": {
+      "enum": [
+        "FEATURE",
+        "APPLICATION",
+        "DATABASE",
+        "DATA_EFFECT"
+      ],
+      "title": "RollbackTypeV2",
+      "type": "string"
+    },
+    "RolloutDecisionV2": {
+      "enum": [
+        "DENY",
+        "ALLOW_AUDIT",
+        "ALLOW_SHADOW",
+        "ALLOW_INTERNAL",
+        "ALLOW_CANARY",
+        "ALLOW_EXPANSION",
+        "PAUSE",
+        "ROLLBACK"
+      ],
+      "title": "RolloutDecisionV2",
+      "type": "string"
+    },
+    "RolloutGateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "critical": {
+          "default": false,
+          "title": "Critical",
+          "type": "boolean"
+        },
+        "gate_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/GateOutcomeV2"
+        },
+        "reason_code": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Reason Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "outcome",
+        "reason_code"
+      ],
+      "title": "RolloutGateV2",
+      "type": "object"
+    },
+    "RolloutReadinessStateV2": {
+      "enum": [
+        "NOT_READY",
+        "READY_FOR_AUDIT",
+        "READY_FOR_SHADOW",
+        "READY_FOR_INTERNAL",
+        "READY_FOR_CANARY",
+        "READY_FOR_EXPANSION",
+        "READY_FOR_FULL",
+        "PAUSED",
+        "BLOCKED"
+      ],
+      "title": "RolloutReadinessStateV2",
+      "type": "string"
+    },
+    "RolloutReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking_reasons": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Blocking Reasons",
+          "type": "array"
+        },
+        "contract_version": {
+          "default": "lumina.security-migration-rollout/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "decision": {
+          "$ref": "#/$defs/RolloutDecisionV2"
+        },
+        "feature": {
+          "$ref": "#/$defs/GovernedFeatureV2"
+        },
+        "gates": {
+          "items": {
+            "$ref": "#/$defs/RolloutGateV2"
+          },
+          "title": "Gates",
+          "type": "array"
+        },
+        "requested_stage": {
+          "$ref": "#/$defs/FeatureRolloutStageV2"
+        },
+        "state": {
+          "$ref": "#/$defs/RolloutReadinessStateV2"
+        }
+      },
+      "required": [
+        "feature",
+        "requested_stage",
+        "state",
+        "decision",
+        "gates"
+      ],
+      "title": "RolloutReadinessV2",
+      "type": "object"
+    },
+    "SchemaCompatibilityStateV2": {
+      "enum": [
+        "COMPATIBLE",
+        "UPGRADE_REQUIRED",
+        "APPLICATION_TOO_OLD",
+        "DATABASE_TOO_NEW",
+        "UNKNOWN",
+        "BLOCKED"
+      ],
+      "title": "SchemaCompatibilityStateV2",
+      "type": "string"
+    },
+    "SecurityControlStatusV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "NOT_CONFIGURED",
+        "BLOCKED",
+        "MANUAL_REVIEW_REQUIRED"
+      ],
+      "title": "SecurityControlStatusV2",
+      "type": "string"
+    },
+    "SecurityControlV2": {
+      "additionalProperties": false,
+      "properties": {
+        "control_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Control Id",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "justification": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Justification"
+        },
+        "severity": {
+          "$ref": "#/$defs/SecuritySeverityV2"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        },
+        "surface": {
+          "$ref": "#/$defs/ThreatSurfaceKindV2"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 3,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "control_id",
+        "surface",
+        "status",
+        "severity",
+        "title",
+        "evidence"
+      ],
+      "title": "SecurityControlV2",
+      "type": "object"
+    },
+    "SecurityFindingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "affected_component": {
+          "maxLength": 160,
+          "minLength": 2,
+          "title": "Affected Component",
+          "type": "string"
+        },
+        "evidence": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Evidence",
+          "type": "string"
+        },
+        "finding_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "remediation": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Remediation",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/SecuritySeverityV2"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        }
+      },
+      "required": [
+        "finding_id",
+        "severity",
+        "affected_component",
+        "evidence",
+        "remediation",
+        "status"
+      ],
+      "title": "SecurityFindingV2",
+      "type": "object"
+    },
+    "SecurityReadinessV2": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "lumina.security-migration-rollout/1.0",
+          "pattern": "^lumina\\.security-migration-rollout/1\\.0$",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "controls": {
+          "items": {
+            "$ref": "#/$defs/SecurityControlV2"
+          },
+          "title": "Controls",
+          "type": "array"
+        },
+        "critical_failures": {
+          "minimum": 0,
+          "title": "Critical Failures",
+          "type": "integer"
+        },
+        "failed_controls": {
+          "minimum": 0,
+          "title": "Failed Controls",
+          "type": "integer"
+        },
+        "findings": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SecurityFindingV2"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "passed_controls": {
+          "minimum": 0,
+          "title": "Passed Controls",
+          "type": "integer"
+        },
+        "ready": {
+          "title": "Ready",
+          "type": "boolean"
+        },
+        "tenant_checks": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/TenantIsolationCheckV2"
+          },
+          "title": "Tenant Checks",
+          "type": "array"
+        },
+        "total_controls": {
+          "minimum": 0,
+          "title": "Total Controls",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "controls",
+        "total_controls",
+        "passed_controls",
+        "failed_controls",
+        "critical_failures",
+        "ready"
+      ],
+      "title": "SecurityReadinessV2",
+      "type": "object"
+    },
+    "SecuritySeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "SecuritySeverityV2",
+      "type": "string"
+    },
+    "TenantIsolationCheckV2": {
+      "additionalProperties": false,
+      "properties": {
+        "disclosure_count": {
+          "minimum": 0,
+          "title": "Disclosure Count",
+          "type": "integer"
+        },
+        "mutation_count": {
+          "minimum": 0,
+          "title": "Mutation Count",
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/SecurityControlStatusV2"
+        },
+        "subsystem": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Subsystem",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subsystem",
+        "disclosure_count",
+        "mutation_count",
+        "status"
+      ],
+      "title": "TenantIsolationCheckV2",
+      "type": "object"
+    },
+    "ThreatSurfaceKindV2": {
+      "enum": [
+        "HTTP",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "TENANT",
+        "API",
+        "DASHBOARD",
+        "AI",
+        "POST_SYNC",
+        "OBSERVABILITY",
+        "EVALUATIONS",
+        "WORK_QUEUE",
+        "DATA",
+        "CACHE",
+        "SYNC",
+        "MIGRATION",
+        "STARTUP",
+        "BACKGROUND",
+        "FRONTEND",
+        "FILESYSTEM",
+        "NETWORK",
+        "SECRETS",
+        "LOGGING",
+        "OPENAPI",
+        "TEST_BOUNDARY",
+        "ROLLOUT"
+      ],
+      "title": "ThreatSurfaceKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "certified": {
+      "title": "Certified",
+      "type": "boolean"
+    },
+    "configuration": {
+      "$ref": "#/$defs/ConfigurationReadinessV2"
+    },
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "evidence_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Evidence Checksum",
+      "type": "string"
+    },
+    "incident": {
+      "$ref": "#/$defs/IncidentReadinessV2"
+    },
+    "migration": {
+      "$ref": "#/$defs/MigrationReadinessV2"
+    },
+    "operational": {
+      "$ref": "#/$defs/OperationalReadinessV2"
+    },
+    "rollback": {
+      "$ref": "#/$defs/RollbackReadinessV2"
+    },
+    "rollout": {
+      "items": {
+        "$ref": "#/$defs/RolloutReadinessV2"
+      },
+      "title": "Rollout",
+      "type": "array"
+    },
+    "security": {
+      "$ref": "#/$defs/SecurityReadinessV2"
+    }
+  },
+  "required": [
+    "security",
+    "configuration",
+    "migration",
+    "rollout",
+    "rollback",
+    "operational",
+    "incident",
+    "certified",
+    "evidence_checksum"
+  ],
+  "title": "SecurityCertificationV2",
+  "type": "object"
+}

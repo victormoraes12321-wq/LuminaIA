@@ -1,0 +1,71 @@
+{
+  "$defs": {
+    "WorkQueueErrorClassV2": {
+      "enum": [
+        "DATABASE_TRANSIENT",
+        "TEMPORARY_RESOURCE_EXHAUSTION",
+        "LEASE_LOST",
+        "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+        "TIMEOUT_RETRYABLE",
+        "VALIDATION_ERROR",
+        "PERMISSION_DENIED",
+        "TENANT_MISMATCH",
+        "CONTRACT_ERROR",
+        "UNSAFE_REQUEST",
+        "IDEMPOTENCY_CONFLICT",
+        "CLASSIFICATION_BLOCK",
+        "UNKNOWN_JOB_TYPE",
+        "UNKNOWN_ERROR"
+      ],
+      "title": "WorkQueueErrorClassV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "max_attempts": {
+      "default": 3,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Max Attempts",
+      "type": "integer"
+    },
+    "initial_backoff_seconds": {
+      "default": 1.0,
+      "maximum": 300.0,
+      "minimum": 0.1,
+      "title": "Initial Backoff Seconds",
+      "type": "number"
+    },
+    "max_backoff_seconds": {
+      "default": 60.0,
+      "maximum": 3600.0,
+      "minimum": 1.0,
+      "title": "Max Backoff Seconds",
+      "type": "number"
+    },
+    "backoff_multiplier": {
+      "default": 2.0,
+      "maximum": 10.0,
+      "minimum": 1.0,
+      "title": "Backoff Multiplier",
+      "type": "number"
+    },
+    "retryable_errors": {
+      "default": [
+        "DATABASE_TRANSIENT",
+        "TEMPORARY_RESOURCE_EXHAUSTION",
+        "LEASE_LOST",
+        "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+        "TIMEOUT_RETRYABLE"
+      ],
+      "items": {
+        "$ref": "#/$defs/WorkQueueErrorClassV2"
+      },
+      "title": "Retryable Errors",
+      "type": "array"
+    }
+  },
+  "title": "WorkQueueRetryPolicyV2",
+  "type": "object"
+}

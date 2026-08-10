@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "EvaluationExpectationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_outcome": {
+          "$ref": "#/$defs/EvaluationOutcomeV2",
+          "default": "PASS"
+        },
+        "expected_status": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Status"
+        },
+        "max_duration_ms": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Duration Ms"
+        },
+        "required_capabilities": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Capabilities",
+          "type": "array"
+        },
+        "checksum": {
+          "maxLength": 128,
+          "minLength": 8,
+          "title": "Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "checksum"
+      ],
+      "title": "EvaluationExpectationV2",
+      "type": "object"
+    },
+    "EvaluationOutcomeV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "ERROR"
+      ],
+      "title": "EvaluationOutcomeV2",
+      "type": "string"
+    },
+    "EvaluationSuiteKindV2": {
+      "enum": [
+        "TEMPORAL_NORMALIZATION",
+        "COMPARISON_PLANNER",
+        "COMPARISON_EXECUTOR",
+        "CONTEXT_RESOLUTION",
+        "ENTERPRISE_KNOWLEDGE",
+        "SEMANTIC_RETRIEVAL",
+        "AI_TOOL_REGISTRY",
+        "SAFE_ANALYTICAL_POSTGRESQL",
+        "AI_ORCHESTRATION",
+        "VALIDATION_PROVENANCE",
+        "SMART_CACHE",
+        "DASHBOARD_BLUEPRINT",
+        "DASHBOARD_BACKEND",
+        "DASHBOARD_UI",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "TENANT_ISOLATION",
+        "SECURITY",
+        "REPRODUCIBILITY"
+      ],
+      "title": "EvaluationSuiteKindV2",
+      "type": "string"
+    },
+    "TelemetryClassificationV2": {
+      "enum": [
+        "PUBLIC_OPERATIONAL",
+        "TENANT_OPERATIONAL",
+        "INTERNAL_OPERATIONAL",
+        "RESTRICTED_OPERATIONAL",
+        "PERSONAL_DATA",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "TelemetryClassificationV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "suite": {
+      "$ref": "#/$defs/EvaluationSuiteKindV2"
+    },
+    "version": {
+      "default": "1.0",
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Version",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "input_fixture_reference": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Input Fixture Reference",
+      "type": "string"
+    },
+    "expectation": {
+      "$ref": "#/$defs/EvaluationExpectationV2"
+    },
+    "severity": {
+      "default": "HIGH",
+      "maxLength": 32,
+      "title": "Severity",
+      "type": "string"
+    },
+    "deterministic": {
+      "default": true,
+      "title": "Deterministic",
+      "type": "boolean"
+    },
+    "classification": {
+      "$ref": "#/$defs/TelemetryClassificationV2",
+      "default": "INTERNAL_OPERATIONAL"
+    }
+  },
+  "required": [
+    "case_id",
+    "suite",
+    "title",
+    "input_fixture_reference",
+    "expectation"
+  ],
+  "title": "EvaluationCaseV2",
+  "type": "object"
+}

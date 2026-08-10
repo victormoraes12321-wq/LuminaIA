@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "success": {
+      "title": "Success",
+      "type": "boolean"
+    },
+    "result_code": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Result Code",
+      "type": "string"
+    },
+    "summary": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Summary",
+      "type": "string"
+    },
+    "output_reference_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Output Reference Id"
+    },
+    "details": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Details",
+      "type": "object"
+    },
+    "completed_at": {
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "success",
+    "result_code",
+    "summary",
+    "completed_at"
+  ],
+  "title": "WorkQueueJobResultV2",
+  "type": "object"
+}

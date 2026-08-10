@@ -17,6 +17,7 @@ Para produção (com workers Gunicorn + Uvicorn):
 from __future__ import annotations
 
 import logging
+import re
 import time
 import uuid
 from collections import defaultdict, deque
@@ -61,6 +62,8 @@ from services.supervised_feedback.errors import GovernedFeedbackError
 from services.semantic_retrieval.errors import SemanticRetrievalError
 from services.ai_tool_registry import AIToolException
 from services.safe_analytical_postgresql.exceptions import AnalyticalError
+from routers.dependencies import AUTH_COOKIE_NAME
+from services.security_rollout_v2.sanitization import security_payload_sanitizer
 
 
 # ── Configuração de Logging ────────────────────────────────────
@@ -125,6 +128,7 @@ async def lifespan(app: FastAPI):
     logger.info("   Modelo IA : %s", settings.OPENAI_MODEL)
     logger.info("=" * 60)
 
+    startup_database_ready = False
     try:
         if settings.is_testing:
             from testing.database_guard import guard_engine_before_write
@@ -139,11 +143,15 @@ async def lifespan(app: FastAPI):
                 if table.name not in EXPLICIT_MIGRATION_ONLY_TABLES
             ]
             await conn.run_sync(lambda sync_connection: Base.metadata.create_all(sync_connection, tables=startup_tables))
+        startup_database_ready = True
         logger.info("✅ PostgreSQL conectado e tabelas sincronizadas com sucesso")
     except Exception as exc:
         # Log de erro mas não impede o startup —
         # permite healthcheck expor o problema sem crashar imediatamente
         logger.critical("â Œ Falha ao conectar ao PostgreSQL: %s", exc)
+
+    if not startup_database_ready and settings.ENVIRONMENT in {"staging", "production", "test"}:
+        raise RuntimeError("PostgreSQL startup readiness failed")
 
     if not settings.is_testing:
         try:
@@ -248,8 +256,33 @@ async def request_timing_and_logging(request: Request, call_next):
       - Loga método, path, status e latência
     """
     start = time.perf_counter()
-    request_id = request.headers.get("X-Request-ID") or f"req_{uuid.uuid4().hex}"
+    # Client-supplied correlation IDs are never trusted as authority.
+    request_id = f"req_{uuid.uuid4().hex}"
     path = request.url.path
+
+    if request.method.upper() in {"POST", "PUT", "PATCH", "DELETE"}:
+        cookie_authenticated = bool(request.cookies.get(AUTH_COOKIE_NAME)) and not bool(
+            request.headers.get("authorization")
+        )
+        if cookie_authenticated:
+            origin = request.headers.get("origin")
+            origin_allowed = bool(origin and origin in allow_origins_list)
+            if origin and allow_origin_regex:
+                origin_allowed = origin_allowed or bool(re.fullmatch(allow_origin_regex, origin))
+            if not origin_allowed:
+                return JSONResponse(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    content={
+                        "success": False,
+                        "error": {
+                            "code": 403,
+                            "message": "Origem da sessao nao autorizada.",
+                            "type": "CsrfOriginDenied",
+                            "path": path,
+                        },
+                    },
+                    headers={"X-Request-ID": request_id},
+                )
 
     content_length = request.headers.get("content-length")
     if content_length:
@@ -319,6 +352,9 @@ async def request_timing_and_logging(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "no-referrer"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    response.headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'; base-uri 'none'"
+    if settings.is_production:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     if path.startswith("/api/") or path in {"/health", "/"}:
         response.headers["Cache-Control"] = "no-store"
 
@@ -344,12 +380,12 @@ async def http_exception_handler(
     Handler para HTTPExceptions lançadas explicitamente nos routers.
     Formata resposta de erro de forma consistente para o frontend.
     """
+    safe_detail = security_payload_sanitizer.sanitize(exc.detail)
     logger.warning(
-        "HTTP %d em %s %s: %s",
+        "HTTP %d em %s %s",
         exc.status_code,
         request.method,
         request.url.path,
-        exc.detail,
     )
     return JSONResponse(
         status_code=exc.status_code,
@@ -357,7 +393,7 @@ async def http_exception_handler(
             "success": False,
             "error": {
                 "code": exc.status_code,
-                "message": exc.detail,
+                "message": safe_detail,
                 "type": "HTTPException",
                 "path": str(request.url.path),
             },
@@ -516,18 +552,11 @@ async def generic_exception_handler(
     Em produção, NÃO expõe detalhes técnicos ao cliente.
     Loga o traceback completo para diagnóstico interno.
     """
-    logger.exception(
-        "Exceção não tratada em %s %s | tipo=%s",
+    logger.error(
+        "Excecao nao tratada em %s %s | tipo=%s",
         request.method,
         request.url.path,
         type(exc).__name__,
-    )
-
-    # Em desenvolvimento, expõe o tipo de exceção para facilitar debug
-    error_detail = (
-        f"[DEV] {type(exc).__name__}: {exc}"
-        if settings.is_development
-        else "Erro interno do servidor. Nossa equipe foi notificada."
     )
 
     return JSONResponse(
@@ -536,8 +565,8 @@ async def generic_exception_handler(
             "success": False,
             "error": {
                 "code": 500,
-                "message": error_detail,
-                "type": type(exc).__name__,
+                "message": "Erro interno do servidor. Nossa equipe foi notificada.",
+                "type": "InternalServerError",
                 "path": str(request.url.path),
             },
         },
@@ -588,6 +617,37 @@ def include_dashboard_ai_assistance_v2_router_if_enabled(application: FastAPI) -
     application.add_exception_handler(DashboardAiAssistanceError, handler)
     application.include_router(dashboard_ai_router.router)
     return True
+
+
+def include_post_sync_insights_v2_router_if_enabled(application: FastAPI) -> bool:
+    """Keep all Prompt 23 paths absent from the default OpenAPI surface."""
+    if settings.POST_SYNC_INSIGHTS_MODE == "LEGACY_ONLY" or not settings.POST_SYNC_INSIGHTS_APIS_ENABLED:
+        return False
+    from routers import post_sync_insights_v2 as post_sync_router
+
+    application.include_router(post_sync_router.router)
+    return True
+
+
+def include_observability_v2_router_if_enabled(application: FastAPI) -> bool:
+    """Keep all Prompt 24 paths absent from the default OpenAPI surface."""
+    if settings.OBSERVABILITY_MODE == "LEGACY_ONLY" or not settings.OBSERVABILITY_APIS_ENABLED:
+        return False
+    from routers import observability_v2 as observability_router
+
+    application.include_router(observability_router.router)
+    return True
+
+
+def include_work_queue_v2_router_if_enabled(application: FastAPI) -> bool:
+    """Keep all Prompt 25 paths absent from the default OpenAPI surface."""
+    if (settings.WORK_QUEUE_MODE == "LEGACY_ONLY" and not settings.WORK_QUEUE_APIS_ENABLED and not settings.PERFORMANCE_CERTIFICATION_MODE):
+        return False
+    from routers import work_queue_v2 as work_queue_router
+
+    application.include_router(work_queue_router.router)
+    return True
+
 
 app.include_router(
     query_router.router,
@@ -664,6 +724,9 @@ app.include_router(
 include_smart_cache_materialization_router_if_enabled(app)
 include_dashboard_backend_v2_router_if_enabled(app)
 include_dashboard_ai_assistance_v2_router_if_enabled(app)
+include_post_sync_insights_v2_router_if_enabled(app)
+include_observability_v2_router_if_enabled(app)
+include_work_queue_v2_router_if_enabled(app)
 
 app.include_router(
     dashboard_studio_router.router,
@@ -712,12 +775,9 @@ async def health_check() -> dict[str, Any]:
     """
     return {
         "status": "healthy",
+        "kind": "liveness",
         "app": settings.APP_NAME,
         "version": settings.APP_VERSION,
-        "environment": settings.ENVIRONMENT,
-        "debug": settings.DEBUG,
-        "ai": ai_credential_manager.get_status(),
-        "ai_invocation": ai_invocation_manager.get_status(),
         "deep_health": "/health/deep",
     }
 
@@ -741,7 +801,7 @@ async def deep_health_check() -> dict[str, Any]:
             await conn.execute(sqlalchemy.text("SELECT 1"))
         components["postgres"] = {"status": "healthy"}
     except Exception as exc:
-        logger.warning("Health deep: PostgreSQL degradado: %s", exc)
+        logger.warning("Health deep: PostgreSQL degradado | type=%s", type(exc).__name__)
         components["postgres"] = {
             "status": "degraded",
             "error_type": type(exc).__name__,
@@ -749,6 +809,14 @@ async def deep_health_check() -> dict[str, Any]:
 
     from services.scheduler import get_scheduler_status
     components["scheduler"] = get_scheduler_status()
+    from services.security_rollout_v2 import ConfigurationReadinessServiceV2
+    configuration = ConfigurationReadinessServiceV2.evaluate(
+        ConfigurationReadinessServiceV2.from_settings(settings)
+    )
+    components["security_configuration"] = {
+        "status": "ready" if configuration.state.value == "READY" else "blocked",
+        "blocking_reasons": list(configuration.blocking_reasons),
+    }
 
     component_statuses = [
         str(value.get("status", "unknown")).lower()
@@ -759,6 +827,8 @@ async def deep_health_check() -> dict[str, Any]:
 
     return {
         "status": overall,
+        "kind": "readiness",
+        "ready_for_traffic": overall == "healthy",
         "app": settings.APP_NAME,
         "version": settings.APP_VERSION,
         "environment": settings.ENVIRONMENT,

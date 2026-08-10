@@ -1,5 +1,13 @@
 # Seguranca
 
+## Hardening Prompt 26
+
+`lumina.security-migration-rollout/1.0` fecha autoridade de tenant por headers,
+traces/replay com SQL, evaluation runs globais, queue stats globais e exceções
+públicas brutas. Cookie auth mutável exige Origin allowlisted; bearer usa JWT
+assinado e lookup user+tenant. Configuração produtiva recusa wildcard CORS com
+credentials, flags de teste, worker, performance, canary e rollout.
+
 ## Semantic Retrieval V2
 
 O indice e tenant-scoped e permission-aware. Filtros de classificacao, papel,

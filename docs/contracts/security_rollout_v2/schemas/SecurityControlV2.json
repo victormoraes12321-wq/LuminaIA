@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "SecurityControlStatusV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_APPLICABLE",
+        "NOT_CONFIGURED",
+        "BLOCKED",
+        "MANUAL_REVIEW_REQUIRED"
+      ],
+      "title": "SecurityControlStatusV2",
+      "type": "string"
+    },
+    "SecuritySeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "SecuritySeverityV2",
+      "type": "string"
+    },
+    "ThreatSurfaceKindV2": {
+      "enum": [
+        "HTTP",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "TENANT",
+        "API",
+        "DASHBOARD",
+        "AI",
+        "POST_SYNC",
+        "OBSERVABILITY",
+        "EVALUATIONS",
+        "WORK_QUEUE",
+        "DATA",
+        "CACHE",
+        "SYNC",
+        "MIGRATION",
+        "STARTUP",
+        "BACKGROUND",
+        "FRONTEND",
+        "FILESYSTEM",
+        "NETWORK",
+        "SECRETS",
+        "LOGGING",
+        "OPENAPI",
+        "TEST_BOUNDARY",
+        "ROLLOUT"
+      ],
+      "title": "ThreatSurfaceKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "control_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Control Id",
+      "type": "string"
+    },
+    "evidence": {
+      "maxLength": 1000,
+      "minLength": 3,
+      "title": "Evidence",
+      "type": "string"
+    },
+    "justification": {
+      "anyOf": [
+        {
+          "maxLength": 1000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Justification"
+    },
+    "severity": {
+      "$ref": "#/$defs/SecuritySeverityV2"
+    },
+    "status": {
+      "$ref": "#/$defs/SecurityControlStatusV2"
+    },
+    "surface": {
+      "$ref": "#/$defs/ThreatSurfaceKindV2"
+    },
+    "title": {
+      "maxLength": 160,
+      "minLength": 3,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "control_id",
+    "surface",
+    "status",
+    "severity",
+    "title",
+    "evidence"
+  ],
+  "title": "SecurityControlV2",
+  "type": "object"
+}

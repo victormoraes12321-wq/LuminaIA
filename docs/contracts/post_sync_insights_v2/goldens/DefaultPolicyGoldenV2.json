@@ -1,0 +1,47 @@
+{
+  "policy_id": "policy-a0eebc99-default",
+  "policy_version": "1.0.0",
+  "contract_version": "lumina.post-sync-insights/1.0",
+  "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+  "enabled": true,
+  "enabled_detectors": [
+    "MetricChangeDetector",
+    "TargetAttainmentDetector",
+    "ThresholdBreachDetector",
+    "RankingMovementDetector",
+    "RobustAnomalyDetector",
+    "FreshnessDegradationDetector",
+    "CompletenessDegradationDetector",
+    "ReconciliationVarianceDetector",
+    "SourceVolumeChangeDetector",
+    "NewDataAvailableDetector"
+  ],
+  "baseline_policy": {
+    "baseline_type": "PREVIOUS_SUCCESSFUL_SYNC",
+    "lookback_window_days": 30,
+    "minimum_observations": 5,
+    "allow_zero_baseline_percentage": false
+  },
+  "threshold_policies": [
+    {
+      "metric_key": "desconto_total",
+      "operator": "GT",
+      "target_value": "50000.00",
+      "high_threshold": "50000.00",
+      "low_threshold": null,
+      "unit": "BRL"
+    }
+  ],
+  "suppression_policy": {
+    "suppression_window_hours": 24,
+    "max_duplicate_occurrences": 1,
+    "suppress_on_reconciliation_error": true,
+    "suppress_on_partial_sync": true
+  },
+  "priority_policy": {
+    "max_insights_per_run": 5,
+    "min_severity_to_publish": "LOW",
+    "prioritize_target_breaches": true
+  },
+  "checksum": "fbc2574e0824370e8cae031e98e82e8004afd55cf394b157d42287a616e630f9"
+}

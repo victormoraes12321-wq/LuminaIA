@@ -1,0 +1,45 @@
+{
+  "$defs": {
+    "WorkQueueWorkerStatusKindV2": {
+      "enum": [
+        "STARTING",
+        "ACTIVE",
+        "DRAINING",
+        "STOPPED",
+        "FAILED"
+      ],
+      "title": "WorkQueueWorkerStatusKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "worker_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Worker Id",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/WorkQueueWorkerStatusKindV2"
+    },
+    "active_jobs_count": {
+      "minimum": 0,
+      "title": "Active Jobs Count",
+      "type": "integer"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "worker_id",
+    "status",
+    "active_jobs_count",
+    "updated_at"
+  ],
+  "title": "WorkQueueWorkerStatusV2",
+  "type": "object"
+}

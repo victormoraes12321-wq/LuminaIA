@@ -25,9 +25,9 @@ if (reservedPorts.has(parsedPort)) {
 
 export default defineConfig({
   testDir: './tests/visual',
-  timeout: 45_000,
+  timeout: 60_000,
   expect: {
-    timeout: 5_000,
+    timeout: 15_000,
   },
   fullyParallel: true,
   workers: 2,

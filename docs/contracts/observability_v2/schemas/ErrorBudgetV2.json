@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "SloStatusV2": {
+      "enum": [
+        "HEALTHY",
+        "AT_RISK",
+        "EXHAUSTED",
+        "INSUFFICIENT_DATA"
+      ],
+      "title": "SloStatusV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "slo_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Slo Id",
+      "type": "string"
+    },
+    "total_events": {
+      "minimum": 0,
+      "title": "Total Events",
+      "type": "integer"
+    },
+    "good_events": {
+      "minimum": 0,
+      "title": "Good Events",
+      "type": "integer"
+    },
+    "bad_events": {
+      "minimum": 0,
+      "title": "Bad Events",
+      "type": "integer"
+    },
+    "target_percentage": {
+      "anyOf": [
+        {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Target Percentage"
+    },
+    "consumed_budget_percentage": {
+      "anyOf": [
+        {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Consumed Budget Percentage"
+    },
+    "remaining_budget_percentage": {
+      "anyOf": [
+        {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Remaining Budget Percentage"
+    },
+    "status": {
+      "$ref": "#/$defs/SloStatusV2"
+    }
+  },
+  "required": [
+    "slo_id",
+    "total_events",
+    "good_events",
+    "bad_events",
+    "target_percentage",
+    "consumed_budget_percentage",
+    "remaining_budget_percentage",
+    "status"
+  ],
+  "title": "ErrorBudgetV2",
+  "type": "object"
+}

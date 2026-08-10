@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "worker_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Worker Id",
+      "type": "string"
+    },
+    "lease_version": {
+      "minimum": 1,
+      "title": "Lease Version",
+      "type": "integer"
+    },
+    "claimed_at": {
+      "format": "date-time",
+      "title": "Claimed At",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "last_heartbeat_at": {
+      "format": "date-time",
+      "title": "Last Heartbeat At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_id",
+    "worker_id",
+    "lease_version",
+    "claimed_at",
+    "expires_at",
+    "last_heartbeat_at"
+  ],
+  "title": "WorkQueueLeaseV2",
+  "type": "object"
+}

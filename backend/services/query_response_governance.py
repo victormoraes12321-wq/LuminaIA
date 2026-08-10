@@ -197,12 +197,8 @@ class QueryResponseGovernance:
         trace = payload.get("debug_info")
         if not isinstance(trace, dict):
             return None
-        allowed = (
-            "trace_id", "pergunta", "pergunta_contextualizada", "timeline",
-            "semantic_plan", "canonical_plan", "sql", "rows", "sample_rows",
-            "chart", "llm_response", "error_traceback", "business_rule",
-        )
-        return {key: trace.get(key) for key in allowed if key in trace}
+        from services.security_rollout_v2.sanitization import security_payload_sanitizer
+        return security_payload_sanitizer.sanitize_debug_trace(trace)
 
     async def enrich(
         self,

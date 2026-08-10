@@ -1,0 +1,141 @@
+{
+  "$defs": {
+    "FeatureConfigurationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "api_enabled": {
+          "default": false,
+          "title": "Api Enabled",
+          "type": "boolean"
+        },
+        "execution_enabled": {
+          "default": false,
+          "title": "Execution Enabled",
+          "type": "boolean"
+        },
+        "feature": {
+          "$ref": "#/$defs/GovernedFeatureV2"
+        },
+        "kill_switch_active": {
+          "default": true,
+          "title": "Kill Switch Active",
+          "type": "boolean"
+        },
+        "mode": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Mode",
+          "type": "string"
+        },
+        "stage": {
+          "$ref": "#/$defs/FeatureRolloutStageV2",
+          "default": "DISABLED"
+        },
+        "worker_enabled": {
+          "default": false,
+          "title": "Worker Enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "feature",
+        "mode"
+      ],
+      "title": "FeatureConfigurationV2",
+      "type": "object"
+    },
+    "FeatureRolloutStageV2": {
+      "enum": [
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK"
+      ],
+      "title": "FeatureRolloutStageV2",
+      "type": "string"
+    },
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "canary_percentage": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Canary Percentage",
+      "type": "integer"
+    },
+    "canary_tenant_count": {
+      "minimum": 0,
+      "title": "Canary Tenant Count",
+      "type": "integer"
+    },
+    "environment": {
+      "pattern": "^(development|staging|production|test)$",
+      "title": "Environment",
+      "type": "string"
+    },
+    "external_network_disabled": {
+      "title": "External Network Disabled",
+      "type": "boolean"
+    },
+    "features": {
+      "items": {
+        "$ref": "#/$defs/FeatureConfigurationV2"
+      },
+      "title": "Features",
+      "type": "array"
+    },
+    "global_emergency_disable": {
+      "title": "Global Emergency Disable",
+      "type": "boolean"
+    },
+    "mock_openai": {
+      "title": "Mock Openai",
+      "type": "boolean"
+    },
+    "mock_oracle": {
+      "title": "Mock Oracle",
+      "type": "boolean"
+    },
+    "rollout_execution_enabled": {
+      "title": "Rollout Execution Enabled",
+      "type": "boolean"
+    },
+    "testing_enabled": {
+      "title": "Testing Enabled",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "environment",
+    "testing_enabled",
+    "external_network_disabled",
+    "mock_oracle",
+    "mock_openai",
+    "global_emergency_disable",
+    "rollout_execution_enabled",
+    "canary_percentage",
+    "canary_tenant_count",
+    "features"
+  ],
+  "title": "ConfigurationSnapshotV2",
+  "type": "object"
+}

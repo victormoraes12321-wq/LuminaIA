@@ -1,0 +1,131 @@
+{
+  "$defs": {
+    "FeatureRolloutStageV2": {
+      "enum": [
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK"
+      ],
+      "title": "FeatureRolloutStageV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "critical_security_failure": {
+      "default": false,
+      "title": "Critical Security Failure",
+      "type": "boolean"
+    },
+    "dependencies_satisfied": {
+      "title": "Dependencies Satisfied",
+      "type": "boolean"
+    },
+    "environment": {
+      "pattern": "^(development|staging|production|test)$",
+      "title": "Environment",
+      "type": "string"
+    },
+    "error_budget_available": {
+      "title": "Error Budget Available",
+      "type": "boolean"
+    },
+    "error_budget_exhausted": {
+      "title": "Error Budget Exhausted",
+      "type": "boolean"
+    },
+    "evaluations_pass": {
+      "title": "Evaluations Pass",
+      "type": "boolean"
+    },
+    "feature_kill_switch_active": {
+      "title": "Feature Kill Switch Active",
+      "type": "boolean"
+    },
+    "full_regression_pass": {
+      "title": "Full Regression Pass",
+      "type": "boolean"
+    },
+    "global_kill_switch_active": {
+      "title": "Global Kill Switch Active",
+      "type": "boolean"
+    },
+    "migration_compatible": {
+      "title": "Migration Compatible",
+      "type": "boolean"
+    },
+    "observability_ready": {
+      "title": "Observability Ready",
+      "type": "boolean"
+    },
+    "openapi_reproducible": {
+      "title": "Openapi Reproducible",
+      "type": "boolean"
+    },
+    "performance_structural_pass": {
+      "title": "Performance Structural Pass",
+      "type": "boolean"
+    },
+    "queue_healthy": {
+      "title": "Queue Healthy",
+      "type": "boolean"
+    },
+    "requested_stage": {
+      "$ref": "#/$defs/FeatureRolloutStageV2"
+    },
+    "rollback_ready": {
+      "title": "Rollback Ready",
+      "type": "boolean"
+    },
+    "runbook_ready": {
+      "title": "Runbook Ready",
+      "type": "boolean"
+    },
+    "security_ready": {
+      "title": "Security Ready",
+      "type": "boolean"
+    },
+    "tenant_eligible": {
+      "title": "Tenant Eligible",
+      "type": "boolean"
+    },
+    "tenant_isolation_pass": {
+      "title": "Tenant Isolation Pass",
+      "type": "boolean"
+    },
+    "user_capability_allowed": {
+      "title": "User Capability Allowed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "environment",
+    "requested_stage",
+    "migration_compatible",
+    "security_ready",
+    "tenant_isolation_pass",
+    "openapi_reproducible",
+    "evaluations_pass",
+    "observability_ready",
+    "error_budget_available",
+    "error_budget_exhausted",
+    "performance_structural_pass",
+    "queue_healthy",
+    "rollback_ready",
+    "dependencies_satisfied",
+    "full_regression_pass",
+    "runbook_ready",
+    "global_kill_switch_active",
+    "feature_kill_switch_active",
+    "tenant_eligible",
+    "user_capability_allowed"
+  ],
+  "title": "RolloutEvidenceV2",
+  "type": "object"
+}

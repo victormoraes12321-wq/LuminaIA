@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "PostSyncInsightLifecycleV2": {
+      "enum": [
+        "REQUESTED",
+        "PLANNING",
+        "EXECUTING",
+        "VALIDATING",
+        "DETECTED",
+        "CERTIFIED",
+        "PUBLISHED",
+        "ACKNOWLEDGED",
+        "DISMISSED",
+        "EXPIRED",
+        "BLOCKED",
+        "FAILED",
+        "CANCELLED",
+        "SUPERSEDED"
+      ],
+      "title": "PostSyncInsightLifecycleV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "lumina.post-sync-insights/1.0",
+      "default": "lumina.post-sync-insights/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "sync_run_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Sync Run Id",
+      "type": "string"
+    },
+    "policy_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PostSyncInsightLifecycleV2"
+    },
+    "candidates_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Candidates Count",
+      "type": "integer"
+    },
+    "published_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Published Count",
+      "type": "integer"
+    },
+    "suppressed_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Suppressed Count",
+      "type": "integer"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Completed At"
+    },
+    "error_message": {
+      "anyOf": [
+        {
+          "maxLength": 255,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Message"
+    }
+  },
+  "required": [
+    "run_id",
+    "tenant_id",
+    "sync_run_id",
+    "policy_id",
+    "policy_version",
+    "status",
+    "started_at"
+  ],
+  "title": "PostSyncInsightRunV2",
+  "type": "object"
+}

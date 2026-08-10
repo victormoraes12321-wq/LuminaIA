@@ -344,6 +344,22 @@ async def sync_tenant_database(tenant_id: uuid.UUID | str, db_session: AsyncSess
                 global_cache.clear_pattern(f"{tenant_key}:{view.nome_view_oracle.lower()}")
                 await catalog_api.update_cache(tenant_key, view.nome_view_oracle, ativo=True)
 
+            # Hook para disparar outbox de post-sync insights quando habilitado
+            try:
+                from config import settings
+                if settings.POST_SYNC_INSIGHTS_MODE != "LEGACY_ONLY" and settings.POST_SYNC_INSIGHTS_AUTO_RUN_ENABLED:
+                    from services.post_sync_insights_v2.trigger import trigger_service
+                    watermark = _now_iso()
+                    await trigger_service.trigger_post_sync_insights(
+                        db_session,
+                        tenant_id=str(tenant_key),
+                        sync_run_id=str(job_id),
+                        watermark=watermark,
+                        reconciliation_status="SUCCESS",
+                    )
+            except Exception as trg_exc:
+                logger.warning("Falha ao registrar trigger de post-sync insights: %s", trg_exc)
+
             job_result = f"Sincronização concluída com sucesso: {len(views)} views atualizadas. Total de registros: {total_records}."
             await _set_sync_progress(
                 tenant_key,

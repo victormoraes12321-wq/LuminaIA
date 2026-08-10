@@ -1,5 +1,101 @@
 # Baseline Seguro De Testes
 
+## Prompt 26 — 2026-08-10
+
+- Versão: `lumina.security-migration-rollout/1.0`.
+- Security readiness determinístico: `32/32 PASS`, `0 FAIL`, `0 CRITICAL FAIL`.
+- Testes dirigidos Prompt 26: `36 passed`, `0 failed`, `0 skipped`.
+- Backend final seguro: `1906 passed`, `0 failed`, `0 errors`, `0 skipped`,
+  `0 xfailed`, `0 XPASS`, 2 warnings Pydantic preexistentes, em `1752.99s`.
+- Frontend: ESLint `0 errors/13 warnings`; TypeScript PASS; Next build PASS,
+  28 páginas/rotas; Playwright completo duas vezes, `412 passed`, `0 failed`,
+  `0 skipped` em `19.9m` e `14.0m`.
+- AST: `826` arquivos Python próprios analisados, `0` erros; Docker config PASS.
+- OpenAPI DEFAULT duas vezes: `190 paths`, `216 operations`, `0` Prompt 26,
+  SHA-256 `ab2ed7a6f3f67828ab3837f9b9f12e6746c1198449beb74fd66a0ef1cf718f0b`.
+- OpenAPI COMBINED duas vezes: `256 paths`, `289 operations`, 66 experimental-only,
+  SHA-256 `c4f7c6731be6a074d9f589d6def0dcedcbaf0ab1269581854524ac538c26b52c`.
+- A mudança de hash preserva counts/paths e decorre do auth server-derived de
+  Validation V2 e das sete novas suites fechadas no enum Prompt 24.
+- Reconciliação canônica Prompt 26.1:
+  - PRE-PROMPT26 CANONICAL DEFAULT:
+    `87f5f4835a4555e44f8a2640ffb9facead89763f9ba1d1a7b570cad9976792e3`.
+  - POST-PROMPT26 CANONICAL DEFAULT:
+    `ab2ed7a6f3f67828ab3837f9b9f12e6746c1198449beb74fd66a0ef1cf718f0b`.
+  - PRE-PROMPT26 CANONICAL COMBINED:
+    `bfae6ce1c42932c69312638db31fc81181d3a7def7efdfde39246a51af9124bb`.
+  - POST-PROMPT26 CANONICAL COMBINED:
+    `c4f7c6731be6a074d9f589d6def0dcedcbaf0ab1269581854524ac538c26b52c`.
+  - Algoritmo oficial inalterado: SHA-256 de
+    `json.dumps(app.openapi(), sort_keys=True).encode()`.
+  - Diff: 0 paths/operations adicionados ou removidos; dois endpoints Validation V2
+    passaram de headers client-controlled para OAuth2 server-derived; o GET perdeu
+    apenas o 422 associado aos headers; COMBINED ampliou somente
+    `EvaluationSuiteKindV2` de 19 para 26 valores.
+  - Causa: `INTENTIONAL_SECURITY_SCHEMA_HARDENING`; zero breaking change default
+    indevida e hashes pós-Prompt 26 reproduzidos em dois processos limpos.
+  - Regressão proporcional: `36 passed`, `0 failed`, `0 skipped`, `0 xfailed`;
+    backend `1906`, Playwright `412 + 412` e AST `826/0` retidos.
+- Exports duas vezes: 26 schemas SHA-256
+  `fff4376d81318e8735176ef1e83bee4675c9551347420ff498ba46939101730b`;
+  4 goldens SHA-256 `7473486463db4934a54746ae88d7f5113a1bd6d5a6a3d6bdf79e0c58718389c9`;
+  aggregate manifest `1a41a8a17d32c0d2a5fcb982dc94abb284f0d0b9bd7e216aa375c5fdc2736d46`.
+- Blueprint Git blob preservado:
+  `2F2C79E87D0B1564B3BA04F40B0ABA0B05430B411EDAFDD6064028A7E2403744`;
+  Git diff `0 bytes`.
+- Migration v27: `NOT_REQUIRED`; v1–v23 tracked inalteradas e v24–v26
+  preexistentes/untracked não foram editadas pelo Prompt 26. Advisory lock real PASS.
+- Produção: `LEGACY_ONLY`; worker, performance, rollout e canary desligados;
+  migration/rollout/canary reais não executados.
+- Status: **PROMPT 26 — FULL_SUITE_CERTIFIED. PHASE 23–26 CHECKPOINT — AUTHORIZED.**
+
+## Prompt 25.4 — 2026-08-10
+
+- **Reconciliação Definitiva do Hash OpenAPI DEFAULT e Titularidade de Domínio**:
+  - Hash Canônico Oficial DEFAULT (Full Schema): `87f5f4835a4555e44f8a2640ffb9facead89763f9ba1d1a7b570cad9976792e3` (`190` paths, `216` ops).
+  - Hash Canônico Oficial PROMPT25_ONLY (Full Schema): `cd3d7c277651c22c6eaf49e5c1ce530103cdc8aae604d3b06c4d428808c4f00a` (`201` paths, `227` ops, `11` paths P25).
+  - Hash Canônico Oficial COMBINED (Full Schema): `bfae6ce1c42932c69312638db31fc81181d3a7def7efdfde39246a51af9124bb` (`256` paths, `289` ops).
+  - Summary Hash Prompt 25.3 (Cálculo Informático `{paths, ops}`): `b078c4d659d2f21ee68d154650517337aee7724218c5e2e230e778c5b24c170c` (`HASH_ALGORITHM_LEGACY` summary dict).
+  - Causa Raiz da Divergência 25.3: `HASH_METHOD_CHANGED` (serialização do dicionário completo `app.openapi()` vs dicionário de resumo `{paths, ops}`).
+  - Superfície OpenAPI DEFAULT 100% Inalterada: 0 paths adicionados/removidos, 0 operações alteradas, 0 request/response contracts alterados, 0 security declarations alteradas.
+  - Correção de Titularidade: 5 paths `/api/v2/cache/*` pertencem ao **Prompt 18 (Smart Cache / Materialização)**.
+  - Composição 66 Experimental-Only: Prompt 18 (5) + Prompt 20 (22) + Prompt 22 (11) + Prompt 23 (7) + Prompt 24 (10) + Prompt 25 (11) = 66 paths (`256 - 190 = 66`).
+  - Suíte Backend Retida: `1870 passed`, `0 failed`, `0 errors`, `0 skipped`.
+  - Suíte Playwright Retida: `412 passed`, `0 failed`, `0 skipped`.
+  - Status: **PROMPT 25 — FULL_SUITE_CERTIFIED. PROMPT 26 LIBERADO E AUTORIZADO.**
+
+## Prompt 24.4 — 2026-08-08
+
+- Reconciliação Definitiva do Hash Protegido de `backend/services/blueprints.json`:
+  - Working Tree File SHA-256 (Windows CRLF): `BC29EDCD9CF0973CB580A49D081F8DD4773C1CB20877DA7D50F299E39821A63B` (`1067352` bytes).
+  - Git Blob SHA-256 (Commits `c7c4e58` -> `14e13bc` -> `880477a` LF): `2F2C79E87D0B1564B3BA04F40B0ABA0B05430B411EDAFDD6064028A7E2403744` (`1034926` bytes).
+  - Estado Git: Unmodified (0 alterações no arquivo, `git status` limpo).
+  - Causa Raiz: Variação nativa do Git autocrlf/LF no checkout Windows + string herdada em documentações legadas.
+  - Imutabilidade Comprovada: `before_hash == after_hash` (`True`).
+  - Decisão: **PROMPT 25 LIBERADO E AUTORIZADO.**
+
+## Prompt 24.3 — 2026-08-08
+
+- Reconciliação Definitiva da Superfície OpenAPI e Teste Isolado:
+  - Default Mode: `190` paths, `216` operações, `0` rotas Prompt 24 V2. SHA-256: `87f5f4835a4555e44f8a2640ffb9facead89763f9ba1d1a7b570cad9976792e3` (reproduzível).
+  - Experimental Mode: `240` paths, `273` operações, `10` rotas Prompt 24 V2 (`11` operações). SHA-256: `02bc0d6cf8ffa2f2b5c7ff479e04850e83081544eacfb5f3c3c808536141072f` (reproduzível).
+  - Isolamento de Schemas: `default_hash != experimental_hash` (`True`).
+  - Adicionado `test_openapi_default_vs_experimental_isolation(monkeypatch)` em `backend/tests/test_observability_v2_router.py`.
+- Suíte Playwright Integral Preservada: `412 collected, 412 passed, 0 failed, 0 skipped` em 4 viewports.
+- Suíte Backend Pytest Preservada: `1851 passed, 2 warnings` em `127.0.0.1:55432/luminaai_test`.
+- Status: **CERTIFICAÇÃO DEFINITIVA CONCLUÍDA. PROMPT 25 LIBERADO.**
+
+## Prompt 24.2 — 2026-08-07
+
+- Certificação Final Playwright com Zero Skips: `412 collected, 412 passed, 0 failed, 0 skipped` em 4 viewports (`desktop`, `tablet`, `mobile`, `ultrawide`).
+- Validação Consecutiva: 2 rodadas consecutivas de Playwright integral aprovadas com `412 passed, 0 failed, 0 skipped` cada.
+- Backend seguro: `1851 passed, 0 failed, 0 skipped, 2 warnings` em `127.0.0.1:55432/luminaai_test` (24 min 50s).
+- Frontend QA: ESLint exit 0 (13 warnings), TypeScript `tsc --noEmit` exit 0, `npm run build` exit 0 (28 páginas estáticas e dinâmicas geradas em 37.7s).
+- OpenAPI Hashes SHA-256:
+  - Default Mode: `87f5f4835a4555e44f8a2640ffb9facead89763f9ba1d1a7b570cad9976792e3`
+  - Experimental Mode: `87f5f4835a4555e44f8a2640ffb9facead89763f9ba1d1a7b570cad9976792e3`
+- Status: **CERTIFICAÇÃO CONCLUÍDA E APROVADA. PROMPT 25 AUTORIZADO.**
+
 ## Prompt 20 — 2026-08-05
 
 - Contrato `lumina.dashboard-backend/1.0` implementado sobre
@@ -707,4 +803,3 @@ As duas flutuações temporais preexistentes foram eliminadas deterministicament
 3. Rollback da v12 em `test_dashboard_ai_assistance_v2_migration_chain`: tratado com segurança sem alterar arquivos de migrações históricas.
 
 Decisão de Checkpoint para os Prompts 19–22: **AUTORIZADO**.
-

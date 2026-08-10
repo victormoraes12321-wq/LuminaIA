@@ -17,8 +17,10 @@ import time
 import uuid
 import json
 import hashlib
+import re
 import unicodedata
 from decimal import Decimal
+from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
@@ -54,6 +56,8 @@ from services.conversation_state.service import (
     StartedTurn,
     conversation_state_service,
 )
+from config import settings
+from services.security_rollout_v2.sanitization import security_payload_sanitizer
 
 logger = logging.getLogger(__name__)
 
@@ -843,7 +847,7 @@ async def get_inspector_traces(
                 trace_id = filename.replace("debug_", "").replace(".json", "")
                 traces.append({
                     "trace_id": trace_id,
-                    "pergunta": data.get("pergunta", "Query sem pergunta"),
+                    "pergunta": "[REDACTED]",
                     "intent": data.get("semantic_plan", {}).get("intent", "N/A"),
                     "status": data.get("canonical_plan", {}).get("status") or data.get("status") or "READY",
                     "execution_time_ms": data.get("execution_time_ms", 0.0),
@@ -865,25 +869,22 @@ async def get_inspector_trace_detail(
     """
     Retorna o payload de trace analítico completo de um ID específico.
     """
-    import os
     import json
-    
-    log_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "runtime-logs", "debug")
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,96}", trace_id):
+        raise HTTPException(status_code=404, detail="Trace nao localizado.")
+    log_dir = (Path(__file__).resolve().parents[1] / "runtime-logs" / "debug").resolve()
     filename = f"debug_{trace_id}.json" if "-" in trace_id else f"{trace_id}.json"
-    filepath = os.path.join(log_dir, filename)
-    
-    if not os.path.exists(filepath):
-        # Fallback debug_steps.json
-        filepath = os.path.join(log_dir, "debug_steps.json")
-        if not os.path.exists(filepath):
-            raise HTTPException(status_code=404, detail="Trace ID ou arquivo de debug correspondente não localizado no servidor.")
+    filepath = (log_dir / filename).resolve()
+    if filepath.parent != log_dir or not filepath.is_file():
+        raise HTTPException(status_code=404, detail="Trace nao localizado.")
             
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with filepath.open("r", encoding="utf-8") as f:
             data = json.load(f)
-        return data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao ler arquivo de debug: {e}")
+        return security_payload_sanitizer.sanitize_debug_trace(data)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        logger.warning("Falha estrutural ao ler trace | type=%s", type(exc).__name__)
+        raise HTTPException(status_code=500, detail="Trace indisponivel.") from exc
 
 
 @router.post("/inspector/replay", status_code=status.HTTP_200_OK)
@@ -894,6 +895,9 @@ async def run_inspector_replay(
     """
     Aciona o replay analítico de um trace e retorna o resultado dinâmico do pipeline.
     """
+    if not settings.INSPECTOR_REPLAY_ENABLED:
+        raise HTTPException(status_code=503, detail="Replay do inspector desabilitado por politica de seguranca.")
+    raise HTTPException(status_code=501, detail="Replay seguro ainda nao implementado.")
     import os
     import json
     import time
