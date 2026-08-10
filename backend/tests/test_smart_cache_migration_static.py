@@ -79,4 +79,5 @@ def test_migration_declares_expected_tables_constraints_and_indexes() -> None:
 def test_historical_migrations_v12_to_v20_are_byte_identical() -> None:
     for version, expected in HISTORICAL_MIGRATION_HASHES.items():
         path = BACKEND_ROOT / "database" / f"migration_v{version}_0.py"
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == expected
+        canonical_bytes = path.read_bytes().replace(b"\r\n", b"\n")
+        assert hashlib.sha256(canonical_bytes).hexdigest() == expected

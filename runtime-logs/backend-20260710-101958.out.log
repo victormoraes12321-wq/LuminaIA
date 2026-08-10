@@ -1,8 +1,0 @@
-INFO:     192.168.18.103:61237 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-INFO:     192.168.18.103:61237 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
-INFO:     192.168.18.103:61237 - "POST /api/v1/query/ HTTP/1.1" 200 OK
-INFO:     192.168.18.103:60646 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
-INFO:     192.168.18.103:54263 - "OPTIONS /api/v1/query/history HTTP/1.1" 200 OK
-INFO:     192.168.18.103:56836 - "OPTIONS /api/v1/query/favorites HTTP/1.1" 200 OK
-INFO:     192.168.18.103:60646 - "GET /api/v1/query/history HTTP/1.1" 200 OK
-INFO:     192.168.18.103:59526 - "GET /api/v1/query/favorites HTTP/1.1" 200 OK

@@ -1,3 +1,0 @@
-INFO:     127.0.0.1:50824 - "GET /health HTTP/1.1" 200 OK
-INFO:     192.168.18.103:50827 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-INFO:     192.168.18.103:50827 - "POST /api/v1/query/ HTTP/1.1" 200 OK

@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -19,9 +20,9 @@ def _tree_digest() -> str:
 
 def test_schema_and_golden_exports_are_reproducible() -> None:
     script = ROOT / "scripts" / "export_security_rollout_v2_contracts.py"
-    subprocess.run([str(ROOT / "backend" / ".venv" / "Scripts" / "python.exe"), str(script)], check=True, cwd=ROOT)
+    subprocess.run([sys.executable, str(script)], check=True, cwd=ROOT)
     first = _tree_digest()
-    subprocess.run([str(ROOT / "backend" / ".venv" / "Scripts" / "python.exe"), str(script)], check=True, cwd=ROOT)
+    subprocess.run([sys.executable, str(script)], check=True, cwd=ROOT)
     second = _tree_digest()
     assert first == second
     manifest = json.loads((ROOT / "docs" / "contracts" / "security_rollout_v2" / "manifest.json").read_text(encoding="utf-8"))

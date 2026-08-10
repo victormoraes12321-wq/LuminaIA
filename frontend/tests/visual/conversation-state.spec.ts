@@ -81,10 +81,14 @@ function responseForTurn(turn: number) {
   }
 }
 
-async function installCommonRoutes(page: Page, queryHandler: (route: Route) => Promise<void>) {
+async function installCommonRoutes(
+  page: Page,
+  queryHandler: (route: Route) => Promise<void>,
+  sessionUser: () => typeof user = () => user,
+) {
   await page.route('**/api/v1/**', async route => {
     const url = route.request().url()
-    if (url.includes('/auth/session')) return route.fulfill({ json: user })
+    if (url.includes('/auth/session')) return route.fulfill({ json: sessionUser() })
     if (url.includes('/auth/logout')) {
       return route.fulfill({
         json: { ok: true },
@@ -332,4 +336,99 @@ test('expired server session is discarded before the next question', async ({ pa
   expect(payloads[1].session_id).not.toBe(serverSessionId)
   expect(payloads[1].parent_id).toBeNull()
   expect(payloads[1].expected_context_version).toBe(0)
+})
+
+test('RC journey: tenant switch during a request discards the previous tenant response', async ({ page }) => {
+  const otherUser = { ...user, id: '22222222-2222-4222-8222-222222222222', tenant_id: 'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380b22' }
+  let activeUser = user
+  let releaseOldResponse: (() => void) | undefined
+  let requestStarted = false
+  await installCommonRoutes(page, async route => {
+    requestStarted = true
+    await new Promise<void>(resolve => { releaseOldResponse = resolve })
+    await route.fulfill({ json: { ...responseForTurn(1), mensagem: 'RESPOSTA ANTIGA DO TENANT A' } }).catch(() => undefined)
+  }, () => activeUser)
+  await authenticate(page)
+  await page.goto('/dashboard')
+  await page.getByRole('textbox').fill('Consulta pendente do tenant A')
+  await page.getByRole('textbox').press('Enter')
+  await expect.poll(() => requestStarted).toBe(true)
+
+  activeUser = otherUser
+  const navigation = page.reload()
+  releaseOldResponse?.()
+  await navigation
+  await expect(page.getByText('RESPOSTA ANTIGA DO TENANT A')).toHaveCount(0)
+  await expect.poll(async () => {
+    const stored = await page.evaluate(key => window.localStorage.getItem(key), `lumina-conversation:${otherUser.tenant_id}:${otherUser.id}`)
+    return stored?.includes(serverSessionId) ?? false
+  }).toBe(false)
+})
+
+test('RC journey: logout during a request cancels presentation and clears conversation state', async ({ page }) => {
+  let releaseResponse: (() => void) | undefined
+  let requestStarted = false
+  await installCommonRoutes(page, async route => {
+    requestStarted = true
+    await new Promise<void>(resolve => { releaseResponse = resolve })
+    await route.fulfill({ json: { ...responseForTurn(1), mensagem: 'RESPOSTA APÓS LOGOUT' } }).catch(() => undefined)
+  })
+  await authenticate(page)
+  await page.goto('/dashboard')
+  await page.getByRole('textbox').fill('Consulta pendente antes do logout')
+  await page.getByRole('textbox').press('Enter')
+  await expect.poll(() => requestStarted).toBe(true)
+  await openSidebarIfCollapsed(page)
+  await page.getByRole('button', { name: 'Sair da conta' }).click()
+  releaseResponse?.()
+  await page.waitForURL('**/login')
+  await expect(page.getByText('RESPOSTA APÓS LOGOUT')).toHaveCount(0)
+  expect(await page.evaluate(() => Object.keys(window.localStorage).filter(key => key.startsWith('lumina-conversation:')))).toEqual([])
+})
+
+test('RC journey: browser back and forward preserve authenticated dashboard navigation', async ({ page }) => {
+  await installCommonRoutes(page, async route => route.fulfill({ json: responseForTurn(1) }))
+  await authenticate(page)
+  await page.goto('/dashboard?rc-journey=first')
+  await page.goto('/dashboard?rc-journey=second')
+  await page.goBack()
+  await expect(page).toHaveURL(/\/dashboard\?rc-journey=first$/)
+  await page.goForward()
+  await expect(page).toHaveURL(/\/dashboard\?rc-journey=second$/)
+})
+
+test('RC journey: repeated send action is idempotently blocked while a request is pending', async ({ page }) => {
+  let requests = 0
+  let releaseResponse: (() => void) | undefined
+  await installCommonRoutes(page, async route => {
+    requests += 1
+    await new Promise<void>(resolve => { releaseResponse = resolve })
+    await route.fulfill({ json: responseForTurn(1) })
+  })
+  await authenticate(page)
+  await page.goto('/dashboard')
+  await page.getByRole('textbox').fill('Uma única consulta')
+  await page.getByRole('button', { name: 'Enviar pergunta' }).dblclick()
+  await expect.poll(() => requests).toBe(1)
+  await expect(page.getByRole('button', { name: 'Enviar pergunta' })).toBeDisabled()
+  releaseResponse?.()
+  await expect(page.getByRole('textbox')).toBeEnabled()
+  await page.getByRole('textbox').fill('Próxima consulta permitida')
+  await expect(page.getByRole('button', { name: 'Enviar pergunta' })).toBeEnabled()
+  expect(requests).toBe(1)
+})
+
+test('RC journey: persistent API failure renders a recoverable error state without fabricated answer', async ({ page }) => {
+  let requests = 0
+  await installCommonRoutes(page, async route => {
+    requests += 1
+    await route.fulfill({ status: 503, json: { detail: { message: 'Serviço analítico indisponível para teste.' } } })
+  })
+  await authenticate(page)
+  await page.goto('/dashboard')
+  await page.getByRole('textbox').fill('Consulta com falha controlada')
+  await page.getByRole('textbox').press('Enter')
+  await expect.poll(() => requests).toBe(2)
+  await expect(page.getByText('Serviço analítico indisponível para teste.').first()).toBeVisible()
+  await expect(page.getByTestId('public-context-summary')).toHaveCount(0)
 })

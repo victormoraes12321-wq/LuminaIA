@@ -4,6 +4,9 @@ import sys
 import json
 import time
 import traceback
+from pathlib import Path
+
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -191,9 +194,13 @@ async def main():
                     )
                 
                 # Coleta o trace debug JSON mais recente correspondente a essa pergunta
-                log_dir = r"c:\Users\wccto11ti1\Desktop\Sistema IA Empresa\backend\runtime-logs\debug"
-                files = [os.path.join(log_dir, f) for f in os.listdir(log_dir) if f.endswith(".json") and f != "debug_steps.json"]
-                files.sort(key=os.path.getmtime, reverse=True)
+                log_dir = BACKEND_ROOT / "runtime-logs" / "debug"
+                files = [
+                    path
+                    for path in log_dir.glob("*.json")
+                    if path.name != "debug_steps.json"
+                ]
+                files.sort(key=lambda path: path.stat().st_mtime, reverse=True)
                 
                 debug_data = {}
                 if files:
@@ -301,7 +308,8 @@ async def main():
     print("=" * 80)
 
     # Gera o Relatório Markdown
-    relatorio_path = r"C:\Users\wccto11ti1\.gemini\antigravity\brain\8cccfb7b-652e-4c13-9afe-76c718468930\enterprise_audit_report.md"
+    relatorio_path = BACKEND_ROOT / "reports" / "enterprise_audit_report.md"
+    relatorio_path.parent.mkdir(parents=True, exist_ok=True)
     
     failed_details_md = ""
     if falharam > 0:

@@ -1,8 +1,0 @@
-INFO:     192.168.18.103:51137 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-INFO:     192.168.18.103:51137 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
-INFO:     192.168.18.103:51137 - "POST /api/v1/query/ HTTP/1.1" 200 OK
-INFO:     192.168.18.103:51137 - "POST /api/v1/query/ HTTP/1.1" 200 OK
-INFO:     192.168.18.103:51137 - "POST /api/v1/query/ HTTP/1.1" 200 OK
-INFO:     192.168.18.103:55455 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
-INFO:     192.168.18.103:55455 - "GET /api/v1/auth/session HTTP/1.1" 200 OK
-INFO:     192.168.18.103:55455 - "POST /api/v1/query/ HTTP/1.1" 200 OK

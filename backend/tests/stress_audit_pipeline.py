@@ -4,6 +4,7 @@ import uuid
 import time
 import asyncio
 import logging
+from pathlib import Path
 from typing import Dict, Any, List, Optional
 from unittest.mock import patch, AsyncMock
 
@@ -586,9 +587,9 @@ async def run_stress_audit():
         print(f"{r['id']:<3} | {r['grupo']:<22} | {r['status_retornado']:<18} | {r['tempo_ms']:<10} | {r['custo']:<8}")
     print("="*80)
     
-    meta_dir = "c:\\Users\\wccto11ti1\\Desktop\\Sistema IA Empresa\\.lumina_refactor_metadata"
-    os.makedirs(meta_dir, exist_ok=True)
-    report_path = os.path.join(meta_dir, "final_stress_audit_report.md")
+    meta_dir = Path(__file__).resolve().parents[2] / ".lumina_refactor_metadata"
+    meta_dir.mkdir(parents=True, exist_ok=True)
+    report_path = meta_dir / "final_stress_audit_report.md"
     
     total = len(resultados)
     sucessos = sum(1 for r in resultados if r["status_retornado"] in ("FULL_RENDERING", "UI_MODIFIED"))

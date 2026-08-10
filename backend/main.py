@@ -790,40 +790,105 @@ async def health_check() -> dict[str, Any]:
     response_description="Status detalhado dos componentes essenciais",
 )
 async def deep_health_check() -> dict[str, Any]:
+    from services.readiness import (
+        dependency_component,
+        migration_readiness_component,
+        overall_readiness,
+    )
+    from services.security_rollout_v2 import ConfigurationReadinessServiceV2
+
     components: dict[str, Any] = {
-        "api": {"status": "healthy"},
-        "ai": ai_credential_manager.get_status(),
-        "ai_invocation": ai_invocation_manager.get_status(),
+        "api": dependency_component(
+            raw_status="healthy",
+            required=True,
+            reason="API process is serving requests",
+        ),
     }
 
+    ai_status = ai_credential_manager.get_status()
+    ai_required = not (
+        settings.MOCK_OPENAI
+        or settings.LUMINA_DISABLE_EXTERNAL_NETWORK
+    )
+    components["ai"] = dependency_component(
+        raw_status=ai_status.get("status_geral"),
+        required=ai_required,
+        reason=(
+            "real AI provider is required by the active environment"
+            if ai_required
+            else "AI provider is disabled or mocked by test policy"
+        ),
+        details={"provider_state": ai_status.get("status_geral", "UNKNOWN")},
+    )
+
+    invocation_status = ai_invocation_manager.get_status()
+    components["ai_invocation"] = dependency_component(
+        raw_status=invocation_status.get("status"),
+        required=ai_required,
+        reason=(
+            "AI invocation governance is required with a real provider"
+            if ai_required
+            else "AI invocation is not required while provider access is disabled"
+        ),
+        details={"invocation_state": invocation_status.get("status", "UNKNOWN")},
+    )
+
+    table_names: tuple[str, ...] = ()
     try:
         async with engine.connect() as conn:
             await conn.execute(sqlalchemy.text("SELECT 1"))
-        components["postgres"] = {"status": "healthy"}
+            table_names = tuple(
+                (await conn.execute(sqlalchemy.text(
+                    "SELECT tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename"
+                ))).scalars().all()
+            )
+        components["postgres"] = dependency_component(
+            raw_status="healthy",
+            required=True,
+            reason="authenticated application PostgreSQL is reachable",
+        )
     except Exception as exc:
         logger.warning("Health deep: PostgreSQL degradado | type=%s", type(exc).__name__)
-        components["postgres"] = {
-            "status": "degraded",
-            "error_type": type(exc).__name__,
-        }
+        components["postgres"] = dependency_component(
+            raw_status="degraded",
+            required=True,
+            reason="authenticated application PostgreSQL is unavailable",
+            details={"error_type": type(exc).__name__},
+        )
 
     from services.scheduler import get_scheduler_status
-    components["scheduler"] = get_scheduler_status()
-    from services.security_rollout_v2 import ConfigurationReadinessServiceV2
-    configuration = ConfigurationReadinessServiceV2.evaluate(
-        ConfigurationReadinessServiceV2.from_settings(settings)
+    scheduler_status = get_scheduler_status()
+    scheduler_required = not settings.is_testing
+    components["scheduler"] = dependency_component(
+        raw_status=scheduler_status.get("status"),
+        required=scheduler_required,
+        reason=(
+            "legacy synchronization scheduler is required outside test mode"
+            if scheduler_required
+            else "scheduler execution is disabled by test policy"
+        ),
+        details={"running": scheduler_status.get("running", False)},
     )
-    components["security_configuration"] = {
-        "status": "ready" if configuration.state.value == "READY" else "blocked",
-        "blocking_reasons": list(configuration.blocking_reasons),
-    }
 
-    component_statuses = [
-        str(value.get("status", "unknown")).lower()
-        for value in components.values()
-        if isinstance(value, dict)
-    ]
-    overall = "healthy" if all(item in {"healthy", "ok", "ready", "active"} for item in component_statuses) else "degraded"
+    snapshot = ConfigurationReadinessServiceV2.from_settings(settings)
+    configuration = ConfigurationReadinessServiceV2.evaluate(snapshot)
+    configuration_ready = configuration.state.value == "READY"
+    components["security_configuration"] = dependency_component(
+        raw_status="ready" if configuration_ready else "blocked",
+        required=True,
+        reason=(
+            "server-controlled feature configuration is coherent"
+            if configuration_ready
+            else "server-controlled feature configuration is invalid"
+        ),
+        details={"blocking_reasons": list(configuration.blocking_reasons)},
+    )
+    components["migration_compatibility"] = migration_readiness_component(
+        snapshot,
+        table_names,
+    )
+
+    overall = overall_readiness(components)
 
     return {
         "status": overall,
