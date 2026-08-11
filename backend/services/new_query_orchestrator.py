@@ -30,6 +30,11 @@ from services.metadata_catalog import (
 )
 from services.security_and_normalization_engine import EmptyDatasetAnomalyError
 from services.ai_credential_manager import ai_credential_manager
+from services.analytical_fact_policy import (
+    AnalyticalFactState,
+    aggregate_fact,
+    ratio_fact,
+)
 from services.financial_source_discovery import financial_source_discovery
 from services.metric_registry import core_sales_metric_audit
 from services.sales_value_breakdown import sales_value_breakdown
@@ -419,6 +424,8 @@ class NewQueryOrchestrator:
             topics.add("devolucao")
         if any(term in normalized for term in ("ticket", "tiket", "tiquete", "valor medio")):
             topics.add("ticket")
+        if any(term in normalized for term in ("quantas unidades", "unidades vendidas", "quantidade vendida")):
+            topics.add("quantidade")
         if has_discount_term and not (wants_vendor_ranking or wants_client_ranking or wants_vendor_top or wants_client_top):
             topics.add("desconto")
         if any(term in normalized for term in (
@@ -1267,6 +1274,7 @@ class NewQueryOrchestrator:
             "devolucao",
             "ranking_vendedores",
             "ranking_clientes",
+            "unidades_vendidas",
         }
         return any(metric.metric_id in core_metrics for metric in intent.metric_refs)
 
@@ -1290,25 +1298,36 @@ class NewQueryOrchestrator:
             topics.add("ranking_vendedores")
         if "ranking_clientes" in metric_ids:
             topics.add("ranking_clientes")
-        if "vendedor" in dimension_ids:
+        if "unidades_vendidas" in metric_ids:
+            topics.add("quantidade")
+        filtered_dimensions = {str(item.field_id).lower() for item in intent.filters}
+        if "vendedor" in dimension_ids and "vendedor" not in filtered_dimensions:
             topics.add("ranking_vendedores")
-        if "cliente" in dimension_ids:
+        if "cliente" in dimension_ids and "cliente" not in filtered_dimensions:
             topics.add("ranking_clientes")
-        if "produto" in dimension_ids:
+        if "produto" in dimension_ids and "produto" not in filtered_dimensions:
             topics.add("produto_mais_vendido")
         return topics
 
-    def _filial_from_resolved_intent(self, intent: Optional[Any]) -> Optional[str]:
+    def _entity_from_resolved_intent(
+        self,
+        intent: Optional[Any],
+        field_ids: set[str],
+    ) -> Optional[str]:
         if intent is None:
             return None
         for query_filter in intent.filters:
-            if str(query_filter.field_id).lower() not in {"filial", "loja", "unidade"}:
+            if str(query_filter.field_id).lower() not in field_ids:
                 continue
             if query_filter.value not in (None, ""):
-                return sales_value_breakdown.normalize_filial(query_filter.value)
+                return str(query_filter.value).strip()
             if query_filter.values:
-                return sales_value_breakdown.normalize_filial(query_filter.values[0])
+                return str(query_filter.values[0]).strip()
         return None
+
+    def _filial_from_resolved_intent(self, intent: Optional[Any]) -> Optional[str]:
+        value = self._entity_from_resolved_intent(intent, {"filial", "loja", "unidade"})
+        return sales_value_breakdown.normalize_filial(value)
 
     def _primary_metric_from_resolved_intent(self, intent: Optional[Any]) -> Optional[str]:
         if intent is None:
@@ -1322,6 +1341,7 @@ class NewQueryOrchestrator:
             "devolucao": "devolucao",
             "ranking_vendedores": "faturamento_comercial",
             "ranking_clientes": "faturamento_comercial",
+            "unidades_vendidas": "quantidade_total",
         }
         for metric in intent.metric_refs:
             if metric.metric_id in mapping:
@@ -1368,6 +1388,11 @@ class NewQueryOrchestrator:
                 "execution_time_ms": elapsed,
             }
         _period_from_text = _periods_from_text[0] if _periods_from_text else None
+        normalized_query = self._normalize_query_text(pergunta)
+        all_history = _period_from_text is None and any(
+            term in normalized_query
+            for term in ("historico", "historica", "todo o periodo", "periodo completo")
+        )
         if _period_from_text is None:
             # Sem período explícito: assume o mês atual como padrão
             current_ranges = self._month_ranges_from_text("mes atual", temporal_context)
@@ -1381,13 +1406,21 @@ class NewQueryOrchestrator:
         topics = self._core_summary_topics(pergunta)
         if resolved_intent is not None:
             topics.update(self._core_summary_topics_from_intent(resolved_intent))
-        normalized_query = self._normalize_query_text(pergunta)
         vendor_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "vendedor")
         client_ranking_limit = self._ranking_limit_for_dimension(normalized_query, "cliente")
         selected_filial = self._filial_from_resolved_intent(resolved_intent)
         if selected_filial is None:
             selected_filial = self._filial_from_text(pergunta)
-        scope_text = self._scope_suffix(selected_filial)
+        selected_vendedor = self._entity_from_resolved_intent(resolved_intent, {"vendedor"})
+        selected_produto = self._entity_from_resolved_intent(resolved_intent, {"produto"})
+        scope_parts = []
+        if selected_filial:
+            scope_parts.append(f"filial {selected_filial}")
+        if selected_vendedor:
+            scope_parts.append(f"vendedor {selected_vendedor}")
+        if selected_produto:
+            scope_parts.append(f"produto {selected_produto}")
+        scope_text = f" para {' / '.join(scope_parts)}" if scope_parts else ""
         value_basis = self._value_basis_from_text(normalized_query)
         include_operational_details = self._include_operational_details(normalized_query)
         include_discount_details = self._include_discount_details(normalized_query)
@@ -1414,11 +1447,17 @@ class NewQueryOrchestrator:
                 session,
                 binds,
                 filial=selected_filial,
+                vendedor=selected_vendedor,
+                produto=selected_produto,
+                all_history=all_history,
             )
             period_filial_totals = await sales_value_breakdown.fetch_period_totals_by_filial(
                 session,
                 binds,
                 filial=selected_filial,
+                vendedor=selected_vendedor,
+                produto=selected_produto,
+                all_history=all_history,
             )
             if "documentos" in topics:
                 document_rows = await sales_value_breakdown.fetch_document_details(
@@ -1445,15 +1484,91 @@ class NewQueryOrchestrator:
                         financial_source_discovery.source_warning(financial_source_report, "vendas_nao_faturadas")
                     )
             faturamento_total = self._decimal_value(period_totals.get("faturamento_comercial"))
+            quantidade_total = self._decimal_value(period_totals.get("quantidade_total"))
             total_bruto = self._decimal_value(period_totals.get("total_bruto"))
             pedidos = int(period_totals.get("pedidos_comerciais") or 0)
             pedidos_total = int(period_totals.get("pedidos_total") or 0)
             desconto_total = self._decimal_value(period_totals.get("desconto_comercial"))
             desconto_total_bruto = self._decimal_value(period_totals.get("desconto_total"))
-            ticket_medio = faturamento_total / Decimal(pedidos) if pedidos else Decimal("0")
-            ticket_medio_bruto = total_bruto / Decimal(pedidos_total) if pedidos_total else Decimal("0")
-            desconto_medio = desconto_total / Decimal(pedidos) if pedidos else Decimal("0")
-            desconto_medio_bruto = desconto_total_bruto / Decimal(pedidos_total) if pedidos_total else Decimal("0")
+            commercial_rows = int(period_totals.get("commercial_row_count") or 0)
+            source_rows = int(period_totals.get("source_row_count") or 0)
+            revenue_fact = aggregate_fact(
+                faturamento_total,
+                source_row_count=commercial_rows,
+            )
+            quantity_fact = aggregate_fact(
+                quantidade_total,
+                source_row_count=commercial_rows,
+                empty_is_zero=True,
+            )
+            ticket_fact = ratio_fact(
+                faturamento_total,
+                pedidos,
+                source_row_count=commercial_rows,
+            )
+            ticket_gross_fact = ratio_fact(
+                total_bruto,
+                pedidos_total,
+                source_row_count=source_rows,
+            )
+            discount_average_fact = ratio_fact(
+                desconto_total,
+                pedidos,
+                source_row_count=commercial_rows,
+            )
+            discount_gross_average_fact = ratio_fact(
+                desconto_total_bruto,
+                pedidos_total,
+                source_row_count=source_rows,
+            )
+            ticket_medio = ticket_fact.value
+            ticket_medio_bruto = ticket_gross_fact.value
+            desconto_medio = discount_average_fact.value
+            desconto_medio_bruto = discount_gross_average_fact.value
+            requested_fact = (
+                quantity_fact
+                if "quantidade" in topics
+                else ticket_fact
+                if "ticket" in topics or "ticket_medio" in topics
+                else aggregate_fact(
+                    desconto_total,
+                    source_row_count=commercial_rows,
+                )
+                if "desconto" in topics or "desconto_total" in topics
+                else revenue_fact
+                if "faturamento" in topics
+                else aggregate_fact(total_bruto, source_row_count=source_rows)
+            )
+
+            if requested_fact.state in {
+                AnalyticalFactState.NO_ROWS,
+                AnalyticalFactState.NULL,
+                AnalyticalFactState.NOT_APPLICABLE,
+            }:
+                elapsed = (time.perf_counter() - start_time) * 1000
+                return {
+                    "status": requested_fact.state.value,
+                    "pergunta_original": pergunta,
+                    "mensagem": "Nao ha linhas analiticas autorizadas para os filtros e periodo informados.",
+                    "resposta_direta": "Nao foram encontrados dados para esta consulta.",
+                    "chart_type": "TABLE",
+                    "chart_data": {
+                        "data": [],
+                        "resumo": {
+                            "faturamento_total": None,
+                            "ticket_medio": None,
+                            "quantidade_total": None,
+                            "fact_state": requested_fact.state.value,
+                            "source_row_count": source_rows,
+                        },
+                    },
+                    "sample_rows": [],
+                    "execution_time_ms": elapsed,
+                    "telemetry": {
+                        "trace_id": str(trace_id),
+                        "pipeline_version": "2.0-core-summary",
+                    },
+                }
 
             top_vendor = None
             top_vendor_rows: List[Dict[str, Any]] = []
@@ -1602,7 +1717,11 @@ class NewQueryOrchestrator:
                     limit=50,
                 )
 
-        period_label = f"{start_date.isoformat()} a {end_date.isoformat()}"
+        period_label = (
+            "todo o historico disponivel"
+            if all_history
+            else f"{start_date.isoformat()} a {end_date.isoformat()}"
+        )
         response_text = ""
         discount_warning = self._discount_source_warning(period_totals)
         discount_query_requested = any("desconto" in topic for topic in topics)
@@ -1762,6 +1881,8 @@ class NewQueryOrchestrator:
             parts.append(f"Devolucao{scope_text} de {self._format_brl(devolucao_value)} em {devolucao_orders} pedido(s)")
         if not ranking_kind and "ticket" in topics:
             parts.append(f"ticket médio{scope_text} de {self._format_brl(ticket_medio)}")
+        if not ranking_kind and "quantidade" in topics:
+            parts.append(f"quantidade vendida{scope_text} de {quantidade_total}")
         if not ranking_kind and "desconto" in topics:
             if discount_warning:
                 parts.append(
@@ -1830,11 +1951,12 @@ class NewQueryOrchestrator:
             "total_bruto": float(total_bruto),
             "total_movimentos_view": float(self._decimal_value(period_totals.get("total_movimentos_view"))),
             **breakdown_resumo,
-            "ticket_medio": float(ticket_medio),
-            "ticket_medio_bruto": float(ticket_medio_bruto),
+            "ticket_medio": float(ticket_medio) if ticket_medio is not None else None,
+            "quantidade_total": float(quantidade_total),
+            "ticket_medio_bruto": float(ticket_medio_bruto) if ticket_medio_bruto is not None else None,
             "desconto_total": float(desconto_total),
             "desconto_total_bruto": float(desconto_total_bruto),
-            "desconto_medio_bruto": float(desconto_medio_bruto),
+            "desconto_medio_bruto": float(desconto_medio_bruto) if desconto_medio_bruto is not None else None,
             "desconto_fonte_tipo": str(period_totals.get("desconto_fonte_tipo") or "derivado_sem_coluna_explicita"),
             "desconto_fonte_coluna": period_totals.get("desconto_fonte_coluna"),
             "desconto_fonte_confianca": str(period_totals.get("desconto_fonte_confianca") or "baixa"),
@@ -1842,6 +1964,10 @@ class NewQueryOrchestrator:
             "pedidos_comerciais": pedidos,
             "pedidos_total": pedidos_total,
             "pedidos_movimentos_view": int(period_totals.get("pedidos_movimentos_view") or 0),
+            "source_row_count": int(period_totals.get("source_row_count") or 0),
+            "fact_state": (
+                requested_fact.state.value
+            ),
             "total_indicadores": len(summary_rows),
             "tipo_saida": ranking_kind or "resumo",
             "filtro_comercial": self._erp_sales_filter_label(selected_filial),
@@ -2994,6 +3120,27 @@ class NewQueryOrchestrator:
             "timezone": temporal_result.timezone,
             "duration_ms": temporal_result.duration_ms,
         }
+        if resolved_query_intent is None:
+            from contracts.analytical_v2 import PipelineKind, build_intent_v2
+
+            deterministic_intent = build_intent_v2(
+                effective_pergunta,
+                pipeline=PipelineKind.NEW,
+                temporal_context=temporal_context,
+                temporal_result=temporal_result,
+            )
+            if deterministic_intent.readiness.value == "READY":
+                resolved_query_intent = deterministic_intent
+            debug_data["deterministic_intent"] = {
+                "readiness": deterministic_intent.readiness.value,
+                "intent_kind": deterministic_intent.intent_kind.value,
+                "metric_ids": [item.metric_id for item in deterministic_intent.metric_refs],
+                "dimension_ids": [item.dimension_id for item in deterministic_intent.dimension_refs],
+                "filter_ids": [item.field_id for item in deterministic_intent.filters],
+                "intent_fingerprint": hashlib.sha256(
+                    deterministic_intent.model_dump_json(exclude={"raw_question"}).encode("utf-8")
+                ).hexdigest(),
+            }
         if (
             (
                 temporal_result.relation == TemporalRelation.COMPARISON
@@ -3138,7 +3285,10 @@ class NewQueryOrchestrator:
             debug_data["pergunta_contextualizada"] = effective_pergunta
 
         # ── Intercepção de Ambiguidade: 1) Faturamento Bruto vs Líquido ──────
-        if self._is_faturamento_basis_ambiguous(pergunta):
+        if (
+            self._is_faturamento_basis_ambiguous(pergunta)
+            and not self._is_core_resolved_intent(resolved_query_intent)
+        ):
             logger.info("[Orchestrator] Faturamento ambíguo detectado sem especificação de Bruto/Líquido. Disparando popup.")
             elapsed = (time.perf_counter() - start_time) * 1000
             amb_res = {

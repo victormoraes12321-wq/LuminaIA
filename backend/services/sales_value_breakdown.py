@@ -84,6 +84,24 @@ class SalesValueBreakdownService:
         prefix = f"{alias}." if alias else ""
         return f"AND {prefix}filial_ = :sales_filial"
 
+    def entity_scope_sql(
+        self,
+        alias: str = "lm",
+        *,
+        vendedor: Any | None = None,
+        produto: Any | None = None,
+    ) -> str:
+        prefix = f"{alias}." if alias else ""
+        parts: list[str] = []
+        if vendedor not in (None, ""):
+            parts.append(f"AND {prefix}rca_ = :sales_vendedor")
+        if produto not in (None, ""):
+            parts.append(f"AND {prefix}codprod_ = :sales_produto")
+        return "\n".join(parts)
+
+    def period_scope_sql(self, alias: str = "lm", *, all_history: bool = False) -> str:
+        return "TRUE" if all_history else self.period_where_sql(alias)
+
     async def fetch_discount_source_profile(self, session: Any) -> dict[str, Any]:
         result = await session.execute(
             text(
@@ -195,6 +213,9 @@ class SalesValueBreakdownService:
                 "pedidos_outros": 0,
                 "pedidos_total": 0,
                 "pedidos_movimentos_view": 0,
+                "source_row_count": 0,
+                "commercial_row_count": 0,
+                "quantidade_total": Decimal("0"),
             }
         )
         return totals
@@ -231,12 +252,20 @@ class SalesValueBreakdownService:
         binds: dict[str, Any],
         *,
         filial: Any | None = None,
+        vendedor: Any | None = None,
+        produto: Any | None = None,
+        all_history: bool = False,
     ) -> dict[str, Any]:
         category_case = self.category_case_sql("lm")
         discount_source = await self.fetch_discount_source_profile(session)
         discount_expr = self.discount_expr_sql("lm", discount_source.get("desconto_fonte_coluna"))
         query_binds = self._with_default_binds(binds, filial)
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
+        entity_scope = self.entity_scope_sql("lm", vendedor=vendedor, produto=produto)
+        if vendedor not in (None, ""):
+            query_binds["sales_vendedor"] = str(vendedor).strip()
+        if produto not in (None, ""):
+            query_binds["sales_produto"] = str(produto).strip()
 
         category_result = await session.execute(
             text(
@@ -245,18 +274,22 @@ class SalesValueBreakdownService:
                     SELECT
                         {category_case} AS categoria,
                         COALESCE(lm.ptotal_, 0) AS valor,
+                        COALESCE(lm.qtde_, 0) AS quantidade,
                         lm.pedido_ AS pedido,
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
+                    {entity_scope}
                 )
                 SELECT
                     categoria,
                     COALESCE(SUM(valor), 0) AS valor,
                     COUNT(DISTINCT pedido) AS pedidos,
-                    COALESCE(SUM(desconto), 0) AS desconto
+                    COALESCE(SUM(desconto), 0) AS desconto,
+                    COALESCE(SUM(quantidade), 0) AS quantidade,
+                    COUNT(*) AS source_rows
                 FROM categorized
                 GROUP BY categoria
                 """
@@ -269,15 +302,19 @@ class SalesValueBreakdownService:
             category = str(row.get("categoria") or "outros_movimentos")
             value = self._decimal(row.get("valor"))
             discount = self._decimal(row.get("desconto"))
+            quantity = self._decimal(row.get("quantidade"))
             if category not in self.CATEGORY_VALUE_KEYS:
                 category = "outros_movimentos"
             totals[category] += value
             totals[self._pedido_key_for_category(category)] = int(row.get("pedidos") or 0)
             if category == "faturamento_comercial":
                 totals["desconto_comercial"] += discount
+                totals["quantidade_total"] += quantity
+                totals["commercial_row_count"] += int(row.get("source_rows") or 0)
             if category != "transferencias":
                 totals["desconto_total"] += discount
             totals["desconto_movimentos_view"] += discount
+            totals["source_row_count"] += int(row.get("source_rows") or 0)
 
         total_result = await session.execute(
             text(
@@ -287,9 +324,10 @@ class SalesValueBreakdownService:
                         {category_case} AS categoria,
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
+                    {entity_scope}
                 )
                 SELECT
                     COUNT(DISTINCT CASE WHEN categoria <> 'transferencias' THEN pedido END) AS pedidos_total,
@@ -407,12 +445,20 @@ class SalesValueBreakdownService:
         binds: dict[str, Any],
         *,
         filial: Any | None = None,
+        vendedor: Any | None = None,
+        produto: Any | None = None,
+        all_history: bool = False,
     ) -> list[dict[str, Any]]:
         category_case = self.category_case_sql("lm")
         discount_source = await self.fetch_discount_source_profile(session)
         discount_expr = self.discount_expr_sql("lm", discount_source.get("desconto_fonte_coluna"))
         query_binds = self._with_default_binds(binds, filial)
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
+        entity_scope = self.entity_scope_sql("lm", vendedor=vendedor, produto=produto)
+        if vendedor not in (None, ""):
+            query_binds["sales_vendedor"] = str(vendedor).strip()
+        if produto not in (None, ""):
+            query_binds["sales_produto"] = str(produto).strip()
 
         category_result = await session.execute(
             text(
@@ -422,19 +468,23 @@ class SalesValueBreakdownService:
                         COALESCE(NULLIF(TRIM(lm.filial_), ''), 'Sem filial') AS filial,
                         {category_case} AS categoria,
                         COALESCE(lm.ptotal_, 0) AS valor,
+                        COALESCE(lm.qtde_, 0) AS quantidade,
                         lm.pedido_ AS pedido,
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
+                    {entity_scope}
                 )
                 SELECT
                     filial,
                     categoria,
                     COALESCE(SUM(valor), 0) AS valor,
                     COUNT(DISTINCT pedido) AS pedidos,
-                    COALESCE(SUM(desconto), 0) AS desconto
+                    COALESCE(SUM(desconto), 0) AS desconto,
+                    COALESCE(SUM(quantidade), 0) AS quantidade,
+                    COUNT(*) AS source_rows
                 FROM categorized
                 GROUP BY filial, categoria
                 """
@@ -451,13 +501,17 @@ class SalesValueBreakdownService:
                 category = "outros_movimentos"
             value = self._decimal(row.get("valor"))
             discount = self._decimal(row.get("desconto"))
+            quantity = self._decimal(row.get("quantidade"))
             totals[category] += value
             totals[self._pedido_key_for_category(category)] = int(row.get("pedidos") or 0)
             if category == "faturamento_comercial":
                 totals["desconto_comercial"] += discount
+                totals["quantidade_total"] += quantity
+                totals["commercial_row_count"] += int(row.get("source_rows") or 0)
             if category != "transferencias":
                 totals["desconto_total"] += discount
             totals["desconto_movimentos_view"] += discount
+            totals["source_row_count"] += int(row.get("source_rows") or 0)
 
         total_result = await session.execute(
             text(
@@ -468,9 +522,10 @@ class SalesValueBreakdownService:
                         {category_case} AS categoria,
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
+                    {entity_scope}
                 )
                 SELECT
                     filial,

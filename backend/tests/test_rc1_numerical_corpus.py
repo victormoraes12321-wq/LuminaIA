@@ -127,5 +127,6 @@ def test_numerical_corpus_contract_and_order() -> None:
     assert len(CORPUS) >= 60
     ids = [case["case_id"] for case in CORPUS]
     assert ids == sorted(ids) and len(ids) == len(set(ids))
-    required = {"question", "expected_intent", "expected_metric", "expected_period", "expected_dimensions", "expected_filters", "expected_order", "expected_result_reference", "expected_behavior", "view_class"}
+    required = {"question", "expected_intent", "expected_metric", "expected_period", "expected_dimensions", "expected_filters", "expected_order", "expected_result_reference", "expected_behavior", "expected_resolution_path", "view_class"}
     assert all(required <= case.keys() for case in CORPUS)
+    assert {case["expected_resolution_path"] for case in CORPUS} == {"DETERMINISTIC"}

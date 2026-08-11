@@ -20,6 +20,7 @@ from .enums import (
     DimensionRole,
     ExecutionReadiness,
     FieldOrigin,
+    FilterOperator,
     IntentKind,
     LegacyReadiness,
     OutOfScopeReason,
@@ -42,6 +43,7 @@ from .models import (
     DimensionReference,
     ExecutionProvenance,
     ExecutionScope,
+    FilterSpecification,
     LegacyCompatibility,
     MetricReference,
     PlanSummary,
@@ -64,6 +66,12 @@ from .parsing import (
 
 METRIC_REGISTRY_VERSION = "2026-07-20-rb-devolucao-transferencias"
 _METRIC_ALIASES: tuple[tuple[str, tuple[str, ...], str, str], ...] = (
+    (
+        "unidades_vendidas",
+        ("quantas unidades", "unidades vendidas", "quantidade vendida", "quantidade"),
+        "COUNT",
+        "SUM",
+    ),
     ("ticket_medio", ("ticket medio", "ticket"), "BRL", "AVG"),
     ("desconto_medio", ("desconto medio",), "BRL", "AVG"),
     ("desconto_total", ("total de desconto", "desconto", "descontos"), "BRL", "SUM"),
@@ -87,6 +95,7 @@ _DISPLAY_NAMES = {
     "devolucao": "Devolucao",
     "ranking_vendedores": "Ranking de vendedores",
     "ranking_clientes": "Ranking de clientes",
+    "unidades_vendidas": "Unidades vendidas",
 }
 _V1_TO_V2_VISUALIZATION = {
     "TABLE": VisualizationKind.DATA_TABLE,
@@ -148,6 +157,13 @@ def build_intent_v2(
         else FieldOrigin.EXPLICIT_USER
     )
     metric_refs = _metric_refs_from_text(normalized, origin=origin)
+    entity_filters = _entity_filters_from_text(normalized, origin=origin)
+    if (
+        not metric_refs
+        and "total" in normalized
+        and any(item.field_id in {"vendedor", "filial", "produto"} for item in entity_filters)
+    ):
+        metric_refs = [_metric_ref("faturamento_comercial", origin=FieldOrigin.DETERMINISTIC_DEFAULT)]
     from services.temporal import (
         TemporalContext,
         TemporalNormalizationResult,
@@ -265,7 +281,7 @@ def build_intent_v2(
         normalized_question=normalized,
         metric_refs=metric_refs,
         dimension_refs=_dimension_refs_from_text(normalized, origin=origin),
-        filters=[],
+        filters=entity_filters,
         time_windows=time_windows,
         comparison=comparison,
         requested_visualizations=visualizations,
@@ -281,6 +297,7 @@ def build_intent_v2(
             ),
             "time_windows": origin,
             "requested_visualizations": origin,
+            "filters": origin,
         },
     )
 
@@ -624,22 +641,69 @@ def _metric_refs_from_text(text: str, *, origin: FieldOrigin) -> list[MetricRefe
     refs: list[MetricReference] = []
     for metric_id, aliases, unit, aggregation in _METRIC_ALIASES:
         if any(alias in padded for alias in aliases):
-            refs.append(
-                MetricReference(
-                    metric_id=metric_id,
-                    metric_version=METRIC_REGISTRY_VERSION,
-                    display_name=_DISPLAY_NAMES[metric_id],
-                    unit=unit,
-                    aggregation=aggregation,
-                    origin=origin,
-                    confidence=explicit_confidence(
-                        "Metrica reconhecida por alias do registro oficial."
-                    ),
-                )
-            )
+            refs.append(_metric_ref(metric_id, origin=origin, unit=unit, aggregation=aggregation))
     if any(metric.metric_id == "ranking_vendedores" for metric in refs):
         refs = [metric for metric in refs if metric.metric_id != "faturamento_comercial"]
     return refs
+
+
+def _metric_ref(
+    metric_id: str,
+    *,
+    origin: FieldOrigin,
+    unit: str | None = None,
+    aggregation: str | None = None,
+) -> MetricReference:
+    definition = next(
+        (item for item in _METRIC_ALIASES if item[0] == metric_id),
+        None,
+    )
+    if definition is None:
+        raise AnalyticalContractAdapterError(f"Unknown governed metric: {metric_id}")
+    return MetricReference(
+        metric_id=metric_id,
+        metric_version=METRIC_REGISTRY_VERSION,
+        display_name=_DISPLAY_NAMES[metric_id],
+        unit=unit or definition[2],
+        aggregation=aggregation or definition[3],
+        origin=origin,
+        confidence=explicit_confidence(
+            "Metrica reconhecida por alias ou default deterministico do registro oficial."
+        ),
+    )
+
+
+_ENTITY_FILTER_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
+    ("vendedor", re.compile(r"\b(?:do|da|de|pelo|pela)\s+vendedor\s+(\d{1,20})\b")),
+    ("filial", re.compile(r"\b(?:da|do|de|na|no)\s+filial\s+(\d{1,20})\b")),
+    ("produto", re.compile(r"\b(?:do|da|de|com)\s+produto\s+(\d{1,20})\b")),
+)
+
+
+def _entity_filters_from_text(
+    text: str,
+    *,
+    origin: FieldOrigin,
+) -> list[FilterSpecification]:
+    filters: list[FilterSpecification] = []
+    for field_id, pattern in _ENTITY_FILTER_PATTERNS:
+        match = pattern.search(text)
+        if match is None:
+            continue
+        filters.append(
+            FilterSpecification(
+                filter_id=f"explicit_{field_id}",
+                field_id=field_id,
+                operator=FilterOperator.EQ,
+                value=match.group(1),
+                origin=origin,
+                confidence=explicit_confidence(
+                    "Filtro de entidade reconhecido explicitamente no texto do usuario."
+                ),
+                is_explicit=True,
+            )
+        )
+    return filters
 
 
 def _dimension_refs_from_text(
