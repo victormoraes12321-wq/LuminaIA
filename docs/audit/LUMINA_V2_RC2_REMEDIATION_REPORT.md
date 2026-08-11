@@ -74,3 +74,19 @@ Before remediation, six deterministically supported cases reached the provider. 
 ## Certification gates
 
 The authoritative command results and clean-archive rerun are recorded in the final RC2-01 task report. This document deliberately does not authorize production, create an RC2 tag or replace the required RC2 full certification.
+
+## RC2 analytical integrity addendum
+
+The rejected candidate `abf43a46e85b4eb78a79e7a01adffa4fd8fce5d6` exposed three additional truth defects before the RC2 checkpoint:
+
+1. quantity used raw sales-view rows as apparent evidence and enabled `empty_is_zero`, so an empty period or a period containing only non-commercial movements returned a factual zero;
+2. the generic word `quantidade` was an alias for `unidades_vendidas`, causing order and customer counts to become units silently;
+3. all-history was applied to totals but rankings, products and supporting documents independently reintroduced the current-month predicate.
+
+The remediation makes commercial eligibility the support authority for commercial metrics, preserves `NO_ROWS`, `NULL` and legitimate `ZERO`, and keeps raw row cardinality separate from `source_row_count`. Empty-set zero remains explicit only for governed count metrics. The analytical adapter now resolves the official `quantidade_pedidos`, `clientes_distintos` and `unidades_vendidas` identities with noun-specific, boundary-aware aliases; bare `quantidade` requires clarification and cannot reach the provider.
+
+An immutable `EffectiveTemporalScope` now represents bounded, period-list, comparison, all-available-history and not-applicable modes. The deterministic core creates one canonical scope and passes the same fingerprint to totals, branch totals, rankings, products and analytical supporting documents. Current-month fallback is retained only when temporal intent is absent.
+
+The directed regression suite covers fact eligibility, real zero, irrelevant-row metamorphism, the 3 x 4 metric phrase matrix, provider exclusion, all-history propagation, injected-clock independence, bounded current month, comparison preservation and dashboard-facing facts. The acceptance corpus changed intentionally: ambiguous quantity cases now name units explicitly, a missing-unit fact is `MISSING_DATA` instead of zero, and typo cases for orders, customers and units were added. The canonical corpus manifest moved from `b24493a45d6997f12dd943b1b0d7daad62b69e9a784c71ef186030807206ff22` to `41b4649c72f7b75976ec0dabab06c5f3bea7e204de7a6b7aab1fec44c9793511`.
+
+This addendum authorizes only creation of a new clean RC2 candidate after all staged-tree and archive gates pass. It does not authorize an RC2 tag, push, staging deployment, production rollout or full RC2 certification declaration.

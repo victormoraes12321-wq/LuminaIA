@@ -24,7 +24,10 @@
     {"case_id":"TYPO-022","input":"xyzzy faturamnto plutao","classification":"REJECT","canonical":null,"category":"unsupported_entity"},
     {"case_id":"TYPO-023","input":"qtde prod 100","classification":"RESOLVE","canonical":"quantidade do produto 100","category":"abbreviation"},
     {"case_id":"TYPO-024","input":"qual vendedor vendeu mas","classification":"RESOLVE","canonical":"qual vendedor vendeu mais","category":"orthographic"},
-    {"case_id":"TYPO-025","input":"compara com ano pasdo","classification":"RESOLVE","canonical":"comparar com o ano passado","category":"orthographic"}
+    {"case_id":"TYPO-025","input":"compara com ano pasdo","classification":"RESOLVE","canonical":"comparar com o ano passado","category":"orthographic"},
+    {"case_id":"TYPO-026","input":"numero de pedios","classification":"CLARIFY","canonical":null,"category":"metric_noun_typo"},
+    {"case_id":"TYPO-027","input":"quantidade de clientse","classification":"CLARIFY","canonical":null,"category":"metric_noun_typo"},
+    {"case_id":"TYPO-028","input":"quantas unidadse","classification":"CLARIFY","canonical":null,"category":"metric_noun_typo"}
   ],
   "impossible": [
     {"case_id":"IMP-001","input":"Preveja exatamente o faturamento de amanhã","classification":"UNSUPPORTED","expected_behavior":"STATE_NO_EVIDENCE","fabricated_answer":false,"fabricated_metric":false,"fabricated_data_source":false},

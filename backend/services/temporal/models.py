@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+import hashlib
+import json
 from typing import Protocol
 from uuid import UUID
 
@@ -46,6 +48,14 @@ class TemporalRelation(str, Enum):
     RANGE = "RANGE"
     PERIOD_LIST = "PERIOD_LIST"
     COMPARISON = "COMPARISON"
+    NONE = "NONE"
+
+
+class EffectiveTemporalScopeKind(str, Enum):
+    BOUNDED = "BOUNDED"
+    PERIOD_LIST = "PERIOD_LIST"
+    COMPARISON = "COMPARISON"
+    ALL_AVAILABLE_HISTORY = "ALL_AVAILABLE_HISTORY"
     NONE = "NONE"
 
 
@@ -190,3 +200,32 @@ class TemporalNormalizationResult(StrictTemporalModel):
         if self.clarification is not None and self.readiness != ExecutionReadiness.CLARIFICATION_REQUIRED:
             raise ValueError("Temporal clarification is only valid when clarification is required")
         return self
+
+
+class EffectiveTemporalScope(StrictTemporalModel):
+    """Canonical post-resolution scope shared by all analytical child readers."""
+
+    kind: EffectiveTemporalScopeKind
+    windows: tuple[TimeWindow, ...] = ()
+    timezone: str
+    provenance: tuple[str, ...] = ()
+
+    @model_validator(mode="after")
+    def validate_scope(self) -> "EffectiveTemporalScope":
+        if self.kind == EffectiveTemporalScopeKind.BOUNDED and len(self.windows) != 1:
+            raise ValueError("BOUNDED effective temporal scope requires exactly one TimeWindow")
+        if self.kind == EffectiveTemporalScopeKind.PERIOD_LIST and not self.windows:
+            raise ValueError("PERIOD_LIST effective temporal scope requires TimeWindows")
+        if self.kind == EffectiveTemporalScopeKind.COMPARISON and len(self.windows) < 2:
+            raise ValueError("COMPARISON effective temporal scope requires at least two TimeWindows")
+        if self.kind in {
+            EffectiveTemporalScopeKind.ALL_AVAILABLE_HISTORY,
+            EffectiveTemporalScopeKind.NONE,
+        } and self.windows:
+            raise ValueError(f"{self.kind.value} effective temporal scope cannot contain TimeWindows")
+        return self
+
+    def compute_fingerprint(self) -> str:
+        payload = self.model_dump(mode="json", exclude_none=False)
+        canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()

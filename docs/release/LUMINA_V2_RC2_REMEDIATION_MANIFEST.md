@@ -6,7 +6,7 @@
 - Base SHA: `21cd3ba1895b6111d4a04e1b5ff7d9701cd85181`
 - Branch: `codex/lumina-v2-rc2-remediation`
 - Candidate identity: the commit containing this manifest
-- Intended commit message: `fix: restore deployed analytical truth parity`
+- Intended commit message: `fix: enforce analytical fact metric and temporal integrity`
 - RC2 tag: not created by this remediation task
 - Push: not performed
 
@@ -19,6 +19,10 @@
 - 30-case HTTP parity and zero/provider regression tests;
 - typed resolution-path metadata for the existing numerical corpus;
 - RC2 remediation documentation.
+- metric-specific fact eligibility and no-data semantics;
+- governed order, distinct-customer and unit metric disambiguation;
+- canonical effective temporal scope shared by analytical child readers;
+- RC2 analytical-integrity regression matrices and updated corpus manifest.
 
 ## Explicit exclusions
 

@@ -11,7 +11,17 @@ from pydantic import BaseModel, Field
 from datetime import date, datetime, timezone, timedelta
 from openai import AsyncOpenAI
 
+from contracts.analytical_v2 import (
+    ConfidenceAssessment,
+    ConfidenceLevel,
+    FieldOrigin,
+    TemporalGranularity,
+    TimeWindow,
+)
+
 from services.temporal import (
+    EffectiveTemporalScope,
+    EffectiveTemporalScopeKind,
     PluralTemporalResultError,
     TemporalContext,
     TemporalFeaturePolicy,
@@ -822,6 +832,14 @@ class NewQueryOrchestrator:
         except Exception:
             return Decimal("0")
 
+    def _optional_decimal_value(self, value: Any) -> Decimal | None:
+        if value is None:
+            return None
+        try:
+            return Decimal(str(value))
+        except Exception:
+            return None
+
     def _format_breakdown_ranking_row(
         self,
         row: Dict[str, Any],
@@ -1209,6 +1227,7 @@ class NewQueryOrchestrator:
         include_operational_details: bool = False,
         include_discount_details: bool = False,
         filial: Optional[str] = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> List[Dict[str, Any]]:
         ranking_value_key = "faturamento_comercial" if by_discount else primary_key
         detailed_rows = await sales_value_breakdown.fetch_vendor_ranking(
@@ -1218,6 +1237,7 @@ class NewQueryOrchestrator:
             by_discount=by_discount,
             ranking_value_key=ranking_value_key,
             filial=filial,
+            temporal_scope=temporal_scope,
         )
         primary_key = "desconto_total" if by_discount else primary_key
         branch_rows = [
@@ -1242,6 +1262,7 @@ class NewQueryOrchestrator:
         include_operational_details: bool = False,
         include_discount_details: bool = False,
         filial: Optional[str] = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> List[Dict[str, Any]]:
         detailed_rows = await sales_value_breakdown.fetch_client_ranking(
             session,
@@ -1249,6 +1270,7 @@ class NewQueryOrchestrator:
             limit=limit,
             ranking_value_key=primary_key,
             filial=filial,
+            temporal_scope=temporal_scope,
         )
         branch_rows = [
             self._format_breakdown_ranking_row(row, "cliente", primary_key=primary_key)
@@ -1275,6 +1297,8 @@ class NewQueryOrchestrator:
             "ranking_vendedores",
             "ranking_clientes",
             "unidades_vendidas",
+            "quantidade_pedidos",
+            "clientes_distintos",
         }
         return any(metric.metric_id in core_metrics for metric in intent.metric_refs)
 
@@ -1300,6 +1324,10 @@ class NewQueryOrchestrator:
             topics.add("ranking_clientes")
         if "unidades_vendidas" in metric_ids:
             topics.add("quantidade")
+        if "quantidade_pedidos" in metric_ids:
+            topics.add("quantidade_pedidos")
+        if "clientes_distintos" in metric_ids:
+            topics.add("clientes_distintos")
         filtered_dimensions = {str(item.field_id).lower() for item in intent.filters}
         if "vendedor" in dimension_ids and "vendedor" not in filtered_dimensions:
             topics.add("ranking_vendedores")
@@ -1342,6 +1370,8 @@ class NewQueryOrchestrator:
             "ranking_vendedores": "faturamento_comercial",
             "ranking_clientes": "faturamento_comercial",
             "unidades_vendidas": "quantidade_total",
+            "quantidade_pedidos": "pedidos_comerciais",
+            "clientes_distintos": "clientes_distintos",
         }
         for metric in intent.metric_refs:
             if metric.metric_id in mapping:
@@ -1388,6 +1418,7 @@ class NewQueryOrchestrator:
                 "execution_time_ms": elapsed,
             }
         _period_from_text = _periods_from_text[0] if _periods_from_text else None
+        has_resolved_bounded_period = _period_from_text is not None
         normalized_query = self._normalize_query_text(pergunta)
         all_history = _period_from_text is None and any(
             term in normalized_query
@@ -1403,6 +1434,48 @@ class NewQueryOrchestrator:
         start_date_raw, end_date_raw = _period_from_text
         start_date = date.fromisoformat(start_date_raw)
         end_date = date.fromisoformat(end_date_raw)
+        scope_timezone = temporal_context.timezone if temporal_context is not None else "America/Sao_Paulo"
+        if all_history:
+            effective_temporal_scope = EffectiveTemporalScope(
+                kind=EffectiveTemporalScopeKind.ALL_AVAILABLE_HISTORY,
+                timezone=scope_timezone,
+                provenance=("explicit_all_available_history",),
+            )
+        else:
+            canonical_window = TimeWindow(
+                window_id="effective_window",
+                label=f"{start_date.isoformat()} a {end_date.isoformat()}",
+                start=start_date,
+                end=end_date,
+                granularity=TemporalGranularity.DAY,
+                timezone=scope_timezone,
+                origin=(
+                    FieldOrigin.EXPLICIT_USER
+                    if has_resolved_bounded_period
+                    else FieldOrigin.DETERMINISTIC_DEFAULT
+                ),
+                confidence=ConfidenceAssessment(
+                    level=ConfidenceLevel.HIGH,
+                    score=Decimal("1"),
+                    reasons=["Escopo temporal efetivo canonizado apos resolucao temporal."],
+                    requires_confirmation=False,
+                ),
+            )
+            effective_temporal_scope = EffectiveTemporalScope(
+                kind=EffectiveTemporalScopeKind.BOUNDED,
+                windows=(canonical_window,),
+                timezone=scope_timezone,
+                provenance=(
+                    "resolved_bounded_range"
+                    if has_resolved_bounded_period
+                    else "documented_current_month_default",
+                ),
+            )
+        temporal_scope_fingerprint = effective_temporal_scope.compute_fingerprint()
+        debug_data["effective_temporal_scope"] = {
+            **effective_temporal_scope.model_dump(mode="json"),
+            "fingerprint": temporal_scope_fingerprint,
+        }
         topics = self._core_summary_topics(pergunta)
         if resolved_intent is not None:
             topics.update(self._core_summary_topics_from_intent(resolved_intent))
@@ -1450,6 +1523,7 @@ class NewQueryOrchestrator:
                 vendedor=selected_vendedor,
                 produto=selected_produto,
                 all_history=all_history,
+                temporal_scope=effective_temporal_scope,
             )
             period_filial_totals = await sales_value_breakdown.fetch_period_totals_by_filial(
                 session,
@@ -1458,6 +1532,7 @@ class NewQueryOrchestrator:
                 vendedor=selected_vendedor,
                 produto=selected_produto,
                 all_history=all_history,
+                temporal_scope=effective_temporal_scope,
             )
             if "documentos" in topics:
                 document_rows = await sales_value_breakdown.fetch_document_details(
@@ -1466,6 +1541,7 @@ class NewQueryOrchestrator:
                     filial=selected_filial,
                     category_key=primary_sales_key,
                     limit=500,
+                    temporal_scope=effective_temporal_scope,
                 )
             if "lucro" in topics or "vendas_nao_faturadas" in topics:
                 try:
@@ -1484,9 +1560,10 @@ class NewQueryOrchestrator:
                         financial_source_discovery.source_warning(financial_source_report, "vendas_nao_faturadas")
                     )
             faturamento_total = self._decimal_value(period_totals.get("faturamento_comercial"))
-            quantidade_total = self._decimal_value(period_totals.get("quantidade_total"))
+            quantidade_total = self._optional_decimal_value(period_totals.get("quantidade_total"))
             total_bruto = self._decimal_value(period_totals.get("total_bruto"))
             pedidos = int(period_totals.get("pedidos_comerciais") or 0)
+            clientes_distintos = int(period_totals.get("clientes_distintos") or 0)
             pedidos_total = int(period_totals.get("pedidos_total") or 0)
             desconto_total = self._decimal_value(period_totals.get("desconto_comercial"))
             desconto_total_bruto = self._decimal_value(period_totals.get("desconto_total"))
@@ -1498,6 +1575,15 @@ class NewQueryOrchestrator:
             )
             quantity_fact = aggregate_fact(
                 quantidade_total,
+                source_row_count=commercial_rows,
+            )
+            order_count_fact = aggregate_fact(
+                Decimal(pedidos),
+                source_row_count=commercial_rows,
+                empty_is_zero=True,
+            )
+            distinct_client_fact = aggregate_fact(
+                Decimal(clientes_distintos),
                 source_row_count=commercial_rows,
                 empty_is_zero=True,
             )
@@ -1525,8 +1611,13 @@ class NewQueryOrchestrator:
             ticket_medio_bruto = ticket_gross_fact.value
             desconto_medio = discount_average_fact.value
             desconto_medio_bruto = discount_gross_average_fact.value
+            requested_support_rows = commercial_rows
             requested_fact = (
-                quantity_fact
+                order_count_fact
+                if "quantidade_pedidos" in topics
+                else distinct_client_fact
+                if "clientes_distintos" in topics
+                else quantity_fact
                 if "quantidade" in topics
                 else ticket_fact
                 if "ticket" in topics or "ticket_medio" in topics
@@ -1537,8 +1628,65 @@ class NewQueryOrchestrator:
                 if "desconto" in topics or "desconto_total" in topics
                 else revenue_fact
                 if "faturamento" in topics
-                else aggregate_fact(total_bruto, source_row_count=source_rows)
+                or any(
+                    topic in topics
+                    for topic in (
+                        "ranking_vendedores",
+                        "ranking_clientes",
+                        "top_vendedor",
+                        "top_cliente",
+                        "produto_mais_vendido",
+                        "estoque_produto",
+                    )
+                )
+                else aggregate_fact(
+                    total_bruto,
+                    source_row_count=int(period_totals.get("eligible_non_transfer_row_count") or 0),
+                )
             )
+            if "rb" in topics or "saida_rb" in topics:
+                requested_support_rows = int(period_totals.get("saida_rb_row_count") or 0)
+                requested_fact = aggregate_fact(
+                    self._decimal_value(period_totals.get("saida_rb")),
+                    source_row_count=requested_support_rows,
+                )
+            elif "devolucao" in topics:
+                requested_support_rows = int(period_totals.get("devolucao_row_count") or 0)
+                requested_fact = aggregate_fact(
+                    self._decimal_value(period_totals.get("devolucao")),
+                    source_row_count=requested_support_rows,
+                )
+            elif not any(
+                topic in topics
+                for topic in (
+                    "quantidade_pedidos",
+                    "clientes_distintos",
+                    "quantidade",
+                    "ticket",
+                    "ticket_medio",
+                    "desconto",
+                    "desconto_total",
+                    "faturamento",
+                    "ranking_vendedores",
+                    "ranking_clientes",
+                    "top_vendedor",
+                    "top_cliente",
+                    "produto_mais_vendido",
+                    "estoque_produto",
+                )
+            ):
+                requested_support_rows = int(period_totals.get("eligible_non_transfer_row_count") or 0)
+            debug_data["fact_eligibility"] = {
+                "requested_metric_ids": sorted(
+                    metric.metric_id for metric in (resolved_intent.metric_refs if resolved_intent else [])
+                ),
+                "raw_source_row_count": source_rows,
+                "eligible_fact_row_count": requested_support_rows,
+                "fact_state": requested_fact.state.value,
+                "empty_count_is_zero": bool(
+                    "quantidade_pedidos" in topics or "clientes_distintos" in topics
+                ),
+            }
 
             if requested_fact.state in {
                 AnalyticalFactState.NO_ROWS,
@@ -1559,7 +1707,10 @@ class NewQueryOrchestrator:
                             "ticket_medio": None,
                             "quantidade_total": None,
                             "fact_state": requested_fact.state.value,
-                            "source_row_count": source_rows,
+                            "source_row_count": requested_support_rows,
+                            "raw_source_row_count": source_rows,
+                            "temporal_scope_kind": effective_temporal_scope.kind.value,
+                            "temporal_scope_fingerprint": temporal_scope_fingerprint,
                         },
                     },
                     "sample_rows": [],
@@ -1588,6 +1739,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
                 top_vendor = top_vendor_rows[0] if top_vendor_rows else {}
             if "top_vendedor_desconto" in topics:
@@ -1599,6 +1751,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=True,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
                 top_vendor_discount = top_discount_rows[0] if top_discount_rows else None
             if "top_vendedor_rb" in topics:
@@ -1611,6 +1764,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
                 top_vendor_rb = top_vendor_rb_rows[0] if top_vendor_rb_rows else {}
             if "top_vendedor_devolucao" in topics:
@@ -1623,6 +1777,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
                 top_vendor_devolucao = top_vendor_devolucao_rows[0] if top_vendor_devolucao_rows else {}
 
@@ -1637,6 +1792,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
             elif "ranking_vendedores_desconto" in topics:
                 ranking_kind = "vendedores_desconto"
@@ -1648,6 +1804,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=True,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
             elif "ranking_vendedores_rb" in topics:
                 ranking_kind = "vendedores_rb"
@@ -1660,6 +1817,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
             elif "ranking_vendedores_devolucao" in topics:
                 ranking_kind = "vendedores_devolucao"
@@ -1672,6 +1830,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
 
             top_client = None
@@ -1686,6 +1845,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
                 top_client = top_client_rows[0] if top_client_rows else {}
             if "ranking_clientes" in topics:
@@ -1699,6 +1859,7 @@ class NewQueryOrchestrator:
                     include_operational_details=include_operational_details,
                     include_discount_details=include_discount_details,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
             if "produto_mais_vendido" in topics or "estoque_produto" in topics:
                 ranking_kind = "produtos"
@@ -1708,6 +1869,7 @@ class NewQueryOrchestrator:
                     binds,
                     limit=explicit_limit,
                     filial=selected_filial,
+                    temporal_scope=effective_temporal_scope,
                 )
             elif "financeiro_aberto" in topics:
                 ranking_kind = "financeiro"
@@ -1797,7 +1959,12 @@ class NewQueryOrchestrator:
                 )
                 if ranking_rows:
                     first = ranking_rows[0]
-                    response_text += f" Produto líder: {first['produto']} (Qtd: {int(first.get('quantidade_vendida') or 0):,}, Estoque atual: {int(first.get('estoque_atual') or 0):,})."
+                    quantity_display = (
+                        f"{int(first['quantidade_vendida']):,}"
+                        if first.get("quantidade_vendida") is not None
+                        else "indisponivel"
+                    )
+                    response_text += f" Produto líder: {first['produto']} (Qtd: {quantity_display}, Estoque atual: {int(first.get('estoque_atual') or 0):,})."
             elif ranking_kind == "financeiro":
                 total_rows = len(ranking_rows)
                 response_text = (
@@ -1883,6 +2050,10 @@ class NewQueryOrchestrator:
             parts.append(f"ticket médio{scope_text} de {self._format_brl(ticket_medio)}")
         if not ranking_kind and "quantidade" in topics:
             parts.append(f"quantidade vendida{scope_text} de {quantidade_total}")
+        if not ranking_kind and "quantidade_pedidos" in topics:
+            parts.append(f"quantidade de pedidos{scope_text} de {pedidos}")
+        if not ranking_kind and "clientes_distintos" in topics:
+            parts.append(f"clientes distintos{scope_text}: {clientes_distintos}")
         if not ranking_kind and "desconto" in topics:
             if discount_warning:
                 parts.append(
@@ -1952,7 +2123,7 @@ class NewQueryOrchestrator:
             "total_movimentos_view": float(self._decimal_value(period_totals.get("total_movimentos_view"))),
             **breakdown_resumo,
             "ticket_medio": float(ticket_medio) if ticket_medio is not None else None,
-            "quantidade_total": float(quantidade_total),
+            "quantidade_total": float(quantidade_total) if quantidade_total is not None else None,
             "ticket_medio_bruto": float(ticket_medio_bruto) if ticket_medio_bruto is not None else None,
             "desconto_total": float(desconto_total),
             "desconto_total_bruto": float(desconto_total_bruto),
@@ -1962,9 +2133,13 @@ class NewQueryOrchestrator:
             "desconto_fonte_confianca": str(period_totals.get("desconto_fonte_confianca") or "baixa"),
             "desconto_fonte_observacao": self._discount_source_observation(period_totals),
             "pedidos_comerciais": pedidos,
+            "clientes_distintos": clientes_distintos,
             "pedidos_total": pedidos_total,
             "pedidos_movimentos_view": int(period_totals.get("pedidos_movimentos_view") or 0),
-            "source_row_count": int(period_totals.get("source_row_count") or 0),
+            "source_row_count": requested_support_rows,
+            "raw_source_row_count": source_rows,
+            "temporal_scope_kind": effective_temporal_scope.kind.value,
+            "temporal_scope_fingerprint": temporal_scope_fingerprint,
             "fact_state": (
                 requested_fact.state.value
             ),
@@ -2654,7 +2829,6 @@ class NewQueryOrchestrator:
             "timeline": {}
         }
 
-        from datetime import datetime
         def get_timestamp() -> str:
             return datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
@@ -2766,7 +2940,6 @@ class NewQueryOrchestrator:
             "timeline": {}
         }
 
-        from datetime import datetime
         def get_timestamp() -> str:
             return datetime.now().strftime("%H:%M:%S.%f")[:-3]
 
@@ -3141,6 +3314,32 @@ class NewQueryOrchestrator:
                     deterministic_intent.model_dump_json(exclude={"raw_question"}).encode("utf-8")
                 ).hexdigest(),
             }
+            if (
+                deterministic_intent.readiness.value == "CLARIFICATION_REQUIRED"
+                and not deterministic_intent.metric_refs
+                and re.search(
+                    r"(?<!\w)quantidade(?!\w)",
+                    deterministic_intent.normalized_question,
+                )
+            ):
+                clarification = deterministic_intent.clarification
+                elapsed = (time.perf_counter() - start_time) * 1000
+                return write_debug_and_return({
+                    "status": "MISSING_INFORMATION",
+                    "goal": pergunta,
+                    "ambiguities": [],
+                    "missing_information": (
+                        list(clarification.missing_fields) if clarification else ["metric_refs"]
+                    ),
+                    "resposta_direta": (
+                        clarification.question
+                        if clarification
+                        else "Quantidade de qual objeto empresarial voce deseja analisar?"
+                    ),
+                    "mensagem": "A consulta precisa identificar a metrica contada.",
+                    "pergunta_original": pergunta,
+                    "execution_time_ms": elapsed,
+                })
         if (
             (
                 temporal_result.relation == TemporalRelation.COMPARISON

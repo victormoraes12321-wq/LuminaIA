@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from datetime import timedelta
 from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import text
+
+from services.temporal import EffectiveTemporalScope, EffectiveTemporalScopeKind
 
 
 class SalesValueBreakdownService:
@@ -99,7 +102,21 @@ class SalesValueBreakdownService:
             parts.append(f"AND {prefix}codprod_ = :sales_produto")
         return "\n".join(parts)
 
-    def period_scope_sql(self, alias: str = "lm", *, all_history: bool = False) -> str:
+    def period_scope_sql(
+        self,
+        alias: str = "lm",
+        *,
+        all_history: bool = False,
+        temporal_scope: EffectiveTemporalScope | None = None,
+    ) -> str:
+        if temporal_scope is not None:
+            if temporal_scope.kind == EffectiveTemporalScopeKind.ALL_AVAILABLE_HISTORY:
+                return "TRUE"
+            if temporal_scope.kind != EffectiveTemporalScopeKind.BOUNDED:
+                raise ValueError(
+                    f"Unsupported singular analytical temporal scope: {temporal_scope.kind.value}"
+                )
+            return self.period_where_sql(alias)
         return "TRUE" if all_history else self.period_where_sql(alias)
 
     async def fetch_discount_source_profile(self, session: Any) -> dict[str, Any]:
@@ -173,7 +190,12 @@ class SalesValueBreakdownService:
             END
         """
 
-    def _with_default_binds(self, binds: dict[str, Any], filial: Any | None = None) -> dict[str, Any]:
+    def _with_default_binds(
+        self,
+        binds: dict[str, Any],
+        filial: Any | None = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
+    ) -> dict[str, Any]:
         query_binds = dict(binds)
         normalized_filial = self.normalize_filial(filial or query_binds.get("sales_filial"))
         if normalized_filial is not None:
@@ -184,6 +206,15 @@ class SalesValueBreakdownService:
         if not tenant_id or not str(tenant_id).strip():
             raise ValueError("tenant_id e obrigatorio para consultas em sales_value_breakdown")
         query_binds["tenant_id"] = str(tenant_id).strip()
+        if temporal_scope is not None and temporal_scope.kind == EffectiveTemporalScopeKind.BOUNDED:
+            window = temporal_scope.windows[0]
+            query_binds.update(
+                {
+                    "start_date": window.start,
+                    "end_date": window.end,
+                    "end_exclusive": window.end + timedelta(days=1),
+                }
+            )
         return query_binds
 
     def _decimal(self, value: Any) -> Decimal:
@@ -191,6 +222,14 @@ class SalesValueBreakdownService:
             return Decimal(str(value or 0))
         except Exception:
             return Decimal("0")
+
+    def _optional_decimal(self, value: Any) -> Decimal | None:
+        if value is None:
+            return None
+        try:
+            return Decimal(str(value))
+        except Exception:
+            return None
 
     def _empty_totals(self) -> dict[str, Any]:
         totals: dict[str, Any] = {key: Decimal("0") for key in self.CATEGORY_VALUE_KEYS}
@@ -215,9 +254,12 @@ class SalesValueBreakdownService:
                 "pedidos_movimentos_view": 0,
                 "source_row_count": 0,
                 "commercial_row_count": 0,
-                "quantidade_total": Decimal("0"),
+                "eligible_non_transfer_row_count": 0,
+                "quantidade_total": None,
+                "clientes_distintos": 0,
             }
         )
+        totals.update({f"{key}_row_count": 0 for key in self.CATEGORY_VALUE_KEYS})
         return totals
 
     def _pedido_key_for_category(self, category: str) -> str:
@@ -255,11 +297,12 @@ class SalesValueBreakdownService:
         vendedor: Any | None = None,
         produto: Any | None = None,
         all_history: bool = False,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> dict[str, Any]:
         category_case = self.category_case_sql("lm")
         discount_source = await self.fetch_discount_source_profile(session)
         discount_expr = self.discount_expr_sql("lm", discount_source.get("desconto_fonte_coluna"))
-        query_binds = self._with_default_binds(binds, filial)
+        query_binds = self._with_default_binds(binds, filial, temporal_scope)
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
         entity_scope = self.entity_scope_sql("lm", vendedor=vendedor, produto=produto)
         if vendedor not in (None, ""):
@@ -274,11 +317,12 @@ class SalesValueBreakdownService:
                     SELECT
                         {category_case} AS categoria,
                         COALESCE(lm.ptotal_, 0) AS valor,
-                        COALESCE(lm.qtde_, 0) AS quantidade,
+                        lm.qtde_ AS quantidade,
                         lm.pedido_ AS pedido,
+                        lm.codcliente_ AS cliente,
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history, temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {entity_scope}
@@ -288,7 +332,8 @@ class SalesValueBreakdownService:
                     COALESCE(SUM(valor), 0) AS valor,
                     COUNT(DISTINCT pedido) AS pedidos,
                     COALESCE(SUM(desconto), 0) AS desconto,
-                    COALESCE(SUM(quantidade), 0) AS quantidade,
+                    SUM(quantidade) AS quantidade,
+                    COUNT(DISTINCT cliente) AS clientes_distintos,
                     COUNT(*) AS source_rows
                 FROM categorized
                 GROUP BY categoria
@@ -302,19 +347,24 @@ class SalesValueBreakdownService:
             category = str(row.get("categoria") or "outros_movimentos")
             value = self._decimal(row.get("valor"))
             discount = self._decimal(row.get("desconto"))
-            quantity = self._decimal(row.get("quantidade"))
+            quantity = self._optional_decimal(row.get("quantidade"))
+            source_row_count = int(row.get("source_rows") or 0)
             if category not in self.CATEGORY_VALUE_KEYS:
                 category = "outros_movimentos"
             totals[category] += value
             totals[self._pedido_key_for_category(category)] = int(row.get("pedidos") or 0)
+            totals[f"{category}_row_count"] += source_row_count
             if category == "faturamento_comercial":
                 totals["desconto_comercial"] += discount
-                totals["quantidade_total"] += quantity
-                totals["commercial_row_count"] += int(row.get("source_rows") or 0)
+                if quantity is not None:
+                    totals["quantidade_total"] = self._decimal(totals.get("quantidade_total")) + quantity
+                totals["clientes_distintos"] = int(row.get("clientes_distintos") or 0)
+                totals["commercial_row_count"] += source_row_count
             if category != "transferencias":
                 totals["desconto_total"] += discount
+                totals["eligible_non_transfer_row_count"] += source_row_count
             totals["desconto_movimentos_view"] += discount
-            totals["source_row_count"] += int(row.get("source_rows") or 0)
+            totals["source_row_count"] += source_row_count
 
         total_result = await session.execute(
             text(
@@ -324,7 +374,7 @@ class SalesValueBreakdownService:
                         {category_case} AS categoria,
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history, temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {entity_scope}
@@ -351,6 +401,7 @@ class SalesValueBreakdownService:
         filial: Any | None = None,
         category_key: str = "faturamento_comercial",
         limit: int = 500,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> list[dict[str, Any]]:
         """Returns document-level traceability from the synchronized PostgreSQL view."""
         columns_result = await session.execute(
@@ -377,7 +428,7 @@ class SalesValueBreakdownService:
         else:
             category_filter = "categoria = :document_category"
 
-        query_binds = self._with_default_binds(binds, filial)
+        query_binds = self._with_default_binds(binds, filial, temporal_scope)
         query_binds.update({"document_category": category_key, "document_limit": max(1, min(int(limit), 2000))})
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
 
@@ -410,7 +461,7 @@ class SalesValueBreakdownService:
                         {category_case} AS categoria,
                         COALESCE(lm.ptotal_, 0) AS valor
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                 )
@@ -448,11 +499,12 @@ class SalesValueBreakdownService:
         vendedor: Any | None = None,
         produto: Any | None = None,
         all_history: bool = False,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> list[dict[str, Any]]:
         category_case = self.category_case_sql("lm")
         discount_source = await self.fetch_discount_source_profile(session)
         discount_expr = self.discount_expr_sql("lm", discount_source.get("desconto_fonte_coluna"))
-        query_binds = self._with_default_binds(binds, filial)
+        query_binds = self._with_default_binds(binds, filial, temporal_scope)
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
         entity_scope = self.entity_scope_sql("lm", vendedor=vendedor, produto=produto)
         if vendedor not in (None, ""):
@@ -468,11 +520,12 @@ class SalesValueBreakdownService:
                         COALESCE(NULLIF(TRIM(lm.filial_), ''), 'Sem filial') AS filial,
                         {category_case} AS categoria,
                         COALESCE(lm.ptotal_, 0) AS valor,
-                        COALESCE(lm.qtde_, 0) AS quantidade,
+                        lm.qtde_ AS quantidade,
                         lm.pedido_ AS pedido,
+                        lm.codcliente_ AS cliente,
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history, temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {entity_scope}
@@ -483,7 +536,8 @@ class SalesValueBreakdownService:
                     COALESCE(SUM(valor), 0) AS valor,
                     COUNT(DISTINCT pedido) AS pedidos,
                     COALESCE(SUM(desconto), 0) AS desconto,
-                    COALESCE(SUM(quantidade), 0) AS quantidade,
+                    SUM(quantidade) AS quantidade,
+                    COUNT(DISTINCT cliente) AS clientes_distintos,
                     COUNT(*) AS source_rows
                 FROM categorized
                 GROUP BY filial, categoria
@@ -501,17 +555,22 @@ class SalesValueBreakdownService:
                 category = "outros_movimentos"
             value = self._decimal(row.get("valor"))
             discount = self._decimal(row.get("desconto"))
-            quantity = self._decimal(row.get("quantidade"))
+            quantity = self._optional_decimal(row.get("quantidade"))
+            source_row_count = int(row.get("source_rows") or 0)
             totals[category] += value
             totals[self._pedido_key_for_category(category)] = int(row.get("pedidos") or 0)
+            totals[f"{category}_row_count"] += source_row_count
             if category == "faturamento_comercial":
                 totals["desconto_comercial"] += discount
-                totals["quantidade_total"] += quantity
-                totals["commercial_row_count"] += int(row.get("source_rows") or 0)
+                if quantity is not None:
+                    totals["quantidade_total"] = self._decimal(totals.get("quantidade_total")) + quantity
+                totals["clientes_distintos"] = int(row.get("clientes_distintos") or 0)
+                totals["commercial_row_count"] += source_row_count
             if category != "transferencias":
                 totals["desconto_total"] += discount
+                totals["eligible_non_transfer_row_count"] += source_row_count
             totals["desconto_movimentos_view"] += discount
-            totals["source_row_count"] += int(row.get("source_rows") or 0)
+            totals["source_row_count"] += source_row_count
 
         total_result = await session.execute(
             text(
@@ -522,7 +581,7 @@ class SalesValueBreakdownService:
                         {category_case} AS categoria,
                         lm.pedido_ AS pedido
                     FROM vw_vendas_lm lm
-                    WHERE {self.period_scope_sql("lm", all_history=all_history)}
+                    WHERE {self.period_scope_sql("lm", all_history=all_history, temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {entity_scope}
@@ -558,6 +617,7 @@ class SalesValueBreakdownService:
         by_discount: bool = False,
         ranking_value_key: str = "faturamento_comercial",
         filial: Any | None = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> list[dict[str, Any]]:
         return await self._fetch_dimension_ranking_by_filial(
             session,
@@ -574,6 +634,7 @@ class SalesValueBreakdownService:
             by_discount=by_discount,
             ranking_value_key=ranking_value_key,
             filial=filial,
+            temporal_scope=temporal_scope,
         )
 
     async def fetch_client_ranking(
@@ -584,6 +645,7 @@ class SalesValueBreakdownService:
         limit: int | None,
         ranking_value_key: str = "faturamento_comercial",
         filial: Any | None = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> list[dict[str, Any]]:
         return await self._fetch_dimension_ranking_by_filial(
             session,
@@ -600,6 +662,7 @@ class SalesValueBreakdownService:
             by_discount=False,
             ranking_value_key=ranking_value_key,
             filial=filial,
+            temporal_scope=temporal_scope,
         )
 
     async def fetch_product_ranking(
@@ -609,10 +672,11 @@ class SalesValueBreakdownService:
         *,
         limit: int | None = 10,
         filial: Any | None = None,
+        temporal_scope: EffectiveTemporalScope | None = None,
     ) -> list[dict[str, Any]]:
-        query_binds = self._with_default_binds(binds, filial)
+        query_binds = self._with_default_binds(binds, filial, temporal_scope)
         filial_where = self.filial_scope_sql(alias="lm", filial=filial)
-        period_where = self.period_where_sql(alias="lm")
+        period_where = self.period_scope_sql(alias="lm", temporal_scope=temporal_scope)
         limit_sql = f"LIMIT {limit}" if limit and limit > 0 else ""
 
         sql = text(
@@ -620,7 +684,7 @@ class SalesValueBreakdownService:
             SELECT 
                 coalesce(p.nome_produto, lm.descricao_) as produto,
                 lm.codprod_::text as codigo_produto,
-                coalesce(sum(lm.qtde_), 0) as quantidade_vendida,
+                sum(lm.qtde_) as quantidade_vendida,
                 coalesce(sum(lm.ptotal_), 0) as valor_total,
                 coalesce(max(p.estoque), 0) as estoque_atual,
                 coalesce(lm.filial_::text, '1') as filial
@@ -632,7 +696,7 @@ class SalesValueBreakdownService:
               {self.tenant_scope_sql("lm")}
               {filial_where}
             GROUP BY 1, 2, 6
-            ORDER BY quantidade_vendida DESC, valor_total DESC
+            ORDER BY quantidade_vendida DESC NULLS LAST, valor_total DESC
             {limit_sql}
             """
         )
@@ -641,7 +705,8 @@ class SalesValueBreakdownService:
         for idx, row in enumerate(res.fetchall(), 1):
             mapping = dict(row._mapping)
             v_total = float(mapping.get("valor_total") or 0)
-            q_total = float(mapping.get("quantidade_vendida") or 0)
+            quantity_value = mapping.get("quantidade_vendida")
+            q_total = float(quantity_value) if quantity_value is not None else None
             e_atual = float(mapping.get("estoque_atual") or 0)
             rows.append({
                 "posicao": idx,
@@ -710,11 +775,12 @@ class SalesValueBreakdownService:
         by_discount: bool,
         ranking_value_key: str,
         filial: Any | None,
+        temporal_scope: EffectiveTemporalScope | None,
     ) -> list[dict[str, Any]]:
         category_case = self.category_case_sql("lm")
         discount_source = await self.fetch_discount_source_profile(session)
         discount_expr = self.discount_expr_sql("lm", discount_source.get("desconto_fonte_coluna"))
-        query_binds = self._with_default_binds(binds, filial)
+        query_binds = self._with_default_binds(binds, filial, temporal_scope)
         filial_scope = self.filial_scope_sql("lm", filial or query_binds.get("sales_filial"))
         limit_clause = "LIMIT :limit" if limit else ""
         if limit:
@@ -738,7 +804,7 @@ class SalesValueBreakdownService:
                         {discount_expr} AS desconto
                     FROM vw_vendas_lm lm
                     {join_sql}
-                    WHERE {self.period_where_sql("lm")}
+                    WHERE {self.period_scope_sql("lm", temporal_scope=temporal_scope)}
                     {self.tenant_scope_sql("lm")}
                     {filial_scope}
                     {extra_where}

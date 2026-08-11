@@ -67,8 +67,38 @@ from .parsing import (
 METRIC_REGISTRY_VERSION = "2026-07-20-rb-devolucao-transferencias"
 _METRIC_ALIASES: tuple[tuple[str, tuple[str, ...], str, str], ...] = (
     (
+        "quantidade_pedidos",
+        (
+            "quantidade de pedidos",
+            "numero de pedidos",
+            "quantos pedidos",
+            "total de pedidos",
+        ),
+        "COUNT",
+        "COUNT_DISTINCT",
+    ),
+    (
+        "clientes_distintos",
+        (
+            "quantidade de clientes",
+            "numero de clientes",
+            "quantos clientes",
+            "total de clientes",
+        ),
+        "COUNT",
+        "COUNT_DISTINCT",
+    ),
+    (
         "unidades_vendidas",
-        ("quantas unidades", "unidades vendidas", "quantidade vendida", "quantidade"),
+        (
+            "quantidade de unidades",
+            "numero de unidades",
+            "quantas unidades",
+            "quantos unidades",
+            "total de unidades",
+            "unidades vendidas",
+            "quantidade vendida",
+        ),
         "COUNT",
         "SUM",
     ),
@@ -96,6 +126,8 @@ _DISPLAY_NAMES = {
     "ranking_vendedores": "Ranking de vendedores",
     "ranking_clientes": "Ranking de clientes",
     "unidades_vendidas": "Unidades vendidas",
+    "quantidade_pedidos": "Quantidade de pedidos",
+    "clientes_distintos": "Clientes distintos",
 }
 _V1_TO_V2_VISUALIZATION = {
     "TABLE": VisualizationKind.DATA_TABLE,
@@ -280,7 +312,11 @@ def build_intent_v2(
         raw_question=question,
         normalized_question=normalized,
         metric_refs=metric_refs,
-        dimension_refs=_dimension_refs_from_text(normalized, origin=origin),
+        dimension_refs=_dimension_refs_from_text(
+            normalized,
+            origin=origin,
+            metric_ids={metric.metric_id for metric in metric_refs},
+        ),
         filters=entity_filters,
         time_windows=time_windows,
         comparison=comparison,
@@ -637,10 +673,12 @@ def attach_v2_sidecar(
 
 
 def _metric_refs_from_text(text: str, *, origin: FieldOrigin) -> list[MetricReference]:
-    padded = f" {text} "
     refs: list[MetricReference] = []
     for metric_id, aliases, unit, aggregation in _METRIC_ALIASES:
-        if any(alias in padded for alias in aliases):
+        if any(
+            re.search(rf"(?<!\w){re.escape(alias.strip())}(?!\w)", text)
+            for alias in aliases
+        ):
             refs.append(_metric_ref(metric_id, origin=origin, unit=unit, aggregation=aggregation))
     if any(metric.metric_id == "ranking_vendedores" for metric in refs):
         refs = [metric for metric in refs if metric.metric_id != "faturamento_comercial"]
@@ -710,11 +748,13 @@ def _dimension_refs_from_text(
     text: str,
     *,
     origin: FieldOrigin,
+    metric_ids: set[str] | None = None,
 ) -> list[DimensionReference]:
+    metric_ids = metric_ids or set()
     dimensions: list[tuple[str, str, DimensionRole]] = []
     if "vendedor" in text:
         dimensions.append(("vendedor", "Vendedor", DimensionRole.GROUPING))
-    if "cliente" in text:
+    if "cliente" in text and "clientes_distintos" not in metric_ids:
         dimensions.append(("cliente", "Cliente", DimensionRole.GROUPING))
     if "produto" in text:
         dimensions.append(("produto", "Produto", DimensionRole.GROUPING))

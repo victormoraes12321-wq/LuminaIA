@@ -55,7 +55,7 @@ def _scalar(connection: sqlite3.Connection, case: dict[str, object], metric: str
     column = {"revenue": "revenue_cents", "quantity": "quantity", "discount": "discount_cents"}[metric]
     value = connection.execute(f"SELECT SUM({column}) FROM sales WHERE {where}", binds).fetchone()[0]
     if metric == "quantity":
-        return str(value or 0)
+        return None if value is None else str(value)
     return _money(value)
 
 
