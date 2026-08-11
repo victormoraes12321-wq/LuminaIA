@@ -67,6 +67,22 @@ router = APIRouter(
 )
 
 
+def _should_use_new_pipeline(
+    *,
+    request_preference: bool,
+    runtime_settings: Any = settings,
+) -> bool:
+    """Resolve pipeline selection without allowing request-derived authority."""
+    server_allows_pipeline = (
+        not runtime_settings.V2_GLOBAL_EMERGENCY_DISABLE
+        and (
+            runtime_settings.NEW_PIPELINE_ACTIVE
+            or runtime_settings.ENABLE_DETERMINISTIC_PIPELINE
+        )
+    )
+    return server_allows_pipeline and request_preference
+
+
 def _conversation_http_error(exc: ConversationStateError) -> HTTPException:
     return HTTPException(
         status_code=exc.http_status,
@@ -603,14 +619,13 @@ async def processar_consulta(
                 idempotent_replay=True,
             )
 
-    # ── 4. Strangler Pattern: Desvio controlado para o Novo Pipeline ─────────
-    import os as _os
-    _is_testing = "PYTEST_CURRENT_TEST" in _os.environ
-    from config import settings
-    # Em testes, só usa o novo pipeline se explicitamente solicitado pelo payload
-    _use_new_pipeline = getattr(payload, "use_new_pipeline", False)
-    if (not _is_testing and (settings.NEW_PIPELINE_ACTIVE or settings.ENABLE_DETERMINISTIC_PIPELINE)) or _use_new_pipeline:
-        logger.info("[Orchestrator] Desviando consulta para o NOVO pipeline cognitivo (ENABLE_DETERMINISTIC_PIPELINE=True)...")
+    # ── 4. Strangler Pattern: Desvio governado para o Novo Pipeline ──────────
+    # O payload expressa somente preferência de compatibilidade. A autoridade
+    # permanece server-side e qualquer deny superior prevalece.
+    if _should_use_new_pipeline(
+        request_preference=payload.use_new_pipeline,
+    ):
+        logger.info("[Orchestrator] Desviando consulta para o NOVO pipeline cognitivo por decisão server-side.")
         from services.new_query_orchestrator import new_query_orchestrator
         
         # Converte o payload history para o formato esperado (lista de dicts)
