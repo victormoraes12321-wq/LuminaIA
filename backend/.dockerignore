@@ -1,0 +1,39 @@
+# The backend build context is a runtime allowlist. Dockerfile and this file are
+# still sent by Docker for build evaluation, but are never copied into /app.
+**
+
+!requirements.txt
+!main.py
+!config.py
+!database.py
+
+!contracts/
+!contracts/**
+!database/
+!database/**
+!models/
+!models/**
+!routers/
+!routers/**
+!schemas/
+!schemas/**
+!services/
+!services/**
+!testing/
+!testing/__init__.py
+!testing/database_guard.py
+
+# Defense in depth for generated/local files inside allowed source directories.
+**/__pycache__/
+**/__pycache__/**
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.coverage*
+**/*.log
+**/*.tmp
+**/*.dump
+**/*.sql.gz
+**/.env
+**/.env.*

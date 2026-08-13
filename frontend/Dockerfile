@@ -1,36 +1,49 @@
-# ── Stage 1: Build ──────────────────────────────────────────────
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copia arquivos de configuração e instala dependências
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copia o código-fonte e compila em modo produção
-COPY . .
+COPY app ./app
+COPY components ./components
+COPY context ./context
+COPY engines ./engines
+COPY hooks ./hooks
+COPY lib ./lib
+COPY public ./public
+COPY styles ./styles
+COPY types ./types
+COPY next.config.ts postcss.config.mjs proxy.ts tailwind.config.ts tsconfig.json ./
 RUN npm run build
 
-# ── Stage 2: Runner ─────────────────────────────────────────────
-FROM node:20-alpine AS runner
+FROM node:20-alpine AS runtime
+
+ARG APP_UID=10001
+ARG APP_GID=10001
 
 WORKDIR /app
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1
 
-# Copia artefatos compilados e dependências do estágio anterior
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
+RUN addgroup -S -g "$APP_GID" lumina \
+    && adduser -S -D -H -u "$APP_UID" -G lumina lumina
 
-# Pruna dependências de desenvolvimento para otimizar espaço em disco
-RUN npm prune --omit=dev
+COPY --from=builder --chown=10001:10001 /app/package.json /app/package-lock.json ./
+COPY --from=builder --chown=10001:10001 /app/node_modules ./node_modules
+COPY --from=builder --chown=10001:10001 /app/.next ./.next
+COPY --from=builder --chown=10001:10001 /app/public ./public
+
+RUN npm prune --omit=dev \
+    && mkdir -p /app/.next/cache \
+    && chown -R "$APP_UID:$APP_GID" /app/.next/cache
+
+USER 10001:10001
 
 EXPOSE 3000
 
-# Health Check do Next.js utilizando wget
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/login || exit 1
+  CMD ["wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/healthz"]
 
-# Comando padrão para rodar a aplicação em produção
-CMD ["npm", "run", "start"]
+CMD ["node", "node_modules/next/dist/bin/next", "start"]

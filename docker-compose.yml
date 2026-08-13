@@ -8,12 +8,23 @@ services:
       dockerfile: Dockerfile
     container_name: lumina-backend
     restart: unless-stopped
+    privileged: false
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
     expose:
       - "8000"
     env_file:
       - ./backend/.env
     volumes:
       - backend-logs:/app/logs
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,uid=10001,gid=10001,mode=1770
+      - /app/.lumina_conversations:rw,noexec,nosuid,size=32m,uid=10001,gid=10001,mode=0700
+      - /app/runtime-logs:rw,noexec,nosuid,size=64m,uid=10001,gid=10001,mode=0700
     networks:
       - lumina-network
 
@@ -24,12 +35,22 @@ services:
       dockerfile: Dockerfile
     container_name: lumina-frontend
     restart: unless-stopped
+    privileged: false
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
     expose:
       - "3000"
     depends_on:
       - backend
     environment:
       - NODE_ENV=production
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,uid=10001,gid=10001,mode=1770
+      - /app/.next/cache:rw,noexec,nosuid,size=64m,uid=10001,gid=10001,mode=0700
     networks:
       - lumina-network
 

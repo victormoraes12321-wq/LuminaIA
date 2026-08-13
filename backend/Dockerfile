@@ -1,34 +1,59 @@
-# ── Base Image ──────────────────────────────────────────────────
-FROM python:3.12-slim
+FROM python:3.12-slim AS builder
 
-# ── Environment Variables ───────────────────────────────────────
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    VIRTUAL_ENV=/opt/venv \
+    PATH="/opt/venv/bin:$PATH"
 
-# ── Working Directory ───────────────────────────────────────────
-WORKDIR /app
-
-# ── Install System Dependencies ─────────────────────────────────
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    curl \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# ── Install Python Dependencies ─────────────────────────────────
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m venv "$VIRTUAL_ENV"
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+    && pip check
 
-# ── Copy Source Code ────────────────────────────────────────────
-COPY . .
+FROM python:3.12-slim AS runtime
 
-# ── Port and Health Check ───────────────────────────────────────
+ARG APP_UID=10001
+ARG APP_GID=10001
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    VIRTUAL_ENV=/opt/venv \
+    PATH="/opt/venv/bin:$PATH"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid "$APP_GID" lumina \
+    && useradd --uid "$APP_UID" --gid "$APP_GID" --no-create-home \
+       --shell /usr/sbin/nologin lumina
+
+COPY --from=builder /opt/venv /opt/venv
+
+WORKDIR /app
+RUN mkdir -p /app/.lumina_conversations /app/runtime-logs/debug /app/logs \
+    && chown -R "$APP_UID:$APP_GID" \
+       /app/.lumina_conversations /app/runtime-logs /app/logs
+
+COPY --chown=10001:10001 main.py config.py database.py ./
+COPY --chown=10001:10001 contracts ./contracts
+COPY --chown=10001:10001 database ./database
+COPY --chown=10001:10001 models ./models
+COPY --chown=10001:10001 routers ./routers
+COPY --chown=10001:10001 schemas ./schemas
+COPY --chown=10001:10001 services ./services
+COPY --chown=10001:10001 testing/__init__.py testing/database_guard.py ./testing/
+
+USER 10001:10001
+
 EXPOSE 8000
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8000/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD ["curl", "--fail", "--silent", "--show-error", "http://127.0.0.1:8000/health"]
 
-# ── Start Production ASGI Server ────────────────────────────────
-CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker", "--workers", "4", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker", "--workers", "4", "--bind", "0.0.0.0:8000", "--access-logfile", "-", "--error-logfile", "-"]
