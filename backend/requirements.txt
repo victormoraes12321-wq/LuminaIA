@@ -24,7 +24,7 @@ openai==1.58.1            # SDK oficial com suporte a Structured Outputs
 # ── Segurança ────────────────────────────────────────────────
 PyJWT==2.10.1                    # JWT tokens
 passlib[bcrypt]==1.7.4             # Hash de senhas (bcrypt)
-cryptography==43.0.3               # Fernet encryption para oracle_conn
+cryptography==50.0.0               # Fernet encryption para oracle_conn
 
 # ── Utilitários ──────────────────────────────────────────────
 python-multipart==0.0.20  # Upload de arquivos (futura feature)

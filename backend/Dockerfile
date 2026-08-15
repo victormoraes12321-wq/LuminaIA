@@ -1,4 +1,6 @@
-FROM python:3.12-slim AS builder
+ARG PYTHON_BASE_IMAGE=python:3.12-slim@sha256:dd29372629eeba2dd003fd9e9d35a5b8236c44727875a0364254b5127af88e65
+
+FROM ${PYTHON_BASE_IMAGE} AS builder
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -15,7 +17,7 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && pip check
 
-FROM python:3.12-slim AS runtime
+FROM ${PYTHON_BASE_IMAGE} AS runtime
 
 ARG APP_UID=10001
 ARG APP_GID=10001

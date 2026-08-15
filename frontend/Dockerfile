@@ -1,4 +1,13 @@
-FROM node:20-alpine AS builder
+ARG NODE_BASE_IMAGE=node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+
+FROM ${NODE_BASE_IMAGE} AS patched-base
+
+ARG ALPINE_OPENSSL_VERSION=3.5.7-r0
+RUN apk add --no-cache \
+    "libcrypto3=${ALPINE_OPENSSL_VERSION}" \
+    "libssl3=${ALPINE_OPENSSL_VERSION}"
+
+FROM patched-base AS builder
 
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -18,7 +27,7 @@ COPY types ./types
 COPY next.config.ts postcss.config.mjs proxy.ts tailwind.config.ts tsconfig.json ./
 RUN npm run build
 
-FROM node:20-alpine AS runtime
+FROM patched-base AS runtime
 
 ARG APP_UID=10001
 ARG APP_GID=10001

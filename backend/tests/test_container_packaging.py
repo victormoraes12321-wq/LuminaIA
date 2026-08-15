@@ -84,3 +84,23 @@ def test_healthchecks_and_commands_use_exec_form() -> None:
     assert 'CMD ["node", "node_modules/next/dist/bin/next", "start"]' in frontend
     assert 'CMD ["curl"' in backend
     assert 'CMD ["wget"' in frontend
+
+
+def test_supply_chain_security_versions_are_explicit_and_minimal() -> None:
+    backend = _read(BACKEND_ROOT / "Dockerfile")
+    requirements = _read(BACKEND_ROOT / "requirements.txt")
+    frontend = _read(FRONTEND_ROOT / "Dockerfile")
+
+    assert "cryptography==50.0.0" in requirements
+    assert (
+        "python:3.12-slim@sha256:"
+        "dd29372629eeba2dd003fd9e9d35a5b8236c44727875a0364254b5127af88e65"
+    ) in backend
+    assert (
+        "node:20-alpine@sha256:"
+        "fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293"
+    ) in frontend
+    assert "ALPINE_OPENSSL_VERSION=3.5.7-r0" in frontend
+    assert '"libcrypto3=${ALPINE_OPENSSL_VERSION}"' in frontend
+    assert '"libssl3=${ALPINE_OPENSSL_VERSION}"' in frontend
+    assert "apk upgrade" not in frontend
