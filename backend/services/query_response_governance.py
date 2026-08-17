@@ -8,7 +8,7 @@ from typing import Any
 from sqlalchemy import func, select
 
 from config import settings
-from contracts.analytical_v2 import PipelineKind, attach_v2_sidecar
+from contracts.analytical_v2 import AnalyticalResponseV2, PipelineKind, attach_v2_sidecar
 from models.metadata_catalog import MetadataCatalog
 from models.sync_queue import SyncQueue
 from models.user import UserRole
@@ -268,7 +268,13 @@ class QueryResponseGovernance:
                 )
                 if settings.ANALYTICAL_CONTRACTS_V2_SHADOW_MODE:
                     contract = with_sidecar.get("analytical_contract")
-                    metadata = contract.get("contract", {}) if isinstance(contract, dict) else {}
+                    metadata = (
+                        contract.contract.model_dump(mode="json")
+                        if isinstance(contract, AnalyticalResponseV2)
+                        else contract.get("contract", {})
+                        if isinstance(contract, dict)
+                        else {}
+                    )
                     logger.info(
                         "Analytical contract V2 validated in shadow mode | schema=%s/%s | pipeline=%s",
                         metadata.get("schema_name"),

@@ -177,7 +177,8 @@ def test_v2_to_v1_preserves_legacy_fields_and_adds_sidecar() -> None:
     assert legacy["query_id"] == payload["query_id"]
     assert legacy["chart_type"] == "TABLE"
     assert legacy["status"] == "FULL_RENDERING"
-    assert legacy["analytical_contract"]["contract"]["schema_version"] == "2.0"
+    assert isinstance(legacy["analytical_contract"], AnalyticalResponseV2)
+    assert legacy["analytical_contract"].contract.schema_version == "2.0"
 
 
 def test_sidecar_attachment_is_idempotent() -> None:
@@ -250,6 +251,7 @@ def test_embedded_sidecar_rejects_unknown_version() -> None:
         session_id="session-1",
         pipeline=PipelineKind.NEW,
     )
+    payload["analytical_contract"] = payload["analytical_contract"].model_dump(mode="json")
     payload["analytical_contract"]["contract"]["schema_version"] = "9.9"
     with pytest.raises(ValueError, match="Unsupported analytical contract version"):
         _adapt(payload)

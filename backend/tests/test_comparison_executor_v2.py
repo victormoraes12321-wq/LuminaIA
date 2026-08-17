@@ -1,16 +1,21 @@
 from __future__ import annotations
 
 import asyncio
+import json
+from datetime import date, datetime
 from decimal import Decimal
+from enum import Enum
 from uuid import UUID
 
 import pytest
 
 from contracts.analytical_v2 import (
+    AnalyticalResponseV2,
     ComparisonCalculation,
     ComparisonKind,
     ExecutionReadiness,
 )
+from schemas.query import QueryResponse
 from services.comparison_execution import (
     ComparisonExecutionRejected,
     ComparisonExecutionStatus,
@@ -383,5 +388,23 @@ async def test_v2_and_v1_adapters_preserve_numbers_and_sidecar():
     legacy = execution_result_to_legacy(result, plan)
     assert response.contract.extensions["comparison_executor"]["executor_version"] == result.executor_version
     assert response.datasets[0].rows
-    assert legacy["analytical_contract"]["datasets"][0]["rows"]
+    assert isinstance(legacy["analytical_contract"], AnalyticalResponseV2)
+    assert legacy["analytical_contract"].datasets[0].rows
     assert legacy["chart_data"]["rows"] == response.model_dump(mode="json")["datasets"][0]["rows"]
+
+    validated = QueryResponse.model_validate(legacy)
+    contract = validated.analytical_contract
+    assert contract is not None
+    numeric_key = next(iter(contract.datasets[0].numeric_metadata))
+    assert isinstance(contract.intent.intent_kind, Enum)
+    assert isinstance(contract.datasets[0].numeric_metadata[numeric_key], Decimal)
+    assert isinstance(contract.plan_summary.periods[0].start, date)
+    assert isinstance(contract.contract.created_at, datetime)
+    assert isinstance(contract.scope_summary.tenant_id, UUID)
+
+    wire = json.loads(validated.model_dump_json())["analytical_contract"]
+    assert wire["intent"]["intent_kind"] == "COMPARISON"
+    assert isinstance(wire["datasets"][0]["numeric_metadata"][numeric_key], str)
+    assert wire["plan_summary"]["periods"][0]["start"] == "2026-06-01"
+    assert wire["contract"]["created_at"].endswith("Z")
+    assert wire["scope_summary"]["tenant_id"] == str(TENANT_A)

@@ -177,10 +177,10 @@ async def test_enabled_v2_sidecar_is_emitted_for_new_pipeline(monkeypatch) -> No
     )
 
     contract = result["analytical_contract"]
-    assert contract["contract"]["schema_version"] == "2.0"
-    assert contract["contract"]["pipeline"] == "NEW"
-    assert contract["scope_summary"]["tenant_id"] == str(tenant.id)
-    assert [item["kind"] for item in contract["visualizations"]] == [
+    assert contract.contract.schema_version == "2.0"
+    assert contract.contract.pipeline.value == "NEW"
+    assert contract.scope_summary.tenant_id == tenant.id
+    assert [item.kind.value for item in contract.visualizations] == [
         "DATA_TABLE",
         "BAR_CHART",
     ]

@@ -461,9 +461,11 @@ def legacy_payload_to_v2(
     comparison_planner_shadow_mode: bool = True,
 ) -> AnalyticalResponseV2:
     existing = payload.get("analytical_contract")
+    if isinstance(existing, AnalyticalResponseV2):
+        return existing
     if existing is not None:
         return AnalyticalResponseV2.model_validate_json(
-            json.dumps(existing, ensure_ascii=False, default=str)
+            json.dumps(existing, ensure_ascii=False)
         )
 
     question = str(payload.get("pergunta_original") or payload.get("goal") or "Consulta analitica")
@@ -587,8 +589,8 @@ def v2_response_to_legacy(
     response: AnalyticalResponseV2,
     *,
     legacy_payload: Mapping[str, object] | None = None,
-) -> dict[str, JsonValue]:
-    result = _json_object(legacy_payload or {})
+) -> dict[str, object]:
+    result: dict[str, object] = _json_object(legacy_payload or {})
     deterministic_id = uuid5(
         NAMESPACE_URL,
         f"{response.scope_summary.tenant_id}:{response.intent.normalized_question}",
@@ -643,7 +645,11 @@ def v2_response_to_legacy(
         result["visualizations"] = None
         result["mensagem"] = response.errors[0].message
         result["resposta_direta"] = response.errors[0].message
-    result["analytical_contract"] = _json_value(response.model_dump(mode="json"))
+    # Keep the public DTO typed until QueryResponse/FastAPI performs the wire
+    # serialization. JSON-mode dumping here turns strict Enum, Decimal, date,
+    # datetime and UUID values into strings too early and makes the enclosing
+    # response model reject its own sidecar during validation.
+    result["analytical_contract"] = response
     return result
 
 
@@ -657,7 +663,7 @@ def attach_v2_sidecar(
     pipeline: PipelineKind,
     comparison_planner_enabled: bool = True,
     comparison_planner_shadow_mode: bool = True,
-) -> dict[str, JsonValue]:
+) -> dict[str, object]:
     response = legacy_payload_to_v2(
         payload,
         tenant_id=tenant_id,
