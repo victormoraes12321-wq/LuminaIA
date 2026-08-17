@@ -3,6 +3,9 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   devIndicators: false,
+  output: 'standalone',
+  generateBuildId: async () =>
+    process.env.LUMINA_BUILD_ID ?? 'lumina-local-build',
   allowedDevOrigins: [
     '192.168.0.36',
     '192.168.18.103',

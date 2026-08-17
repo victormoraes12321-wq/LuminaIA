@@ -81,7 +81,7 @@ def test_healthchecks_and_commands_use_exec_form() -> None:
     frontend = _read(FRONTEND_ROOT / "Dockerfile")
 
     assert 'CMD ["gunicorn"' in backend
-    assert 'CMD ["node", "node_modules/next/dist/bin/next", "start"]' in frontend
+    assert 'CMD ["node", "server.js"]' in frontend
     assert 'CMD ["curl"' in backend
     assert 'CMD ["wget"' in frontend
 
@@ -103,4 +103,21 @@ def test_supply_chain_security_versions_are_explicit_and_minimal() -> None:
     assert "ALPINE_OPENSSL_VERSION=3.5.7-r0" in frontend
     assert '"libcrypto3=${ALPINE_OPENSSL_VERSION}"' in frontend
     assert '"libssl3=${ALPINE_OPENSSL_VERSION}"' in frontend
+    assert "rm -f /var/log/apk.log" in frontend
     assert "apk upgrade" not in frontend
+
+
+def test_frontend_runtime_uses_deterministic_standalone_output() -> None:
+    dockerfile = _read(FRONTEND_ROOT / "Dockerfile")
+    next_config = _read(FRONTEND_ROOT / "next.config.ts")
+
+    assert "output: 'standalone'" in next_config
+    assert "generateBuildId" in next_config
+    assert "LUMINA_BUILD_ID" in next_config
+    assert "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY" in dockerfile
+    assert ".next/cache/.previewinfo" in dockerfile
+    assert "/app/.next/standalone ./" in dockerfile
+    assert "/app/.next/static ./.next/static" in dockerfile
+    assert "COPY --from=builder --chown=10001:10001 /app/node_modules" not in dockerfile
+    assert "npm prune" not in dockerfile
+    assert "next-swc-fallback" not in dockerfile
