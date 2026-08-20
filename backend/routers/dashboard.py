@@ -46,6 +46,7 @@ async def fetch_executive_metrics_endpoint(
     codcli: Optional[str] = Query(None, description="Código ou razão social do cliente"),
     current_user: User = Depends(get_current_user),
     _pwd_guard: User = Depends(enforce_password_change),
+    db: AsyncSession = Depends(get_db),
 ) -> Dict[str, Any]:
     """
     Agregação analítica segura e em tempo real para a Dashboard Executiva.
@@ -60,6 +61,42 @@ async def fetch_executive_metrics_endpoint(
             codprod=codprod,
             codcli=codcli,
         )
+
+        # ── Injeta o last_sync real do tenant para exibição consistente entre telas ──
+        # A tela de Configurações lê de sync_config.last_sync; a Dashboard deve usar a mesma fonte.
+        try:
+            from sqlalchemy import select
+            from models.tenant import Tenant
+            from datetime import timezone
+            import json as _json
+
+            stmt = select(Tenant).where(Tenant.id == current_user.tenant_id)
+            res = await db.execute(stmt)
+            tenant_obj = res.scalar_one_or_none()
+            if tenant_obj:
+                sc = tenant_obj.sync_config or {}
+                if isinstance(sc, str):
+                    try:
+                        sc = _json.loads(sc)
+                    except Exception:
+                        sc = {}
+                last_sync_raw = sc.get("last_sync")
+                if last_sync_raw:
+                    from datetime import datetime, timezone, timedelta
+                    try:
+                        # Parse o ISO string e converte para horário de Brasília
+                        dt = datetime.fromisoformat(last_sync_raw.replace("Z", "+00:00"))
+                        brt = dt.astimezone(timezone(timedelta(hours=-3)))
+                        freshness_str = brt.strftime("%d/%m/%Y, %H:%M") + " (PostgreSQL Clone)"
+                    except Exception:
+                        freshness_str = last_sync_raw + " (PostgreSQL Clone)"
+                    # Injeta no metadata para que a dashboard exiba o horário correto
+                    if "metadata" in data:
+                        data["metadata"]["freshness"] = freshness_str
+                        data["metadata"]["last_sync_iso"] = last_sync_raw
+        except Exception as sync_exc:
+            logger.debug("[DashboardRouter] Não foi possível injetar last_sync no freshness: %s", sync_exc)
+
         return {
             "success": True,
             "data": data,

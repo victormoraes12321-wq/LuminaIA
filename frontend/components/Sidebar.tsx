@@ -16,6 +16,7 @@ import {
   User as UserIcon,
   Menu,
   X,
+  ShieldAlert,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from '@/components/ThemeToggle'
@@ -66,6 +67,14 @@ export function Sidebar({ onLogoClick }: SidebarProps) {
       icon: Sparkles,
       active: pathname === '/consultar',
       badge: 'IA',
+      adminOnly: false,
+    },
+    {
+      label: 'Operações & Sentinela',
+      href: '/dashboard/operacoes',
+      icon: ShieldAlert,
+      active: pathname.startsWith('/dashboard/operacoes'),
+      badge: 'NEW',
       adminOnly: false,
     },
     {

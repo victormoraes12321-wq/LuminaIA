@@ -40,6 +40,8 @@ interface ContextualSideChatProps {
     context: AnalyticalContext
   ) => Promise<{ answer: string; action?: DashboardChatAction }>
   onExecuteAction: (action: DashboardChatAction) => void
+  /** When set, fires the query automatically (used by Sentinel Investigar button) */
+  autoQuery?: string
 }
 
 export function ContextualSideChat({
@@ -49,6 +51,7 @@ export function ContextualSideChat({
   onClose,
   onSendQuery,
   onExecuteAction,
+  autoQuery,
 }: ContextualSideChatProps) {
   const [messages, setMessages] = useState<ContextualSideChatMessage[]>([
     {
@@ -62,10 +65,20 @@ export function ContextualSideChat({
   const [input, setInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const lastAutoQuery = useRef<string | undefined>(undefined)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages.length, chatLoading])
+
+  // Fire query automatically when autoQuery changes (from Sentinel Investigar button)
+  useEffect(() => {
+    if (autoQuery && autoQuery !== lastAutoQuery.current && !chatLoading) {
+      lastAutoQuery.current = autoQuery
+      handleSend(autoQuery)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoQuery])
 
   const handleSend = async (textToSend?: string) => {
     const q = (textToSend || input).trim()

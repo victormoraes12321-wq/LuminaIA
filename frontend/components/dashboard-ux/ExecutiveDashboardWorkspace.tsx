@@ -29,6 +29,7 @@ import type {
 export function ExecutiveDashboardWorkspace() {
   const { token, user } = useAuth()
   const [sideChatOpen, setSideChatOpen] = useState(true)
+  const [investigateQuery, setInvestigateQuery] = useState<string | undefined>(undefined)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -600,7 +601,8 @@ export function ExecutiveDashboardWorkspace() {
         <SentinelAnomaliesBanner
           onInvestigate={(query) => {
             setSideChatOpen(true)
-            handleSideChatQuery(query, context)
+            // Use a unique suffix to re-trigger autoQuery even if same query is clicked twice
+            setInvestigateQuery(`${query}__${Date.now()}`)
           }}
         />
 
@@ -663,6 +665,7 @@ export function ExecutiveDashboardWorkspace() {
           onClose={() => setSideChatOpen(false)}
           onSendQuery={handleSideChatQuery}
           onExecuteAction={handleExecuteAction}
+          autoQuery={investigateQuery ? investigateQuery.replace(/__\d+$/, '') : undefined}
         />
       </div>
 

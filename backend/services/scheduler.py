@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 from datetime import datetime
 from sqlalchemy import select
@@ -16,10 +17,21 @@ _scheduler_task: asyncio.Task | None = None
 
 
 async def run_sync_task(tenant_id) -> None:
-    """Executa a sincronização do tenant em uma task assíncrona isolada utilizando o SyncOrchestrator."""
+    """
+    Executa a sincronização INCREMENTAL do tenant em uma task assíncrona isolada.
+    O agendador automático usa sempre o modo incremental (30 dias / coluna temporal)
+    para não sobrecarregar o ERP e preservar todos os dados históricos.
+    Full Sync apenas quando solicitado manualmente pelo Admin.
+    """
     try:
         from services.data_platform.sync_scheduler import sync_orchestrator
-        await sync_orchestrator.execute_scheduled_sync(tenant_id, reason="Scheduler loop")
+        from database import get_db_context
+        from services.sync_service import sync_tenant_database
+        logger.info("[Scheduler] Iniciando sync INCREMENTAL agendado para tenant %s", tenant_id)
+        # Usa contexto isolado para não bloquear o loop principal
+        async with get_db_context() as session:
+            await sync_tenant_database(tenant_id, session, force_full=False)
+        logger.info("[Scheduler] Sync INCREMENTAL agendado concluído para tenant %s", tenant_id)
         from services.daily_reconciliation import daily_reconciliation_service
         reconciliation = await daily_reconciliation_service.run_for_tenant(tenant_id)
         logger.info("Reconciliacao diaria do tenant %s: %s", tenant_id, reconciliation.get("status"))

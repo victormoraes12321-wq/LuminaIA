@@ -435,7 +435,7 @@ class SyncEngine:
             cols_ddl.append(f"{col_name} {pg_type}")
         cols_str = ", ".join(cols_ddl)
 
-        # 3. Cria tabela de staging limpa
+        # 3. Cria tabela de staging limpa (somente usada para Full Sync)
         async with pg_conn.transaction():
             await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
             await pg_conn.execute(f"CREATE TABLE {staging_table} ({cols_str});")
@@ -445,13 +445,14 @@ class SyncEngine:
         incremental_column = None if force_full else await self._detect_incremental_column(pg_conn, table_name)
         last_sync_val = None
         incremental_lower_bound = None
-        incremental_operator = ">"
+        incremental_operator = ">="
+        use_incremental_direct = False  # Se True, insere direto na tabela principal (sem staging+rename)
         if force_full:
             logger.info("[SyncEngine] Full sync forcado para %s; incremental desativado nesta execucao.", view_name)
 
         if incremental_column:
             try:
-                # Verifica o último valor registrado
+                # Verifica o último valor registrado na tabela principal
                 last_sync_val = await pg_conn.fetchval(f"SELECT max({incremental_column}) FROM {table_name}")
                 if last_sync_val:
                     if isinstance(last_sync_val, (datetime, date)):
@@ -459,28 +460,21 @@ class SyncEngine:
                         incremental_operator = ">="
                     else:
                         incremental_lower_bound = last_sync_val
-                    # Copia registros atuais para a staging para servir de base
-                    # Especifica colunas de forma explícita para evitar erros se as tabelas tiverem colunas diferentes
-                    columns_list = [desc[0].lower() for desc in col_desc]
-                    cols_joined_dest = ", ".join(f'"{c}"' for c in columns_list)
-                    cols_joined_src = ", ".join(f'"{table_name}"."{c}"' for c in columns_list)
-                    async with pg_conn.transaction():
-                        await pg_conn.execute(f"INSERT INTO {staging_table} ({cols_joined_dest}) SELECT {cols_joined_src} FROM {table_name};")
-                        if incremental_operator == ">=":
-                            await pg_conn.execute(
-                                f"DELETE FROM {staging_table} WHERE {incremental_column} >= $1",
-                                incremental_lower_bound,
-                            )
+                        incremental_operator = ">"
+                    use_incremental_direct = True
+                    logger.info(
+                        "[SyncEngine] Modo INCREMENTAL DIRETO para %s: janela a partir de %s. "
+                        "Dados históricos anteriores serão PRESERVADOS.",
+                        view_name, incremental_lower_bound
+                    )
             except Exception as copy_exc:
                 logger.warning(
-                    "[SyncEngine] Falha ao copiar base incremental para staging (possível alteração de schema): %s. "
+                    "[SyncEngine] Falha ao detectar valor incremental para %s: %s. "
                     "Forçando carga completa (Full sync).",
-                    copy_exc
+                    view_name, copy_exc
                 )
                 last_sync_val = None
-                # Limpa a staging table para carga cheia
-                async with pg_conn.transaction():
-                    await pg_conn.execute(f"TRUNCATE TABLE {staging_table};")
+                use_incremental_direct = False
 
         # 5. Busca dados necessários do ERP
         oracle_cursor = oracle_conn.cursor()
@@ -488,8 +482,8 @@ class SyncEngine:
         
         query = f"SELECT * FROM {oracle_view_identifier}"
         params = {}
-        if incremental_column and last_sync_val and incremental_lower_bound is not None:
-            # Se for incremental, filtra do Oracle
+        if use_incremental_direct and last_sync_val and incremental_lower_bound is not None:
+            # Se for incremental, filtra do Oracle apenas a janela de sobreposição
             if isinstance(last_sync_val, (datetime, date)):
                 query += f" WHERE {incremental_column.upper()} {incremental_operator} :last_val"
                 params["last_val"] = incremental_lower_bound
@@ -520,8 +514,11 @@ class SyncEngine:
             await progress_callback({"phase": "counted", "imported_rows": 0, "estimated_rows": estimated_rows})
 
         # Copia dados com controle de retry por lote
+        # No modo incremental direto: insert na staging (que depois será mergeada, não substituída)
+        # No modo full: insert na staging (que depois substituirá a tabela principal atomicamente)
         placeholders = ", ".join(f"${i+1}" for i in range(len(col_desc)))
-        insert_sql = f"INSERT INTO {staging_table} VALUES ({placeholders})"
+        insert_target = staging_table  # sempre escreve na staging primeiro
+        insert_sql = f"INSERT INTO {insert_target} VALUES ({placeholders})"
         imported_rows = 0
 
         try:
@@ -550,7 +547,6 @@ class SyncEngine:
             await _close_oracle_resource(oracle_cursor)
 
         # 6. Validação do Dataset de Staging
-        # Validar: integridade, quantidade de registros, relacionamentos, estrutura, checksum/hash
         if progress_callback:
             await progress_callback({
                 "phase": "validating",
@@ -562,37 +558,74 @@ class SyncEngine:
             await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
             raise ValueError(f"Validação de integridade do dataset falhou para a view {view_name}.")
 
-        # 7. Substituição Atômica (Switch tables)
-        # DROP TABLE antigo, rename oficial para old, rename staging para oficial.
+        # 7. Aplicação dos dados na tabela principal
         if progress_callback:
             await progress_callback({
                 "phase": "switching",
                 "imported_rows": imported_rows,
                 "estimated_rows": estimated_rows,
             })
-        try:
-            async with pg_conn.transaction():
-                # Remove se existir resíduo
-                await pg_conn.execute(f"DROP TABLE IF EXISTS {table_name}_old CASCADE;")
-                
-                # Se a tabela oficial existe, faz o switch
-                table_exists = await pg_conn.fetchval(
-                    "SELECT exists(SELECT 1 FROM information_schema.tables WHERE table_name = $1)",
-                    table_name
+
+        if use_incremental_direct and last_sync_val and incremental_lower_bound is not None:
+            # MODO INCREMENTAL DIRETO: preserva dados históricos
+            # Delete apenas a janela de sobreposição da tabela principal, depois insere os dados novos
+            columns_list = [desc[0].lower() for desc in col_desc]
+            cols_joined = ", ".join(f'"{c}"' for c in columns_list)
+            cols_joined_src = ", ".join(f'"{staging_table}"."{c}"' for c in columns_list)
+            try:
+                async with pg_conn.transaction():
+                    # Remove apenas a janela de sobreposição (nunca apaga dados históricos anteriores)
+                    if isinstance(incremental_lower_bound, (datetime, date)):
+                        await pg_conn.execute(
+                            f"DELETE FROM {table_name} WHERE {incremental_column} {incremental_operator} $1",
+                            incremental_lower_bound,
+                        )
+                    else:
+                        await pg_conn.execute(
+                            f"DELETE FROM {table_name} WHERE {incremental_column} > $1",
+                            incremental_lower_bound,
+                        )
+                    # Insere os dados novos da staging direto na tabela principal
+                    await pg_conn.execute(
+                        f"INSERT INTO {table_name} ({cols_joined}) SELECT {cols_joined_src} FROM {staging_table};"
+                    )
+                    # Limpa a staging
+                    await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
+                logger.info(
+                    "[SyncEngine] Incremental direto aplicado com sucesso em %s! Linhas novas: %d. "
+                    "Dados históricos anteriores à janela de sobreposição PRESERVADOS.",
+                    view_name, imported_rows
                 )
-                if table_exists:
-                    await pg_conn.execute(f"ALTER TABLE {table_name} RENAME TO {table_name}_old;")
-                
-                await pg_conn.execute(f"ALTER TABLE {staging_table} RENAME TO {table_name};")
-                await pg_conn.execute(f"DROP TABLE IF EXISTS {table_name}_old CASCADE;")
+            except Exception as merge_exc:
+                logger.error("[SyncEngine] Erro na aplicação incremental direta: %s", merge_exc)
+                await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
+                raise merge_exc
+        else:
+            # MODO FULL SYNC: substituição atômica (staging → tabela principal)
+            # Garante uma carga 100% limpa e consistente do histórico completo
+            try:
+                async with pg_conn.transaction():
+                    # Remove se existir resíduo
+                    await pg_conn.execute(f"DROP TABLE IF EXISTS {table_name}_old CASCADE;")
+                    
+                    # Se a tabela oficial existe, faz o switch
+                    table_exists = await pg_conn.fetchval(
+                        "SELECT exists(SELECT 1 FROM information_schema.tables WHERE table_name = $1)",
+                        table_name
+                    )
+                    if table_exists:
+                        await pg_conn.execute(f"ALTER TABLE {table_name} RENAME TO {table_name}_old;")
+                    
+                    await pg_conn.execute(f"ALTER TABLE {staging_table} RENAME TO {table_name};")
+                    await pg_conn.execute(f"DROP TABLE IF EXISTS {table_name}_old CASCADE;")
 
-            logger.info("[SyncEngine] View %s chaveada com sucesso! Linhas: %d", view_name, imported_rows)
+                logger.info("[SyncEngine] Full sync concluído com substituição atômica para %s! Linhas: %d", view_name, imported_rows)
 
-        except Exception as tx_exc:
-            logger.error("[SyncEngine] Erro na transação atômica de chaveamento: %s", tx_exc)
-            # Rollback e limpeza
-            await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
-            raise tx_exc
+            except Exception as tx_exc:
+                logger.error("[SyncEngine] Erro na transação atômica de chaveamento: %s", tx_exc)
+                # Rollback e limpeza
+                await pg_conn.execute(f"DROP TABLE IF EXISTS {staging_table} CASCADE;")
+                raise tx_exc
 
         # 8. Criação de nova versão em Datasets (para persistência histórica JSONB)
         if progress_callback:

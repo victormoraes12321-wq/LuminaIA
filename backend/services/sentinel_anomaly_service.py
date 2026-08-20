@@ -32,43 +32,69 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
     anomalies: list[dict[str, Any]] = []
 
     try:
-        # 1. CLIENTES VIP (CURVA A) COM QUEDA BRUSCA DE COMPRAS NOS ÚLTIMOS 60 DIAS
+        # 1. CLIENTES VIP (CURVA A) COM QUEDA BRUSCA DE COMPRAS
+        # -------------------------------------------------------
+        # Comparação SAZONAL VÁLIDA: mesmo período de 60 dias do ano anterior vs. hoje.
+        # Requisito: cliente precisa ter compras em AMBOS os períodos.
+        # Threshold: queda > 50% vs. mesmo período do ano passado.
         client_anomalies_query = """
         WITH max_date AS (
             SELECT MAX(DTEMISSAO_) AS max_dt FROM vw_vendas_lm
         ),
-        compras_recentes AS (
+        periodo_atual AS (
             SELECT
                 v.CODCLIENTE_::TEXT AS codcli,
                 MAX(v.RAZAO_) AS razao,
-                SUM(CASE WHEN v.DTEMISSAO_ >= m.max_dt - INTERVAL '60 days' THEN v.PTOTAL_ ELSE 0 END) AS fat_recente_60d,
-                SUM(CASE WHEN v.DTEMISSAO_ < m.max_dt - INTERVAL '60 days' AND v.DTEMISSAO_ >= m.max_dt - INTERVAL '180 days' THEN v.PTOTAL_ ELSE 0 END) AS fat_anterior_120d,
-                COUNT(DISTINCT CASE WHEN v.DTEMISSAO_ >= m.max_dt - INTERVAL '60 days' THEN v.NOTA_ ELSE NULL END) AS notas_recentes,
-                COUNT(DISTINCT CASE WHEN v.DTEMISSAO_ < m.max_dt - INTERVAL '60 days' AND v.DTEMISSAO_ >= m.max_dt - INTERVAL '180 days' THEN v.NOTA_ ELSE NULL END) AS notas_anteriores
+                SUM(v.PTOTAL_) AS fat_atual_60d,
+                COUNT(DISTINCT v.NOTA_) AS notas_atuais
             FROM vw_vendas_lm v
             CROSS JOIN max_date m
-            WHERE v.CODCLIENTE_ IS NOT NULL AND v.PTOTAL_ > 0
+            WHERE
+                v.CODCLIENTE_ IS NOT NULL
+                AND v.PTOTAL_ > 0
+                AND v.DTEMISSAO_ >= m.max_dt - INTERVAL '60 days'
+                AND v.DTEMISSAO_ <= m.max_dt
             GROUP BY v.CODCLIENTE_::TEXT
-            HAVING SUM(CASE WHEN v.DTEMISSAO_ < m.max_dt - INTERVAL '60 days' AND v.DTEMISSAO_ >= m.max_dt - INTERVAL '180 days' THEN v.PTOTAL_ ELSE 0 END) >= 15000
+        ),
+        periodo_anterior AS (
+            -- Mesmo período de 60 dias, 1 ano atrás (comparação sazonal válida)
+            SELECT
+                v.CODCLIENTE_::TEXT AS codcli,
+                SUM(v.PTOTAL_) AS fat_anterior_60d,
+                COUNT(DISTINCT v.NOTA_) AS notas_anteriores
+            FROM vw_vendas_lm v
+            CROSS JOIN max_date m
+            WHERE
+                v.CODCLIENTE_ IS NOT NULL
+                AND v.PTOTAL_ > 0
+                AND v.DTEMISSAO_ >= (m.max_dt - INTERVAL '365 days') - INTERVAL '60 days'
+                AND v.DTEMISSAO_ <= m.max_dt - INTERVAL '365 days'
+            GROUP BY v.CODCLIENTE_::TEXT
         )
         SELECT
-            c.codcli,
-            c.razao,
-            c.fat_recente_60d,
-            (c.fat_anterior_120d / 2.0) AS media_bimestral_historica,
-            c.notas_recentes,
-            c.notas_anteriores,
-            ROUND(((c.fat_recente_60d - (c.fat_anterior_120d / 2.0)) / NULLIF(c.fat_anterior_120d / 2.0, 0)) * 100.0, 1) AS variacao_pct
-        FROM compras_recentes c
-        WHERE c.fat_recente_60d < (c.fat_anterior_120d / 2.0) * 0.5
-        ORDER BY (c.fat_anterior_120d / 2.0) DESC
-        LIMIT 6;
+            a.codcli,
+            a.razao,
+            a.fat_atual_60d,
+            p.fat_anterior_60d,
+            a.notas_atuais,
+            p.notas_anteriores,
+            ROUND(
+                ((a.fat_atual_60d - p.fat_anterior_60d) / NULLIF(p.fat_anterior_60d, 0)) * 100.0,
+                1
+            ) AS variacao_pct
+        FROM periodo_atual a
+        INNER JOIN periodo_anterior p ON p.codcli = a.codcli
+        WHERE
+            p.fat_anterior_60d >= 20000
+            AND a.fat_atual_60d < p.fat_anterior_60d * 0.5
+        ORDER BY p.fat_anterior_60d DESC
+        LIMIT 8;
         """
         client_rows = await conn.fetch(client_anomalies_query)
         for r in client_rows:
             var_pct = float(r["variacao_pct"] or 0)
-            hist = float(r["media_bimestral_historica"] or 0)
-            rec = float(r["fat_recente_60d"] or 0)
+            hist = float(r["fat_anterior_60d"] or 0)
+            rec = float(r["fat_atual_60d"] or 0)
             anomalies.append({
                 "id": f"client_churn_{r['codcli']}",
                 "categoria": "CLIENTE_VIP_CHURN",
@@ -77,10 +103,14 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
                 "titulo": f"Alerta de Churn: {r['razao']}",
                 "entidade": r["razao"],
                 "codigo": r["codcli"],
-                "descricao": f"Cliente chave com faturamento bimestral histórico de R$ {hist:,.2f} comprou apenas R$ {rec:,.2f} nos últimos 60 dias ({var_pct:+.1f}% de queda).",
+                "descricao": (
+                    f"Cliente VIP comprou R$ {rec:,.2f} neste período de 60 dias vs. "
+                    f"R$ {hist:,.2f} no mesmo período do ano passado "
+                    f"({var_pct:+.1f}% — comparação sazonal válida)."
+                ),
                 "impacto_financeiro": hist - rec,
                 "impacto_formatted": f"R$ {(hist - rec):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-                "sugestao_acao": "Acionar imediatamente o RCA / consultor comercial responsável para visita ou contato direto de retenção.",
+                "sugestao_acao": "Acionar imediatamente o RCA responsável para visita ou contato de retenção.",
                 "data_deteccao": "Agora",
             })
 
@@ -141,7 +171,7 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
                 "data_deteccao": "Agora",
             })
 
-        # 3. FILIAIS COM ATINGIMENTO OU ANOMALIA DE PERFORMANCE
+        # 3. FILIAIS COM ANOMALIA DE PERFORMANCE (comparação YoY - mesmo período do ano passado)
         branch_query = """
         WITH max_date AS (
             SELECT MAX(DTEMISSAO_) AS max_dt FROM vw_vendas_lm
@@ -150,7 +180,10 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
             SELECT
                 v.FILIAL_ AS filial,
                 SUM(CASE WHEN v.DTEMISSAO_ >= m.max_dt - INTERVAL '30 days' THEN v.PTOTAL_ ELSE 0 END) AS fat_30d,
-                SUM(CASE WHEN v.DTEMISSAO_ < m.max_dt - INTERVAL '30 days' AND v.DTEMISSAO_ >= m.max_dt - INTERVAL '60 days' THEN v.PTOTAL_ ELSE 0 END) AS fat_ant_30d
+                SUM(CASE
+                    WHEN v.DTEMISSAO_ >= (m.max_dt - INTERVAL '365 days') - INTERVAL '30 days'
+                     AND v.DTEMISSAO_ <= m.max_dt - INTERVAL '365 days'
+                    THEN v.PTOTAL_ ELSE 0 END) AS fat_mesmo_periodo_ano_passado
             FROM vw_vendas_lm v
             CROSS JOIN max_date m
             WHERE v.FILIAL_ IS NOT NULL
@@ -159,17 +192,17 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
         SELECT
             filial,
             fat_30d,
-            fat_ant_30d,
-            ROUND(((fat_30d - fat_ant_30d) / NULLIF(fat_ant_30d, 0)) * 100.0, 1) AS var_pct
+            fat_mesmo_periodo_ano_passado,
+            ROUND(((fat_30d - fat_mesmo_periodo_ano_passado) / NULLIF(fat_mesmo_periodo_ano_passado, 0)) * 100.0, 1) AS var_pct
         FROM branch_stats
-        WHERE fat_ant_30d > 0
+        WHERE fat_mesmo_periodo_ano_passado > 0
         ORDER BY var_pct ASC;
         """
         branch_rows = await conn.fetch(branch_query)
         for r in branch_rows:
             var_pct = float(r["var_pct"] or 0)
             fat_atual = float(r["fat_30d"] or 0)
-            fat_ant = float(r["fat_ant_30d"] or 0)
+            fat_ant = float(r["fat_mesmo_periodo_ano_passado"] or 0)
             if var_pct < -25:
                 anomalies.append({
                     "id": f"branch_drop_{r['filial']}",
@@ -179,10 +212,10 @@ async def run_sentinel_anomalies_scan(tenant_id: str | None = None) -> list[dict
                     "titulo": f"Desaceleração na Filial {r['filial']}",
                     "entidade": f"Filial {r['filial']}",
                     "codigo": str(r["filial"]),
-                    "descricao": f"A Filial {r['filial']} registrou R$ {fat_atual:,.2f} no último mês vs R$ {fat_ant:,.2f} no mês anterior ({var_pct:+.1f}% de variação).",
+                    "descricao": f"A Filial {r['filial']} registrou R$ {fat_atual:,.2f} nos últimos 30 dias vs R$ {fat_ant:,.2f} no mesmo período do ano passado ({var_pct:+.1f}% YoY).",
                     "impacto_financeiro": max(0.0, fat_ant - fat_atual),
                     "impacto_formatted": f"R$ {max(0.0, fat_ant - fat_atual):,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-                    "sugestao_acao": "Avaliar se a queda foi provocada por falta de produtos específicos ou retração em carteiras de vendedores locais.",
+                    "sugestao_acao": "Avaliar falta de produtos específicos ou retração em carteiras de vendedores locais.",
                     "data_deteccao": "Agora",
                 })
             elif var_pct > 30:
