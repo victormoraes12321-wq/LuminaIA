@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "SemanticClarificationOptionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "option_token": {
+          "maxLength": 512,
+          "minLength": 32,
+          "title": "Option Token",
+          "type": "string"
+        },
+        "provenance_summary": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Provenance Summary",
+          "type": "string"
+        },
+        "public_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Public Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "option_token",
+        "public_label",
+        "entity_type",
+        "domain",
+        "provenance_summary"
+      ],
+      "title": "SemanticClarificationOptionV2",
+      "type": "object"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clarification_id": {
+      "format": "uuid",
+      "title": "Clarification Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "title": "Expires At",
+      "type": "string"
+    },
+    "mention_id": {
+      "format": "uuid",
+      "title": "Mention Id",
+      "type": "string"
+    },
+    "options": {
+      "items": {
+        "$ref": "#/$defs/SemanticClarificationOptionV2"
+      },
+      "title": "Options",
+      "type": "array"
+    },
+    "question": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+    },
+    "session_id": {
+      "format": "uuid",
+      "title": "Session Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "clarification_id",
+    "tenant_id",
+    "user_id",
+    "session_id",
+    "mention_id",
+    "question",
+    "options",
+    "expires_at"
+  ],
+  "title": "SemanticClarificationV2",
+  "type": "object"
+}

@@ -1,0 +1,63 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "sync_run_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Sync Run Id",
+      "type": "string"
+    },
+    "source_id": {
+      "default": "VW_VENDAS_LM",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_version": {
+      "default": "1.0.0",
+      "pattern": "^[a-zA-Z0-9._:-]{1,64}$",
+      "title": "Source Version",
+      "type": "string"
+    },
+    "watermark": {
+      "maxLength": 64,
+      "title": "Watermark",
+      "type": "string"
+    },
+    "reconciliation_status": {
+      "default": "SUCCESS",
+      "maxLength": 32,
+      "title": "Reconciliation Status",
+      "type": "string"
+    },
+    "force_replay": {
+      "default": false,
+      "title": "Force Replay",
+      "type": "boolean"
+    },
+    "policy_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy Id"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "sync_run_id",
+    "watermark"
+  ],
+  "title": "PostSyncInsightRunRequestV2",
+  "type": "object"
+}

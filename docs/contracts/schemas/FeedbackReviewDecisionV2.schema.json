@@ -1,0 +1,15 @@
+{
+  "enum": [
+    "CORRECT",
+    "ACCEPTABLE",
+    "PARTIALLY_CORRECT",
+    "INCORRECT",
+    "UNVERIFIABLE",
+    "AMBIGUOUS",
+    "OUT_OF_SCOPE",
+    "UNSAFE",
+    "TECHNICAL_FAILURE"
+  ],
+  "title": "FeedbackReviewDecisionV2",
+  "type": "string"
+}

@@ -1,0 +1,87 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "actor_user_id": {
+      "format": "uuid",
+      "title": "Actor User Id",
+      "type": "string"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Event Type",
+      "type": "string"
+    },
+    "feedback_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Feedback Id"
+    },
+    "reason_code": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "structural_metadata": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Structural Metadata",
+      "type": "array"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "tenant_id",
+    "actor_user_id",
+    "event_type",
+    "reason_code",
+    "created_at",
+    "checksum"
+  ],
+  "title": "FeedbackAuditEventV2",
+  "type": "object"
+}

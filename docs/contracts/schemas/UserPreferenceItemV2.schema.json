@@ -1,0 +1,906 @@
+{
+  "$defs": {
+    "AccessibilityPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "accessible_labels": {
+          "default": true,
+          "title": "Accessible Labels",
+          "type": "boolean"
+        },
+        "high_contrast": {
+          "default": false,
+          "title": "High Contrast",
+          "type": "boolean"
+        },
+        "kind": {
+          "const": "ACCESSIBILITY",
+          "default": "ACCESSIBILITY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "larger_text": {
+          "default": false,
+          "title": "Larger Text",
+          "type": "boolean"
+        },
+        "reduced_motion": {
+          "default": false,
+          "title": "Reduced Motion",
+          "type": "boolean"
+        }
+      },
+      "title": "AccessibilityPreferenceV2",
+      "type": "object"
+    },
+    "AnalyticalDefaultPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Id",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "filter_field_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Filter Field Id"
+        },
+        "filter_operator": {
+          "anyOf": [
+            {
+              "enum": [
+                "EQ",
+                "IN"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Filter Operator"
+        },
+        "filter_values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "title": "Filter Values",
+          "type": "array"
+        },
+        "kind": {
+          "const": "ANALYTICAL_DEFAULT",
+          "default": "ANALYTICAL_DEFAULT",
+          "title": "Kind",
+          "type": "string"
+        },
+        "knowledge_asset_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Knowledge Asset Id"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "period_key": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Key"
+        },
+        "target_field": {
+          "enum": [
+            "metric",
+            "dimension",
+            "entity",
+            "filter",
+            "period",
+            "ordering",
+            "limit"
+          ],
+          "title": "Target Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_field",
+        "canonical_id",
+        "display_label"
+      ],
+      "title": "AnalyticalDefaultPreferenceV2",
+      "type": "object"
+    },
+    "ConsentStatus": {
+      "enum": [
+        "GRANTED",
+        "REVOKED",
+        "NOT_REQUIRED",
+        "MISSING"
+      ],
+      "title": "ConsentStatus",
+      "type": "string"
+    },
+    "FavoriteAssetPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Id",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "FAVORITE_METRIC",
+            "FAVORITE_DIMENSION",
+            "FAVORITE_ENTITY"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "knowledge_asset_id": {
+          "format": "uuid",
+          "title": "Knowledge Asset Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "canonical_id",
+        "display_label",
+        "knowledge_asset_id"
+      ],
+      "title": "FavoriteAssetPreferenceV2",
+      "type": "object"
+    },
+    "InteractionPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmation_level": {
+          "default": "STANDARD",
+          "enum": [
+            "MINIMAL",
+            "STANDARD",
+            "STRICT"
+          ],
+          "title": "Confirmation Level",
+          "type": "string"
+        },
+        "kind": {
+          "const": "INTERACTION",
+          "default": "INTERACTION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "open_details_by_default": {
+          "default": false,
+          "title": "Open Details By Default",
+          "type": "boolean"
+        },
+        "preserve_expanded_rows": {
+          "default": false,
+          "title": "Preserve Expanded Rows",
+          "type": "boolean"
+        }
+      },
+      "title": "InteractionPreferenceV2",
+      "type": "object"
+    },
+    "LocalePreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "currency_display": {
+          "default": "BRL",
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency Display",
+          "type": "string"
+        },
+        "date_format": {
+          "default": "DD/MM/YYYY",
+          "enum": [
+            "DD/MM/YYYY",
+            "YYYY-MM-DD",
+            "DD MMM YYYY"
+          ],
+          "title": "Date Format",
+          "type": "string"
+        },
+        "kind": {
+          "const": "LOCALE",
+          "default": "LOCALE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+          "title": "Locale",
+          "type": "string"
+        },
+        "number_format": {
+          "default": "pt-BR",
+          "enum": [
+            "pt-BR",
+            "en-US"
+          ],
+          "title": "Number Format",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "title": "LocalePreferenceV2",
+      "type": "object"
+    },
+    "PreferenceConsentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "consent_id": {
+          "format": "uuid",
+          "title": "Consent Id",
+          "type": "string"
+        },
+        "granted_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Granted At"
+        },
+        "lock_version": {
+          "minimum": 0,
+          "title": "Lock Version",
+          "type": "integer"
+        },
+        "policy_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "preference_id": {
+          "format": "uuid",
+          "title": "Preference Id",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "revoked_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revoked At"
+        },
+        "scope": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Scope",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "USER_ACTION",
+            "SYSTEM_PRESENTATION_SETTING"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ConsentStatus"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "consent_id",
+        "preference_id",
+        "tenant_id",
+        "user_id",
+        "purpose",
+        "scope",
+        "status",
+        "policy_version",
+        "source",
+        "lock_version",
+        "checksum"
+      ],
+      "title": "PreferenceConsentV2",
+      "type": "object"
+    },
+    "PreferenceOrigin": {
+      "enum": [
+        "USER_EXPLICIT",
+        "SYSTEM_DEFAULT",
+        "ADMIN_POLICY",
+        "LEGACY_IMPORT",
+        "MIGRATED",
+        "FEEDBACK_CANDIDATE",
+        "INFERRED_UNCONFIRMED"
+      ],
+      "title": "PreferenceOrigin",
+      "type": "string"
+    },
+    "PreferenceOriginV2": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmed_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confirmed At"
+        },
+        "kind": {
+          "$ref": "#/$defs/PreferenceOrigin"
+        },
+        "source_label": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Source Label",
+          "type": "string"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Reference"
+        }
+      },
+      "required": [
+        "kind",
+        "source_label"
+      ],
+      "title": "PreferenceOriginV2",
+      "type": "object"
+    },
+    "PreferenceRisk": {
+      "enum": [
+        "SAFE_PRESENTATION",
+        "VISIBLE_ANALYTICAL_DEFAULT",
+        "REFERENCE_ONLY",
+        "RESTRICTED",
+        "FORBIDDEN"
+      ],
+      "title": "PreferenceRisk",
+      "type": "string"
+    },
+    "PreferenceStatus": {
+      "enum": [
+        "ACTIVE",
+        "DISABLED",
+        "EXPIRED",
+        "REVOKED",
+        "DELETED",
+        "PENDING_CONFIRMATION"
+      ],
+      "title": "PreferenceStatus",
+      "type": "string"
+    },
+    "PresentationPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "chart_granularity": {
+          "default": "AUTO",
+          "enum": [
+            "AUTO",
+            "SUMMARY",
+            "DETAILED"
+          ],
+          "title": "Chart Granularity",
+          "type": "string"
+        },
+        "decimal_places": {
+          "default": 2,
+          "maximum": 8,
+          "minimum": 0,
+          "title": "Decimal Places",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "PRESENTATION",
+          "default": "PRESENTATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "ordering": {
+          "default": "DEFAULT",
+          "enum": [
+            "DEFAULT",
+            "ASCENDING",
+            "DESCENDING"
+          ],
+          "title": "Ordering",
+          "type": "string"
+        },
+        "page_size": {
+          "default": 25,
+          "maximum": 200,
+          "minimum": 5,
+          "title": "Page Size",
+          "type": "integer"
+        },
+        "preferred_visualization": {
+          "default": "AUTO",
+          "enum": [
+            "AUTO",
+            "TABLE",
+            "BAR_CHART",
+            "LINE_CHART",
+            "PIE_CHART",
+            "KPI_CARD"
+          ],
+          "title": "Preferred Visualization",
+          "type": "string"
+        },
+        "table_density": {
+          "default": "COMFORTABLE",
+          "enum": [
+            "COMPACT",
+            "COMFORTABLE",
+            "SPACIOUS"
+          ],
+          "title": "Table Density",
+          "type": "string"
+        },
+        "table_first": {
+          "default": true,
+          "title": "Table First",
+          "type": "boolean"
+        },
+        "theme": {
+          "default": "SYSTEM",
+          "enum": [
+            "SYSTEM",
+            "LIGHT",
+            "DARK"
+          ],
+          "title": "Theme",
+          "type": "string"
+        }
+      },
+      "title": "PresentationPreferenceV2",
+      "type": "object"
+    },
+    "PrivacyPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_legacy_import": {
+          "default": false,
+          "title": "Allow Legacy Import",
+          "type": "boolean"
+        },
+        "application_audit_enabled": {
+          "default": true,
+          "title": "Application Audit Enabled",
+          "type": "boolean"
+        },
+        "kind": {
+          "const": "PRIVACY",
+          "default": "PRIVACY",
+          "title": "Kind",
+          "type": "string"
+        },
+        "profile_enabled": {
+          "default": true,
+          "title": "Profile Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "PrivacyPreferenceV2",
+      "type": "object"
+    },
+    "RetentionPreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "deletion_request_days": {
+          "default": 365,
+          "maximum": 3650,
+          "minimum": 30,
+          "title": "Deletion Request Days",
+          "type": "integer"
+        },
+        "expired_item_days": {
+          "default": 90,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Expired Item Days",
+          "type": "integer"
+        },
+        "export_days": {
+          "default": 30,
+          "maximum": 365,
+          "minimum": 1,
+          "title": "Export Days",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "RETENTION",
+          "default": "RETENTION",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "title": "RetentionPreferenceV2",
+      "type": "object"
+    },
+    "SavedReferencePreferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_scope": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Scope",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "SAVED_FILTER_REFERENCE",
+            "SAVED_QUERY_REFERENCE",
+            "SAVED_DASHBOARD_REFERENCE"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "reference_id": {
+          "format": "uuid",
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "reference_version": {
+          "minimum": 1,
+          "title": "Reference Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "reference_id",
+        "reference_version",
+        "display_label",
+        "canonical_scope"
+      ],
+      "title": "SavedReferencePreferenceV2",
+      "type": "object"
+    },
+    "UserPreferenceType": {
+      "enum": [
+        "PRESENTATION",
+        "LOCALE",
+        "ACCESSIBILITY",
+        "ANALYTICAL_DEFAULT",
+        "FAVORITE_METRIC",
+        "FAVORITE_DIMENSION",
+        "FAVORITE_ENTITY",
+        "SAVED_FILTER_REFERENCE",
+        "SAVED_QUERY_REFERENCE",
+        "SAVED_DASHBOARD_REFERENCE",
+        "INTERACTION",
+        "PRIVACY",
+        "RETENTION"
+      ],
+      "title": "UserPreferenceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "consent": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PreferenceConsentV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "content": {
+      "discriminator": {
+        "mapping": {
+          "ACCESSIBILITY": "#/$defs/AccessibilityPreferenceV2",
+          "ANALYTICAL_DEFAULT": "#/$defs/AnalyticalDefaultPreferenceV2",
+          "FAVORITE_DIMENSION": "#/$defs/FavoriteAssetPreferenceV2",
+          "FAVORITE_ENTITY": "#/$defs/FavoriteAssetPreferenceV2",
+          "FAVORITE_METRIC": "#/$defs/FavoriteAssetPreferenceV2",
+          "INTERACTION": "#/$defs/InteractionPreferenceV2",
+          "LOCALE": "#/$defs/LocalePreferenceV2",
+          "PRESENTATION": "#/$defs/PresentationPreferenceV2",
+          "PRIVACY": "#/$defs/PrivacyPreferenceV2",
+          "RETENTION": "#/$defs/RetentionPreferenceV2",
+          "SAVED_DASHBOARD_REFERENCE": "#/$defs/SavedReferencePreferenceV2",
+          "SAVED_FILTER_REFERENCE": "#/$defs/SavedReferencePreferenceV2",
+          "SAVED_QUERY_REFERENCE": "#/$defs/SavedReferencePreferenceV2"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PresentationPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/LocalePreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/AccessibilityPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/AnalyticalDefaultPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/FavoriteAssetPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/SavedReferencePreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/InteractionPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/PrivacyPreferenceV2"
+        },
+        {
+          "$ref": "#/$defs/RetentionPreferenceV2"
+        }
+      ],
+      "title": "Content"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "deleted_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Deleted At"
+    },
+    "effective_from": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective From"
+    },
+    "effective_to": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effective To"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "origin": {
+      "$ref": "#/$defs/PreferenceOriginV2"
+    },
+    "preference_id": {
+      "format": "uuid",
+      "title": "Preference Id",
+      "type": "string"
+    },
+    "preference_key": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Preference Key",
+      "type": "string"
+    },
+    "preference_type": {
+      "$ref": "#/$defs/UserPreferenceType"
+    },
+    "profile_id": {
+      "format": "uuid",
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "risk": {
+      "$ref": "#/$defs/PreferenceRisk"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/PreferenceStatus"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "preference_id",
+    "profile_id",
+    "tenant_id",
+    "user_id",
+    "preference_type",
+    "preference_key",
+    "content",
+    "risk",
+    "origin",
+    "status",
+    "version",
+    "lock_version",
+    "checksum",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "UserPreferenceItemV2",
+  "type": "object"
+}

@@ -1,0 +1,64 @@
+{
+  "$defs": {
+    "DashboardRevisionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "semantic_revision": {
+          "default": 1,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Semantic Revision",
+          "type": "integer"
+        },
+        "visual_revision": {
+          "default": 1,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Visual Revision",
+          "type": "integer"
+        }
+      },
+      "title": "DashboardRevisionV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "blueprint_version": {
+      "default": "1.0.0",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+      "title": "Blueprint Version",
+      "type": "string"
+    },
+    "contract_id": {
+      "const": "lumina.dashboard-blueprint",
+      "default": "lumina.dashboard-blueprint",
+      "title": "Contract Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "lumina.dashboard-blueprint/2.0",
+      "default": "lumina.dashboard-blueprint/2.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "publication_version": {
+      "anyOf": [
+        {
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Publication Version"
+    },
+    "revision": {
+      "$ref": "#/$defs/DashboardRevisionV2"
+    }
+  },
+  "title": "DashboardVersionV2",
+  "type": "object"
+}

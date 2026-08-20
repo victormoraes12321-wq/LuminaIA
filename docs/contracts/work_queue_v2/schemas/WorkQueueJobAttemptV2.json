@@ -1,0 +1,134 @@
+{
+  "$defs": {
+    "WorkQueueErrorClassV2": {
+      "enum": [
+        "DATABASE_TRANSIENT",
+        "TEMPORARY_RESOURCE_EXHAUSTION",
+        "LEASE_LOST",
+        "DEPENDENCY_TEMPORARILY_UNAVAILABLE",
+        "TIMEOUT_RETRYABLE",
+        "VALIDATION_ERROR",
+        "PERMISSION_DENIED",
+        "TENANT_MISMATCH",
+        "CONTRACT_ERROR",
+        "UNSAFE_REQUEST",
+        "IDEMPOTENCY_CONFLICT",
+        "CLASSIFICATION_BLOCK",
+        "UNKNOWN_JOB_TYPE",
+        "UNKNOWN_ERROR"
+      ],
+      "title": "WorkQueueErrorClassV2",
+      "type": "string"
+    },
+    "WorkQueueJobErrorV2": {
+      "additionalProperties": false,
+      "properties": {
+        "error_class": {
+          "$ref": "#/$defs/WorkQueueErrorClassV2"
+        },
+        "message": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "failed_at": {
+          "format": "date-time",
+          "title": "Failed At",
+          "type": "string"
+        },
+        "context_data": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Context Data",
+          "type": "object"
+        }
+      },
+      "required": [
+        "error_class",
+        "message",
+        "retryable",
+        "failed_at"
+      ],
+      "title": "WorkQueueJobErrorV2",
+      "type": "object"
+    },
+    "WorkQueueJobStatusV2": {
+      "enum": [
+        "QUEUED",
+        "CLAIMED",
+        "RUNNING",
+        "RETRY_WAIT",
+        "SUCCEEDED",
+        "BLOCKED",
+        "CANCEL_REQUESTED",
+        "CANCELLED",
+        "FAILED",
+        "DEAD_LETTER",
+        "EXPIRED"
+      ],
+      "title": "WorkQueueJobStatusV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attempt_number": {
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Attempt Number",
+      "type": "integer"
+    },
+    "worker_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Worker Id",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "ended_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ended At"
+    },
+    "status": {
+      "$ref": "#/$defs/WorkQueueJobStatusV2"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/WorkQueueJobErrorV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "attempt_number",
+    "worker_id",
+    "started_at",
+    "status"
+  ],
+  "title": "WorkQueueJobAttemptV2",
+  "type": "object"
+}

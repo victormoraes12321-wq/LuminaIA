@@ -1,0 +1,72 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "accepted": {
+      "minimum": 0,
+      "title": "Accepted",
+      "type": "integer"
+    },
+    "created_asset_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Created Asset Ids",
+      "type": "array"
+    },
+    "dry_run": {
+      "title": "Dry Run",
+      "type": "boolean"
+    },
+    "idempotent_replay": {
+      "default": false,
+      "title": "Idempotent Replay",
+      "type": "boolean"
+    },
+    "import_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Import Id"
+    },
+    "rejected": {
+      "minimum": 0,
+      "title": "Rejected",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Checksum",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 500,
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dry_run",
+    "source_checksum",
+    "accepted",
+    "rejected"
+  ],
+  "title": "KnowledgeImportResultV2",
+  "type": "object"
+}

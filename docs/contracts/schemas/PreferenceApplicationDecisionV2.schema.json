@@ -1,0 +1,98 @@
+{
+  "$defs": {
+    "ConsentStatus": {
+      "enum": [
+        "GRANTED",
+        "REVOKED",
+        "NOT_REQUIRED",
+        "MISSING"
+      ],
+      "title": "ConsentStatus",
+      "type": "string"
+    },
+    "PreferenceDecision": {
+      "enum": [
+        "APPLIED",
+        "SKIPPED",
+        "BLOCKED",
+        "CONFLICT",
+        "CONSENT_REQUIRED"
+      ],
+      "title": "PreferenceDecision",
+      "type": "string"
+    },
+    "PreferenceOrigin": {
+      "enum": [
+        "USER_EXPLICIT",
+        "SYSTEM_DEFAULT",
+        "ADMIN_POLICY",
+        "LEGACY_IMPORT",
+        "MIGRATED",
+        "FEEDBACK_CANDIDATE",
+        "INFERRED_UNCONFIRMED"
+      ],
+      "title": "PreferenceOrigin",
+      "type": "string"
+    },
+    "PreferenceRisk": {
+      "enum": [
+        "SAFE_PRESENTATION",
+        "VISIBLE_ANALYTICAL_DEFAULT",
+        "REFERENCE_ONLY",
+        "RESTRICTED",
+        "FORBIDDEN"
+      ],
+      "title": "PreferenceRisk",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "consent_status": {
+      "$ref": "#/$defs/ConsentStatus"
+    },
+    "decision": {
+      "$ref": "#/$defs/PreferenceDecision"
+    },
+    "field_path": {
+      "title": "Field Path",
+      "type": "string"
+    },
+    "origin": {
+      "$ref": "#/$defs/PreferenceOrigin"
+    },
+    "preference_id": {
+      "format": "uuid",
+      "title": "Preference Id",
+      "type": "string"
+    },
+    "preference_key": {
+      "title": "Preference Key",
+      "type": "string"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "risk": {
+      "$ref": "#/$defs/PreferenceRisk"
+    },
+    "visible_to_user": {
+      "title": "Visible To User",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "preference_id",
+    "preference_key",
+    "field_path",
+    "decision",
+    "reason_code",
+    "risk",
+    "origin",
+    "consent_status",
+    "visible_to_user"
+  ],
+  "title": "PreferenceApplicationDecisionV2",
+  "type": "object"
+}

@@ -1,0 +1,788 @@
+{
+  "$defs": {
+    "ExpectedClarificationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_question": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Expected Question",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_CLARIFICATION",
+          "default": "EXPECTED_CLARIFICATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "missing_field": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Missing Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "missing_field",
+        "expected_question"
+      ],
+      "title": "ExpectedClarificationCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedComparisonCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_label": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Label"
+        },
+        "comparison_kind": {
+          "enum": [
+            "PERIOD_OVER_PERIOD",
+            "ENTITY",
+            "TARGET",
+            "RANKING",
+            "PARTICIPATION"
+          ],
+          "title": "Comparison Kind",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_COMPARISON",
+          "default": "EXPECTED_COMPARISON",
+          "title": "Kind",
+          "type": "string"
+        },
+        "target_label": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Label"
+        }
+      },
+      "required": [
+        "comparison_kind"
+      ],
+      "title": "ExpectedComparisonCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedDimensionCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_dimension_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Dimension Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_DIMENSION",
+          "default": "EXPECTED_DIMENSION",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_dimension_id"
+      ],
+      "title": "ExpectedDimensionCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedEntityCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Entity Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_ENTITY",
+          "default": "EXPECTED_ENTITY",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_entity_id"
+      ],
+      "title": "ExpectedEntityCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedFilterCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Field Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_FILTER",
+          "default": "EXPECTED_FILTER",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "EQ",
+            "NE",
+            "IN",
+            "NOT_IN",
+            "GT",
+            "GTE",
+            "LT",
+            "LTE",
+            "BETWEEN"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "canonical_field_id",
+        "operator",
+        "values"
+      ],
+      "title": "ExpectedFilterCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedMetricCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_metric_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Metric Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_METRIC",
+          "default": "EXPECTED_METRIC",
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "canonical_metric_id"
+      ],
+      "title": "ExpectedMetricCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedPeriodCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "end_date": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "title": "End Date",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_PERIOD",
+          "default": "EXPECTED_PERIOD",
+          "title": "Kind",
+          "type": "string"
+        },
+        "start_date": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "maxLength": 64,
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_date",
+        "end_date"
+      ],
+      "title": "ExpectedPeriodCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedRelationshipCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_RELATIONSHIP",
+          "default": "EXPECTED_RELATIONSHIP",
+          "title": "Kind",
+          "type": "string"
+        },
+        "relationship": {
+          "enum": [
+            "FOLLOW_UP",
+            "REFINEMENT",
+            "COMPARISON",
+            "RESET",
+            "NEW_TOPIC"
+          ],
+          "title": "Relationship",
+          "type": "string"
+        }
+      },
+      "required": [
+        "relationship"
+      ],
+      "title": "ExpectedRelationshipCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedScopeCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_SCOPE",
+          "default": "EXPECTED_SCOPE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "IN_SCOPE",
+            "OUT_OF_SCOPE",
+            "REQUIRES_SPECIALIST"
+          ],
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scope",
+        "reason"
+      ],
+      "title": "ExpectedScopeCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedVisualizationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_VISUALIZATION",
+          "default": "EXPECTED_VISUALIZATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "visualization": {
+          "enum": [
+            "AUTO",
+            "TABLE",
+            "BAR_CHART",
+            "LINE_CHART",
+            "PIE_CHART",
+            "KPI_CARD"
+          ],
+          "title": "Visualization",
+          "type": "string"
+        }
+      },
+      "required": [
+        "visualization"
+      ],
+      "title": "ExpectedVisualizationCorrectionV2",
+      "type": "object"
+    },
+    "FeedbackCategoryV2": {
+      "enum": [
+        "POSITIVE",
+        "NEGATIVE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT_VALUE",
+        "INCORRECT_FILTER",
+        "INCORRECT_PERIOD",
+        "INCORRECT_METRIC",
+        "INCORRECT_ENTITY",
+        "INCORRECT_DIMENSION",
+        "INCORRECT_COMPARISON",
+        "INCORRECT_VISUALIZATION",
+        "MISSING_CONTEXT",
+        "UNWANTED_INHERITANCE",
+        "MISSING_INHERITANCE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE_OUTPUT",
+        "PERFORMANCE",
+        "OTHER"
+      ],
+      "title": "FeedbackCategoryV2",
+      "type": "string"
+    },
+    "FeedbackCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "EXPECTED_CLARIFICATION": "#/$defs/ExpectedClarificationCorrectionV2",
+                "EXPECTED_COMPARISON": "#/$defs/ExpectedComparisonCorrectionV2",
+                "EXPECTED_DIMENSION": "#/$defs/ExpectedDimensionCorrectionV2",
+                "EXPECTED_ENTITY": "#/$defs/ExpectedEntityCorrectionV2",
+                "EXPECTED_FILTER": "#/$defs/ExpectedFilterCorrectionV2",
+                "EXPECTED_METRIC": "#/$defs/ExpectedMetricCorrectionV2",
+                "EXPECTED_PERIOD": "#/$defs/ExpectedPeriodCorrectionV2",
+                "EXPECTED_RELATIONSHIP": "#/$defs/ExpectedRelationshipCorrectionV2",
+                "EXPECTED_SCOPE": "#/$defs/ExpectedScopeCorrectionV2",
+                "EXPECTED_VISUALIZATION": "#/$defs/ExpectedVisualizationCorrectionV2",
+                "FREE_TEXT_EXPLANATION": "#/$defs/FreeTextExplanationCorrectionV2"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ExpectedMetricCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedPeriodCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedFilterCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedEntityCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedDimensionCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedComparisonCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedVisualizationCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedRelationshipCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedClarificationCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedScopeCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/FreeTextExplanationCorrectionV2"
+              }
+            ]
+          },
+          "maxItems": 20,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "title": "FeedbackCorrectionV2",
+      "type": "object"
+    },
+    "FeedbackLifecycle": {
+      "enum": [
+        "RECEIVED",
+        "VALIDATED",
+        "TRIAGED",
+        "IN_REVIEW",
+        "APPROVED",
+        "REJECTED",
+        "NEEDS_INFORMATION",
+        "WITHDRAWN",
+        "EXPIRED",
+        "ARCHIVED"
+      ],
+      "title": "FeedbackLifecycle",
+      "type": "string"
+    },
+    "FeedbackPriority": {
+      "enum": [
+        "P4",
+        "P3",
+        "P2",
+        "P1"
+      ],
+      "title": "FeedbackPriority",
+      "type": "string"
+    },
+    "FeedbackReviewDecisionV2": {
+      "enum": [
+        "CORRECT",
+        "ACCEPTABLE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT",
+        "UNVERIFIABLE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE",
+        "TECHNICAL_FAILURE"
+      ],
+      "title": "FeedbackReviewDecisionV2",
+      "type": "string"
+    },
+    "FeedbackSeverity": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "FeedbackSeverity",
+      "type": "string"
+    },
+    "FeedbackTargetV2": {
+      "additionalProperties": false,
+      "properties": {
+        "query_node_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Node Id"
+        },
+        "response_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Response Checksum",
+          "type": "string"
+        },
+        "response_contract_version": {
+          "default": "lumina.query-response/1.0",
+          "maxLength": 64,
+          "title": "Response Contract Version",
+          "type": "string"
+        },
+        "response_node_id": {
+          "format": "uuid",
+          "title": "Response Node Id",
+          "type": "string"
+        },
+        "session_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Session Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "response_node_id",
+        "session_id",
+        "response_checksum"
+      ],
+      "title": "FeedbackTargetV2",
+      "type": "object"
+    },
+    "FeedbackTriageResultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/FeedbackCategoryV2"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "classification_confidence": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Classification Confidence",
+          "type": "integer"
+        },
+        "duplicate_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Duplicate Fingerprint",
+          "type": "string"
+        },
+        "needs_specialist": {
+          "default": false,
+          "title": "Needs Specialist",
+          "type": "boolean"
+        },
+        "priority": {
+          "$ref": "#/$defs/FeedbackPriority"
+        },
+        "review_queue": {
+          "enum": [
+            "GENERAL",
+            "DATA_INTEGRITY",
+            "SECURITY",
+            "CONTEXT",
+            "VISUALIZATION",
+            "PERFORMANCE"
+          ],
+          "title": "Review Queue",
+          "type": "string"
+        },
+        "rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Rule Ids",
+          "type": "array"
+        },
+        "severity": {
+          "$ref": "#/$defs/FeedbackSeverity"
+        },
+        "suspected_formula_conflict": {
+          "default": false,
+          "title": "Suspected Formula Conflict",
+          "type": "boolean"
+        },
+        "suspected_security": {
+          "default": false,
+          "title": "Suspected Security",
+          "type": "boolean"
+        },
+        "suspected_tenant_issue": {
+          "default": false,
+          "title": "Suspected Tenant Issue",
+          "type": "boolean"
+        },
+        "triage_id": {
+          "format": "uuid",
+          "title": "Triage Id",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "triage_id",
+        "category",
+        "severity",
+        "priority",
+        "review_queue",
+        "duplicate_fingerprint",
+        "classification_confidence",
+        "checksum"
+      ],
+      "title": "FeedbackTriageResultV2",
+      "type": "object"
+    },
+    "FreeTextExplanationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "kind": {
+          "const": "FREE_TEXT_EXPLANATION",
+          "default": "FREE_TEXT_EXPLANATION",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "explanation"
+      ],
+      "title": "FreeTextExplanationCorrectionV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "category": {
+      "$ref": "#/$defs/FeedbackCategoryV2"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "lumina.supervised-feedback/1.0",
+      "default": "lumina.supervised-feedback/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "correction": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackCorrectionV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "duplicate_group": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Duplicate Group",
+      "type": "string"
+    },
+    "explanation": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Explanation"
+    },
+    "feedback_id": {
+      "format": "uuid",
+      "title": "Feedback Id",
+      "type": "string"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/FeedbackLifecycle"
+    },
+    "lock_version": {
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "redaction_manifest_id": {
+      "format": "uuid",
+      "title": "Redaction Manifest Id",
+      "type": "string"
+    },
+    "review_decision": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackReviewDecisionV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reviewer_user_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewer User Id"
+    },
+    "target": {
+      "$ref": "#/$defs/FeedbackTargetV2"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "triage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackTriageResultV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "feedback_id",
+    "tenant_id",
+    "user_id",
+    "target",
+    "category",
+    "lifecycle",
+    "duplicate_group",
+    "redaction_manifest_id",
+    "lock_version",
+    "checksum",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "FeedbackRecordV2",
+  "type": "object"
+}

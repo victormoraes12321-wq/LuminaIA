@@ -1,0 +1,2985 @@
+[
+  {
+    "id": "bced4d72-bdfc-412e-a2cf-8c317f9e2bf2",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz f94e8f78 d4d8 412e 8392 8e950813c792",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 17:38:58.941968+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "5777cfd8-ab06-47e0-967e-265e1cae946e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:31:44.713412+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "9699d8d8-7ca8-43b7-83dc-7c019d1b4bda",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 89265e5c 76d9 44b2 b2c9 4f2acbfae14c",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 16:57:17.159623+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "39942c0f-1a11-4709-9979-c7e05c77f38a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz d8435ebe 7896 4098 98e3 bd30188ce2e5",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 10:24:32.579465+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "3e7781ae-2b4e-405c-9865-4df2902c9cb2",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:37:13.820459+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "0c416f18-872f-4441-a41b-eb3056b7c6fd",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto faturamos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_002"
+      ],
+      "dimensions": []
+    },
+    "score": "95.00",
+    "criado_em": "2026-07-09 15:33:21.473236+00:00",
+    "blueprint_associado": null,
+    "frequencia": 46,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "acec084f-79ac-449d-b717-8f7d9719a32a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 16:33:06.448090+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "55bd0ab1-cbc0-4508-a49d-69e8bf385733",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:37:43.589059+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "54ee95b8-eadd-4f4c-a7a5-5cb8b62a5818",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 17:04:45.596245+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "d3567130-f004-45e7-914b-122a8366806d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 15:29:46.861409+00:00",
+    "blueprint_associado": null,
+    "frequencia": 4,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "35fd58d6-a28f-4dfe-a761-af7590da69c2",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:38:03.295359+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "f586070e-137e-45af-bcef-34e8c98abc5c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 38426ff2 0240 4e65 9bc1 17d25bab4452",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 16:33:07.401712+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "1f1bec1b-74aa-4aad-a6c8-0130542a0c4d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:38:30.823358+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "ab832e82-9b2f-4bc6-a7d7-5b9f27da7860",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 10:33:23.977295+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "d5ecd06e-2d15-4b2b-b3a3-766ab5f25788",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 81edd5d9 6b9d 4448 9ecf 77dda9ea3a1d",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 15:38:31.527487+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "2cee49c9-2776-44ea-8426-22bc7b34522c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:40:35.559690+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "8fdb14a4-b597-4524-bf89-71840f9ed753",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 3e468c43 b135 4fc2 a490 f691b2a5e6b8",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 17:04:46.461439+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "1c6ae84d-63a4-4e41-892d-385d017b87be",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 1eb67865 0135 4ed7 bea8 88a69177c241",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 15:40:36.418645+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "8c609d2e-3404-4a56-a37d-8fe185d48e03",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendeu hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "95.00",
+    "criado_em": "2026-07-09 16:14:09.192664+00:00",
+    "blueprint_associado": null,
+    "frequencia": 4,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "5a8ad84f-9158-4b7b-b8a6-7dee9a806a26",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 620d7e17 2d10 4a13 a8e5 041a264fbd06",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 17:35:05.465741+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "cd9452d5-1e81-4e97-8401-90eb39752144",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 16:05:08.102352+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "910ab9e8-bb96-43f4-a404-9bad10791b00",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 16:48:27.558294+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "a3839e85-9f20-407e-8d20-01acd79bf451",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz c0a9cc61 42cb 43d2 80be 06e53fa5e21b",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 16:05:08.875070+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "098a98a3-2dcd-4a50-b9fa-91c5f16ee70f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 16:11:20.172290+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "d6af708e-9d48-48ce-930e-a70e4a6eb7d9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 6197c86a 48b1 48eb b197 4a7918437196",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 10:33:24.725378+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "4e491845-8f21-4c5b-a47a-a4bf1da18ced",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz fa16abee beaf 456d ba70 7516f795e730",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 16:11:21.049493+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "42ae7987-0b41-4d8e-9aab-ae958d2b719d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 10:24:31.714001+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "6bb0d91e-5e30-4eae-81e5-98fcaebf8d74",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 8efb32eb c93a 4bc5 9db8 1147bac79b1e",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-09 16:48:28.317420+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "f53a60e1-4307-4aa8-b766-7693070629df",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 16:57:16.312087+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "fe7ec025-6a4d-4595-a164-043ec4e02e0e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-09 15:29:46.093408+00:00",
+    "blueprint_associado": null,
+    "frequencia": 32,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "ac6a05cb-894a-4bc4-abc5-83d5ad10a3b1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 17:35:04.523167+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "beb24564-9826-4ce1-8393-5b2b38c60c95",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 17:38:57.889941+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "618c127a-929e-4587-ba96-fac964bb823f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 17:44:51.315872+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "ccadc517-bf95-4621-a2b7-ee10b3943b1c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz a273a5b2 ed5d 4c57 b404 45c63d5e4769",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ]
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 17:44:53.021251+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "0b8a0be3-211c-442a-9d96-6e6a69cbb154",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:05:59.412724+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "d8154d2c-29dd-45b4-920c-07bf1d2a55eb",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz d2d80438 2f8f 44c6 a54c afabe9cca237",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:06:00.363759",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_5d6531e3d73b",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mÃªs",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz d2d80438-2f8f-44c6-a54c-afabe9cca237?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:06:00.365013+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "46c7eca3-cd29-41e2-add1-73a64e59fc01",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:07:24.377727+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "ade3d374-394d-4bd8-9368-154dff159eb4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz bb7dcbeb bf1b 4521 90c0 a3cb2f3e1bce",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:07:25.189247",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_534f920bc8b6",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mÃªs",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz bb7dcbeb-bf1b-4521-90c0-a3cb2f3e1bce?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:07:25.184742+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "8447ee7a-12eb-4555-8e14-f81d4764fd3a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:08:07.378482+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "44dfba30-53cd-4271-8f30-f9d7368f571a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 3fcce075 a7ca 4bb7 a4e6 14246fd80872",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:08:08.253593+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_fd4b6ed7ec24",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mÃªs",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 3fcce075-a7ca-4bb7-a4e6-14246fd80872?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:08:08.261052+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "548e74c7-c90e-44b5-92d7-04e4f51942da",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:10:50.768604+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "3aa5cb47-e633-4277-92ab-3b7ab64922e6",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quais os produtos mais vendidos nos ultimos 3 meses",
+    "objeto_resolvido": {
+      "period": "PER_LAST_90_DAYS",
+      "filters": {},
+      "metrics": [
+        "MET_006"
+      ],
+      "dimensions": [
+        "DIM_003"
+      ]
+    },
+    "score": "95.00",
+    "criado_em": "2026-07-09 17:17:33.031109+00:00",
+    "blueprint_associado": null,
+    "frequencia": 22,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "d87f3bef-0ec8-4608-8ffe-665512dc9f12",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz e6d950d1 73bc 404b a6b9 25781757f73d",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:10:51.740624+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_403b59488b4c",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mÃªs",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz e6d950d1-73bc-404b-a6b9-25781757f73d?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:10:51.735040+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "3f78a758-9efc-4de1-8687-a91d2aa277de",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:14:03.007045+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "b8697667-bdb0-4ca3-b9bb-9b867e2b6235",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 206ea6b3 cc2d 407b 831f d67b8e0f866d",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:14:03.908783+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_912b41904f78",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 206ea6b3-cc2d-407b-831f-d67b8e0f866d?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:14:03.903325+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "54f1c559-5a1f-40de-b185-9a4f47d61949",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-10 18:14:38.877110+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "5bb8b4de-d7fc-4f95-a30a-5ae9f2fec824",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 9d09cd55 cc91 47c1 9223 ee89ce47218f",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-10T18:14:40.080540+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_8a06d133e0ad",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 9d09cd55-cc91-47c1-9223-ee89ce47218f?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-10 18:14:40.075614+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "e33b652d-08ed-4e83-b0ea-844062c7fbfe",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:32:51.757203+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "7199c142-8c40-4500-9546-0790034e4e99",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 19e9eb95 2a89 43d9 a897 e20acdd28283",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:32:53.123053+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_439350e86fc3",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 19e9eb95-2a89-43d9-a897-e20acdd28283?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:32:53.112815+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "9347197b-3027-4606-90eb-5bcd871fc6e7",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:39:47.702234+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "bfb17fac-3a5e-4e01-9908-ffb2b3b7eefb",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 8e8557ea bc14 4eec b9c7 dbd698411966",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:39:48.998561+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_d9ed98ab65be",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 8e8557ea-bc14-4eec-b9c7-dbd698411966?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:39:48.990240+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "1ae62192-1f61-47bf-916b-390787a96c18",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:42:44.123382+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "fa151fd2-9e15-4b52-8f44-2950da1efc13",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 1366c5e3 aa8e 4e71 9ad3 5da5593e10e0",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:42:45.515367+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_6dbcbf913bb5",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 1366c5e3-aa8e-4e71-9ad3-5da5593e10e0?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:42:45.508558+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "27203947-49f2-45b7-b05f-24f0ab168d3c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:46:11.876781+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "60cac883-9244-46d4-9f30-0c9212830115",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz ff9c16ed 2c34 4b8f 9456 1f52a2490502",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:46:13.092011+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_36d3f06905aa",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz ff9c16ed-2c34-4b8f-9456-1f52a2490502?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:46:13.086644+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "e698e59e-b11b-4938-9c93-0f178ffbf10a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:54:30.017593+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "8391ba69-f277-4141-9e90-4f6fb337d0a5",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz cede13e3 80f1 40f2 8b06 975f8c58aca8",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:54:32.089024+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_586cf1f1e013",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz cede13e3-80f1-40f2-8b06-975f8c58aca8?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:54:32.075361+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "fd5f2eab-cea8-40db-9812-39209a871e43",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 10:58:20.307789+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "37e9be2c-343d-4db6-89a1-1f4526876056",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 996b5424 5174 4a22 b72c aeecf8d6e220",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T10:58:22.359265+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_dfe8037423af",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 996b5424-5174-4a22-b72c-aeecf8d6e220?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 10:58:22.352887+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "948ce7de-bc07-4865-a989-411ed5e4f5e4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "quanto vendemos hoje",
+    "objeto_resolvido": {
+      "period": "PER_TODAY",
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": []
+    },
+    "score": "98.00",
+    "criado_em": "2026-07-11 11:50:18.256110+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  },
+  {
+    "id": "a22e5cc9-a112-43e3-9fff-9fb656ce728e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "expressao": "qual bla bla bla xyz 68cc8b96 bb83 4bde b95e e88c6db8ab70",
+    "objeto_resolvido": {
+      "period": "PER_CURRENT_MONTH",
+      "scores": {
+        "context_score": 65.0,
+        "ambiguity_score": 4.0,
+        "intent_quality_score": 96.0,
+        "business_alignment_score": 96.0,
+        "semantic_confidence_score": 96.0,
+        "conversation_continuity_score": 65.0
+      },
+      "filters": {},
+      "metrics": [
+        "MET_001"
+      ],
+      "dimensions": [
+        "DIM_002"
+      ],
+      "hypotheses": [
+        {
+          "period": "PER_CURRENT_MONTH",
+          "filters": {},
+          "metrics": [
+            "MET_001"
+          ],
+          "concepts": [
+            {
+              "id": "MET_001",
+              "label": "Receita Total",
+              "concept_type": "METRIC",
+              "aliases_matched": []
+            },
+            {
+              "id": "DIM_002",
+              "label": "Vendedor",
+              "concept_type": "DIMENSION",
+              "aliases_matched": []
+            }
+          ],
+          "selected": true,
+          "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+          "dimensions": [
+            "DIM_002"
+          ],
+          "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+          "context_score": 80.0,
+          "hypothesis_id": "H1",
+          "confidence_score": 96.0
+        }
+      ],
+      "ambiguity_level": "BAIXA",
+      "confidence_level": "ALTA",
+      "corporate_intent_plan": {
+        "audit": {
+          "model": "gpt-4o-mini",
+          "source": "CSIE",
+          "timestamp": "2026-07-11T11:50:20.262521+00:00",
+          "tokens_consumed": 1,
+          "contains_physical_metadata": false
+        },
+        "cip_id": "cip_3d7240fde199",
+        "period": {
+          "id": "PER_CURRENT_MONTH",
+          "label": "Este mes",
+          "concept_type": "PERIOD",
+          "aliases_matched": []
+        },
+        "scores": {
+          "context_score": 65.0,
+          "ambiguity_score": 4.0,
+          "intent_quality_score": 96.0,
+          "business_alignment_score": 96.0,
+          "semantic_confidence_score": 96.0,
+          "conversation_continuity_score": 65.0
+        },
+        "filters": [],
+        "version": "CIP-1.0",
+        "ordering": [],
+        "groupings": [
+          "DIM_002"
+        ],
+        "hypotheses": [
+          {
+            "period": "PER_CURRENT_MONTH",
+            "filters": {},
+            "metrics": [
+              "MET_001"
+            ],
+            "concepts": [
+              {
+                "id": "MET_001",
+                "label": "Receita Total",
+                "concept_type": "METRIC",
+                "aliases_matched": []
+              },
+              {
+                "id": "DIM_002",
+                "label": "Vendedor",
+                "concept_type": "DIMENSION",
+                "aliases_matched": []
+              }
+            ],
+            "selected": true,
+            "rationale": "Maior aderencia semantica aos termos informados pelo usuario.",
+            "dimensions": [
+              "DIM_002"
+            ],
+            "description": "Interpretacao principal com base nos conceitos corporativos identificados.",
+            "context_score": 80.0,
+            "hypothesis_id": "H1",
+            "confidence_score": 96.0
+          }
+        ],
+        "explanation": {
+          "origin": "IA",
+          "policy": "Somente solicitar esclarecimento abaixo de 50 quando nao houver conceitos suficientes.",
+          "selected_reason": "Hipotese selecionada por maior aderencia semantica e contexto corporativo.",
+          "discarded_hypotheses": []
+        },
+        "original_query": "Qual bla bla bla xyz 68cc8b96-bb83-4bde-b95e-e88c6db8ab70?",
+        "primary_intent": "CONSULTA",
+        "ambiguity_level": "BAIXA",
+        "confidence_level": "ALTA",
+        "corporate_metrics": [
+          {
+            "id": "MET_001",
+            "label": "Receita Total",
+            "concept_type": "METRIC",
+            "aliases_matched": []
+          }
+        ],
+        "secondary_intents": [],
+        "desired_granularity": "conceitual",
+        "operational_context": {},
+        "analytical_objective": "CONSULTA: interpretar a solicitacao usando apenas conceitos corporativos.",
+        "corporate_dimensions": [
+          {
+            "id": "DIM_002",
+            "label": "Vendedor",
+            "concept_type": "DIMENSION",
+            "aliases_matched": []
+          }
+        ],
+        "selected_hypothesis_id": "H1",
+        "suggested_visualization": "TABLE"
+      }
+    },
+    "score": "96.00",
+    "criado_em": "2026-07-11 11:50:20.252993+00:00",
+    "blueprint_associado": null,
+    "frequencia": 1,
+    "confianca": "ALTA",
+    "origem": "IA"
+  }
+]

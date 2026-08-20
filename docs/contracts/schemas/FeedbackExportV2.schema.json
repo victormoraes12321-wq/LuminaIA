@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "export_id": {
+      "format": "uuid",
+      "title": "Export Id",
+      "type": "string"
+    },
+    "feedback_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "title": "Feedback Ids",
+      "type": "array"
+    },
+    "format": {
+      "enum": [
+        "JSON",
+        "JSONL"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "record_count": {
+      "minimum": 0,
+      "title": "Record Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "export_id",
+    "format",
+    "record_count",
+    "checksum",
+    "created_at"
+  ],
+  "title": "FeedbackExportV2",
+  "type": "object"
+}

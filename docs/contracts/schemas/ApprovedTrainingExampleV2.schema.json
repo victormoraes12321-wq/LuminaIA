@@ -1,0 +1,781 @@
+{
+  "$defs": {
+    "CanonicalFilterSnapshotV2": {
+      "additionalProperties": false,
+      "properties": {
+        "field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Id",
+          "type": "string"
+        },
+        "operator": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Operator",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "field_id",
+        "operator"
+      ],
+      "title": "CanonicalFilterSnapshotV2",
+      "type": "object"
+    },
+    "ExpectedClarificationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_question": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Expected Question",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_CLARIFICATION",
+          "default": "EXPECTED_CLARIFICATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "missing_field": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Missing Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "missing_field",
+        "expected_question"
+      ],
+      "title": "ExpectedClarificationCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedComparisonCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_label": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Label"
+        },
+        "comparison_kind": {
+          "enum": [
+            "PERIOD_OVER_PERIOD",
+            "ENTITY",
+            "TARGET",
+            "RANKING",
+            "PARTICIPATION"
+          ],
+          "title": "Comparison Kind",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_COMPARISON",
+          "default": "EXPECTED_COMPARISON",
+          "title": "Kind",
+          "type": "string"
+        },
+        "target_label": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Label"
+        }
+      },
+      "required": [
+        "comparison_kind"
+      ],
+      "title": "ExpectedComparisonCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedDimensionCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_dimension_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Dimension Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_DIMENSION",
+          "default": "EXPECTED_DIMENSION",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_dimension_id"
+      ],
+      "title": "ExpectedDimensionCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedEntityCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Entity Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_ENTITY",
+          "default": "EXPECTED_ENTITY",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_entity_id"
+      ],
+      "title": "ExpectedEntityCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedFilterCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Field Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_FILTER",
+          "default": "EXPECTED_FILTER",
+          "title": "Kind",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "EQ",
+            "NE",
+            "IN",
+            "NOT_IN",
+            "GT",
+            "GTE",
+            "LT",
+            "LTE",
+            "BETWEEN"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "canonical_field_id",
+        "operator",
+        "values"
+      ],
+      "title": "ExpectedFilterCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedMetricCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_metric_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Canonical Metric Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_METRIC",
+          "default": "EXPECTED_METRIC",
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        }
+      },
+      "required": [
+        "canonical_metric_id"
+      ],
+      "title": "ExpectedMetricCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedPeriodCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "end_date": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "title": "End Date",
+          "type": "string"
+        },
+        "kind": {
+          "const": "EXPECTED_PERIOD",
+          "default": "EXPECTED_PERIOD",
+          "title": "Kind",
+          "type": "string"
+        },
+        "start_date": {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "maxLength": 64,
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_date",
+        "end_date"
+      ],
+      "title": "ExpectedPeriodCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedRelationshipCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_RELATIONSHIP",
+          "default": "EXPECTED_RELATIONSHIP",
+          "title": "Kind",
+          "type": "string"
+        },
+        "relationship": {
+          "enum": [
+            "FOLLOW_UP",
+            "REFINEMENT",
+            "COMPARISON",
+            "RESET",
+            "NEW_TOPIC"
+          ],
+          "title": "Relationship",
+          "type": "string"
+        }
+      },
+      "required": [
+        "relationship"
+      ],
+      "title": "ExpectedRelationshipCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedScopeCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_SCOPE",
+          "default": "EXPECTED_SCOPE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "IN_SCOPE",
+            "OUT_OF_SCOPE",
+            "REQUIRES_SPECIALIST"
+          ],
+          "title": "Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "scope",
+        "reason"
+      ],
+      "title": "ExpectedScopeCorrectionV2",
+      "type": "object"
+    },
+    "ExpectedVisualizationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "EXPECTED_VISUALIZATION",
+          "default": "EXPECTED_VISUALIZATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "visualization": {
+          "enum": [
+            "AUTO",
+            "TABLE",
+            "BAR_CHART",
+            "LINE_CHART",
+            "PIE_CHART",
+            "KPI_CARD"
+          ],
+          "title": "Visualization",
+          "type": "string"
+        }
+      },
+      "required": [
+        "visualization"
+      ],
+      "title": "ExpectedVisualizationCorrectionV2",
+      "type": "object"
+    },
+    "FeedbackCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "EXPECTED_CLARIFICATION": "#/$defs/ExpectedClarificationCorrectionV2",
+                "EXPECTED_COMPARISON": "#/$defs/ExpectedComparisonCorrectionV2",
+                "EXPECTED_DIMENSION": "#/$defs/ExpectedDimensionCorrectionV2",
+                "EXPECTED_ENTITY": "#/$defs/ExpectedEntityCorrectionV2",
+                "EXPECTED_FILTER": "#/$defs/ExpectedFilterCorrectionV2",
+                "EXPECTED_METRIC": "#/$defs/ExpectedMetricCorrectionV2",
+                "EXPECTED_PERIOD": "#/$defs/ExpectedPeriodCorrectionV2",
+                "EXPECTED_RELATIONSHIP": "#/$defs/ExpectedRelationshipCorrectionV2",
+                "EXPECTED_SCOPE": "#/$defs/ExpectedScopeCorrectionV2",
+                "EXPECTED_VISUALIZATION": "#/$defs/ExpectedVisualizationCorrectionV2",
+                "FREE_TEXT_EXPLANATION": "#/$defs/FreeTextExplanationCorrectionV2"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ExpectedMetricCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedPeriodCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedFilterCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedEntityCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedDimensionCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedComparisonCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedVisualizationCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedRelationshipCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedClarificationCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/ExpectedScopeCorrectionV2"
+              },
+              {
+                "$ref": "#/$defs/FreeTextExplanationCorrectionV2"
+              }
+            ]
+          },
+          "maxItems": 20,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "title": "FeedbackCorrectionV2",
+      "type": "object"
+    },
+    "FeedbackReviewDecisionV2": {
+      "enum": [
+        "CORRECT",
+        "ACCEPTABLE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT",
+        "UNVERIFIABLE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE",
+        "TECHNICAL_FAILURE"
+      ],
+      "title": "FeedbackReviewDecisionV2",
+      "type": "string"
+    },
+    "FreeTextExplanationCorrectionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "kind": {
+          "const": "FREE_TEXT_EXPLANATION",
+          "default": "FREE_TEXT_EXPLANATION",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "explanation"
+      ],
+      "title": "FreeTextExplanationCorrectionV2",
+      "type": "object"
+    },
+    "TrainingExampleExpectedOutputV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_classification": {
+          "$ref": "#/$defs/FeedbackReviewDecisionV2"
+        },
+        "expected_corrections": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FeedbackCorrectionV2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "expected_error_code": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Error Code"
+        },
+        "expected_readiness": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Readiness"
+        },
+        "expected_response_shape": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Response Shape"
+        }
+      },
+      "required": [
+        "expected_classification"
+      ],
+      "title": "TrainingExampleExpectedOutputV2",
+      "type": "object"
+    },
+    "TrainingExampleInputV2": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Dimension Ids",
+          "type": "array"
+        },
+        "entity_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Entity Ids",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/CanonicalFilterSnapshotV2"
+          },
+          "maxItems": 100,
+          "title": "Filters",
+          "type": "array"
+        },
+        "intent_kind": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Intent Kind",
+          "type": "string"
+        },
+        "locale": {
+          "default": "pt-BR",
+          "maxLength": 16,
+          "title": "Locale",
+          "type": "string"
+        },
+        "metric_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Metric Ids",
+          "type": "array"
+        },
+        "minimized_question": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Minimized Question",
+          "type": "string"
+        },
+        "relationship": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relationship"
+        },
+        "requested_visualizations": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Requested Visualizations",
+          "type": "array"
+        },
+        "time_windows": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Time Windows",
+          "type": "array"
+        },
+        "timezone": {
+          "default": "America/Sao_Paulo",
+          "maxLength": 64,
+          "title": "Timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "minimized_question",
+        "intent_kind"
+      ],
+      "title": "TrainingExampleInputV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applicable_contract_versions": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "minItems": 1,
+      "title": "Applicable Contract Versions",
+      "type": "array"
+    },
+    "candidate_id": {
+      "format": "uuid",
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "classification": {
+      "$ref": "#/$defs/FeedbackReviewDecisionV2"
+    },
+    "curator_user_id": {
+      "format": "uuid",
+      "title": "Curator User Id",
+      "type": "string"
+    },
+    "domain": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Domain",
+      "type": "string"
+    },
+    "example_id": {
+      "format": "uuid",
+      "title": "Example Id",
+      "type": "string"
+    },
+    "expected_output": {
+      "$ref": "#/$defs/TrainingExampleExpectedOutputV2"
+    },
+    "input": {
+      "$ref": "#/$defs/TrainingExampleInputV2"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "maxLength": 16,
+      "title": "Locale",
+      "type": "string"
+    },
+    "quality_score": {
+      "maximum": 100,
+      "minimum": 0,
+      "title": "Quality Score",
+      "type": "integer"
+    },
+    "redaction_manifest_id": {
+      "format": "uuid",
+      "title": "Redaction Manifest Id",
+      "type": "string"
+    },
+    "restrictions": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Restrictions",
+      "type": "array"
+    },
+    "review_after": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review After"
+    },
+    "reviewer_user_id": {
+      "format": "uuid",
+      "title": "Reviewer User Id",
+      "type": "string"
+    },
+    "source_feedback_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "maxItems": 50,
+      "minItems": 1,
+      "title": "Source Feedback Ids",
+      "type": "array"
+    },
+    "tenant_scope": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tenant Scope"
+    }
+  },
+  "required": [
+    "example_id",
+    "candidate_id",
+    "tenant_scope",
+    "input",
+    "expected_output",
+    "classification",
+    "applicable_contract_versions",
+    "domain",
+    "source_feedback_ids",
+    "redaction_manifest_id",
+    "reviewer_user_id",
+    "curator_user_id",
+    "quality_score",
+    "checksum"
+  ],
+  "title": "ApprovedTrainingExampleV2",
+  "type": "object"
+}

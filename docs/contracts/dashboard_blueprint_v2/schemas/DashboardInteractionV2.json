@@ -1,0 +1,488 @@
+{
+  "$defs": {
+    "DashboardCapabilityV2": {
+      "enum": [
+        "dashboard:view",
+        "dashboard:filter",
+        "dashboard:drilldown",
+        "dashboard:export",
+        "dashboard:edit_visual",
+        "dashboard:edit_semantic",
+        "dashboard:review",
+        "dashboard:publish",
+        "dashboard:archive",
+        "dashboard:view_provenance"
+      ],
+      "title": "DashboardCapabilityV2",
+      "type": "string"
+    },
+    "DashboardCrossFilterV2": {
+      "additionalProperties": false,
+      "properties": {
+        "clear_behavior": {
+          "default": "CLEAR_ON_DESELECT",
+          "enum": [
+            "CLEAR_ON_DESELECT",
+            "PERSIST_UNTIL_RESET"
+          ],
+          "title": "Clear Behavior",
+          "type": "string"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "CROSS_FILTER",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "propagation_mode": {
+          "default": "DIRECT",
+          "enum": [
+            "DIRECT",
+            "DASHBOARD_GLOBAL"
+          ],
+          "title": "Propagation Mode",
+          "type": "string"
+        },
+        "source_dimension_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Dimension Id",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        },
+        "target_filter_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Target Filter Id",
+          "type": "string"
+        },
+        "target_widget_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 32,
+          "minItems": 1,
+          "title": "Target Widget Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type",
+        "source_dimension_id",
+        "target_widget_ids",
+        "target_filter_id"
+      ],
+      "title": "DashboardCrossFilterV2",
+      "type": "object"
+    },
+    "DashboardDrilldownV2": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "fallback": {
+          "default": "SHOW_MESSAGE",
+          "enum": [
+            "DISABLE",
+            "SHOW_MESSAGE",
+            "OPEN_TABLE"
+          ],
+          "title": "Fallback",
+          "type": "string"
+        },
+        "hierarchy_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Hierarchy Id",
+          "type": "string"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "DRILLDOWN",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "permission_requirement": {
+          "$ref": "#/$defs/DashboardCapabilityV2",
+          "default": "dashboard:drilldown"
+        },
+        "source_dimension_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Dimension Id",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        },
+        "target_dashboard_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Dashboard Id"
+        },
+        "target_dimension_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Target Dimension Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type",
+        "source_dimension_id",
+        "target_dimension_id",
+        "hierarchy_id"
+      ],
+      "title": "DashboardDrilldownV2",
+      "type": "object"
+    },
+    "DashboardExpandWidgetV2": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "EXPAND_WIDGET",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "mode": {
+          "default": "FULLSCREEN",
+          "enum": [
+            "FULLSCREEN",
+            "DETAIL_PANEL"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type"
+      ],
+      "title": "DashboardExpandWidgetV2",
+      "type": "object"
+    },
+    "DashboardInternalNavigationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "dashboard_reference": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Dashboard Reference",
+          "type": "string"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "INTERNAL_NAVIGATION",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "parameters": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/DashboardNavigationParameterV2"
+          },
+          "maxItems": 12,
+          "title": "Parameters",
+          "type": "array"
+        },
+        "route_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Route Id",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type",
+        "route_id",
+        "dashboard_reference"
+      ],
+      "title": "DashboardInternalNavigationV2",
+      "type": "object"
+    },
+    "DashboardNavigationParameterV2": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Parameter Id",
+          "type": "string"
+        },
+        "source_binding_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Binding Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parameter_id",
+        "source_binding_id"
+      ],
+      "title": "DashboardNavigationParameterV2",
+      "type": "object"
+    },
+    "DashboardOpenProvenanceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "OPEN_PROVENANCE",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "permission_requirement": {
+          "$ref": "#/$defs/DashboardCapabilityV2",
+          "default": "dashboard:view_provenance"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type"
+      ],
+      "title": "DashboardOpenProvenanceV2",
+      "type": "object"
+    },
+    "DashboardPaginateInteractionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "PAGINATE",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "page_size_options": {
+          "default": [
+            10,
+            25,
+            50
+          ],
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Page Size Options",
+          "type": "array"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type"
+      ],
+      "title": "DashboardPaginateInteractionV2",
+      "type": "object"
+    },
+    "DashboardResetFiltersV2": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "RESET_FILTERS",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        },
+        "target_filter_ids": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 32,
+          "title": "Target Filter Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type"
+      ],
+      "title": "DashboardResetFiltersV2",
+      "type": "object"
+    },
+    "DashboardSortInteractionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_sort_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12,
+          "minItems": 1,
+          "title": "Allowed Sort Ids",
+          "type": "array"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "interaction_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Interaction Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "SORT",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "source_widget_id": {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "title": "Source Widget Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "interaction_id",
+        "source_widget_id",
+        "interaction_type",
+        "allowed_sort_ids"
+      ],
+      "title": "DashboardSortInteractionV2",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "CROSS_FILTER": "#/$defs/DashboardCrossFilterV2",
+      "DRILLDOWN": "#/$defs/DashboardDrilldownV2",
+      "EXPAND_WIDGET": "#/$defs/DashboardExpandWidgetV2",
+      "INTERNAL_NAVIGATION": "#/$defs/DashboardInternalNavigationV2",
+      "OPEN_PROVENANCE": "#/$defs/DashboardOpenProvenanceV2",
+      "PAGINATE": "#/$defs/DashboardPaginateInteractionV2",
+      "RESET_FILTERS": "#/$defs/DashboardResetFiltersV2",
+      "SORT": "#/$defs/DashboardSortInteractionV2"
+    },
+    "propertyName": "interaction_type"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/DashboardCrossFilterV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardDrilldownV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardResetFiltersV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardOpenProvenanceV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardInternalNavigationV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardExpandWidgetV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardSortInteractionV2"
+    },
+    {
+      "$ref": "#/$defs/DashboardPaginateInteractionV2"
+    }
+  ]
+}

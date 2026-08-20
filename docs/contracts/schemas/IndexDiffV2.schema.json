@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "IndexDiffCountV2": {
+      "additionalProperties": false,
+      "properties": {
+        "added": {
+          "minimum": 0,
+          "title": "Added",
+          "type": "integer"
+        },
+        "category": {
+          "enum": [
+            "DOCUMENT",
+            "ALIAS",
+            "RELATION",
+            "ENTITY",
+            "SOURCE"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "changed": {
+          "minimum": 0,
+          "title": "Changed",
+          "type": "integer"
+        },
+        "removed": {
+          "minimum": 0,
+          "title": "Removed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "category",
+        "added",
+        "changed",
+        "removed"
+      ],
+      "title": "IndexDiffCountV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "counts": {
+      "items": {
+        "$ref": "#/$defs/IndexDiffCountV2"
+      },
+      "title": "Counts",
+      "type": "array"
+    },
+    "from_version_id": {
+      "format": "uuid",
+      "title": "From Version Id",
+      "type": "string"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "to_version_id": {
+      "format": "uuid",
+      "title": "To Version Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "index_id",
+    "from_version_id",
+    "to_version_id",
+    "counts",
+    "checksum"
+  ],
+  "title": "IndexDiffV2",
+  "type": "object"
+}

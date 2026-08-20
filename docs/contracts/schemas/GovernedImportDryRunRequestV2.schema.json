@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "content_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Content Checksum",
+      "type": "string"
+    },
+    "dry_run": {
+      "const": true,
+      "default": true,
+      "title": "Dry Run",
+      "type": "boolean"
+    },
+    "format": {
+      "const": "JSONL",
+      "default": "JSONL",
+      "title": "Format",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "lines": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "title": "Lines",
+      "type": "array"
+    },
+    "schema_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "GOVERNED_DATASET_EXPORT",
+        "VERSIONED_EVALUATION_CASE",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "title": "Source Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "source_kind",
+    "schema_version",
+    "content_checksum",
+    "idempotency_key"
+  ],
+  "title": "GovernedImportDryRunRequestV2",
+  "type": "object"
+}

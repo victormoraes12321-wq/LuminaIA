@@ -1,0 +1,63 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "evidence_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "case_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "executed_at": {
+      "format": "date-time",
+      "title": "Executed At",
+      "type": "string"
+    },
+    "duration_ms": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Duration Ms"
+    },
+    "sanitized_output_digest": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Sanitized Output Digest",
+      "type": "string"
+    },
+    "logs_digest": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Logs Digest",
+      "type": "string"
+    },
+    "checksum": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "case_id",
+    "executed_at",
+    "duration_ms",
+    "sanitized_output_digest",
+    "logs_digest",
+    "checksum"
+  ],
+  "title": "EvaluationEvidenceV2",
+  "type": "object"
+}

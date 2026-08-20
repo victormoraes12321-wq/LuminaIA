@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "OperationalMetricTypeV2": {
+      "enum": [
+        "COUNTER",
+        "GAUGE",
+        "HISTOGRAM",
+        "TIMER",
+        "RATIO"
+      ],
+      "title": "OperationalMetricTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "metric_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Metric Id",
+      "type": "string"
+    },
+    "version": {
+      "default": "1.0",
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Version",
+      "type": "string"
+    },
+    "metric_type": {
+      "$ref": "#/$defs/OperationalMetricTypeV2"
+    },
+    "description": {
+      "maxLength": 256,
+      "title": "Description",
+      "type": "string"
+    },
+    "unit": {
+      "maxLength": 32,
+      "title": "Unit",
+      "type": "string"
+    },
+    "allowed_labels": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Labels",
+      "type": "array"
+    },
+    "max_cardinality": {
+      "default": 100,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Max Cardinality",
+      "type": "integer"
+    },
+    "sli_association": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sli Association"
+    }
+  },
+  "required": [
+    "metric_id",
+    "metric_type",
+    "description",
+    "unit"
+  ],
+  "title": "OperationalMetricDefinitionV2",
+  "type": "object"
+}

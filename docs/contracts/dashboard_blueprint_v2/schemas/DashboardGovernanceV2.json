@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "DashboardCapabilityV2": {
+      "enum": [
+        "dashboard:view",
+        "dashboard:filter",
+        "dashboard:drilldown",
+        "dashboard:export",
+        "dashboard:edit_visual",
+        "dashboard:edit_semantic",
+        "dashboard:review",
+        "dashboard:publish",
+        "dashboard:archive",
+        "dashboard:view_provenance"
+      ],
+      "title": "DashboardCapabilityV2",
+      "type": "string"
+    },
+    "DashboardClassificationV2": {
+      "enum": [
+        "PUBLIC_METADATA",
+        "TENANT_METADATA",
+        "TENANT_BUSINESS_DATA",
+        "RESTRICTED_BUSINESS_DATA",
+        "PERSONAL_DATA",
+        "SENSITIVE_PERSONAL_DATA",
+        "SECRET",
+        "FORBIDDEN"
+      ],
+      "title": "DashboardClassificationV2",
+      "type": "string"
+    },
+    "DashboardPermissionRequirementV2": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/DashboardCapabilityV2"
+        },
+        "reason": {
+          "maxLength": 240,
+          "minLength": 3,
+          "title": "Reason",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "capability",
+        "reason"
+      ],
+      "title": "DashboardPermissionRequirementV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "classification": {
+      "$ref": "#/$defs/DashboardClassificationV2",
+      "default": "TENANT_BUSINESS_DATA"
+    },
+    "contains_personal_data": {
+      "default": false,
+      "title": "Contains Personal Data",
+      "type": "boolean"
+    },
+    "permissions": {
+      "items": {
+        "$ref": "#/$defs/DashboardPermissionRequirementV2"
+      },
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Permissions",
+      "type": "array"
+    },
+    "template_eligible": {
+      "default": true,
+      "title": "Template Eligible",
+      "type": "boolean"
+    }
+  },
+  "title": "DashboardGovernanceV2",
+  "type": "object"
+}

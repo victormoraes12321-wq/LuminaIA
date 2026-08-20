@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "metric_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Metric Id",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Value"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "labels": {
+      "default": [],
+      "items": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "type": "array"
+      },
+      "title": "Labels",
+      "type": "array"
+    }
+  },
+  "required": [
+    "metric_id",
+    "value",
+    "timestamp"
+  ],
+  "title": "OperationalMetricPointV2",
+  "type": "object"
+}

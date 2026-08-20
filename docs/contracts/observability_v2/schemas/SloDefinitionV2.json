@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "slo_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Slo Id",
+      "type": "string"
+    },
+    "sli_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Sli Id",
+      "type": "string"
+    },
+    "target_percentage": {
+      "anyOf": [
+        {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Target Percentage"
+    },
+    "window_days": {
+      "default": 30,
+      "maximum": 365,
+      "minimum": 1,
+      "title": "Window Days",
+      "type": "integer"
+    },
+    "is_provisional": {
+      "default": true,
+      "title": "Is Provisional",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "slo_id",
+    "sli_id",
+    "target_percentage"
+  ],
+  "title": "SloDefinitionV2",
+  "type": "object"
+}

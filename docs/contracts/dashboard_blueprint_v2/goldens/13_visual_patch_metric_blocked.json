@@ -1,0 +1,19 @@
+{
+  "expected": "INVALID",
+  "payload": {
+    "base_blueprint_checksum": "e9a5d4a1646d5e5ff079492b673fc954ced2d7c7d3723cbd7b47399471edd49a",
+    "base_semantic_checksum": "e4bce0346273d47d9f426bce9ea6e79c0042a1e831d1b343772fd770288c963a",
+    "base_visual_revision": 1,
+    "blueprint_id": "dashboard.executive.sales",
+    "operations": [
+      {
+        "from_path": null,
+        "operation": "REPLACE",
+        "path": "/data_bindings/0/metrics/0/metric_id",
+        "value": "metric.net.revenue"
+      }
+    ],
+    "patch_type": "VISUAL",
+    "target_visual_revision": 2
+  }
+}

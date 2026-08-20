@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actual_decision": {
+      "title": "Actual Decision",
+      "type": "string"
+    },
+    "actual_freshness": {
+      "title": "Actual Freshness",
+      "type": "string"
+    },
+    "case_checksum": {
+      "title": "Case Checksum",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "details": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Details",
+      "type": "object"
+    },
+    "evaluated_at": {
+      "title": "Evaluated At",
+      "type": "string"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "result_id": {
+      "title": "Result Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "result_id",
+    "case_id",
+    "case_checksum",
+    "tenant_id",
+    "actual_decision",
+    "actual_freshness",
+    "passed",
+    "evaluated_at"
+  ],
+  "title": "SmartCacheEvaluationResultV2",
+  "type": "object"
+}

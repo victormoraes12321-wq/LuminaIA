@@ -1,0 +1,193 @@
+{
+  "$defs": {
+    "ValidationPolicyVersionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "author": {
+          "description": "Author user ID or system identifier",
+          "title": "Author",
+          "type": "string"
+        },
+        "checksum": {
+          "description": "SHA-256 policy contents hash",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "lumina.validation-provenance/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "created_at": {
+          "description": "ISO 8601 creation timestamp",
+          "title": "Created At",
+          "type": "string"
+        },
+        "version": {
+          "default": "1.0.0",
+          "description": "Policy semver string",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "author",
+        "created_at",
+        "checksum"
+      ],
+      "title": "ValidationPolicyVersionV2",
+      "type": "object"
+    },
+    "ValidationSeverity": {
+      "enum": [
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ],
+      "title": "ValidationSeverity",
+      "type": "string"
+    },
+    "ValidationStage": {
+      "enum": [
+        "CONTRACT",
+        "SECURITY",
+        "TENANT_ISOLATION",
+        "AUTHORIZATION",
+        "AUTHORITY",
+        "SEMANTIC",
+        "TEMPORAL",
+        "METRIC",
+        "NUMERIC",
+        "COMPARISON",
+        "SHAPE",
+        "COMPLETENESS",
+        "FRESHNESS",
+        "TOOL_RESULT",
+        "ORCHESTRATION",
+        "CLAIMS",
+        "PROVENANCE",
+        "PRESENTATION"
+      ],
+      "title": "ValidationStage",
+      "type": "string"
+    },
+    "ValidatorDefinitionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "criticality": {
+          "$ref": "#/$defs/ValidationSeverity",
+          "default": "ERROR"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "params": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Params",
+          "type": "object"
+        },
+        "stage": {
+          "$ref": "#/$defs/ValidationStage",
+          "description": "Target validation stage"
+        },
+        "validator_id": {
+          "description": "Unique validator identifier (e.g. tenant_proof.v1)",
+          "title": "Validator Id",
+          "type": "string"
+        },
+        "validator_version": {
+          "description": "Validator implementation version",
+          "title": "Validator Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "validator_id",
+        "validator_version",
+        "stage"
+      ],
+      "title": "ValidatorDefinitionV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allow_partial_results": {
+      "default": false,
+      "title": "Allow Partial Results",
+      "type": "boolean"
+    },
+    "fail_fast_on_critical": {
+      "default": true,
+      "title": "Fail Fast On Critical",
+      "type": "boolean"
+    },
+    "freshness_tolerance_seconds": {
+      "default": 86400,
+      "title": "Freshness Tolerance Seconds",
+      "type": "integer"
+    },
+    "is_active": {
+      "default": true,
+      "title": "Is Active",
+      "type": "boolean"
+    },
+    "policy_id": {
+      "description": "Unique policy UUID",
+      "format": "uuid",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_name": {
+      "description": "Human readable policy name",
+      "title": "Policy Name",
+      "type": "string"
+    },
+    "require_fact_bindings_for_numeric_claims": {
+      "default": true,
+      "title": "Require Fact Bindings For Numeric Claims",
+      "type": "boolean"
+    },
+    "required_stages": {
+      "items": {
+        "$ref": "#/$defs/ValidationStage"
+      },
+      "title": "Required Stages",
+      "type": "array"
+    },
+    "strict_decimal_precision": {
+      "default": true,
+      "title": "Strict Decimal Precision",
+      "type": "boolean"
+    },
+    "tenant_id": {
+      "description": "Tenant owner ID",
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "validators": {
+      "items": {
+        "$ref": "#/$defs/ValidatorDefinitionV2"
+      },
+      "title": "Validators",
+      "type": "array"
+    },
+    "version_info": {
+      "$ref": "#/$defs/ValidationPolicyVersionV2"
+    }
+  },
+  "required": [
+    "policy_id",
+    "tenant_id",
+    "policy_name",
+    "version_info"
+  ],
+  "title": "ValidationPolicyV2",
+  "type": "object"
+}

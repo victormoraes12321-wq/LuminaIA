@@ -1,0 +1,71 @@
+{
+  "$defs": {
+    "EvaluationSuiteKindV2": {
+      "enum": [
+        "TEMPORAL_NORMALIZATION",
+        "COMPARISON_PLANNER",
+        "COMPARISON_EXECUTOR",
+        "CONTEXT_RESOLUTION",
+        "ENTERPRISE_KNOWLEDGE",
+        "SEMANTIC_RETRIEVAL",
+        "AI_TOOL_REGISTRY",
+        "SAFE_ANALYTICAL_POSTGRESQL",
+        "AI_ORCHESTRATION",
+        "VALIDATION_PROVENANCE",
+        "SMART_CACHE",
+        "DASHBOARD_BLUEPRINT",
+        "DASHBOARD_BACKEND",
+        "DASHBOARD_UI",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "TENANT_ISOLATION",
+        "SECURITY",
+        "REPRODUCIBILITY"
+      ],
+      "title": "EvaluationSuiteKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "suite_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Suite Id",
+      "type": "string"
+    },
+    "kind": {
+      "$ref": "#/$defs/EvaluationSuiteKindV2"
+    },
+    "title": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "description": {
+      "maxLength": 256,
+      "title": "Description",
+      "type": "string"
+    },
+    "case_count": {
+      "minimum": 1,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "deterministic_only": {
+      "default": true,
+      "title": "Deterministic Only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "suite_id",
+    "kind",
+    "title",
+    "description",
+    "case_count"
+  ],
+  "title": "EvaluationSuiteV2",
+  "type": "object"
+}

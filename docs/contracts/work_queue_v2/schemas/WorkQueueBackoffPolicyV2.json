@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "base_seconds": {
+      "default": 1.0,
+      "maximum": 60.0,
+      "minimum": 0.1,
+      "title": "Base Seconds",
+      "type": "number"
+    },
+    "max_seconds": {
+      "default": 60.0,
+      "maximum": 3600.0,
+      "minimum": 1.0,
+      "title": "Max Seconds",
+      "type": "number"
+    },
+    "jitter_factor": {
+      "default": 0.1,
+      "maximum": 0.5,
+      "minimum": 0.0,
+      "title": "Jitter Factor",
+      "type": "number"
+    }
+  },
+  "title": "WorkQueueBackoffPolicyV2",
+  "type": "object"
+}

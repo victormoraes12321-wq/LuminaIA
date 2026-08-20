@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "FieldOrigin": {
+      "enum": [
+        "EXPLICIT_USER",
+        "INHERITED_CONVERSATION",
+        "USER_PREFERENCE",
+        "TENANT_KNOWLEDGE",
+        "DETERMINISTIC_DEFAULT",
+        "LLM_INFERENCE",
+        "LEGACY_ADAPTER",
+        "SYSTEM_GENERATED"
+      ],
+      "title": "FieldOrigin",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "VisualizationKind": {
+      "enum": [
+        "KPI_CARD",
+        "SUMMARY_CARD",
+        "DATA_TABLE",
+        "BAR_CHART",
+        "LINE_CHART",
+        "AREA_CHART",
+        "PIE_CHART",
+        "DONUT_CHART",
+        "SCATTER_CHART",
+        "HEATMAP",
+        "TREEMAP",
+        "FUNNEL",
+        "INSIGHTS_LIST"
+      ],
+      "title": "VisualizationKind",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "data_reference": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+      "title": "Data Reference",
+      "type": "string"
+    },
+    "dimension_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "title": "Dimension Ids",
+      "type": "array"
+    },
+    "is_primary": {
+      "default": false,
+      "title": "Is Primary",
+      "type": "boolean"
+    },
+    "kind": {
+      "$ref": "#/$defs/VisualizationKind"
+    },
+    "metric_ids": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "title": "Metric Ids",
+      "type": "array"
+    },
+    "options": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Options",
+      "type": "object"
+    },
+    "origin": {
+      "$ref": "#/$defs/FieldOrigin"
+    },
+    "priority": {
+      "maximum": 1000,
+      "minimum": 0,
+      "title": "Priority",
+      "type": "integer"
+    },
+    "title": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "visualization_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+      "title": "Visualization Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "visualization_id",
+    "kind",
+    "title",
+    "data_reference",
+    "priority",
+    "origin"
+  ],
+  "title": "VisualizationSpecification",
+  "type": "object"
+}

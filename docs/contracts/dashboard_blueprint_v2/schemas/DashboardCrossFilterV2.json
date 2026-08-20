@@ -1,0 +1,72 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "clear_behavior": {
+      "default": "CLEAR_ON_DESELECT",
+      "enum": [
+        "CLEAR_ON_DESELECT",
+        "PERSIST_UNTIL_RESET"
+      ],
+      "title": "Clear Behavior",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "CROSS_FILTER",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "propagation_mode": {
+      "default": "DIRECT",
+      "enum": [
+        "DIRECT",
+        "DASHBOARD_GLOBAL"
+      ],
+      "title": "Propagation Mode",
+      "type": "string"
+    },
+    "source_dimension_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Dimension Id",
+      "type": "string"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    },
+    "target_filter_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Target Filter Id",
+      "type": "string"
+    },
+    "target_widget_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "minItems": 1,
+      "title": "Target Widget Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type",
+    "source_dimension_id",
+    "target_widget_ids",
+    "target_filter_id"
+  ],
+  "title": "DashboardCrossFilterV2",
+  "type": "object"
+}

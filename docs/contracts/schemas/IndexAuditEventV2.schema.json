@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "SemanticAuditEventType": {
+      "enum": [
+        "INDEX_DEFINITION_CREATED",
+        "INDEX_DEFINITION_UPDATED",
+        "INDEX_BUILD_STARTED",
+        "INDEX_SOURCE_LOADED",
+        "INDEX_DOCUMENT_CREATED",
+        "INDEX_BUILD_VALIDATED",
+        "INDEX_BUILD_FAILED",
+        "INDEX_VERSION_READY",
+        "INDEX_VERSION_PUBLISHED",
+        "INDEX_VERSION_ROLLED_BACK",
+        "INDEX_VERSION_DEPRECATED",
+        "INDEX_SOURCE_STALE",
+        "SEMANTIC_SEARCH_EXECUTED",
+        "ENTITY_RESOLUTION_SUCCEEDED",
+        "ENTITY_RESOLUTION_AMBIGUOUS",
+        "ENTITY_RESOLUTION_UNRESOLVED",
+        "ENTITY_RESOLUTION_BLOCKED",
+        "CLARIFICATION_CREATED",
+        "CLARIFICATION_RESOLVED",
+        "EVALUATION_EXECUTED",
+        "ACCESS_DENIED",
+        "VERSION_CONFLICT",
+        "FORBIDDEN_CONTENT_BLOCKED"
+      ],
+      "title": "SemanticAuditEventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actor_user_id": {
+      "format": "uuid",
+      "title": "Actor User Id",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/SemanticAuditEventType"
+    },
+    "index_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Index Id"
+    },
+    "reason_code": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "structural_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Structural Fingerprint",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Version Id"
+    }
+  },
+  "required": [
+    "event_id",
+    "tenant_id",
+    "actor_user_id",
+    "event_type",
+    "reason_code",
+    "structural_fingerprint",
+    "created_at"
+  ],
+  "title": "IndexAuditEventV2",
+  "type": "object"
+}

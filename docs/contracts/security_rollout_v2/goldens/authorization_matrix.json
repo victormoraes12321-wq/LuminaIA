@@ -1,0 +1,344 @@
+[
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "baseline.manage",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "baseline.manage",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "baseline.manage",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.approve",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.approve",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.approve",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.author",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.author",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.author",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.publish",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.publish",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.publish",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.read",
+    "decision": "ALLOW",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.read",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.read",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.rollback",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.rollback",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard.rollback",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard_ai.proposal",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard_ai.proposal",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "dashboard_ai.proposal",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "evaluation.run",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "evaluation.run",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "evaluation.run",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.acknowledge",
+    "decision": "ALLOW",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.acknowledge",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.acknowledge",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.dismiss",
+    "decision": "ALLOW",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.dismiss",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.dismiss",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.read",
+    "decision": "ALLOW",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.read",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "insight.read",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "observability.read",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "observability.read",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "observability.read",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "performance.certify",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "performance.certify",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "performance.certify",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.cancel",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.cancel",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.cancel",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.drain",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.drain",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.drain",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.replay",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.replay",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.replay",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.view",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.view",
+    "decision": "ALLOW",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "queue.view",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "rollout.readiness",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "rollout.readiness",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "rollout.readiness",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "security.readiness",
+    "decision": "DENY",
+    "role": "CONSULTA"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "security.readiness",
+    "decision": "DENY",
+    "role": "GESTOR"
+  },
+  {
+    "authority_source": "authenticated PostgreSQL User.role and static governed policy",
+    "capability": "security.readiness",
+    "decision": "ALLOW",
+    "role": "ADMIN"
+  }
+]

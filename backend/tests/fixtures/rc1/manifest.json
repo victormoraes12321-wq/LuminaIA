@@ -1,0 +1,22 @@
+{
+  "algorithm": "sha256-canonical-json",
+  "combined_sha256": "41b4649c72f7b75976ec0dabab06c5f3bea7e204de7a6b7aab1fec44c9793511",
+  "contract": "lumina.rc-acceptance-corpora/1.0",
+  "files": [
+    {
+      "canonical_bytes": 12985,
+      "name": "continuity.json",
+      "sha256": "60eb22cf3eb1c308f70181b975a7f49ea1093ec8ea05d0aa36aacbc488a2052a"
+    },
+    {
+      "canonical_bytes": 9281,
+      "name": "language_safety.json",
+      "sha256": "c73b160f37836ff08682c79ead83fe107ec10a732c2b6de6099744dd14f82bb9"
+    },
+    {
+      "canonical_bytes": 26672,
+      "name": "numerical_truth.json",
+      "sha256": "3b7ede74217928f75eb2ebbf4dca04e6344d585cfa71bd7d0822c3d0202ce9fe"
+    }
+  ]
+}

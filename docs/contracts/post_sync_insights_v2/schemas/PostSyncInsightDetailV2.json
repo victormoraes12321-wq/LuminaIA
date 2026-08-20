@@ -1,0 +1,730 @@
+{
+  "$defs": {
+    "PostSyncInsightAcknowledgementV2": {
+      "additionalProperties": false,
+      "properties": {
+        "acknowledgement_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Acknowledgement Id",
+          "type": "string"
+        },
+        "insight_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Insight Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "User Id",
+          "type": "string"
+        },
+        "acknowledged_at": {
+          "format": "date-time",
+          "title": "Acknowledged At",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "maxLength": 255,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "acknowledgement_id",
+        "insight_id",
+        "tenant_id",
+        "user_id",
+        "acknowledged_at"
+      ],
+      "title": "PostSyncInsightAcknowledgementV2",
+      "type": "object"
+    },
+    "PostSyncInsightCandidateScoreV2": {
+      "additionalProperties": false,
+      "properties": {
+        "severity_score": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Severity Score"
+        },
+        "magnitude_score": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Magnitude Score"
+        },
+        "confidence_score": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Confidence Score"
+        },
+        "final_score": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Final Score"
+        }
+      },
+      "required": [
+        "severity_score",
+        "magnitude_score",
+        "confidence_score",
+        "final_score"
+      ],
+      "title": "PostSyncInsightCandidateScoreV2",
+      "type": "object"
+    },
+    "PostSyncInsightCategoryV2": {
+      "enum": [
+        "BUSINESS_PERFORMANCE",
+        "FINANCIAL",
+        "SALES",
+        "RECEIVABLES",
+        "INVENTORY",
+        "DATA_QUALITY",
+        "FRESHNESS",
+        "RECONCILIATION",
+        "OPERATIONAL_METADATA"
+      ],
+      "title": "PostSyncInsightCategoryV2",
+      "type": "string"
+    },
+    "PostSyncInsightCertificationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "VALID",
+            "INVALID",
+            "BLOCKED",
+            "SUPERSEDED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "certified_at": {
+          "format": "date-time",
+          "title": "Certified At",
+          "type": "string"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "verifier": {
+          "default": "ValidationProvenanceV2",
+          "maxLength": 64,
+          "title": "Verifier",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "certified_at",
+        "checksum"
+      ],
+      "title": "PostSyncInsightCertificationV2",
+      "type": "object"
+    },
+    "PostSyncInsightComparisonV2": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_fact": {
+          "$ref": "#/$defs/PostSyncInsightFactV2"
+        },
+        "current_fact": {
+          "$ref": "#/$defs/PostSyncInsightFactV2"
+        },
+        "absolute_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Absolute Delta"
+        },
+        "percentage_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Percentage Delta"
+        },
+        "formatted_delta": {
+          "maxLength": 64,
+          "title": "Formatted Delta",
+          "type": "string"
+        },
+        "formatted_percentage": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Formatted Percentage"
+        },
+        "direction": {
+          "enum": [
+            "UP",
+            "DOWN",
+            "FLAT",
+            "STABLE"
+          ],
+          "title": "Direction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "baseline_fact",
+        "current_fact",
+        "absolute_delta",
+        "formatted_delta",
+        "direction"
+      ],
+      "title": "PostSyncInsightComparisonV2",
+      "type": "object"
+    },
+    "PostSyncInsightDismissalV2": {
+      "additionalProperties": false,
+      "properties": {
+        "dismissal_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Dismissal Id",
+          "type": "string"
+        },
+        "insight_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Insight Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "User Id",
+          "type": "string"
+        },
+        "dismissed_at": {
+          "format": "date-time",
+          "title": "Dismissed At",
+          "type": "string"
+        },
+        "reason": {
+          "default": "NOT_RELEVANT",
+          "enum": [
+            "NOT_RELEVANT",
+            "ALREADY_KNOWN",
+            "INACCURATE",
+            "DUPLICATE",
+            "OTHER"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dismissal_id",
+        "insight_id",
+        "tenant_id",
+        "user_id",
+        "dismissed_at"
+      ],
+      "title": "PostSyncInsightDismissalV2",
+      "type": "object"
+    },
+    "PostSyncInsightEvidenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "sync_run_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Sync Run Id",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "watermark": {
+          "maxLength": 64,
+          "title": "Watermark",
+          "type": "string"
+        },
+        "metric_key": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Metric Key",
+          "type": "string"
+        },
+        "metric_label": {
+          "maxLength": 128,
+          "title": "Metric Label",
+          "type": "string"
+        },
+        "formula": {
+          "maxLength": 255,
+          "title": "Formula",
+          "type": "string"
+        },
+        "current_period": {
+          "maxLength": 64,
+          "title": "Current Period",
+          "type": "string"
+        },
+        "baseline_period": {
+          "maxLength": 64,
+          "title": "Baseline Period",
+          "type": "string"
+        },
+        "comparison": {
+          "$ref": "#/$defs/PostSyncInsightComparisonV2"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/PostSyncInsightFactV2"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "reconciliation_verified": {
+          "default": true,
+          "title": "Reconciliation Verified",
+          "type": "boolean"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "tenant_id",
+        "sync_run_id",
+        "source_id",
+        "watermark",
+        "metric_key",
+        "metric_label",
+        "formula",
+        "current_period",
+        "baseline_period",
+        "comparison",
+        "checksum"
+      ],
+      "title": "PostSyncInsightEvidenceV2",
+      "type": "object"
+    },
+    "PostSyncInsightFactV2": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_key": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Fact Key",
+          "type": "string"
+        },
+        "fact_label": {
+          "maxLength": 128,
+          "title": "Fact Label",
+          "type": "string"
+        },
+        "numeric_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Numeric Value"
+        },
+        "formatted_value": {
+          "maxLength": 64,
+          "title": "Formatted Value",
+          "type": "string"
+        },
+        "unit": {
+          "default": "BRL",
+          "maxLength": 16,
+          "title": "Unit",
+          "type": "string"
+        },
+        "period_label": {
+          "maxLength": 64,
+          "title": "Period Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_key",
+        "fact_label",
+        "numeric_value",
+        "formatted_value",
+        "period_label"
+      ],
+      "title": "PostSyncInsightFactV2",
+      "type": "object"
+    },
+    "PostSyncInsightLifecycleV2": {
+      "enum": [
+        "REQUESTED",
+        "PLANNING",
+        "EXECUTING",
+        "VALIDATING",
+        "DETECTED",
+        "CERTIFIED",
+        "PUBLISHED",
+        "ACKNOWLEDGED",
+        "DISMISSED",
+        "EXPIRED",
+        "BLOCKED",
+        "FAILED",
+        "CANCELLED",
+        "SUPERSEDED"
+      ],
+      "title": "PostSyncInsightLifecycleV2",
+      "type": "string"
+    },
+    "PostSyncInsightProvenanceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "service_name": {
+          "default": "post_sync_insights_v2",
+          "maxLength": 64,
+          "title": "Service Name",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "lumina.post-sync-insights/1.0",
+          "default": "lumina.post-sync-insights/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "policy_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "policy_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "detector_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Detector Id",
+          "type": "string"
+        },
+        "detector_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "title": "Detector Version",
+          "type": "string"
+        },
+        "executed_at": {
+          "format": "date-time",
+          "title": "Executed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_id",
+        "policy_version",
+        "detector_id",
+        "detector_version",
+        "executed_at"
+      ],
+      "title": "PostSyncInsightProvenanceV2",
+      "type": "object"
+    },
+    "PostSyncInsightPublicSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "headline": {
+          "maxLength": 255,
+          "title": "Headline",
+          "type": "string"
+        },
+        "detail": {
+          "maxLength": 1024,
+          "title": "Detail",
+          "type": "string"
+        },
+        "template_key": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Template Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "headline",
+        "detail",
+        "template_key"
+      ],
+      "title": "PostSyncInsightPublicSummaryV2",
+      "type": "object"
+    },
+    "PostSyncInsightSeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "PostSyncInsightSeverityV2",
+      "type": "string"
+    },
+    "PostSyncInsightTypeV2": {
+      "enum": [
+        "METRIC_INCREASE",
+        "METRIC_DECREASE",
+        "TARGET_REACHED",
+        "TARGET_MISSED",
+        "THRESHOLD_BREACH_HIGH",
+        "THRESHOLD_BREACH_LOW",
+        "RANKING_ENTRY",
+        "RANKING_EXIT",
+        "RANKING_MOVE_UP",
+        "RANKING_MOVE_DOWN",
+        "ANOMALY_HIGH",
+        "ANOMALY_LOW",
+        "FRESHNESS_DEGRADED",
+        "COMPLETENESS_DEGRADED",
+        "RECONCILIATION_VARIANCE",
+        "SOURCE_VOLUME_CHANGE",
+        "NEW_DATA_AVAILABLE",
+        "INSUFFICIENT_BASELINE",
+        "INSIGHT_RUN_BLOCKED"
+      ],
+      "title": "PostSyncInsightTypeV2",
+      "type": "string"
+    },
+    "PostSyncInsightV2": {
+      "additionalProperties": false,
+      "properties": {
+        "insight_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Insight Id",
+          "type": "string"
+        },
+        "contract_version": {
+          "const": "lumina.post-sync-insights/1.0",
+          "default": "lumina.post-sync-insights/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "tenant_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "sync_run_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+          "title": "Sync Run Id",
+          "type": "string"
+        },
+        "insight_type": {
+          "$ref": "#/$defs/PostSyncInsightTypeV2"
+        },
+        "category": {
+          "$ref": "#/$defs/PostSyncInsightCategoryV2"
+        },
+        "severity": {
+          "$ref": "#/$defs/PostSyncInsightSeverityV2"
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/PostSyncInsightLifecycleV2"
+        },
+        "summary": {
+          "$ref": "#/$defs/PostSyncInsightPublicSummaryV2"
+        },
+        "evidence": {
+          "$ref": "#/$defs/PostSyncInsightEvidenceV2"
+        },
+        "provenance": {
+          "$ref": "#/$defs/PostSyncInsightProvenanceV2"
+        },
+        "certification": {
+          "$ref": "#/$defs/PostSyncInsightCertificationV2"
+        },
+        "score": {
+          "$ref": "#/$defs/PostSyncInsightCandidateScoreV2"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/PostSyncInsightWarningV2"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "published_at": {
+          "format": "date-time",
+          "title": "Published At",
+          "type": "string"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "insight_id",
+        "tenant_id",
+        "sync_run_id",
+        "insight_type",
+        "category",
+        "severity",
+        "lifecycle",
+        "summary",
+        "evidence",
+        "provenance",
+        "certification",
+        "score",
+        "published_at",
+        "fingerprint"
+      ],
+      "title": "PostSyncInsightV2",
+      "type": "object"
+    },
+    "PostSyncInsightWarningV2": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Z0-9_]{3,64}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 255,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "PostSyncInsightWarningV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "insight": {
+      "$ref": "#/$defs/PostSyncInsightV2"
+    },
+    "user_acknowledgement": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PostSyncInsightAcknowledgementV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "user_dismissal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PostSyncInsightDismissalV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "insight"
+  ],
+  "title": "PostSyncInsightDetailV2",
+  "type": "object"
+}

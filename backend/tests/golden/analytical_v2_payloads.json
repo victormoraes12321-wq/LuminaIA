@@ -1,0 +1,190 @@
+{
+  "clarification": {
+    "clarification": true,
+    "comparison_operands": 0,
+    "datasets": 0,
+    "errors": [],
+    "intent_kind": "CLARIFICATION",
+    "metric_ids": [
+      "faturamento_comercial"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "CLARIFICATION_REQUIRED",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "NOT_EXECUTED",
+    "visualizations": []
+  },
+  "comparison": {
+    "clarification": false,
+    "comparison_operands": 2,
+    "datasets": 1,
+    "errors": [],
+    "intent_kind": "COMPARISON",
+    "metric_ids": [
+      "faturamento_comercial"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ],
+      [
+        "2026-07-01",
+        "2026-07-31"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "READY",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "PASSED",
+    "visualizations": [
+      "DATA_TABLE"
+    ]
+  },
+  "error": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 0,
+    "errors": [
+      "EXECUTION_NOT_PERFORMED"
+    ],
+    "intent_kind": "METRIC",
+    "metric_ids": [
+      "faturamento_comercial"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "ERROR",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "NOT_EXECUTED",
+    "visualizations": []
+  },
+  "legacy_adapter": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 1,
+    "errors": [],
+    "intent_kind": "METRIC",
+    "metric_ids": [
+      "ticket_medio"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ]
+    ],
+    "pipeline": "LEGACY",
+    "readiness": "READY",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "PASSED",
+    "visualizations": [
+      "KPI_CARD"
+    ]
+  },
+  "multiple_visualizations": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 1,
+    "errors": [],
+    "intent_kind": "METRIC",
+    "metric_ids": [
+      "faturamento_comercial"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "READY",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "PASSED",
+    "visualizations": [
+      "DATA_TABLE",
+      "BAR_CHART"
+    ]
+  },
+  "out_of_scope": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 0,
+    "errors": [
+      "OUT_OF_SCOPE"
+    ],
+    "intent_kind": "OUT_OF_SCOPE",
+    "metric_ids": [],
+    "periods": [],
+    "pipeline": "NEW",
+    "readiness": "OUT_OF_SCOPE",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "NOT_EXECUTED",
+    "visualizations": []
+  },
+  "ranking": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 1,
+    "errors": [],
+    "intent_kind": "RANKING",
+    "metric_ids": [
+      "ranking_vendedores"
+    ],
+    "periods": [
+      [
+        "2026-07-01",
+        "2026-07-31"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "READY",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "PASSED",
+    "visualizations": [
+      "DATA_TABLE"
+    ]
+  },
+  "simple": {
+    "clarification": false,
+    "comparison_operands": 0,
+    "datasets": 1,
+    "errors": [],
+    "intent_kind": "METRIC",
+    "metric_ids": [
+      "faturamento_comercial"
+    ],
+    "periods": [
+      [
+        "2026-06-01",
+        "2026-06-30"
+      ]
+    ],
+    "pipeline": "NEW",
+    "readiness": "READY",
+    "schema": "lumina.analytics/2.0",
+    "tenant_id": "11111111-1111-1111-1111-111111111111",
+    "validation": "PASSED",
+    "visualizations": [
+      "DATA_TABLE"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "enum": [
+        "DATE_SHORT",
+        "DATE_LONG",
+        "MONTH_YEAR",
+        "YEAR",
+        "DATETIME"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "timezone_policy": {
+      "default": "DASHBOARD",
+      "enum": [
+        "DASHBOARD",
+        "TENANT",
+        "USER"
+      ],
+      "title": "Timezone Policy",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format"
+  ],
+  "title": "DashboardDateFormattingV2",
+  "type": "object"
+}

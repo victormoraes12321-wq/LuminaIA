@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "deprecated_features": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Deprecated Features",
+      "type": "array"
+    },
+    "maximum_contract_version_exclusive": {
+      "const": "3.0",
+      "default": "3.0",
+      "title": "Maximum Contract Version Exclusive",
+      "type": "string"
+    },
+    "minimum_contract_version": {
+      "const": "2.0",
+      "default": "2.0",
+      "title": "Minimum Contract Version",
+      "type": "string"
+    },
+    "required_features": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "title": "Required Features",
+      "type": "array"
+    }
+  },
+  "title": "DashboardCompatibilityV2",
+  "type": "object"
+}

@@ -1,0 +1,15 @@
+{
+  "chart_type": "KPI",
+  "contract": "legacy",
+  "filters": {
+    "end_date": "2026-06-30",
+    "start_date": "2026-06-01"
+  },
+  "metric": "faturamento_comercial",
+  "provenance": {
+    "source": "PostgreSQL test clone",
+    "view": "vw_vendas_lm"
+  },
+  "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+  "value": 300.0
+}

@@ -1,0 +1,55 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "maximum_fraction_digits": {
+      "default": 2,
+      "maximum": 6,
+      "minimum": 0,
+      "title": "Maximum Fraction Digits",
+      "type": "integer"
+    },
+    "minimum_fraction_digits": {
+      "default": 0,
+      "maximum": 6,
+      "minimum": 0,
+      "title": "Minimum Fraction Digits",
+      "type": "integer"
+    },
+    "negative_display": {
+      "default": "MINUS",
+      "enum": [
+        "MINUS",
+        "PARENTHESES"
+      ],
+      "title": "Negative Display",
+      "type": "string"
+    },
+    "null_display": {
+      "default": "SEM_VALOR",
+      "enum": [
+        "SEM_VALOR",
+        "TRACO",
+        "VAZIO"
+      ],
+      "title": "Null Display",
+      "type": "string"
+    },
+    "style": {
+      "default": "DECIMAL",
+      "enum": [
+        "DECIMAL",
+        "INTEGER",
+        "COMPACT"
+      ],
+      "title": "Style",
+      "type": "string"
+    },
+    "unit_visible": {
+      "default": true,
+      "title": "Unit Visible",
+      "type": "boolean"
+    }
+  },
+  "title": "DashboardNumberFormattingV2",
+  "type": "object"
+}

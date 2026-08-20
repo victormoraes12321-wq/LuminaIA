@@ -1,0 +1,74 @@
+{
+  "actual_target": {
+    "kind": "ACTUAL_VS_TARGET",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "blocked": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "BLOCKED",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "entity": {
+    "kind": "ENTITY_VS_ENTITY",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "legacy": {
+    "kind": "LEGACY_COMPARISON",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR"]
+  },
+  "metric_incompatible": {
+    "kind": "METRIC_VS_METRIC",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "multi_period": {
+    "kind": "MULTI_PERIOD",
+    "operands": 3,
+    "status": "SUCCESS",
+    "visualizations": ["LINE", "TABLE"]
+  },
+  "multiple_visualizations": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["TABLE", "BAR", "KPI"]
+  },
+  "null_missing": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 3,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "partial": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "PARTIAL",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "period": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "timeout": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "TIMEOUT",
+    "visualizations": ["BAR", "TABLE"]
+  },
+  "zero_denominator": {
+    "kind": "PERIOD_VS_PERIOD",
+    "operands": 2,
+    "status": "SUCCESS",
+    "visualizations": ["BAR", "TABLE"]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$defs": {
+    "EvaluationSuiteKindV2": {
+      "enum": [
+        "TEMPORAL_NORMALIZATION",
+        "COMPARISON_PLANNER",
+        "COMPARISON_EXECUTOR",
+        "CONTEXT_RESOLUTION",
+        "ENTERPRISE_KNOWLEDGE",
+        "SEMANTIC_RETRIEVAL",
+        "AI_TOOL_REGISTRY",
+        "SAFE_ANALYTICAL_POSTGRESQL",
+        "AI_ORCHESTRATION",
+        "VALIDATION_PROVENANCE",
+        "SMART_CACHE",
+        "DASHBOARD_BLUEPRINT",
+        "DASHBOARD_BACKEND",
+        "DASHBOARD_UI",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "TENANT_ISOLATION",
+        "SECURITY",
+        "REPRODUCIBILITY"
+      ],
+      "title": "EvaluationSuiteKindV2",
+      "type": "string"
+    },
+    "RegressionTypeV2": {
+      "enum": [
+        "NEW_FAIL",
+        "PASS_TO_FAIL",
+        "SECURITY_INVARIANT_VIOLATION",
+        "TENANT_LEAKAGE",
+        "REPRODUCIBILITY_DIVERGENCE",
+        "SCHEMA_DIVERGENCE",
+        "UNSAFE_ACTION_ACCEPTED",
+        "CANONICAL_RESOLUTION_DEGRADATION",
+        "NEW_XFAIL_SKIP_MARKER",
+        "UNEXPECTED_OPENAPI_CHANGE"
+      ],
+      "title": "RegressionTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "regression_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Regression Id",
+      "type": "string"
+    },
+    "case_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "suite": {
+      "$ref": "#/$defs/EvaluationSuiteKindV2"
+    },
+    "regression_type": {
+      "$ref": "#/$defs/RegressionTypeV2"
+    },
+    "description": {
+      "maxLength": 256,
+      "title": "Description",
+      "type": "string"
+    },
+    "detected_at": {
+      "format": "date-time",
+      "title": "Detected At",
+      "type": "string"
+    },
+    "baseline_checksum": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Baseline Checksum",
+      "type": "string"
+    },
+    "current_checksum": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Current Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "regression_id",
+    "case_id",
+    "suite",
+    "regression_type",
+    "description",
+    "detected_at",
+    "baseline_checksum",
+    "current_checksum"
+  ],
+  "title": "EvaluationRegressionV2",
+  "type": "object"
+}

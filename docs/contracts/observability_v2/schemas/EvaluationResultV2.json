@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "EvaluationEvidenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "case_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "executed_at": {
+          "format": "date-time",
+          "title": "Executed At",
+          "type": "string"
+        },
+        "duration_ms": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Duration Ms"
+        },
+        "sanitized_output_digest": {
+          "maxLength": 128,
+          "minLength": 8,
+          "title": "Sanitized Output Digest",
+          "type": "string"
+        },
+        "logs_digest": {
+          "maxLength": 128,
+          "minLength": 8,
+          "title": "Logs Digest",
+          "type": "string"
+        },
+        "checksum": {
+          "maxLength": 128,
+          "minLength": 8,
+          "title": "Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "case_id",
+        "executed_at",
+        "duration_ms",
+        "sanitized_output_digest",
+        "logs_digest",
+        "checksum"
+      ],
+      "title": "EvaluationEvidenceV2",
+      "type": "object"
+    },
+    "EvaluationOutcomeV2": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "ERROR"
+      ],
+      "title": "EvaluationOutcomeV2",
+      "type": "string"
+    },
+    "EvaluationSuiteKindV2": {
+      "enum": [
+        "TEMPORAL_NORMALIZATION",
+        "COMPARISON_PLANNER",
+        "COMPARISON_EXECUTOR",
+        "CONTEXT_RESOLUTION",
+        "ENTERPRISE_KNOWLEDGE",
+        "SEMANTIC_RETRIEVAL",
+        "AI_TOOL_REGISTRY",
+        "SAFE_ANALYTICAL_POSTGRESQL",
+        "AI_ORCHESTRATION",
+        "VALIDATION_PROVENANCE",
+        "SMART_CACHE",
+        "DASHBOARD_BLUEPRINT",
+        "DASHBOARD_BACKEND",
+        "DASHBOARD_UI",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "TENANT_ISOLATION",
+        "SECURITY",
+        "REPRODUCIBILITY"
+      ],
+      "title": "EvaluationSuiteKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "result_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Result Id",
+      "type": "string"
+    },
+    "case_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "suite": {
+      "$ref": "#/$defs/EvaluationSuiteKindV2"
+    },
+    "outcome": {
+      "$ref": "#/$defs/EvaluationOutcomeV2"
+    },
+    "duration_ms": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Duration Ms"
+    },
+    "evidence": {
+      "$ref": "#/$defs/EvaluationEvidenceV2"
+    },
+    "failure_reasons": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Failure Reasons",
+      "type": "array"
+    },
+    "checksum": {
+      "maxLength": 128,
+      "minLength": 8,
+      "title": "Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "result_id",
+    "case_id",
+    "suite",
+    "outcome",
+    "duration_ms",
+    "evidence",
+    "checksum"
+  ],
+  "title": "EvaluationResultV2",
+  "type": "object"
+}

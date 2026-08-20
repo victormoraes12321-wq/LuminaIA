@@ -1,0 +1,770 @@
+{
+  "$defs": {
+    "AnalyticalClaimBindingV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_value_checksum": {
+          "title": "Canonical Value Checksum",
+          "type": "string"
+        },
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "mismatch_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mismatch Reason"
+        },
+        "public_display_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Public Display Value"
+        },
+        "validation_status": {
+          "$ref": "#/$defs/ValidationStatus"
+        }
+      },
+      "required": [
+        "claim_id",
+        "validation_status",
+        "canonical_value_checksum"
+      ],
+      "title": "AnalyticalClaimBindingV2",
+      "type": "object"
+    },
+    "AnalyticalClaimV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "title": "Checksum",
+          "type": "string"
+        },
+        "claim_id": {
+          "description": "Stable claim ID (e.g. CLAIM-001)",
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "claim_type": {
+          "$ref": "#/$defs/ClaimType"
+        },
+        "comparison_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Comparison References",
+          "type": "array"
+        },
+        "fact_references": {
+          "description": "IDs of Supporting AnalyticalFactV2 items",
+          "items": {
+            "type": "string"
+          },
+          "title": "Fact References",
+          "type": "array"
+        },
+        "metric_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metric References",
+          "type": "array"
+        },
+        "origin": {
+          "default": "MODEL_PROPOSED",
+          "title": "Origin",
+          "type": "string"
+        },
+        "period_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Period References",
+          "type": "array"
+        },
+        "qualifiers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Qualifiers",
+          "type": "array"
+        },
+        "text": {
+          "description": "Subsegment or text assertion",
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_id",
+        "claim_type",
+        "text",
+        "checksum"
+      ],
+      "title": "AnalyticalClaimV2",
+      "type": "object"
+    },
+    "AnalyticalClaimValidationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "all_numeric_claims_bound": {
+          "default": true,
+          "title": "All Numeric Claims Bound",
+          "type": "boolean"
+        },
+        "bindings": {
+          "items": {
+            "$ref": "#/$defs/AnalyticalClaimBindingV2"
+          },
+          "title": "Bindings",
+          "type": "array"
+        },
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/AnalyticalClaimV2"
+          },
+          "title": "Claims",
+          "type": "array"
+        },
+        "validation_status": {
+          "$ref": "#/$defs/ValidationStatus"
+        }
+      },
+      "required": [
+        "validation_status"
+      ],
+      "title": "AnalyticalClaimValidationV2",
+      "type": "object"
+    },
+    "AnalyticalFactV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_dimension_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Canonical Dimension Ids",
+          "type": "array"
+        },
+        "canonical_entity_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Canonical Entity Refs",
+          "type": "array"
+        },
+        "canonical_metric_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canonical Metric Id"
+        },
+        "checksum": {
+          "description": "SHA-256 fact content hash",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "completeness": {
+          "$ref": "#/$defs/CompletenessStatus",
+          "default": "COMPLETE"
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "fact_id": {
+          "description": "Stable fact ID (e.g. FACT-001)",
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "fact_type": {
+          "$ref": "#/$defs/FactType"
+        },
+        "metric_fingerprint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metric Fingerprint"
+        },
+        "period_end": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period End"
+        },
+        "period_start": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Start"
+        },
+        "scale": {
+          "default": 2,
+          "title": "Scale",
+          "type": "integer"
+        },
+        "source_result_ref": {
+          "description": "Query result checksum or tool invocation ID",
+          "title": "Source Result Ref",
+          "type": "string"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "tenant_proof_checksum": {
+          "description": "Proof checksum ensuring tenant authority",
+          "title": "Tenant Proof Checksum",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "validation_status": {
+          "$ref": "#/$defs/ValidationStatus",
+          "default": "VALID"
+        },
+        "value": {
+          "$ref": "#/$defs/AnalyticalFactValueV2"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fact_id",
+        "tenant_id",
+        "fact_type",
+        "value",
+        "source_result_ref",
+        "tenant_proof_checksum",
+        "checksum"
+      ],
+      "title": "AnalyticalFactV2",
+      "type": "object"
+    },
+    "AnalyticalFactValueV2": {
+      "additionalProperties": false,
+      "properties": {
+        "bool_value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bool Value"
+        },
+        "date_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date Value"
+        },
+        "decimal_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Decimal as string representation for exact finance math",
+          "title": "Decimal Value"
+        },
+        "int_value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Int Value"
+        },
+        "is_null": {
+          "default": false,
+          "title": "Is Null",
+          "type": "boolean"
+        },
+        "raw_type": {
+          "description": "DECIMAL, INT, STRING, BOOL, DATE, NULL",
+          "title": "Raw Type",
+          "type": "string"
+        },
+        "string_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "String Value"
+        }
+      },
+      "required": [
+        "raw_type"
+      ],
+      "title": "AnalyticalFactValueV2",
+      "type": "object"
+    },
+    "ClaimType": {
+      "enum": [
+        "NUMERIC",
+        "COMPARATIVE",
+        "TEMPORAL",
+        "RANKING",
+        "STATUS",
+        "COMPLETENESS",
+        "WARNING",
+        "DESCRIPTIVE",
+        "CLARIFICATION"
+      ],
+      "title": "ClaimType",
+      "type": "string"
+    },
+    "CompletenessStatus": {
+      "enum": [
+        "COMPLETE",
+        "TRUNCATED",
+        "PARTIAL_SOURCE",
+        "PARTIAL_EXECUTION",
+        "MISSING_REQUIRED_FACT",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "title": "CompletenessStatus",
+      "type": "string"
+    },
+    "FactType": {
+      "enum": [
+        "SCALAR_METRIC",
+        "DIMENSION_MEMBER",
+        "GROUPED_METRIC",
+        "COMPARISON_OPERAND",
+        "COMPARISON_DELTA",
+        "COMPARISON_PERCENTAGE",
+        "COUNT",
+        "STATUS",
+        "RANKING_ITEM",
+        "TOTAL",
+        "SUBTOTAL",
+        "FRESHNESS",
+        "TRUNCATION_NOTICE"
+      ],
+      "title": "FactType",
+      "type": "string"
+    },
+    "PublicProvenanceSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "applied_filters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applied Filters",
+          "type": "array"
+        },
+        "certification_checksum": {
+          "title": "Certification Checksum",
+          "type": "string"
+        },
+        "contract_version": {
+          "default": "lumina.validation-provenance/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "data_source_description": {
+          "default": "PostgreSQL Clone Anal\u00edtico Governado",
+          "title": "Data Source Description",
+          "type": "string"
+        },
+        "metric_names": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metric Names",
+          "type": "array"
+        },
+        "period_description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period Description"
+        },
+        "source_last_updated": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Last Updated"
+        },
+        "truncated": {
+          "default": false,
+          "title": "Truncated",
+          "type": "boolean"
+        },
+        "validation_status": {
+          "$ref": "#/$defs/ValidationStatus"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "validation_status",
+        "certification_checksum"
+      ],
+      "title": "PublicProvenanceSummaryV2",
+      "type": "object"
+    },
+    "ResponseCertificationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "certification_id": {
+          "format": "uuid",
+          "title": "Certification Id",
+          "type": "string"
+        },
+        "certified_at": {
+          "title": "Certified At",
+          "type": "string"
+        },
+        "checksum": {
+          "title": "Checksum",
+          "type": "string"
+        },
+        "claim_validation": {
+          "$ref": "#/$defs/AnalyticalClaimValidationV2"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        },
+        "response_draft_checksum": {
+          "title": "Response Draft Checksum",
+          "type": "string"
+        },
+        "result_certification_id": {
+          "format": "uuid",
+          "title": "Result Certification Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ValidationStatus"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certification_id",
+        "result_certification_id",
+        "tenant_id",
+        "request_id",
+        "response_draft_checksum",
+        "claim_validation",
+        "status",
+        "certified_at",
+        "checksum"
+      ],
+      "title": "ResponseCertificationV2",
+      "type": "object"
+    },
+    "ResultCertificationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "certification_id": {
+          "format": "uuid",
+          "title": "Certification Id",
+          "type": "string"
+        },
+        "certified_at": {
+          "title": "Certified At",
+          "type": "string"
+        },
+        "checksum": {
+          "title": "Checksum",
+          "type": "string"
+        },
+        "query_fingerprint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Fingerprint"
+        },
+        "request_id": {
+          "title": "Request Id",
+          "type": "string"
+        },
+        "result_checksum": {
+          "title": "Result Checksum",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/ValidationStatus"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "tenant_proof_checksum": {
+          "title": "Tenant Proof Checksum",
+          "type": "string"
+        }
+      },
+      "required": [
+        "certification_id",
+        "tenant_id",
+        "request_id",
+        "result_checksum",
+        "tenant_proof_checksum",
+        "status",
+        "certified_at",
+        "checksum"
+      ],
+      "title": "ResultCertificationV2",
+      "type": "object"
+    },
+    "ValidationStatus": {
+      "enum": [
+        "VALID",
+        "VALID_WITH_WARNINGS",
+        "PARTIAL",
+        "INVALID",
+        "BLOCKED",
+        "UNVERIFIABLE",
+        "NOT_APPLICABLE",
+        "SKIPPED_DEPENDENCY_FAILED"
+      ],
+      "title": "ValidationStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "certification_id": {
+      "format": "uuid",
+      "title": "Certification Id",
+      "type": "string"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "lumina.validation-provenance/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "string"
+    },
+    "critical_issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Critical Issues",
+      "type": "array"
+    },
+    "facts": {
+      "items": {
+        "$ref": "#/$defs/AnalyticalFactV2"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "orchestration_run_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Orchestration Run Id"
+    },
+    "overall_status": {
+      "$ref": "#/$defs/ValidationStatus"
+    },
+    "policy_version": {
+      "default": "1.0.0",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "public_summary": {
+      "$ref": "#/$defs/PublicProvenanceSummaryV2"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "response_certification": {
+      "$ref": "#/$defs/ResponseCertificationV2"
+    },
+    "result_certification": {
+      "$ref": "#/$defs/ResultCertificationV2"
+    },
+    "superseded_by_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Superseded By Id"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    },
+    "validator_versions": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Validator Versions",
+      "type": "object"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "certification_id",
+    "tenant_id",
+    "user_id",
+    "request_id",
+    "result_certification",
+    "response_certification",
+    "public_summary",
+    "overall_status",
+    "created_at",
+    "checksum"
+  ],
+  "title": "CertificationEnvelopeV2",
+  "type": "object"
+}

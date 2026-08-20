@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "SchemaCompatibilityStateV2": {
+      "enum": [
+        "COMPATIBLE",
+        "UPGRADE_REQUIRED",
+        "APPLICATION_TOO_OLD",
+        "DATABASE_TOO_NEW",
+        "UNKNOWN",
+        "BLOCKED"
+      ],
+      "title": "SchemaCompatibilityStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "application_contract_version": {
+      "maxLength": 128,
+      "minLength": 3,
+      "title": "Application Contract Version",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "current_schema_version": {
+      "minimum": 0,
+      "title": "Current Schema Version",
+      "type": "integer"
+    },
+    "maximum_tested_schema_version": {
+      "minimum": 0,
+      "title": "Maximum Tested Schema Version",
+      "type": "integer"
+    },
+    "minimum_supported_schema_version": {
+      "minimum": 0,
+      "title": "Minimum Supported Schema Version",
+      "type": "integer"
+    },
+    "missing_objects": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Objects",
+      "type": "array"
+    },
+    "reason": {
+      "maxLength": 500,
+      "minLength": 3,
+      "title": "Reason",
+      "type": "string"
+    },
+    "required_schema_version": {
+      "minimum": 0,
+      "title": "Required Schema Version",
+      "type": "integer"
+    },
+    "state": {
+      "$ref": "#/$defs/SchemaCompatibilityStateV2"
+    }
+  },
+  "required": [
+    "current_schema_version",
+    "minimum_supported_schema_version",
+    "maximum_tested_schema_version",
+    "required_schema_version",
+    "application_contract_version",
+    "state",
+    "reason"
+  ],
+  "title": "MigrationCompatibilityV2",
+  "type": "object"
+}

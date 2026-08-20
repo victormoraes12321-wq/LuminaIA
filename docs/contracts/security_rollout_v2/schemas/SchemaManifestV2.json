@@ -1,0 +1,55 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "constraints": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "indexes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Indexes",
+      "type": "array"
+    },
+    "migration_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Migration Ids",
+      "type": "array"
+    },
+    "schema_version": {
+      "minimum": 0,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "tables": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Tables",
+      "type": "array"
+    },
+    "triggers": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version"
+  ],
+  "title": "SchemaManifestV2",
+  "type": "object"
+}

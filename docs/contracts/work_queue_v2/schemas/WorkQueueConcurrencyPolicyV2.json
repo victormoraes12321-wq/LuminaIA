@@ -1,0 +1,51 @@
+{
+  "$defs": {
+    "ConcurrencyClassV2": {
+      "enum": [
+        "GLOBAL",
+        "PER_TENANT",
+        "PER_JOB_TYPE",
+        "PER_CONCURRENCY_CLASS",
+        "DB_BOUND",
+        "CPU_BOUND",
+        "AI_BOUND",
+        "MATERIALIZATION_BOUND",
+        "BACKGROUND"
+      ],
+      "title": "ConcurrencyClassV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "concurrency_class": {
+      "$ref": "#/$defs/ConcurrencyClassV2"
+    },
+    "global_limit": {
+      "default": 10,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Global Limit",
+      "type": "integer"
+    },
+    "tenant_limit": {
+      "default": 3,
+      "maximum": 50,
+      "minimum": 1,
+      "title": "Tenant Limit",
+      "type": "integer"
+    },
+    "queue_depth_limit": {
+      "default": 100,
+      "maximum": 10000,
+      "minimum": 1,
+      "title": "Queue Depth Limit",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "concurrency_class"
+  ],
+  "title": "WorkQueueConcurrencyPolicyV2",
+  "type": "object"
+}

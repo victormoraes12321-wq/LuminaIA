@@ -1,0 +1,26 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "filter_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Filter Id",
+      "type": "string"
+    },
+    "required": {
+      "default": false,
+      "title": "Required",
+      "type": "boolean"
+    },
+    "target_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Target Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "filter_id",
+    "target_id"
+  ],
+  "title": "DashboardFilterBindingV2",
+  "type": "object"
+}

@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_query_fingerprint": {
+      "title": "Canonical Query Fingerprint",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "expected_decision": {
+      "title": "Expected Decision",
+      "type": "string"
+    },
+    "expected_freshness": {
+      "title": "Expected Freshness",
+      "type": "string"
+    },
+    "is_active": {
+      "default": true,
+      "title": "Is Active",
+      "type": "boolean"
+    },
+    "scenario_type": {
+      "title": "Scenario Type",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "tenant_id",
+    "description",
+    "scenario_type",
+    "canonical_query_fingerprint",
+    "expected_decision",
+    "expected_freshness",
+    "checksum"
+  ],
+  "title": "SmartCacheEvaluationCaseV2",
+  "type": "object"
+}

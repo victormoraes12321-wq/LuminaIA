@@ -1,0 +1,75 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "expected_definition_lock_version": {
+      "minimum": 0,
+      "title": "Expected Definition Lock Version",
+      "type": "integer"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "previous_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Version Id"
+    },
+    "publication_id": {
+      "format": "uuid",
+      "title": "Publication Id",
+      "type": "string"
+    },
+    "published_at": {
+      "format": "date-time",
+      "title": "Published At",
+      "type": "string"
+    },
+    "published_by": {
+      "format": "uuid",
+      "title": "Published By",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version_id": {
+      "format": "uuid",
+      "title": "Version Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "publication_id",
+    "tenant_id",
+    "index_id",
+    "version_id",
+    "expected_definition_lock_version",
+    "published_by",
+    "published_at",
+    "checksum"
+  ],
+  "title": "IndexPublicationV2",
+  "type": "object"
+}

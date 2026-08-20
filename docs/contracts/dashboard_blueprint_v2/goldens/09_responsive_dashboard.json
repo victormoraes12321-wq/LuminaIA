@@ -1,0 +1,1075 @@
+{
+  "expected": "VALID",
+  "payload": {
+    "accessibility": {
+      "accessible_description": "Dashboard sintético com leitura e fallback textual governados.",
+      "accessible_title": "Dashboard executivo sintético",
+      "color_independent_status": true,
+      "keyboard_navigation": "DOCUMENT_ORDER",
+      "landmark_strategy": "SECTIONS_WITH_LABELS",
+      "reading_order": [
+        "widget.revenue",
+        "widget.average.ticket",
+        "widget.discount.total",
+        "widget.open.accounts",
+        "widget.revenue.series",
+        "widget.product.ranking"
+      ],
+      "reduced_motion": "RESPECT_SYSTEM",
+      "screen_reader_summary": "Resumo textual dos indicadores e visualizações sintéticas.",
+      "textual_fallback_required": true
+    },
+    "audience": {
+      "audience_ids": [
+        "audience.management"
+      ],
+      "minimum_role": "CONSULTA"
+    },
+    "checksum": null,
+    "compatibility": {
+      "deprecated_features": [],
+      "maximum_contract_version_exclusive": "3.0",
+      "minimum_contract_version": "2.0",
+      "required_features": [
+        "responsive_grid",
+        "accessibility_summary",
+        "provenance_panel"
+      ]
+    },
+    "contract_state": "CONTRACT_ONLY",
+    "created_origin": "HUMAN_AUTHORED",
+    "data_bindings": [
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.revenue",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [],
+        "entities": [],
+        "expected_result_shape": "SCALAR",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-revenue",
+            "expected_unit": "BRL",
+            "metric_id": "metric.revenue",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      },
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.average.ticket",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [],
+        "entities": [],
+        "expected_result_shape": "SCALAR",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-average-ticket",
+            "expected_unit": "BRL",
+            "metric_id": "metric.average.ticket",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      },
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.discount.total",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [],
+        "entities": [],
+        "expected_result_shape": "SCALAR",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-discount-total",
+            "expected_unit": "BRL",
+            "metric_id": "metric.discount.total",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      },
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.open.accounts",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [],
+        "entities": [],
+        "expected_result_shape": "SCALAR",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-open-accounts",
+            "expected_unit": "BRL",
+            "metric_id": "metric.open.accounts",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      },
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.revenue.series",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [
+          {
+            "dimension_id": "dimension.month",
+            "display_label": "Dimensão sintética",
+            "drilldown_eligible": true,
+            "grouping_intent": "TIME_BUCKET",
+            "maximum_visual_cardinality": 50,
+            "null_handling": "PRESERVE",
+            "sorting_intent": "ASC"
+          }
+        ],
+        "entities": [],
+        "expected_result_shape": "TIME_SERIES",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-revenue",
+            "expected_unit": "BRL",
+            "metric_id": "metric.revenue",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      },
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.product.ranking",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "COMPLETE",
+        "dimensions": [
+          {
+            "dimension_id": "dimension.product",
+            "display_label": "Dimensão sintética",
+            "drilldown_eligible": true,
+            "grouping_intent": "CATEGORY",
+            "maximum_visual_cardinality": 50,
+            "null_handling": "PRESERVE",
+            "sorting_intent": "ASC"
+          }
+        ],
+        "entities": [],
+        "expected_result_shape": "RANKING",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-revenue",
+            "expected_unit": "BRL",
+            "metric_id": "metric.revenue",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      }
+    ],
+    "filter_groups": [],
+    "filters": [
+      {
+        "accessibility_label": "Filial",
+        "allowed_source": "USER_SELECTION",
+        "canonical_target_id": "dimension.branch",
+        "default": {
+          "canonical_values": [],
+          "mode": "ALL_ALLOWED"
+        },
+        "filter_id": "filter.branch",
+        "filter_type": "SINGLE_SELECT",
+        "interaction_behavior": "APPLY_IMMEDIATELY",
+        "maximum_selections": 1,
+        "required": false,
+        "scope": "DASHBOARD_GLOBAL",
+        "section_id": null,
+        "target_widget_ids": [
+          "widget.revenue",
+          "widget.average.ticket",
+          "widget.discount.total",
+          "widget.open.accounts",
+          "widget.revenue.series",
+          "widget.product.ranking"
+        ],
+        "visible": true
+      }
+    ],
+    "governance": {
+      "classification": "TENANT_BUSINESS_DATA",
+      "contains_personal_data": false,
+      "permissions": [
+        {
+          "capability": "dashboard:view",
+          "reason": "Visualização do dashboard",
+          "required": true
+        }
+      ],
+      "template_eligible": true
+    },
+    "identity": {
+      "blueprint_id": "dashboard.executive.sales",
+      "canonical_name": "dashboard.executive.sales",
+      "description": "Dashboard sintético para certificação do contrato declarativo V2.",
+      "locale": "pt-BR",
+      "timezone_policy": "TENANT_AUTHORITY",
+      "title": "Dashboard executivo sintético"
+    },
+    "interactions": [],
+    "layout": {
+      "breakpoints": [
+        {
+          "breakpoint": "MOBILE",
+          "grid": {
+            "columns": 4,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.revenue",
+              "width": 4,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 1,
+              "visible": true,
+              "widget_id": "widget.average.ticket",
+              "width": 4,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 2,
+              "visible": true,
+              "widget_id": "widget.discount.total",
+              "width": 4,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 3,
+              "visible": true,
+              "widget_id": "widget.open.accounts",
+              "width": 4,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 4,
+              "visible": true,
+              "widget_id": "widget.revenue.series",
+              "width": 4,
+              "x": 0,
+              "y": 16
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 5,
+              "visible": true,
+              "widget_id": "widget.product.ranking",
+              "width": 4,
+              "x": 0,
+              "y": 20
+            }
+          ],
+          "minimum_width_px": 0
+        },
+        {
+          "breakpoint": "TABLET",
+          "grid": {
+            "columns": 8,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.revenue",
+              "width": 8,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 1,
+              "visible": true,
+              "widget_id": "widget.average.ticket",
+              "width": 8,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 2,
+              "visible": true,
+              "widget_id": "widget.discount.total",
+              "width": 8,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 3,
+              "visible": true,
+              "widget_id": "widget.open.accounts",
+              "width": 8,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 4,
+              "visible": true,
+              "widget_id": "widget.revenue.series",
+              "width": 8,
+              "x": 0,
+              "y": 16
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 5,
+              "visible": true,
+              "widget_id": "widget.product.ranking",
+              "width": 8,
+              "x": 0,
+              "y": 20
+            }
+          ],
+          "minimum_width_px": 768
+        },
+        {
+          "breakpoint": "DESKTOP",
+          "grid": {
+            "columns": 12,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.revenue",
+              "width": 12,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 1,
+              "visible": true,
+              "widget_id": "widget.average.ticket",
+              "width": 12,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 2,
+              "visible": true,
+              "widget_id": "widget.discount.total",
+              "width": 12,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 3,
+              "visible": true,
+              "widget_id": "widget.open.accounts",
+              "width": 12,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 4,
+              "visible": true,
+              "widget_id": "widget.revenue.series",
+              "width": 12,
+              "x": 0,
+              "y": 16
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 5,
+              "visible": true,
+              "widget_id": "widget.product.ranking",
+              "width": 12,
+              "x": 0,
+              "y": 20
+            }
+          ],
+          "minimum_width_px": 1280
+        },
+        {
+          "breakpoint": "ULTRAWIDE",
+          "grid": {
+            "columns": 16,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.revenue",
+              "width": 16,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 1,
+              "visible": true,
+              "widget_id": "widget.average.ticket",
+              "width": 16,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 2,
+              "visible": true,
+              "widget_id": "widget.discount.total",
+              "width": 16,
+              "x": 0,
+              "y": 8
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 3,
+              "visible": true,
+              "widget_id": "widget.open.accounts",
+              "width": 16,
+              "x": 0,
+              "y": 12
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 4,
+              "visible": true,
+              "widget_id": "widget.revenue.series",
+              "width": 16,
+              "x": 0,
+              "y": 16
+            },
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 5,
+              "visible": true,
+              "widget_id": "widget.product.ranking",
+              "width": 16,
+              "x": 0,
+              "y": 20
+            }
+          ],
+          "minimum_width_px": 1920
+        }
+      ]
+    },
+    "lifecycle": "DRAFT",
+    "purpose": {
+      "analytical_domains": [
+        "sales"
+      ],
+      "intended_decisions": [
+        "monitorar desempenho"
+      ],
+      "purpose_id": "purpose.executive.analysis",
+      "summary": "Apoiar decisões usando apenas referências analíticas canônicas."
+    },
+    "refresh_policy": "MANUAL",
+    "version": {
+      "blueprint_version": "1.0.0",
+      "contract_id": "lumina.dashboard-blueprint",
+      "contract_version": "lumina.dashboard-blueprint/2.0",
+      "publication_version": null,
+      "revision": {
+        "semantic_revision": 1,
+        "visual_revision": 1
+      }
+    },
+    "widgets": [
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Faturamento.",
+          "accessible_name": "Faturamento",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Faturamento.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.revenue",
+        "expected_result_shape": "SCALAR",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.revenue",
+          "widget_id": "widget.revenue"
+        },
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para Faturamento.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando Faturamento",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Faturamento",
+          "visible": true
+        },
+        "trend_display": "NONE",
+        "unit_display": "AUTO",
+        "visible": true,
+        "widget_type": "KPI"
+      },
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Ticket médio.",
+          "accessible_name": "Ticket médio",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Ticket médio.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.average.ticket",
+        "expected_result_shape": "SCALAR",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.average.ticket",
+          "widget_id": "widget.average.ticket"
+        },
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para Ticket médio.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando Ticket médio",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Ticket médio",
+          "visible": true
+        },
+        "trend_display": "NONE",
+        "unit_display": "AUTO",
+        "visible": true,
+        "widget_type": "KPI"
+      },
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Desconto total.",
+          "accessible_name": "Desconto total",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Desconto total.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.discount.total",
+        "expected_result_shape": "SCALAR",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.discount.total",
+          "widget_id": "widget.discount.total"
+        },
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para Desconto total.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando Desconto total",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Desconto total",
+          "visible": true
+        },
+        "trend_display": "NONE",
+        "unit_display": "AUTO",
+        "visible": true,
+        "widget_type": "KPI"
+      },
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Contas em aberto.",
+          "accessible_name": "Contas em aberto",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Contas em aberto.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.open.accounts",
+        "expected_result_shape": "SCALAR",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.open.accounts",
+          "widget_id": "widget.open.accounts"
+        },
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para Contas em aberto.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando Contas em aberto",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Contas em aberto",
+          "visible": true
+        },
+        "trend_display": "NONE",
+        "unit_display": "AUTO",
+        "visible": true,
+        "widget_type": "KPI"
+      },
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Evolução mensal.",
+          "accessible_name": "Evolução mensal",
+          "chart_text_summary_required": true,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Evolução mensal.",
+          "table_alternative_required": true
+        },
+        "binding_id": "binding.revenue.series",
+        "category_axis": {
+          "binding_id": "dimension.month",
+          "label": "Mês",
+          "scale": "TIME"
+        },
+        "expected_result_shape": "TIME_SERIES",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.revenue.series",
+          "widget_id": "widget.revenue.series"
+        },
+        "labels": "AUTO",
+        "legend": "AUTO",
+        "maximum_points": 500,
+        "maximum_series": 8,
+        "series": [
+          {
+            "label": "Faturamento",
+            "metric_id": "metric.revenue",
+            "series_id": "series.revenue",
+            "theme_token": "SERIES_1"
+          }
+        ],
+        "sorting": "SOURCE",
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para evolução mensal.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando evolução mensal",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Evolução mensal",
+          "visible": true
+        },
+        "tooltip_policy": "VALUES_AND_LABELS",
+        "value_axis": {
+          "binding_id": "metric.revenue",
+          "label": "Valor",
+          "scale": "LINEAR"
+        },
+        "visible": true,
+        "widget_type": "LINE_CHART"
+      },
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Ranking de produtos.",
+          "accessible_name": "Ranking de produtos",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Ranking de produtos.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.product.ranking",
+        "completeness_indicator": true,
+        "expected_result_shape": "RANKING",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.product.ranking",
+          "widget_id": "widget.product.ranking"
+        },
+        "metric_id": "metric.revenue",
+        "order_direction": "DESC",
+        "other_policy": "DISABLED",
+        "rank_display": true,
+        "ranking_dimension_id": "dimension.product",
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para ranking de produtos.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando ranking de produtos",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "theme_token": "PRIMARY",
+        "tie_policy": "INCLUDE_TIES",
+        "title": {
+          "subtitle": null,
+          "title": "Ranking de produtos",
+          "visible": true
+        },
+        "top_n": 10,
+        "visible": true,
+        "widget_type": "RANKING"
+      }
+    ]
+  }
+}

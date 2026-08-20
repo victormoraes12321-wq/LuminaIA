@@ -1,0 +1,8 @@
+{
+  "auto_published": false,
+  "build_status": "READY",
+  "certification_status": "VALID",
+  "lifecycle": "READY",
+  "publication_requires_cas": true,
+  "source": "SAFE_ANALYTICAL_POSTGRESQL"
+}

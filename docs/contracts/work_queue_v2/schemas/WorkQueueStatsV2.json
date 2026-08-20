@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "WorkQueueBackpressureStateKindV2": {
+      "enum": [
+        "NORMAL",
+        "ELEVATED",
+        "SATURATED",
+        "REJECTING",
+        "DRAINING"
+      ],
+      "title": "WorkQueueBackpressureStateKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "default": "lumina.scale-queues-performance/1.0",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "total_queued": {
+      "minimum": 0,
+      "title": "Total Queued",
+      "type": "integer"
+    },
+    "total_claimed": {
+      "minimum": 0,
+      "title": "Total Claimed",
+      "type": "integer"
+    },
+    "total_running": {
+      "minimum": 0,
+      "title": "Total Running",
+      "type": "integer"
+    },
+    "total_succeeded": {
+      "minimum": 0,
+      "title": "Total Succeeded",
+      "type": "integer"
+    },
+    "total_failed": {
+      "minimum": 0,
+      "title": "Total Failed",
+      "type": "integer"
+    },
+    "total_dead_letter": {
+      "minimum": 0,
+      "title": "Total Dead Letter",
+      "type": "integer"
+    },
+    "total_cancelled": {
+      "minimum": 0,
+      "title": "Total Cancelled",
+      "type": "integer"
+    },
+    "active_workers_count": {
+      "minimum": 0,
+      "title": "Active Workers Count",
+      "type": "integer"
+    },
+    "backpressure_state": {
+      "$ref": "#/$defs/WorkQueueBackpressureStateKindV2"
+    },
+    "oldest_queued_job_age_seconds": {
+      "default": 0.0,
+      "minimum": 0.0,
+      "title": "Oldest Queued Job Age Seconds",
+      "type": "number"
+    },
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "total_queued",
+    "total_claimed",
+    "total_running",
+    "total_succeeded",
+    "total_failed",
+    "total_dead_letter",
+    "total_cancelled",
+    "active_workers_count",
+    "backpressure_state",
+    "evaluated_at"
+  ],
+  "title": "WorkQueueStatsV2",
+  "type": "object"
+}

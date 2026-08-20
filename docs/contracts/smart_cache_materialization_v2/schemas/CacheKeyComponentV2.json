@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "enum": [
+        "presentation_policy_fingerprint",
+        "compiler_options_fingerprint",
+        "locale_fingerprint"
+      ],
+      "title": "Name",
+      "type": "string"
+    },
+    "value": {
+      "maxLength": 128,
+      "minLength": 16,
+      "pattern": "^[A-Za-z0-9_.:-]+$",
+      "title": "Value",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "value"
+  ],
+  "title": "CacheKeyComponentV2",
+  "type": "object"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "lumina.context-resolution/1.0",
+  "volatile_fields": ["resolved_at", "updated_at", "duration_ms"],
+  "transitions": [
+    {"name": "first_turn", "question": "Faturamento de junho de 2026 da filial Centro", "relationship": "NEW_TOPIC", "readiness": "READY"},
+    {"name": "temporal_follow_up", "question": "E em julho?", "relationship": "REFINEMENT", "readiness": "READY"},
+    {"name": "comparison_extension", "question": "Agora compare os dois meses", "relationship": "COMPARISON_EXTENSION", "readiness": "READY"},
+    {"name": "drill_down", "question": "Separe por produto", "relationship": "DRILL_DOWN", "readiness": "READY"},
+    {"name": "correction", "question": "Na verdade, filial Sul", "relationship": "CORRECTION", "readiness": "READY"},
+    {"name": "removal", "question": "Sem a filial Centro", "relationship": "REMOVAL", "readiness": "READY"},
+    {"name": "partial_reset", "question": "Remova o agrupamento", "relationship": "REMOVAL", "readiness": "READY"},
+    {"name": "total_reset", "question": "Comece uma nova analise", "relationship": "RESET", "readiness": "CLARIFICATION_REQUIRED"},
+    {"name": "change_of_subject", "question": "Vamos falar de estoque", "relationship": "NEW_TOPIC", "readiness": "CLARIFICATION_REQUIRED"},
+    {"name": "clarification", "question": "Mostre os resultados", "relationship": "NEW_TOPIC", "readiness": "CLARIFICATION_REQUIRED"},
+    {"name": "clarification_answer", "question": "Faturamento", "relationship": "CLARIFICATION_ANSWER", "readiness": "READY"},
+    {"name": "backtrack", "question": "Volte para a analise anterior", "relationship": "BACKTRACK", "readiness": "READY"},
+    {"name": "branch", "question": "Agora separe por cliente", "relationship": "BRANCH_CONTINUATION", "readiness": "READY"},
+    {"name": "out_of_scope", "question": "Quem criou o Excel?", "relationship": "OUT_OF_SCOPE", "readiness": "OUT_OF_SCOPE"},
+    {"name": "technical_error", "question": "E julho?", "relationship": "UNRESOLVED", "readiness": "ERROR"},
+    {"name": "stale_version", "question": "E julho?", "relationship": "UNRESOLVED", "readiness": "BLOCKED"},
+    {"name": "idempotent_replay", "question": "E julho?", "relationship": "REFINEMENT", "readiness": "READY"},
+    {"name": "complete_four_turn", "question": "Separe por produto", "relationship": "DRILL_DOWN", "readiness": "READY"}
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "requested_by_user_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Requested By User Id",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "requested_at": {
+      "format": "date-time",
+      "title": "Requested At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_id",
+    "tenant_id",
+    "requested_by_user_id",
+    "reason",
+    "requested_at"
+  ],
+  "title": "WorkQueueCancellationRequestV2",
+  "type": "object"
+}

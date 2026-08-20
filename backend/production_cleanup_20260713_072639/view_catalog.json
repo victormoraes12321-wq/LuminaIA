@@ -1,0 +1,557 @@
+[
+  {
+    "id": "3e65fc1b-24e6-4388-9826-db3d28d1ad21",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_VENDAS_MENSAIS",
+    "descricao_para_ia": "Exibe o volume e valor total de vendas agrupados por mês e ano fiscal. Útil para análise de desempenho comercial, tendências de faturamento, receita mensal acumulada, comparativo de períodos e sazonalidade de vendas. Indicado quando o usuário pergunta sobre faturamento, receita, vendas, quanto foi vendido, performance comercial ou resultados financeiros por período.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "integer",
+        "example": "2024",
+        "required": false,
+        "description": "Ano fiscal (ex: 2024)"
+      },
+      "mes": {
+        "type": "integer",
+        "example": "6",
+        "required": false,
+        "description": "Mês numérico 1-12"
+      },
+      "data_fim": {
+        "type": "date",
+        "example": "2024-12-31",
+        "required": false,
+        "description": "Data final do período (ISO 8601)"
+      },
+      "data_inicio": {
+        "type": "date",
+        "example": "2024-01-01",
+        "required": false,
+        "description": "Data inicial do período (ISO 8601)"
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-06-16 10:10:33.567743+00:00"
+  },
+  {
+    "id": "0d16df77-5aa7-44a7-b3f2-38c950c7c1db",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_EVOLUCAO_CLIENTES",
+    "descricao_para_ia": "Apresenta a evolução temporal da base de clientes ativos, novos clientes adquiridos e taxa de churn (cancelamentos) ao longo do tempo. Útil para análise de crescimento da carteira de clientes, retenção, fidelização, churn rate, NRR (Net Revenue Retention) e tendências de expansão ou contração da base. Indicado quando o usuário pergunta sobre clientes, crescimento, churn, cancelamentos, retenção ou evolução da carteira.",
+    "tipo_grafico_padrao": "LINE",
+    "parametros_schema": {
+      "data_fim": {
+        "type": "date",
+        "example": "2024-12-31",
+        "required": false,
+        "description": "Fim do período de análise"
+      },
+      "segmento": {
+        "type": "string",
+        "example": "Enterprise",
+        "required": false,
+        "description": "Segmento de clientes (ex: Enterprise, SMB, Mid-Market)"
+      },
+      "data_inicio": {
+        "type": "date",
+        "example": "2024-01-01",
+        "required": false,
+        "description": "Início do período de análise"
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-06-16 10:10:33.567743+00:00"
+  },
+  {
+    "id": "845433a2-f522-40a0-a6f7-d8c440fa5781",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_MARKET_SHARE_PRODUTOS",
+    "descricao_para_ia": "Apresenta a participação percentual de cada linha ou categoria de produto no faturamento total da empresa. Útil para análise de mix de produtos, concentração de receita, diversificação do portfólio, share de mercado interno e identificação de produtos mais rentáveis. Indicado quando o usuário pergunta sobre participação de produtos, mix, distribuição de receita, quais produtos vendem mais ou contribuição por produto.",
+    "tipo_grafico_padrao": "PIE",
+    "parametros_schema": {},
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-06-16 10:10:33.567743+00:00"
+  },
+  {
+    "id": "688db73a-b3ef-4764-8a64-27348b997de3",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_DETALHE_PEDIDOS",
+    "descricao_para_ia": "Lista detalhada e paginada de pedidos com informações completas: número do pedido, cliente, valor, status atual, data de criação, prazo de entrega e nota fiscal. Útil para auditoria operacional, rastreamento de pedidos individuais, relatórios de status, análise de inadimplência e controle de SLA de entrega. Indicado quando o usuário pergunta sobre pedidos específicos, status de pedidos, listagem detalhada, auditoria ou rastreamento.",
+    "tipo_grafico_padrao": "TABLE",
+    "parametros_schema": {
+      "status": {
+        "type": "string",
+        "example": "APROVADO",
+        "required": false,
+        "description": "Status do pedido: APROVADO, PENDENTE, CANCELADO, EM_PROCESSAMENTO"
+      },
+      "data_fim": {
+        "type": "date",
+        "example": "2024-12-31",
+        "required": false,
+        "description": "Data final de criação do pedido"
+      },
+      "cliente_id": {
+        "type": "string",
+        "example": "ACME Corp",
+        "required": false,
+        "description": "ID ou nome parcial do cliente"
+      },
+      "data_inicio": {
+        "type": "date",
+        "example": "2024-01-01",
+        "required": false,
+        "description": "Data inicial de criação do pedido"
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-06-16 10:10:33.567743+00:00"
+  },
+  {
+    "id": "0adbce1d-ea6e-48d7-8a06-872bce222257",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_KPI_EXECUTIVO",
+    "descricao_para_ia": "Painel consolidado de KPIs estratégicos para visão executiva da empresa: receita total, margem bruta, ticket médio, Net Promoter Score (NPS), número de novos clientes e taxa de crescimento. Útil para reuniões de board, apresentações executivas, visão geral de performance e monitoramento de metas estratégicas. Indicado quando o usuário pede um resumo geral, dashboard executivo, KPIs, métricas-chave, performance geral ou visão consolidada.",
+    "tipo_grafico_padrao": "KPI",
+    "parametros_schema": {
+      "periodo": {
+        "type": "string",
+        "example": "trimestre",
+        "required": false,
+        "description": "Período de referência: mes_atual, trimestre, semestre, ano"
+      },
+      "data_referencia": {
+        "type": "date",
+        "example": "2024-12-31",
+        "required": false,
+        "description": "Data de corte para os KPIs"
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-06-16 10:10:33.567743+00:00"
+  },
+  {
+    "id": "f7f35c74-8409-4c46-937f-5a3e7dc8de18",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_TEST_DATAPLATFORM",
+    "descricao_para_ia": "View de teste da Data Platform",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "limite": {
+        "type": "number",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-07 14:08:47.815467+00:00",
+    "atualizado_em": "2026-07-07 14:08:47.815467+00:00"
+  },
+  {
+    "id": "9dfb2938-97b5-4b29-acc9-e662d4d5ae06",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_FATURAMENTO_PRODUTOS",
+    "descricao_para_ia": "Mostra o faturamento total e quantidade de produtos vendidos por categoria e mes.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "integer",
+        "required": true
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 11:22:15.387887+00:00",
+    "atualizado_em": "2026-06-16 11:22:15.387887+00:00"
+  },
+  {
+    "id": "7faefd7c-1a7d-4603-a22e-0d3f5b7b8f0b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_FAT_PROD_1781608977",
+    "descricao_para_ia": "Mostra o faturamento total e quantidade de produtos vendidos por categoria e mes.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "integer",
+        "required": true
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 11:22:57.216721+00:00",
+    "atualizado_em": "2026-06-16 11:22:57.216721+00:00"
+  },
+  {
+    "id": "1d00cd4e-6c92-40cd-936b-cf8fe8157bda",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_FAT_PROD_1781612969",
+    "descricao_para_ia": "Mostra o faturamento total e quantidade de produtos vendidos por categoria e mes.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "integer",
+        "required": true
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 12:29:29.608532+00:00",
+    "atualizado_em": "2026-06-16 12:29:29.608532+00:00"
+  },
+  {
+    "id": "2e9acd60-da8e-494a-a04d-ebe56887dee0",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_FAT_PROD_1781613201",
+    "descricao_para_ia": "Mostra o faturamento total e quantidade de produtos vendidos por categoria e mes.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "integer",
+        "required": true
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-06-16 12:33:21.323678+00:00",
+    "atualizado_em": "2026-06-16 12:33:21.323678+00:00"
+  },
+  {
+    "id": "ffe5d494-5dbd-41c8-9fe4-de169f2e2424",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_METAS_ATINGIMENTO",
+    "descricao_para_ia": "Análise de metas vs realizado por vendedor e por loja/filial com projeção. Dados: nome do vendedor ou filial, meta definida para o período (R$), valor realizado até o momento (R$), percentual de atingimento (%), valor faltante para atingir a meta ou valor excedente (R$), projeção de fechamento do mês baseada no ritmo atual, dias restantes no período. Use para: quem atingiu ou vai atingir a meta, percentual de atingimento, quanto falta para cada vendedor bater a meta, metas do mês, projeção e forecast de vendas, ranking por atingimento de metas.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "number",
+        "required": false
+      },
+      "mes": {
+        "type": "number",
+        "required": false
+      },
+      "loja": {
+        "type": "string",
+        "required": false
+      },
+      "vendedor_nome": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "df824f81-a5b7-448a-8cc1-03ebb33b4436",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_VENDAS_CONTEXTO_GERAL",
+    "descricao_para_ia": "Visão geral e completa de todas as vendas e pedidos da loja. Contém: número do pedido, data da venda, nome do vendedor, nome do cliente, produtos vendidos, quantidade, valor unitário, valor total, desconto aplicado, forma de pagamento (dinheiro/cartão/pix/boleto), status do pedido (APROVADO/PENDENTE/CANCELADO/EM_PROCESSAMENTO), número da nota fiscal, loja/filial, região. Use para: listar vendas de um período específico, buscar pedidos de um cliente, ver o que um vendedor vendeu, consultar histórico de compras de qualquer pessoa, filtrar por status, produto, forma de pagamento ou qualquer combinação de filtros.",
+    "tipo_grafico_padrao": "TABLE",
+    "parametros_schema": {
+      "loja": {
+        "type": "string",
+        "required": false,
+        "description": "Nome da loja/filial"
+      },
+      "limite": {
+        "type": "number",
+        "required": false,
+        "description": "Máximo de registros (padrão: 500)"
+      },
+      "status": {
+        "type": "string",
+        "required": false,
+        "description": "Status do pedido"
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false,
+        "description": "Data fim do período"
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false,
+        "description": "Data início do período"
+      },
+      "cliente_nome": {
+        "type": "string",
+        "required": false,
+        "description": "Nome parcial do cliente"
+      },
+      "produto_nome": {
+        "type": "string",
+        "required": false,
+        "description": "Nome parcial do produto"
+      },
+      "vendedor_nome": {
+        "type": "string",
+        "required": false,
+        "description": "Nome parcial do vendedor"
+      },
+      "forma_pagamento": {
+        "type": "string",
+        "required": false,
+        "description": "Forma de pagamento"
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "b1cae532-1a26-4994-95d8-eb2cc7309d7b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_FATURAMENTO_MENSAL",
+    "descricao_para_ia": "Evolução do faturamento mês a mês com comparativo entre meta e realizado. Dados por mês: mês de referência, faturamento realizado (R$), meta mensal (R$), percentual de atingimento da meta, crescimento vs mês anterior (%), número de transações, ticket médio. Use para: analisar crescimento de vendas ao longo do tempo, ver tendência, comparar meses, histórico de faturamento do ano, evolução do negócio, gráfico de vendas mensais, faturamento do ano passado ou desse ano.",
+    "tipo_grafico_padrao": "LINE",
+    "parametros_schema": {
+      "ano": {
+        "type": "number",
+        "required": false
+      },
+      "loja": {
+        "type": "string",
+        "required": false
+      },
+      "regiao": {
+        "type": "string",
+        "required": false
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "8eee35e8-fdaa-48c7-93b0-e19933060987",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_PERFORMANCE_VENDEDORES",
+    "descricao_para_ia": "Ranking e performance completa de todos os vendedores do período. Dados por vendedor: nome completo, código do funcionário, faturamento realizado (R$), meta mensal (R$), percentual de atingimento da meta (%), número de vendas fechadas, ticket médio por venda, comissão calculada (R$), posição no ranking, número de clientes atendidos, produtos mais vendidos por vendedor. Use para: ver ranking de vendedores, quem bateu ou não bateu a meta, comparar desempenho entre vendedores, top vendedores do mês, comissões a pagar, dados específicos de um vendedor, meta de qualquer vendedor.",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "ano": {
+        "type": "number",
+        "required": false
+      },
+      "mes": {
+        "type": "number",
+        "required": false
+      },
+      "limite": {
+        "type": "number",
+        "required": false
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false
+      },
+      "vendedor_nome": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "bb93f305-f4af-498c-a07b-e109ab3868a1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_CLIENTES_HISTORICO",
+    "descricao_para_ia": "Dados completos de clientes e seu histórico total de compras. Dados por cliente: nome completo, código de cliente, telefone, email, cidade, estado, data do primeiro pedido, data da última compra, dias desde a última compra, total de pedidos realizados, valor total gasto (R$), ticket médio por pedido, produtos mais comprados, classificação do cliente (VIP/regular/inativo). Use para: buscar dados de um cliente específico, ver histórico de compras de alguém, clientes inativos há X dias, maiores compradores, clientes por região ou cidade, o que um cliente comprou, total gasto por cliente, lista de clientes.",
+    "tipo_grafico_padrao": "TABLE",
+    "parametros_schema": {
+      "limite": {
+        "type": "number",
+        "required": false
+      },
+      "regiao": {
+        "type": "string",
+        "required": false
+      },
+      "status": {
+        "type": "string",
+        "required": false
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false
+      },
+      "cliente_nome": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "134eb4a2-79b2-4696-a08a-3524892697c1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_PRODUTOS_MAIS_VENDIDOS",
+    "descricao_para_ia": "Análise completa de produtos: ranking dos mais vendidos e market share por categoria. Dados por produto: nome, código, categoria, subcategoria, quantidade total vendida, faturamento gerado (R$), participação no total de vendas (%), margem de contribuição (%), preço médio de venda, estoque atual. Use para: produtos mais vendidos do período, market share de produtos, análise de mix de produtos, quais categorias vendem mais, produto mais lucrativo, desempenho de uma categoria específica, produtos menos vendidos.",
+    "tipo_grafico_padrao": "PIE",
+    "parametros_schema": {
+      "ano": {
+        "type": "number",
+        "required": false
+      },
+      "mes": {
+        "type": "number",
+        "required": false
+      },
+      "limite": {
+        "type": "number",
+        "required": false
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false
+      },
+      "produto_nome": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "e39bb2cd-7f3d-41f9-aa43-e7981a9bde70",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_KPI_EXECUTIVO_VENDAS",
+    "descricao_para_ia": "Painel de KPIs executivos consolidados do negócio para o período selecionado. Métricas principais: faturamento total (R$), meta do período (R$), percentual de atingimento da meta, ticket médio por venda, número total de transações, novos clientes captados, NPS (satisfação), margem bruta (%), comparativo vs período anterior com variação percentual. Use para: resumo executivo, visão geral do negócio, como estão as vendas hoje/mês/semana, painel de indicadores, KPIs do mês, números gerais, performance geral da loja.",
+    "tipo_grafico_padrao": "KPI",
+    "parametros_schema": {
+      "ano": {
+        "type": "number",
+        "required": false
+      },
+      "mes": {
+        "type": "number",
+        "required": false
+      },
+      "loja": {
+        "type": "string",
+        "required": false
+      },
+      "data_fim": {
+        "type": "date",
+        "required": false
+      },
+      "data_inicio": {
+        "type": "date",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "e05d8278-ef9d-4de0-bf03-b32382e04565",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome_view_oracle": "VW_ESTOQUE_STATUS",
+    "descricao_para_ia": "Status atual e completo do estoque de todos os produtos da loja. Dados por produto: nome, código, categoria, estoque atual (unidades), estoque mínimo configurado, estoque máximo, situação (OK/ALERTA/CRÍTICO/ZERADO), dias sem reposição, data última entrada, valor do estoque em R$, custo unitário. Use para: produtos com estoque crítico ou zerado, quais produtos repor, alertas de estoque, inventário completo, valor total em estoque, estoque de um produto específico, produtos em falta na loja.",
+    "tipo_grafico_padrao": "TABLE",
+    "parametros_schema": {
+      "limite": {
+        "type": "number",
+        "required": false
+      },
+      "categoria": {
+        "type": "string",
+        "required": false
+      },
+      "tipo_alerta": {
+        "type": "string",
+        "required": false,
+        "description": "ok|alerta|critico|zerado"
+      },
+      "produto_nome": {
+        "type": "string",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-02 11:34:49.817278+00:00",
+    "atualizado_em": "2026-07-02 11:34:49.817278+00:00"
+  },
+  {
+    "id": "7ae26ef6-2487-44e2-a1f3-c7db73e72a37",
+    "tenant_id": "b44be86a-cb87-429e-a6b5-99f792f354e5",
+    "nome_view_oracle": "VW_PERFORMANCE_VENDEDORES",
+    "descricao_para_ia": "Performance de vendedores por meta",
+    "tipo_grafico_padrao": "BAR",
+    "parametros_schema": {
+      "limite": {
+        "type": "number",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-10 17:35:47.956160+00:00",
+    "atualizado_em": "2026-07-10 17:35:47.956160+00:00"
+  },
+  {
+    "id": "58165224-27b5-49b6-8243-0610f4e1c6a5",
+    "tenant_id": "b44be86a-cb87-429e-a6b5-99f792f354e5",
+    "nome_view_oracle": "VW_VENDAS_CONTEXTO_GERAL",
+    "descricao_para_ia": "Tabela de vendas gerais",
+    "tipo_grafico_padrao": "TABLE",
+    "parametros_schema": {
+      "limite": {
+        "type": "number",
+        "required": false
+      }
+    },
+    "ativo": true,
+    "criado_em": "2026-07-10 17:35:47.956160+00:00",
+    "atualizado_em": "2026-07-10 17:35:47.956160+00:00"
+  }
+]

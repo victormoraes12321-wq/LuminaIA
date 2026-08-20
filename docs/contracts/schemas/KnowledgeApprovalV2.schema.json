@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "KnowledgeApprovalDecision": {
+      "enum": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "title": "KnowledgeApprovalDecision",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "approval_id": {
+      "format": "uuid",
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "comment": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Comment",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/KnowledgeApprovalDecision"
+    },
+    "policy_version": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "reviewer_user_id": {
+      "format": "uuid",
+      "title": "Reviewer User Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Version Checksum",
+      "type": "string"
+    },
+    "version_id": {
+      "format": "uuid",
+      "title": "Version Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "approval_id",
+    "tenant_id",
+    "asset_id",
+    "version_id",
+    "reviewer_user_id",
+    "decision",
+    "comment",
+    "policy_version",
+    "version_checksum",
+    "created_at"
+  ],
+  "title": "KnowledgeApprovalV2",
+  "type": "object"
+}

@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "bytes_freed": {
+      "title": "Bytes Freed",
+      "type": "integer"
+    },
+    "dry_run": {
+      "title": "Dry Run",
+      "type": "boolean"
+    },
+    "evicted_count": {
+      "title": "Evicted Count",
+      "type": "integer"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Cursor"
+    }
+  },
+  "required": [
+    "evicted_count",
+    "bytes_freed",
+    "dry_run"
+  ],
+  "title": "CacheEvictionResultV2",
+  "type": "object"
+}

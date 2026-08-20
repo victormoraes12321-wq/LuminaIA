@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "acquired_at": {
+      "title": "Acquired At",
+      "type": "string"
+    },
+    "cache_key_checksum": {
+      "title": "Cache Key Checksum",
+      "type": "string"
+    },
+    "expires_at": {
+      "title": "Expires At",
+      "type": "string"
+    },
+    "lease_id": {
+      "title": "Lease Id",
+      "type": "string"
+    },
+    "lock_version": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "owner_token_checksum": {
+      "title": "Owner Token Checksum",
+      "type": "string"
+    },
+    "status": {
+      "default": "HELD",
+      "title": "Status",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "lease_id",
+    "tenant_id",
+    "cache_key_checksum",
+    "owner_token_checksum",
+    "acquired_at",
+    "expires_at"
+  ],
+  "title": "CacheLeaseV2",
+  "type": "object"
+}

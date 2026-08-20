@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "applied_filters_required": {
+      "default": true,
+      "title": "Applied Filters Required",
+      "type": "boolean"
+    },
+    "cache_indicator_required": {
+      "default": true,
+      "title": "Cache Indicator Required",
+      "type": "boolean"
+    },
+    "metric_definition_required": {
+      "default": true,
+      "title": "Metric Definition Required",
+      "type": "boolean"
+    },
+    "public_summary_required": {
+      "default": true,
+      "title": "Public Summary Required",
+      "type": "boolean"
+    },
+    "source_freshness_required": {
+      "default": true,
+      "title": "Source Freshness Required",
+      "type": "boolean"
+    },
+    "validation_status_required": {
+      "default": true,
+      "title": "Validation Status Required",
+      "type": "boolean"
+    },
+    "warnings_required": {
+      "default": true,
+      "title": "Warnings Required",
+      "type": "boolean"
+    }
+  },
+  "title": "DashboardProvenanceRequirementV2",
+  "type": "object"
+}

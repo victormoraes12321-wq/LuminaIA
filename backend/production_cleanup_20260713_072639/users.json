@@ -1,0 +1,28 @@
+[
+  {
+    "id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome": "Administrador Demo",
+    "email": "admin@luminaai.demo",
+    "password_hash": "$2b$12$AjvFtzAPkVmyB0nX05APRO0espV70GJRoqKwUqnNEtCOV.GrXa6n6",
+    "role": "ADMIN",
+    "ativo": true,
+    "must_change_password": true,
+    "ultimo_acesso": "2026-07-11 11:50:43.757386+00:00",
+    "criado_em": "2026-06-18 11:28:44.835497+00:00",
+    "atualizado_em": "2026-07-11 12:39:34.675580+00:00"
+  },
+  {
+    "id": "b1eebc99-9c0b-4ef8-bb6d-6bb9bd380b22",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "nome": "Administrador LuminaAI",
+    "email": "ti@casadocampo.vet.br",
+    "password_hash": "$2b$12$efN.wB0W5PfK87q2dSxd0e/TKCekuVLCfvS09liikDiTicFj6Y8n2",
+    "role": "ADMIN",
+    "ativo": true,
+    "must_change_password": false,
+    "ultimo_acesso": "2026-07-11 13:12:57.896855+00:00",
+    "criado_em": "2026-06-16 10:10:33.567743+00:00",
+    "atualizado_em": "2026-07-11 13:12:57.175446+00:00"
+  }
+]

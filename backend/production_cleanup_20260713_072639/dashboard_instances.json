@@ -1,0 +1,3450 @@
+[
+  {
+    "id": "c4e40d67-5420-46fa-90b8-2af4d354033b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "928bc8a0-54aa-4283-86b7-638bac6777c3",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 13:45:16.831969+00:00",
+    "atualizado_em": "2026-07-08 13:45:17.304987+00:00"
+  },
+  {
+    "id": "48a4ccc4-5c39-4b8f-ada0-064875c10c0c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "7bcdece3-f088-4525-8741-eca14552917e",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 13:52:21.567659+00:00",
+    "atualizado_em": "2026-07-08 13:52:21.953407+00:00"
+  },
+  {
+    "id": "ce04fe40-fd6c-4b8c-83ba-56038d9ef76e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "ba429d74-cb96-42cb-9d82-ef6775fcac03",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 13:50:20.346710+00:00",
+    "atualizado_em": "2026-07-08 13:50:20.827326+00:00"
+  },
+  {
+    "id": "9fabfabe-c623-4ded-910a-bc6a3220d724",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "b74954b6-4ab6-4889-8f6c-20f78b9880f5",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 13:44:48.486245+00:00",
+    "atualizado_em": "2026-07-08 13:44:48.600227+00:00"
+  },
+  {
+    "id": "57b208af-cd5b-4346-82ea-2b95911bee7d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "6cb63b80-f795-4441-a04b-5e59b0ade1db",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:50:23.394298+00:00",
+    "atualizado_em": "2026-07-08 13:50:23.394298+00:00"
+  },
+  {
+    "id": "d98c989d-97e5-4772-9633-2ac74aca701d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3d047308-f5e4-4ef8-8f4b-b7306f3d1ff2",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:45:19.502551+00:00",
+    "atualizado_em": "2026-07-08 13:45:19.736821+00:00"
+  },
+  {
+    "id": "463cf7a4-f2a7-42d8-b338-0aac976bf617",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3d047308-f5e4-4ef8-8f4b-b7306f3d1ff2",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:45:19.736821+00:00",
+    "atualizado_em": "2026-07-08 13:45:19.736821+00:00"
+  },
+  {
+    "id": "6c162012-1d25-4725-82a8-33ac474b652a",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "85bb4574-4734-49d6-95a5-5e2551108d9b",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 16:17:05.004767+00:00",
+    "atualizado_em": "2026-07-08 16:17:05.372453+00:00"
+  },
+  {
+    "id": "23e40909-f13c-4f7e-a9df-a592544e2363",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "265defcf-bd58-461a-ba1c-3e9463011f3f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:17:07.751998+00:00",
+    "atualizado_em": "2026-07-08 16:17:07.988296+00:00"
+  },
+  {
+    "id": "adde2d3a-29a2-4245-bd92-83c69e21b50d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "6cb63b80-f795-4441-a04b-5e59b0ade1db",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:50:23.159482+00:00",
+    "atualizado_em": "2026-07-08 13:50:23.394298+00:00"
+  },
+  {
+    "id": "17d92f1d-3125-429d-bf52-8b9f4932a651",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "cec3a3af-c727-4203-9b12-10a67091413a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:52:24.659506+00:00",
+    "atualizado_em": "2026-07-08 13:52:24.880916+00:00"
+  },
+  {
+    "id": "4cd8b3cc-9c3c-4619-b8e9-0ec7872ffd5d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "cec3a3af-c727-4203-9b12-10a67091413a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 13:52:24.880916+00:00",
+    "atualizado_em": "2026-07-08 13:52:24.880916+00:00"
+  },
+  {
+    "id": "8523cdb8-6eb7-4eba-b8b2-9223632b1819",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "265defcf-bd58-461a-ba1c-3e9463011f3f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:17:07.988296+00:00",
+    "atualizado_em": "2026-07-08 16:17:07.988296+00:00"
+  },
+  {
+    "id": "50b5ff1b-4822-4d76-a064-2505c875414e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "4ee75ffa-6f43-4048-8259-629c209fcf33",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 16:28:14.711087+00:00",
+    "atualizado_em": "2026-07-08 16:28:15.259710+00:00"
+  },
+  {
+    "id": "85a75286-17fd-4d96-9465-f1fa775773a0",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "1dd13aaa-a76c-4d59-acf9-9114e2e77f2e",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 16:33:26.765138+00:00",
+    "atualizado_em": "2026-07-08 16:33:27.269184+00:00"
+  },
+  {
+    "id": "3ebaa018-4133-4085-905f-4cd8abac628e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "a6330056-e470-47ef-a530-18ad825d6320",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:43:26.832301+00:00",
+    "atualizado_em": "2026-07-08 16:43:27.217642+00:00"
+  },
+  {
+    "id": "5f218a7d-f912-401b-b1b2-e30e351f5f73",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "f645972b-43e9-4f8f-8189-ad33229f1c99",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 16:43:23.417856+00:00",
+    "atualizado_em": "2026-07-08 16:43:23.984707+00:00"
+  },
+  {
+    "id": "5c699b10-44a8-4918-8cf4-8c176139b505",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "8cfca020-d829-424a-8c73-2667b00f1c66",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:28:17.607015+00:00",
+    "atualizado_em": "2026-07-08 16:28:17.870837+00:00"
+  },
+  {
+    "id": "c8967cc9-26ad-44e5-81e7-ee2a198fb21f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "8cfca020-d829-424a-8c73-2667b00f1c66",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:28:17.870837+00:00",
+    "atualizado_em": "2026-07-08 16:28:17.870837+00:00"
+  },
+  {
+    "id": "638b23ed-0839-4da4-9c70-e1d3c2d8ebc2",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "22de3e09-929b-4cc5-8bd7-40b34b402c0f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:33:30.045872+00:00",
+    "atualizado_em": "2026-07-08 16:33:30.406976+00:00"
+  },
+  {
+    "id": "c63abbe8-442f-404f-9aa3-df3921494965",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "bcd09218-ded6-4755-a877-25521c1ee3b1",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 18:11:06.527540+00:00",
+    "atualizado_em": "2026-07-08 18:11:07.133391+00:00"
+  },
+  {
+    "id": "7086450f-8ad5-4226-87e8-5384047248ef",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "22de3e09-929b-4cc5-8bd7-40b34b402c0f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:33:30.406976+00:00",
+    "atualizado_em": "2026-07-08 16:33:30.406976+00:00"
+  },
+  {
+    "id": "76e56fe9-8ced-430a-8b38-5226ccba1765",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "a6330056-e470-47ef-a530-18ad825d6320",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 16:43:27.217642+00:00",
+    "atualizado_em": "2026-07-08 16:43:27.217642+00:00"
+  },
+  {
+    "id": "a57d22c2-7617-43c8-b2e3-1667ffff7ec9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "40894eeb-ed59-4352-8e72-dbe378e3aee5",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 18:14:08.629030+00:00",
+    "atualizado_em": "2026-07-08 18:14:09.008241+00:00"
+  },
+  {
+    "id": "a91770e7-778c-4f0b-a293-b929be6be1ac",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "765e1386-b96d-4f9c-a1ee-36bda68264a6",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 18:11:10.429911+00:00",
+    "atualizado_em": "2026-07-08 18:11:10.748544+00:00"
+  },
+  {
+    "id": "04b4a274-8945-4c58-bbee-54e3dabd5ac7",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "765e1386-b96d-4f9c-a1ee-36bda68264a6",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 18:11:10.748544+00:00",
+    "atualizado_em": "2026-07-08 18:11:10.748544+00:00"
+  },
+  {
+    "id": "0cce1e0a-a647-4539-97ff-0211e5d88069",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "1f364397-44cc-489c-8219-4fa7fd48f205",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 18:14:11.368794+00:00",
+    "atualizado_em": "2026-07-08 18:14:11.595075+00:00"
+  },
+  {
+    "id": "8f9d30c1-7639-40a6-adcc-d2b26781f36b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "1f364397-44cc-489c-8219-4fa7fd48f205",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 18:14:11.595075+00:00",
+    "atualizado_em": "2026-07-08 18:14:11.595075+00:00"
+  },
+  {
+    "id": "e3a31c8e-2d6f-45e9-a44f-77ce3925dad8",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "0650b69d-d6a3-4220-83bc-b14709092511",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 10:46:06.720737+00:00",
+    "atualizado_em": "2026-07-09 10:46:07.283756+00:00"
+  },
+  {
+    "id": "4ce5c313-2f9a-4d91-ae11-47f8dffca9fe",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "7607ad7f-d566-45ce-afb6-17151b5e01a4",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 19:09:44.450525+00:00",
+    "atualizado_em": "2026-07-08 19:09:44.909712+00:00"
+  },
+  {
+    "id": "bc2a25a9-2abb-48da-a403-ce204ca3829b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "1a14c2f7-0d5d-4606-a717-7c8bafa0833c",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-08 19:46:16.476795+00:00",
+    "atualizado_em": "2026-07-08 19:46:16.990055+00:00"
+  },
+  {
+    "id": "a31f02f4-4856-4dcf-beb2-e276f820efa6",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "736c7b27-65ad-4f51-b6c7-2c66d0f90a54",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 19:09:48.223898+00:00",
+    "atualizado_em": "2026-07-08 19:09:48.594447+00:00"
+  },
+  {
+    "id": "fa141880-8e50-4e81-92d0-2153e3718e3c",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "736c7b27-65ad-4f51-b6c7-2c66d0f90a54",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 19:09:48.594447+00:00",
+    "atualizado_em": "2026-07-08 19:09:48.594447+00:00"
+  },
+  {
+    "id": "fe1b8769-188d-44a4-a000-4852e4b67c3b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "46381a98-83cf-4378-86a5-5c90a90c32d2",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 10:33:05.843749+00:00",
+    "atualizado_em": "2026-07-09 10:33:06.202416+00:00"
+  },
+  {
+    "id": "400a3f6c-b5c2-4912-825f-1ca888389216",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "f0fd4260-d162-4fb1-ae98-82db4d3ceb84",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 10:12:44.840534+00:00",
+    "atualizado_em": "2026-07-09 10:12:45.283991+00:00"
+  },
+  {
+    "id": "ad6d6db4-7ddb-4a19-a3cc-0f3966072de9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5d0b8970-5e2d-411f-98be-11e0964bf280",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:12:48.233520+00:00",
+    "atualizado_em": "2026-07-09 10:12:48.508032+00:00"
+  },
+  {
+    "id": "8f48e082-3952-43ef-9c32-7bee069fb8b4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "e2c66baa-1148-489e-8907-c6efb0924bac",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 19:46:19.315306+00:00",
+    "atualizado_em": "2026-07-08 19:46:19.700941+00:00"
+  },
+  {
+    "id": "95e32fbd-7075-44ad-b047-e1e96acf0296",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "e2c66baa-1148-489e-8907-c6efb0924bac",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-08 19:46:19.700941+00:00",
+    "atualizado_em": "2026-07-08 19:46:19.700941+00:00"
+  },
+  {
+    "id": "852aa653-c52d-434d-b1b0-73f48881cba9",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5d0b8970-5e2d-411f-98be-11e0964bf280",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:12:48.508032+00:00",
+    "atualizado_em": "2026-07-09 10:12:48.508032+00:00"
+  },
+  {
+    "id": "c3525b30-00f5-486f-ab70-f7276ed175c0",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "d660e766-f3db-4810-bf03-daab74f31a5f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:33:08.598592+00:00",
+    "atualizado_em": "2026-07-09 10:33:08.835265+00:00"
+  },
+  {
+    "id": "79cf9b85-962c-4b3d-9f66-fa91200dc8ee",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "d660e766-f3db-4810-bf03-daab74f31a5f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:33:08.835265+00:00",
+    "atualizado_em": "2026-07-09 10:33:08.835265+00:00"
+  },
+  {
+    "id": "80e357f9-2664-40a1-b0fe-d8206b9c97a4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3ca4f9cc-488a-4b6e-b3b3-27f4dbe7fdea",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:46:11.094590+00:00",
+    "atualizado_em": "2026-07-09 10:46:11.439251+00:00"
+  },
+  {
+    "id": "da96c38b-8ed3-4c09-abd7-11691ffdebdd",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3ca4f9cc-488a-4b6e-b3b3-27f4dbe7fdea",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 10:46:11.439251+00:00",
+    "atualizado_em": "2026-07-09 10:46:11.439251+00:00"
+  },
+  {
+    "id": "cc679fea-9517-4dfb-aedf-2909e5f9f306",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "db796229-8c07-4740-a8fb-4d5bc0375d5b",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 12:59:29.481606+00:00",
+    "atualizado_em": "2026-07-09 12:59:30.015554+00:00"
+  },
+  {
+    "id": "1728d884-e09f-4bef-b9ce-27db0b03f0f7",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "6671558a-5748-4308-9724-142d349e80f5",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 11:12:32.726739+00:00",
+    "atualizado_em": "2026-07-09 11:12:33.392615+00:00"
+  },
+  {
+    "id": "14741c35-f7d4-4582-bd2a-04a758c6a4d4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "48e4e77f-68b1-47e3-ad08-fa78aa3af649",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 11:54:09.365768+00:00",
+    "atualizado_em": "2026-07-09 11:54:09.992148+00:00"
+  },
+  {
+    "id": "33c4ca67-74b1-4645-8c13-457509edfa04",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "92b30848-e7c0-4b46-8f54-5533afa1d9f5",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 11:12:37.643605+00:00",
+    "atualizado_em": "2026-07-09 11:12:38.096799+00:00"
+  },
+  {
+    "id": "f9d3fb01-8ea3-4346-b265-3840201a1595",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "92b30848-e7c0-4b46-8f54-5533afa1d9f5",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 11:12:38.096799+00:00",
+    "atualizado_em": "2026-07-09 11:12:38.096799+00:00"
+  },
+  {
+    "id": "11c63934-c397-4747-8f13-f023e412a710",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "9afa865b-ca35-454e-9217-ec907a2d0f6d",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 12:52:43.532505+00:00",
+    "atualizado_em": "2026-07-09 12:52:44.076852+00:00"
+  },
+  {
+    "id": "e9409f46-3153-43e3-af0e-f052351ea851",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5040acd5-6012-476c-ae3e-29ac6b6f1c2b",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 12:05:32.971650+00:00",
+    "atualizado_em": "2026-07-09 12:05:33.317613+00:00"
+  },
+  {
+    "id": "9cf3b123-8905-4d86-b043-a36387c05e70",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "6a90ead3-de56-434b-90c9-02bb91b9d408",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:05:35.756165+00:00",
+    "atualizado_em": "2026-07-09 12:05:36.008664+00:00"
+  },
+  {
+    "id": "aa207748-03c6-4c9a-a6a8-54891d7c6317",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3fd7dc14-5a5d-48ad-9511-48d141b076db",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 11:54:12.599744+00:00",
+    "atualizado_em": "2026-07-09 11:54:12.965291+00:00"
+  },
+  {
+    "id": "bf460126-c6f3-49c8-9e2b-caf544f100e6",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3fd7dc14-5a5d-48ad-9511-48d141b076db",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 11:54:12.965291+00:00",
+    "atualizado_em": "2026-07-09 11:54:12.965291+00:00"
+  },
+  {
+    "id": "2e643a32-a3a7-4afa-b2ee-2a3542bcd7e1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "6a90ead3-de56-434b-90c9-02bb91b9d408",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:05:36.008664+00:00",
+    "atualizado_em": "2026-07-09 12:05:36.008664+00:00"
+  },
+  {
+    "id": "3fb2339b-f644-45ed-8634-bd39aba2d8ae",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "faf83146-41a4-458e-83ab-b4ec926e3028",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:52:46.781510+00:00",
+    "atualizado_em": "2026-07-09 12:52:47.036613+00:00"
+  },
+  {
+    "id": "60cd225e-868b-43c6-b6c0-5a2b081fa4ca",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "faf83146-41a4-458e-83ab-b4ec926e3028",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:52:47.036613+00:00",
+    "atualizado_em": "2026-07-09 12:52:47.036613+00:00"
+  },
+  {
+    "id": "61fb09c6-e33c-4124-843d-1c99b7c042ef",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "20dde2a8-ed65-4948-8763-ff55d245730f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:59:32.297439+00:00",
+    "atualizado_em": "2026-07-09 12:59:32.588912+00:00"
+  },
+  {
+    "id": "d73d4b0b-7a43-4c76-8977-f0422ca07b1f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "20dde2a8-ed65-4948-8763-ff55d245730f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 12:59:32.588912+00:00",
+    "atualizado_em": "2026-07-09 12:59:32.588912+00:00"
+  },
+  {
+    "id": "32ffd971-3514-4e9f-a5b5-04a4fa4dc447",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "bb78c50f-3183-4fa6-a98c-b31f7bb12dfc",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 16:11:25.314781+00:00",
+    "atualizado_em": "2026-07-09 16:11:25.670961+00:00"
+  },
+  {
+    "id": "7dae16e6-654c-4109-bbdb-b897f9afc9b0",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "b10b47c0-6497-4fcc-8d61-0abc0093534f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 13:32:08.346311+00:00",
+    "atualizado_em": "2026-07-09 13:32:08.671155+00:00"
+  },
+  {
+    "id": "0d82896e-21a0-48cb-acd5-8bf2a62c39ce",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "59fb5738-aff5-4d96-a45a-175af03c8e1c",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 15:13:40.026808+00:00",
+    "atualizado_em": "2026-07-09 15:13:40.579535+00:00"
+  },
+  {
+    "id": "e7fc20e5-c618-4a93-add0-49186256f3a6",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "d4f11ec8-083c-41cd-b287-29f51e88009a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 13:32:10.947893+00:00",
+    "atualizado_em": "2026-07-09 13:32:11.201072+00:00"
+  },
+  {
+    "id": "aa3e03fb-f499-4d55-aa8e-c05cf09ccfe7",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "d4f11ec8-083c-41cd-b287-29f51e88009a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 13:32:11.201072+00:00",
+    "atualizado_em": "2026-07-09 13:32:11.201072+00:00"
+  },
+  {
+    "id": "e2e04c54-cc00-460c-ba9e-d1b01ca679f4",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5c330799-db4e-4a27-a1a7-ba8243271866",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 15:40:41.231145+00:00",
+    "atualizado_em": "2026-07-09 15:40:41.719707+00:00"
+  },
+  {
+    "id": "f9dd99e8-2a41-4458-99e5-c875a705a651",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "2d8417d6-d843-45cc-babd-b403f2aaabd7",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 15:31:49.879378+00:00",
+    "atualizado_em": "2026-07-09 15:31:50.228858+00:00"
+  },
+  {
+    "id": "92bfaca8-426a-46d2-8b1a-deba487bd942",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "9eb202cc-01ad-41d7-96c8-701b121899ca",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:31:52.616919+00:00",
+    "atualizado_em": "2026-07-09 15:31:52.853875+00:00"
+  },
+  {
+    "id": "38e9423c-7458-41ea-b97c-8379ad136b94",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "414b3ef3-8b50-4103-a3e5-209a622029ab",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:13:43.130364+00:00",
+    "atualizado_em": "2026-07-09 15:13:43.534381+00:00"
+  },
+  {
+    "id": "e6c2065c-df05-44cd-9d32-a86c0a1e26da",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "414b3ef3-8b50-4103-a3e5-209a622029ab",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:13:43.534381+00:00",
+    "atualizado_em": "2026-07-09 15:13:43.534381+00:00"
+  },
+  {
+    "id": "ebeb7427-ef50-4baa-8ea0-8ac1791e3cae",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "9eb202cc-01ad-41d7-96c8-701b121899ca",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:31:52.853875+00:00",
+    "atualizado_em": "2026-07-09 15:31:52.853875+00:00"
+  },
+  {
+    "id": "0a95085a-18e8-4ba5-be25-e4681ed385ac",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "bb7a6209-2134-48db-905d-cfda48ec9d7a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:40:44.262382+00:00",
+    "atualizado_em": "2026-07-09 15:40:44.540267+00:00"
+  },
+  {
+    "id": "c5a8a216-6dfa-4e2c-8ee6-3ef68d49fc15",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "bb7a6209-2134-48db-905d-cfda48ec9d7a",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 15:40:44.540267+00:00",
+    "atualizado_em": "2026-07-09 15:40:44.540267+00:00"
+  },
+  {
+    "id": "843ae6df-0e47-43c0-b86d-84687081d63b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "169f781a-8fc5-4823-b323-e2b63d906249",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:11:28.406311+00:00",
+    "atualizado_em": "2026-07-09 16:11:28.715272+00:00"
+  },
+  {
+    "id": "b1b86128-848e-44a9-8a6d-6ad0dde76ddd",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "169f781a-8fc5-4823-b323-e2b63d906249",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:11:28.715272+00:00",
+    "atualizado_em": "2026-07-09 16:11:28.715272+00:00"
+  },
+  {
+    "id": "a68837c0-4bce-44c1-b861-566ff55150c1",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "0311fd2e-0b90-414b-a62c-ec6fa35968be",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-10 10:24:37.888749+00:00",
+    "atualizado_em": "2026-07-10 10:24:38.639337+00:00"
+  },
+  {
+    "id": "303dbed2-4e86-41d5-a32d-51b7219b02e6",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "58636c79-7c74-4182-b3e1-b7ad7c206585",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 16:33:11.837131+00:00",
+    "atualizado_em": "2026-07-09 16:33:12.299286+00:00"
+  },
+  {
+    "id": "a75b4d59-1670-433d-9d80-118559fa805e",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "0afceb36-b129-4a72-a96e-29163756f434",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 16:48:32.826122+00:00",
+    "atualizado_em": "2026-07-09 16:48:33.291426+00:00"
+  },
+  {
+    "id": "b51cc8cb-8fa2-483c-a64e-bba2cbf44117",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3f65ccd3-ae01-4afb-a9f4-dd0622c6bf99",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:33:14.685094+00:00",
+    "atualizado_em": "2026-07-09 16:33:15.112320+00:00"
+  },
+  {
+    "id": "d2959c80-bb65-4082-9da5-96ed791fbc4b",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "3f65ccd3-ae01-4afb-a9f4-dd0622c6bf99",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:33:15.112320+00:00",
+    "atualizado_em": "2026-07-09 16:33:15.112320+00:00"
+  },
+  {
+    "id": "7b104d03-1861-49d1-bee0-6d0640cea364",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "60f4d7d3-df6b-4501-8940-9bebbde10ff6",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 17:04:50.743348+00:00",
+    "atualizado_em": "2026-07-09 17:04:51.383153+00:00"
+  },
+  {
+    "id": "538566c3-9ef9-49a9-86c8-aad1e438f693",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "536aa9e4-fc9f-4998-a508-f78afc282c32",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-09 16:57:20.855956+00:00",
+    "atualizado_em": "2026-07-09 16:57:21.210793+00:00"
+  },
+  {
+    "id": "44f80dd0-63f5-4f6c-ac2c-23fe5774e023",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "8c4de514-50f9-45b8-92d7-92105d09fccb",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:57:23.425154+00:00",
+    "atualizado_em": "2026-07-09 16:57:23.671954+00:00"
+  },
+  {
+    "id": "5e8ab612-d99a-4d72-a683-5c51eb98cf93",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "10077b20-99ad-4eba-94ce-38372791829f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:48:35.560064+00:00",
+    "atualizado_em": "2026-07-09 16:48:35.892156+00:00"
+  },
+  {
+    "id": "18d3e539-ea5e-4c67-9c0f-c40290b2f272",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "10077b20-99ad-4eba-94ce-38372791829f",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:48:35.892156+00:00",
+    "atualizado_em": "2026-07-09 16:48:35.892156+00:00"
+  },
+  {
+    "id": "7b545c9b-c51e-457e-95be-8a4371e4b124",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "8c4de514-50f9-45b8-92d7-92105d09fccb",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 16:57:23.671954+00:00",
+    "atualizado_em": "2026-07-09 16:57:23.671954+00:00"
+  },
+  {
+    "id": "bf5b471c-4bfa-4f1e-885e-a915319ed9ae",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "67ec4a13-3de5-414d-a2eb-ee97a19601e8",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 17:04:54.073349+00:00",
+    "atualizado_em": "2026-07-09 17:04:54.309277+00:00"
+  },
+  {
+    "id": "13c5119d-14af-4a01-89ce-fa89746f8b89",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "67ec4a13-3de5-414d-a2eb-ee97a19601e8",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-09 17:04:54.309277+00:00",
+    "atualizado_em": "2026-07-09 17:04:54.309277+00:00"
+  },
+  {
+    "id": "ac0af120-6ed4-4cff-b008-5a060b7ca414",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "532dd8ee-3721-4bec-ab9e-8528aafed689",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-10 10:24:42.029201+00:00",
+    "atualizado_em": "2026-07-10 10:24:42.453207+00:00"
+  },
+  {
+    "id": "c5d7a575-4a79-4b8e-b44c-c5c8698757ef",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "532dd8ee-3721-4bec-ab9e-8528aafed689",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-10 10:24:42.453207+00:00",
+    "atualizado_em": "2026-07-10 10:24:42.453207+00:00"
+  },
+  {
+    "id": "0a1dbf5c-73e5-495b-b921-2b04bfd5168d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "cb7d77f2-11d2-4175-ad66-363a0fb944cf",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-10 10:33:28.766556+00:00",
+    "atualizado_em": "2026-07-10 10:33:29.264689+00:00"
+  },
+  {
+    "id": "84604bf5-946e-4520-a6ba-f955ec9e2a45",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "11d0f230-4ae1-46d0-9732-0d6aa5f006f3",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-11 11:50:37.789102+00:00",
+    "atualizado_em": "2026-07-11 11:50:38.312815+00:00"
+  },
+  {
+    "id": "4145dced-29a3-4a4f-a7ad-0b33cbb28482",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5720e62b-cb08-4259-923c-cdb62fadf38e",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite",
+    "status": "ACTIVE",
+    "is_favorite": true,
+    "version": 2,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-10 10:33:31.766636+00:00",
+    "atualizado_em": "2026-07-10 10:33:32.010179+00:00"
+  },
+  {
+    "id": "3b1941fd-5b81-4d60-a677-2ab8d1451a7d",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "fd92a490-1f6f-49af-981a-e968f27d0496",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "My sales cockpit",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 2,
+    "current_filters": {
+      "data_inicio": "2026-01-01"
+    },
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 6,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 6,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-11 11:50:30.850908+00:00",
+    "atualizado_em": "2026-07-11 11:50:31.726529+00:00"
+  },
+  {
+    "id": "e95e1417-ec9b-4374-9705-07f2a082d631",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "5720e62b-cb08-4259-923c-cdb62fadf38e",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-10 10:33:32.010179+00:00",
+    "atualizado_em": "2026-07-10 10:33:32.010179+00:00"
+  },
+  {
+    "id": "e928da6f-a5ff-4611-8f5d-2fdf2eb582d2",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "22592439-d858-4ee0-a713-5755a7258869",
+    "user_id": "b1eebc99-9c0b-4ef8-bb6d-6bb9bd380b22",
+    "name": "Imported studio layout - Minha instancia",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 3,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {
+      "chart-main": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2,
+        "id": "chart-main"
+      },
+      "kpi-revenue": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 0,
+        "id": "kpi-revenue"
+      }
+    },
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {
+      "theme_mode": "corporate",
+      "studio_saved_at": "2026-07-10T16:42:40.076Z"
+    },
+    "current_state": {},
+    "layout_override": {
+      "grid": {
+        "gap": 16,
+        "snap": true,
+        "items": [
+          {
+            "h": 2,
+            "w": 4,
+            "x": 0,
+            "y": 0,
+            "id": "kpi-revenue"
+          },
+          {
+            "h": 4,
+            "w": 8,
+            "x": 0,
+            "y": 2,
+            "id": "chart-main"
+          }
+        ],
+        "columns": 12,
+        "no_overlap": true,
+        "responsive": true,
+        "row_height": 88,
+        "auto_balance": true,
+        "auto_spacing": true
+      }
+    },
+    "criado_em": "2026-07-10 16:42:38.088622+00:00",
+    "atualizado_em": "2026-07-10 16:42:40.083831+00:00"
+  },
+  {
+    "id": "944b5543-41dd-4d0c-bbb8-43de996bc86f",
+    "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    "template_id": "11d0f230-4ae1-46d0-9732-0d6aa5f006f3",
+    "user_id": "d9bc1305-ff4e-47ab-a6b5-a880659d283e",
+    "name": "Board favorite copy",
+    "status": "ACTIVE",
+    "is_favorite": false,
+    "version": 1,
+    "current_filters": {},
+    "expanded_components": [],
+    "panel_positions": {},
+    "favorites": [],
+    "visible_columns": {},
+    "sort_orders": {},
+    "preferences": {},
+    "current_state": {},
+    "layout_override": {},
+    "criado_em": "2026-07-11 11:50:38.312815+00:00",
+    "atualizado_em": "2026-07-11 11:50:38.312815+00:00"
+  }
+]

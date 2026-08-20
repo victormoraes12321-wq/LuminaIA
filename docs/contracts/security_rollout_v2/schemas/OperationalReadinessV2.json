@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "OperationalReadinessStateV2": {
+      "enum": [
+        "READY",
+        "DEGRADED",
+        "BLOCKED"
+      ],
+      "title": "OperationalReadinessStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "blocking_reasons": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Reasons",
+      "type": "array"
+    },
+    "health_alive": {
+      "title": "Health Alive",
+      "type": "boolean"
+    },
+    "ready_for_traffic": {
+      "title": "Ready For Traffic",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "#/$defs/OperationalReadinessStateV2"
+    }
+  },
+  "required": [
+    "state",
+    "health_alive",
+    "ready_for_traffic"
+  ],
+  "title": "OperationalReadinessV2",
+  "type": "object"
+}

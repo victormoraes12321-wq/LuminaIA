@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "currency_code": {
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR"
+      ],
+      "title": "Currency Code",
+      "type": "string"
+    },
+    "decimal_places": {
+      "default": 2,
+      "maximum": 4,
+      "minimum": 0,
+      "title": "Decimal Places",
+      "type": "integer"
+    },
+    "display": {
+      "default": "SYMBOL",
+      "enum": [
+        "SYMBOL",
+        "CODE",
+        "NAME"
+      ],
+      "title": "Display",
+      "type": "string"
+    }
+  },
+  "required": [
+    "currency_code"
+  ],
+  "title": "DashboardCurrencyFormattingV2",
+  "type": "object"
+}

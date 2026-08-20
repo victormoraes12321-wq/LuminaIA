@@ -1,0 +1,67 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "content_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Content Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "export_id": {
+      "format": "uuid",
+      "title": "Export Id",
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "JSONL",
+        "CSV"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "manifest_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Manifest Checksum",
+      "type": "string"
+    },
+    "payload_size_bytes": {
+      "minimum": 0,
+      "title": "Payload Size Bytes",
+      "type": "integer"
+    },
+    "purpose": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Purpose",
+      "type": "string"
+    },
+    "record_count": {
+      "minimum": 0,
+      "title": "Record Count",
+      "type": "integer"
+    },
+    "snapshot_id": {
+      "format": "uuid",
+      "title": "Snapshot Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "export_id",
+    "snapshot_id",
+    "format",
+    "purpose",
+    "record_count",
+    "payload_size_bytes",
+    "manifest_checksum",
+    "content_checksum",
+    "created_at"
+  ],
+  "title": "TrainingDatasetExportV2",
+  "type": "object"
+}

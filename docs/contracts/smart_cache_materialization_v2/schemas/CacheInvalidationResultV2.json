@@ -1,0 +1,45 @@
+{
+  "$defs": {
+    "InvalidationScope": {
+      "enum": [
+        "KEY",
+        "TAG",
+        "TENANT",
+        "METRIC",
+        "CATALOG",
+        "SYNC",
+        "PERMISSION",
+        "VALIDATION_POLICY",
+        "MATERIALIZATION"
+      ],
+      "title": "InvalidationScope",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "invalidated_count": {
+      "title": "Invalidated Count",
+      "type": "integer"
+    },
+    "invalidation_scope": {
+      "$ref": "#/$defs/InvalidationScope"
+    },
+    "success": {
+      "title": "Success",
+      "type": "boolean"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "success",
+    "invalidated_count",
+    "tenant_id",
+    "invalidation_scope"
+  ],
+  "title": "CacheInvalidationResultV2",
+  "type": "object"
+}

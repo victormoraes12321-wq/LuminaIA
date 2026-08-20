@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "deletion_request_days": {
+      "default": 365,
+      "maximum": 3650,
+      "minimum": 30,
+      "title": "Deletion Request Days",
+      "type": "integer"
+    },
+    "expired_item_days": {
+      "default": 90,
+      "maximum": 3650,
+      "minimum": 1,
+      "title": "Expired Item Days",
+      "type": "integer"
+    },
+    "export_days": {
+      "default": 30,
+      "maximum": 365,
+      "minimum": 1,
+      "title": "Export Days",
+      "type": "integer"
+    },
+    "kind": {
+      "const": "RETENTION",
+      "default": "RETENTION",
+      "title": "Kind",
+      "type": "string"
+    }
+  },
+  "title": "RetentionPreferenceV2",
+  "type": "object"
+}

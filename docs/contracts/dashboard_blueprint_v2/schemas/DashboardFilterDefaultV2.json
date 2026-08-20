@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_values": {
+      "default": [],
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "maxItems": 100,
+      "title": "Canonical Values",
+      "type": "array"
+    },
+    "mode": {
+      "default": "NONE",
+      "enum": [
+        "EXPLICIT",
+        "ALL_ALLOWED",
+        "INHERITED_CONTEXT",
+        "NONE"
+      ],
+      "title": "Mode",
+      "type": "string"
+    }
+  },
+  "title": "DashboardFilterDefaultV2",
+  "type": "object"
+}

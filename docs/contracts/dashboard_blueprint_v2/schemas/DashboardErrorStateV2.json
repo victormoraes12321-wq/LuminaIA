@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "default": "NONE",
+      "enum": [
+        "NONE",
+        "RETRY",
+        "OPEN_PROVENANCE"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "expose_diagnostics": {
+      "default": false,
+      "title": "Expose Diagnostics",
+      "type": "boolean"
+    },
+    "message": {
+      "maxLength": 320,
+      "minLength": 4,
+      "title": "Message",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 120,
+      "minLength": 2,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "message"
+  ],
+  "title": "DashboardErrorStateV2",
+  "type": "object"
+}

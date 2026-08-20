@@ -1,0 +1,1642 @@
+{
+  "$defs": {
+    "AnalyticalColumn": {
+      "additionalProperties": false,
+      "properties": {
+        "column_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Column Id",
+          "type": "string"
+        },
+        "data_type": {
+          "$ref": "#/$defs/ColumnDataType"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "nullable": {
+          "default": true,
+          "title": "Nullable",
+          "type": "boolean"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "column_id",
+        "label",
+        "data_type"
+      ],
+      "title": "AnalyticalColumn",
+      "type": "object"
+    },
+    "AnalyticalDataset": {
+      "additionalProperties": false,
+      "properties": {
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/AnalyticalColumn"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "data_classification": {
+          "$ref": "#/$defs/DataClassification"
+        },
+        "dataset_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Dataset Id",
+          "type": "string"
+        },
+        "numeric_metadata": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": "Numeric Metadata",
+          "type": "object"
+        },
+        "row_count": {
+          "minimum": 0,
+          "title": "Row Count",
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "truncated": {
+          "default": false,
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "dataset_id",
+        "row_count",
+        "data_classification"
+      ],
+      "title": "AnalyticalDataset",
+      "type": "object"
+    },
+    "AnalyticalError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/AnalyticalErrorCode"
+        },
+        "field": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "AnalyticalError",
+      "type": "object"
+    },
+    "AnalyticalErrorCode": {
+      "enum": [
+        "INVALID_CONTRACT",
+        "UNSUPPORTED_VERSION",
+        "UNKNOWN_METRIC",
+        "UNKNOWN_DIMENSION",
+        "INVALID_PERIOD",
+        "INCOMPLETE_COMPARISON",
+        "INVALID_VISUALIZATION",
+        "MISSING_TENANT",
+        "ACCESS_BLOCKED",
+        "OUT_OF_SCOPE",
+        "CLARIFICATION_REQUIRED",
+        "EXECUTION_NOT_PERFORMED",
+        "VALIDATION_FAILED",
+        "INTENT_ENGINE_FAILURE"
+      ],
+      "title": "AnalyticalErrorCode",
+      "type": "string"
+    },
+    "ClarificationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_options": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Candidate Options",
+          "type": "array"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "missing_fields": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Missing Fields",
+          "type": "array"
+        },
+        "question": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "missing_fields",
+        "reason",
+        "confidence"
+      ],
+      "title": "ClarificationRequest",
+      "type": "object"
+    },
+    "ColumnDataType": {
+      "enum": [
+        "STRING",
+        "INTEGER",
+        "DECIMAL",
+        "BOOLEAN",
+        "DATE",
+        "DATETIME"
+      ],
+      "title": "ColumnDataType",
+      "type": "string"
+    },
+    "ComparisonCalculation": {
+      "enum": [
+        "VALUE",
+        "ABSOLUTE_DIFFERENCE",
+        "PERCENTAGE_DIFFERENCE",
+        "DIRECTION",
+        "SHARE",
+        "RANK"
+      ],
+      "title": "ComparisonCalculation",
+      "type": "string"
+    },
+    "ComparisonKind": {
+      "enum": [
+        "PERIOD_VS_PERIOD",
+        "ENTITY_VS_ENTITY",
+        "METRIC_VS_METRIC",
+        "ACTUAL_VS_TARGET",
+        "MULTI_PERIOD",
+        "MULTI_ENTITY"
+      ],
+      "title": "ComparisonKind",
+      "type": "string"
+    },
+    "ComparisonOperand": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_refs": {
+          "items": {
+            "$ref": "#/$defs/EntityReference"
+          },
+          "title": "Entity Refs",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpecification"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "metric_refs": {
+          "items": {
+            "$ref": "#/$defs/MetricReference"
+          },
+          "title": "Metric Refs",
+          "type": "array"
+        },
+        "operand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "time_windows": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Time Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "operand_id",
+        "label",
+        "origin"
+      ],
+      "title": "ComparisonOperand",
+      "type": "object"
+    },
+    "ComparisonSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "alignment_dimensions": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Alignment Dimensions",
+          "type": "array"
+        },
+        "baseline_operand_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Operand Id"
+        },
+        "calculations": {
+          "items": {
+            "$ref": "#/$defs/ComparisonCalculation"
+          },
+          "minItems": 1,
+          "title": "Calculations",
+          "type": "array"
+        },
+        "comparison_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Comparison Id",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "kind": {
+          "$ref": "#/$defs/ComparisonKind"
+        },
+        "operands": {
+          "items": {
+            "$ref": "#/$defs/ComparisonOperand"
+          },
+          "minItems": 2,
+          "title": "Operands",
+          "type": "array"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "requested_sort": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Sort"
+        }
+      },
+      "required": [
+        "comparison_id",
+        "kind",
+        "operands",
+        "calculations",
+        "origin",
+        "confidence"
+      ],
+      "title": "ComparisonSpecification",
+      "type": "object"
+    },
+    "ConfidenceAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/ConfidenceLevel"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Reasons",
+          "type": "array"
+        },
+        "requires_confirmation": {
+          "default": false,
+          "title": "Requires Confirmation",
+          "type": "boolean"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Score"
+        }
+      },
+      "required": [
+        "level",
+        "score"
+      ],
+      "title": "ConfidenceAssessment",
+      "type": "object"
+    },
+    "ConfidenceLevel": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ],
+      "title": "ConfidenceLevel",
+      "type": "string"
+    },
+    "ContractMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_used": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adapter Used"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "pipeline": {
+          "$ref": "#/$defs/PipelineKind"
+        },
+        "request_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Request Id"
+        },
+        "schema_name": {
+          "default": "lumina.analytics",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "2.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "pipeline"
+      ],
+      "title": "ContractMetadata",
+      "type": "object"
+    },
+    "DataClassification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "RESTRICTED"
+      ],
+      "title": "DataClassification",
+      "type": "string"
+    },
+    "DataSourceKind": {
+      "enum": [
+        "ANALYTICAL_CLONE",
+        "MATERIALIZED_RESULT",
+        "CACHE",
+        "LEGACY_PIPELINE"
+      ],
+      "title": "DataSourceKind",
+      "type": "string"
+    },
+    "DimensionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "dimension_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Dimension Id",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "role": {
+          "$ref": "#/$defs/DimensionRole"
+        }
+      },
+      "required": [
+        "dimension_id",
+        "display_name",
+        "role",
+        "origin",
+        "confidence"
+      ],
+      "title": "DimensionReference",
+      "type": "object"
+    },
+    "DimensionRole": {
+      "enum": [
+        "GROUPING",
+        "SERIES",
+        "CATEGORY",
+        "ORDERING",
+        "DETAIL"
+      ],
+      "title": "DimensionRole",
+      "type": "string"
+    },
+    "EntityReference": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        }
+      },
+      "required": [
+        "entity_id",
+        "display_name",
+        "origin"
+      ],
+      "title": "EntityReference",
+      "type": "object"
+    },
+    "ExecutionProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "cache_status": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Cache Status",
+          "type": "string"
+        },
+        "executed_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executed At"
+        },
+        "filter_fingerprint": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9:_-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Filter Fingerprint"
+        },
+        "metric_versions": {
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
+              "type": "string"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Metric Versions",
+          "type": "object"
+        },
+        "periods": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Periods",
+          "type": "array"
+        },
+        "pipeline": {
+          "$ref": "#/$defs/PipelineKind"
+        },
+        "query_fingerprint": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9:_-]+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Query Fingerprint"
+        },
+        "reconciliation_status": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reconciliation Status"
+        },
+        "source_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_kind": {
+          "$ref": "#/$defs/DataSourceKind"
+        },
+        "sync_version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sync Version"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "tenant_isolation_evidence": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Isolation Evidence"
+        },
+        "tenant_isolation_verified": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Isolation Verified"
+        },
+        "view_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "View Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "source_id",
+        "source_kind",
+        "cache_status",
+        "pipeline"
+      ],
+      "title": "ExecutionProvenance",
+      "type": "object"
+    },
+    "ExecutionReadiness": {
+      "enum": [
+        "READY",
+        "CLARIFICATION_REQUIRED",
+        "OUT_OF_SCOPE",
+        "UNSUPPORTED",
+        "BLOCKED",
+        "ERROR"
+      ],
+      "title": "ExecutionReadiness",
+      "type": "string"
+    },
+    "FieldOrigin": {
+      "enum": [
+        "EXPLICIT_USER",
+        "INHERITED_CONVERSATION",
+        "USER_PREFERENCE",
+        "TENANT_KNOWLEDGE",
+        "DETERMINISTIC_DEFAULT",
+        "LLM_INFERENCE",
+        "LEGACY_ADAPTER",
+        "SYSTEM_GENERATED"
+      ],
+      "title": "FieldOrigin",
+      "type": "string"
+    },
+    "FilterOperator": {
+      "enum": [
+        "EQ",
+        "NE",
+        "IN",
+        "NOT_IN",
+        "GT",
+        "GTE",
+        "LT",
+        "LTE",
+        "BETWEEN",
+        "CONTAINS",
+        "STARTS_WITH",
+        "IS_NULL",
+        "IS_NOT_NULL"
+      ],
+      "title": "FilterOperator",
+      "type": "string"
+    },
+    "FilterSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Field Id",
+          "type": "string"
+        },
+        "filter_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Filter Id",
+          "type": "string"
+        },
+        "is_explicit": {
+          "title": "Is Explicit",
+          "type": "boolean"
+        },
+        "operator": {
+          "$ref": "#/$defs/FilterOperator"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "filter_id",
+        "field_id",
+        "operator",
+        "origin",
+        "confidence",
+        "is_explicit"
+      ],
+      "title": "FilterSpecification",
+      "type": "object"
+    },
+    "IntentKind": {
+      "enum": [
+        "METRIC",
+        "RANKING",
+        "BREAKDOWN",
+        "COMPARISON",
+        "DETAIL",
+        "METADATA",
+        "FOLLOW_UP",
+        "CLARIFICATION",
+        "OUT_OF_SCOPE"
+      ],
+      "title": "IntentKind",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "LegacyCompatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "compatible": {
+          "title": "Compatible",
+          "type": "boolean"
+        },
+        "primary_chart_type": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Primary Chart Type"
+        },
+        "sidecar_field": {
+          "default": "analytical_contract",
+          "title": "Sidecar Field",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "compatible"
+      ],
+      "title": "LegacyCompatibility",
+      "type": "object"
+    },
+    "MetricReference": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "metric_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "metric_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Metric Version",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "unit": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_id",
+        "metric_version",
+        "display_name",
+        "unit",
+        "aggregation",
+        "origin",
+        "confidence"
+      ],
+      "title": "MetricReference",
+      "type": "object"
+    },
+    "OutOfScopeReason": {
+      "enum": [
+        "NON_ANALYTICAL",
+        "UNRELATED_DOMAIN",
+        "PROHIBITED_REQUEST",
+        "UNKNOWN"
+      ],
+      "title": "OutOfScopeReason",
+      "type": "string"
+    },
+    "PipelineKind": {
+      "enum": [
+        "NEW",
+        "LEGACY",
+        "SHADOW",
+        "ADAPTER"
+      ],
+      "title": "PipelineKind",
+      "type": "string"
+    },
+    "PlanOperation": {
+      "enum": [
+        "QUERY",
+        "AGGREGATE",
+        "RANK",
+        "COMPARE",
+        "DESCRIBE",
+        "NONE"
+      ],
+      "title": "PlanOperation",
+      "type": "string"
+    },
+    "PlanSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Dimension Ids",
+          "type": "array"
+        },
+        "metric_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Metric Ids",
+          "type": "array"
+        },
+        "operation": {
+          "$ref": "#/$defs/PlanOperation"
+        },
+        "periods": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Periods",
+          "type": "array"
+        },
+        "source_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "title": "PlanSummary",
+      "type": "object"
+    },
+    "QueryIntentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "clarification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClarificationRequest"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "comparison": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComparisonSpecification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "contract": {
+          "$ref": "#/$defs/ContractMetadata"
+        },
+        "dimension_refs": {
+          "items": {
+            "$ref": "#/$defs/DimensionReference"
+          },
+          "title": "Dimension Refs",
+          "type": "array"
+        },
+        "field_origins": {
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
+              "$ref": "#/$defs/FieldOrigin"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Field Origins",
+          "type": "object"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpecification"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "intent_kind": {
+          "$ref": "#/$defs/IntentKind"
+        },
+        "metric_refs": {
+          "items": {
+            "$ref": "#/$defs/MetricReference"
+          },
+          "title": "Metric Refs",
+          "type": "array"
+        },
+        "normalized_question": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Normalized Question",
+          "type": "string"
+        },
+        "out_of_scope_reason": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OutOfScopeReason"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "raw_question": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Raw Question",
+          "type": "string"
+        },
+        "readiness": {
+          "$ref": "#/$defs/ExecutionReadiness"
+        },
+        "requested_visualizations": {
+          "items": {
+            "$ref": "#/$defs/VisualizationSpecification"
+          },
+          "title": "Requested Visualizations",
+          "type": "array"
+        },
+        "time_windows": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Time Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "contract",
+        "intent_kind",
+        "readiness",
+        "raw_question",
+        "normalized_question",
+        "confidence",
+        "field_origins"
+      ],
+      "title": "QueryIntentV2",
+      "type": "object"
+    },
+    "ScopeSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Session Id"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "user_role": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "User Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant_id",
+        "user_role"
+      ],
+      "title": "ScopeSummary",
+      "type": "object"
+    },
+    "TemporalGranularity": {
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "QUARTER",
+        "SEMESTER",
+        "YEAR",
+        "CUSTOM"
+      ],
+      "title": "TemporalGranularity",
+      "type": "string"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "end_inclusive": {
+          "default": true,
+          "title": "End Inclusive",
+          "type": "boolean"
+        },
+        "granularity": {
+          "$ref": "#/$defs/TemporalGranularity"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "raw_expression": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Expression"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        },
+        "window_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Window Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "window_id",
+        "label",
+        "start",
+        "end",
+        "granularity",
+        "timezone",
+        "origin",
+        "confidence"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    },
+    "ValidationCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "check_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Check Id",
+          "type": "string"
+        },
+        "evidence_reference": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Reference"
+        },
+        "message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "severity": {
+          "$ref": "#/$defs/ValidationSeverity"
+        },
+        "status": {
+          "$ref": "#/$defs/ValidationStatus"
+        }
+      },
+      "required": [
+        "check_id",
+        "name",
+        "status",
+        "severity",
+        "message"
+      ],
+      "title": "ValidationCheck",
+      "type": "object"
+    },
+    "ValidationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/ValidationCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/ValidationStatus"
+        },
+        "validated_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Validated At"
+        },
+        "validator_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Validator Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "validator_version"
+      ],
+      "title": "ValidationReport",
+      "type": "object"
+    },
+    "ValidationSeverity": {
+      "enum": [
+        "INFO",
+        "WARNING",
+        "ERROR",
+        "CRITICAL"
+      ],
+      "title": "ValidationSeverity",
+      "type": "string"
+    },
+    "ValidationStatus": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "WARNING",
+        "NOT_EXECUTED"
+      ],
+      "title": "ValidationStatus",
+      "type": "string"
+    },
+    "VisualizationKind": {
+      "enum": [
+        "KPI_CARD",
+        "SUMMARY_CARD",
+        "DATA_TABLE",
+        "BAR_CHART",
+        "LINE_CHART",
+        "AREA_CHART",
+        "PIE_CHART",
+        "DONUT_CHART",
+        "SCATTER_CHART",
+        "HEATMAP",
+        "TREEMAP",
+        "FUNNEL",
+        "INSIGHTS_LIST"
+      ],
+      "title": "VisualizationKind",
+      "type": "string"
+    },
+    "VisualizationSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "data_reference": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Data Reference",
+          "type": "string"
+        },
+        "dimension_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Dimension Ids",
+          "type": "array"
+        },
+        "is_primary": {
+          "default": false,
+          "title": "Is Primary",
+          "type": "boolean"
+        },
+        "kind": {
+          "$ref": "#/$defs/VisualizationKind"
+        },
+        "metric_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Metric Ids",
+          "type": "array"
+        },
+        "options": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Options",
+          "type": "object"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "priority": {
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "visualization_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Visualization Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "visualization_id",
+        "kind",
+        "title",
+        "data_reference",
+        "priority",
+        "origin"
+      ],
+      "title": "VisualizationSpecification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "clarification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ClarificationRequest"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "contract": {
+      "$ref": "#/$defs/ContractMetadata"
+    },
+    "datasets": {
+      "items": {
+        "$ref": "#/$defs/AnalyticalDataset"
+      },
+      "title": "Datasets",
+      "type": "array"
+    },
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/AnalyticalError"
+      },
+      "title": "Errors",
+      "type": "array"
+    },
+    "insights": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Insights",
+      "type": "array"
+    },
+    "intent": {
+      "$ref": "#/$defs/QueryIntentV2"
+    },
+    "legacy_compatibility": {
+      "$ref": "#/$defs/LegacyCompatibility"
+    },
+    "plan_summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlanSummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "provenance": {
+      "items": {
+        "$ref": "#/$defs/ExecutionProvenance"
+      },
+      "title": "Provenance",
+      "type": "array"
+    },
+    "scope_summary": {
+      "$ref": "#/$defs/ScopeSummary"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "maxLength": 4000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Summary"
+    },
+    "validation": {
+      "$ref": "#/$defs/ValidationReport"
+    },
+    "visualizations": {
+      "items": {
+        "$ref": "#/$defs/VisualizationSpecification"
+      },
+      "title": "Visualizations",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "maxLength": 500,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "contract",
+    "scope_summary",
+    "intent",
+    "validation",
+    "legacy_compatibility"
+  ],
+  "title": "AnalyticalResponseV2",
+  "type": "object"
+}

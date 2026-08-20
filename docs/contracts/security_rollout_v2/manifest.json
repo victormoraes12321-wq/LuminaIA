@@ -1,0 +1,6 @@
+{
+  "aggregate_sha256": "1a41a8a17d32c0d2a5fcb982dc94abb284f0d0b9bd7e216aa375c5fdc2736d46",
+  "contract_version": "lumina.security-migration-rollout/1.0",
+  "golden_count": 4,
+  "schema_count": 26
+}

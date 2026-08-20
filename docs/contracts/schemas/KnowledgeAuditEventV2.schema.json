@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "KnowledgeAuditEventType": {
+      "enum": [
+        "ASSET_CREATED",
+        "DRAFT_CREATED",
+        "DRAFT_UPDATED",
+        "REVIEW_SUBMITTED",
+        "REVIEW_APPROVED",
+        "REVIEW_REJECTED",
+        "VERSION_PUBLISHED",
+        "VERSION_DEPRECATED",
+        "ASSET_ARCHIVED",
+        "ROLLBACK_CREATED",
+        "OWNERSHIP_TRANSFERRED",
+        "IMPORT_DRY_RUN",
+        "IMPORT_COMPLETED",
+        "EXPORT_COMPLETED",
+        "ACCESS_DENIED",
+        "VERSION_CONFLICT",
+        "BINDING_CONFLICT"
+      ],
+      "title": "KnowledgeAuditEventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actor_user_id": {
+      "format": "uuid",
+      "title": "Actor User Id",
+      "type": "string"
+    },
+    "asset_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Asset Id"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/KnowledgeAuditEventType"
+    },
+    "metadata": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "maxProperties": 30,
+      "title": "Metadata",
+      "type": "object"
+    },
+    "reason_code": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Version Id"
+    }
+  },
+  "required": [
+    "event_id",
+    "tenant_id",
+    "actor_user_id",
+    "event_type",
+    "reason_code",
+    "created_at"
+  ],
+  "title": "KnowledgeAuditEventV2",
+  "type": "object"
+}

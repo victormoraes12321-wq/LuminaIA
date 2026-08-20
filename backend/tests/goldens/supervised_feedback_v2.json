@@ -1,0 +1,23 @@
+[
+  {"id":"positive","category":"POSITIVE","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"negative","category":"NEGATIVE","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"partial","category":"PARTIALLY_CORRECT","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"incorrect_value","category":"INCORRECT_VALUE","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_filter","category":"INCORRECT_FILTER","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_period","category":"INCORRECT_PERIOD","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_metric","category":"INCORRECT_METRIC","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_entity","category":"INCORRECT_ENTITY","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_dimension","category":"INCORRECT_DIMENSION","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"incorrect_comparison","category":"INCORRECT_COMPARISON","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"},
+  {"id":"visualization","category":"INCORRECT_VISUALIZATION","severity":"LOW","priority":"P4","queue":"VISUALIZATION"},
+  {"id":"missing_context","category":"MISSING_CONTEXT","severity":"MEDIUM","priority":"P3","queue":"CONTEXT"},
+  {"id":"unwanted_inheritance","category":"UNWANTED_INHERITANCE","severity":"MEDIUM","priority":"P3","queue":"CONTEXT"},
+  {"id":"missing_inheritance","category":"MISSING_INHERITANCE","severity":"MEDIUM","priority":"P3","queue":"CONTEXT"},
+  {"id":"ambiguous","category":"AMBIGUOUS","severity":"MEDIUM","priority":"P3","queue":"CONTEXT"},
+  {"id":"out_of_scope","category":"OUT_OF_SCOPE","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"unsafe","category":"UNSAFE_OUTPUT","severity":"CRITICAL","priority":"P1","queue":"SECURITY"},
+  {"id":"performance","category":"PERFORMANCE","severity":"MEDIUM","priority":"P3","queue":"PERFORMANCE"},
+  {"id":"other","category":"OTHER","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"secret_redaction","category":"OTHER","severity":"LOW","priority":"P4","queue":"GENERAL"},
+  {"id":"duplicate_group","category":"INCORRECT_VALUE","severity":"HIGH","priority":"P2","queue":"DATA_INTEGRITY"}
+]

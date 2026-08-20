@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "classification_ceiling": {
+      "default": "INTERNAL",
+      "title": "Classification Ceiling",
+      "type": "string"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "title": "Locale",
+      "type": "string"
+    },
+    "permission_fingerprint": {
+      "maxLength": 128,
+      "minLength": 16,
+      "title": "Permission Fingerprint",
+      "type": "string"
+    },
+    "policy_version": {
+      "default": "v1.0",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "role": {
+      "default": "CONSULTA",
+      "title": "Role",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "timezone": {
+      "default": "America/Sao_Paulo",
+      "title": "Timezone",
+      "type": "string"
+    },
+    "user_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "User Id"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "permission_fingerprint"
+  ],
+  "title": "CacheScopeV2",
+  "type": "object"
+}

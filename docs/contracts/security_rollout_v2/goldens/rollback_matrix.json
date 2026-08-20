@@ -1,0 +1,143 @@
+{
+  "blocking_reasons": [],
+  "contract_version": "lumina.security-migration-rollout/1.0",
+  "plans": [
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "DASHBOARD_V2_READ",
+      "in_flight_policy": "finish safe reads; cancel stale browser requests",
+      "persistent_data_policy": "published dashboards and revision history remain immutable",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "DASHBOARD_V2_AUTHORING",
+      "in_flight_policy": "reject new writes and let committed transactions finish",
+      "persistent_data_policy": "drafts, revisions and publications remain stored",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "DASHBOARD_AI",
+      "in_flight_policy": "cancel provider/tool work and reject new proposals",
+      "persistent_data_policy": "published dashboards remain readable and existing drafts remain",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "POST_SYNC_INSIGHTS",
+      "in_flight_policy": "stop new publication/outbox consumption",
+      "persistent_data_policy": "sync and reconciliation remain intact; historical insights are not deleted",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "OBSERVABILITY_V2",
+      "in_flight_policy": "business flow continues; security telemetry failure blocks readiness",
+      "persistent_data_policy": "historical telemetry remains immutable",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "EVALUATIONS_V2",
+      "in_flight_policy": "cancel new evaluation execution",
+      "persistent_data_policy": "runs and baselines remain immutable",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "WORK_QUEUE_V2",
+      "in_flight_policy": "stop enqueue, drain workers, preserve leases and apply cancellation policy",
+      "persistent_data_policy": "queued jobs persist and no job is silently lost",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    },
+    {
+      "database_down_automatic": false,
+      "disable_mechanism": "global or feature server-side kill switch, then stage DISABLED",
+      "feature": "PERFORMANCE_CERTIFICATION",
+      "in_flight_policy": "cancel synthetic run",
+      "persistent_data_policy": "provisional baselines remain evidence only",
+      "previous_app_compatible": true,
+      "rollback_types": [
+        "FEATURE",
+        "APPLICATION"
+      ],
+      "validation_steps": [
+        "confirm no new execution",
+        "validate historical data preserved",
+        "run directed regression before re-enable"
+      ]
+    }
+  ],
+  "ready": true
+}

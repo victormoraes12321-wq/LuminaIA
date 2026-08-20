@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "allow_incremental_builds": {
+      "default": true,
+      "title": "Allow Incremental Builds",
+      "type": "boolean"
+    },
+    "auto_refresh_after_sync": {
+      "default": true,
+      "title": "Auto Refresh After Sync",
+      "type": "boolean"
+    },
+    "contract_version": {
+      "default": "lumina.smart-cache-materialization/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "forbid_pii_fields": {
+      "default": true,
+      "title": "Forbid Pii Fields",
+      "type": "boolean"
+    },
+    "forbid_row_level_snapshots": {
+      "default": true,
+      "title": "Forbid Row Level Snapshots",
+      "type": "boolean"
+    },
+    "max_snapshots_per_definition": {
+      "default": 10,
+      "maximum": 100,
+      "minimum": 2,
+      "title": "Max Snapshots Per Definition",
+      "type": "integer"
+    },
+    "policy_id": {
+      "default": "default_materialization_policy",
+      "title": "Policy Id",
+      "type": "string"
+    },
+    "policy_version": {
+      "default": "v1.0",
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "require_watermark_verification": {
+      "default": true,
+      "title": "Require Watermark Verification",
+      "type": "boolean"
+    }
+  },
+  "title": "MaterializationPolicyV2",
+  "type": "object"
+}

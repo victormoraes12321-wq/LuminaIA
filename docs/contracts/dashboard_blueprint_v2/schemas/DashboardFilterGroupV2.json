@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "depth": {
+      "default": 1,
+      "maximum": 3,
+      "minimum": 1,
+      "title": "Depth",
+      "type": "integer"
+    },
+    "filter_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "title": "Filter Ids",
+      "type": "array"
+    },
+    "group_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Group Id",
+      "type": "string"
+    },
+    "operator": {
+      "enum": [
+        "ALL",
+        "ANY"
+      ],
+      "title": "Operator",
+      "type": "string"
+    }
+  },
+  "required": [
+    "group_id",
+    "operator",
+    "filter_ids"
+  ],
+  "title": "DashboardFilterGroupV2",
+  "type": "object"
+}

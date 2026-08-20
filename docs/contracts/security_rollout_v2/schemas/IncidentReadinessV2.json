@@ -1,0 +1,40 @@
+{
+  "$defs": {
+    "IncidentReadinessStateV2": {
+      "enum": [
+        "READY",
+        "MANUAL_REVIEW_REQUIRED",
+        "BLOCKED"
+      ],
+      "title": "IncidentReadinessStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "break_glass_status": {
+      "pattern": "^(BREAK_GLASS_NOT_IMPLEMENTED|GOVERNED)$",
+      "title": "Break Glass Status",
+      "type": "string"
+    },
+    "evidence_preservation_available": {
+      "title": "Evidence Preservation Available",
+      "type": "boolean"
+    },
+    "runbook_available": {
+      "title": "Runbook Available",
+      "type": "boolean"
+    },
+    "state": {
+      "$ref": "#/$defs/IncidentReadinessStateV2"
+    }
+  },
+  "required": [
+    "state",
+    "runbook_available",
+    "evidence_preservation_available",
+    "break_glass_status"
+  ],
+  "title": "IncidentReadinessV2",
+  "type": "object"
+}

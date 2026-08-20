@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "FeatureRolloutStageV2": {
+      "enum": [
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK"
+      ],
+      "title": "FeatureRolloutStageV2",
+      "type": "string"
+    },
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "api_enabled": {
+      "default": false,
+      "title": "Api Enabled",
+      "type": "boolean"
+    },
+    "execution_enabled": {
+      "default": false,
+      "title": "Execution Enabled",
+      "type": "boolean"
+    },
+    "feature": {
+      "$ref": "#/$defs/GovernedFeatureV2"
+    },
+    "kill_switch_active": {
+      "default": true,
+      "title": "Kill Switch Active",
+      "type": "boolean"
+    },
+    "mode": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Mode",
+      "type": "string"
+    },
+    "stage": {
+      "$ref": "#/$defs/FeatureRolloutStageV2",
+      "default": "DISABLED"
+    },
+    "worker_enabled": {
+      "default": false,
+      "title": "Worker Enabled",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "feature",
+    "mode"
+  ],
+  "title": "FeatureConfigurationV2",
+  "type": "object"
+}

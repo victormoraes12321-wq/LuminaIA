@@ -1,0 +1,121 @@
+{
+  "$defs": {
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    },
+    "RollbackPlanV2": {
+      "additionalProperties": false,
+      "properties": {
+        "database_down_automatic": {
+          "default": false,
+          "title": "Database Down Automatic",
+          "type": "boolean"
+        },
+        "disable_mechanism": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "Disable Mechanism",
+          "type": "string"
+        },
+        "feature": {
+          "$ref": "#/$defs/GovernedFeatureV2"
+        },
+        "in_flight_policy": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "In Flight Policy",
+          "type": "string"
+        },
+        "persistent_data_policy": {
+          "maxLength": 300,
+          "minLength": 3,
+          "title": "Persistent Data Policy",
+          "type": "string"
+        },
+        "previous_app_compatible": {
+          "title": "Previous App Compatible",
+          "type": "boolean"
+        },
+        "rollback_types": {
+          "items": {
+            "$ref": "#/$defs/RollbackTypeV2"
+          },
+          "title": "Rollback Types",
+          "type": "array"
+        },
+        "validation_steps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validation Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "feature",
+        "rollback_types",
+        "disable_mechanism",
+        "in_flight_policy",
+        "persistent_data_policy",
+        "previous_app_compatible",
+        "validation_steps"
+      ],
+      "title": "RollbackPlanV2",
+      "type": "object"
+    },
+    "RollbackTypeV2": {
+      "enum": [
+        "FEATURE",
+        "APPLICATION",
+        "DATABASE",
+        "DATA_EFFECT"
+      ],
+      "title": "RollbackTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "blocking_reasons": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Reasons",
+      "type": "array"
+    },
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "plans": {
+      "items": {
+        "$ref": "#/$defs/RollbackPlanV2"
+      },
+      "title": "Plans",
+      "type": "array"
+    },
+    "ready": {
+      "title": "Ready",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "plans",
+    "ready"
+  ],
+  "title": "RollbackReadinessV2",
+  "type": "object"
+}

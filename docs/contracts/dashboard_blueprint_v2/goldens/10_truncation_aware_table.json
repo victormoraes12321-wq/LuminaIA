@@ -1,0 +1,314 @@
+{
+  "expected": "VALID",
+  "payload": {
+    "accessibility": {
+      "accessible_description": "Dashboard sintético com leitura e fallback textual governados.",
+      "accessible_title": "Tabela truncation-aware",
+      "color_independent_status": true,
+      "keyboard_navigation": "DOCUMENT_ORDER",
+      "landmark_strategy": "SECTIONS_WITH_LABELS",
+      "reading_order": [
+        "widget.sales.table"
+      ],
+      "reduced_motion": "RESPECT_SYSTEM",
+      "screen_reader_summary": "Resumo textual dos indicadores e visualizações sintéticas.",
+      "textual_fallback_required": true
+    },
+    "audience": {
+      "audience_ids": [
+        "audience.management"
+      ],
+      "minimum_role": "CONSULTA"
+    },
+    "checksum": null,
+    "compatibility": {
+      "deprecated_features": [],
+      "maximum_contract_version_exclusive": "3.0",
+      "minimum_contract_version": "2.0",
+      "required_features": [
+        "responsive_grid",
+        "accessibility_summary",
+        "provenance_panel"
+      ]
+    },
+    "contract_state": "CONTRACT_ONLY",
+    "created_origin": "HUMAN_AUTHORED",
+    "data_bindings": [
+      {
+        "analytical_dataset_id": "dataset.synthetic.sales",
+        "binding_id": "binding.sales.table",
+        "cache_preference": "BACKEND_DECIDES",
+        "classification": "TENANT_BUSINESS_DATA",
+        "comparison": null,
+        "completeness": "TRUNCATION_ALLOWED_WITH_NOTICE",
+        "dimensions": [
+          {
+            "dimension_id": "dimension.product",
+            "display_label": "Dimensão sintética",
+            "drilldown_eligible": true,
+            "grouping_intent": "CATEGORY",
+            "maximum_visual_cardinality": 50,
+            "null_handling": "PRESERVE",
+            "sorting_intent": "ASC"
+          }
+        ],
+        "entities": [],
+        "expected_result_shape": "TABLE",
+        "filters": [],
+        "freshness": "BACKEND_POLICY",
+        "materialization_preference": "BACKEND_DECIDES",
+        "metrics": [
+          {
+            "display_alias": null,
+            "expected_aggregation": "SUM",
+            "expected_fingerprint": "fingerprint-metric-revenue",
+            "expected_unit": "BRL",
+            "metric_id": "metric.revenue",
+            "metric_registry_version": "metric-registry/1"
+          }
+        ],
+        "period": {
+          "end_date": "2026-07-31",
+          "period_id": "period.2026.07",
+          "period_type": "FIXED",
+          "start_date": "2026-07-01"
+        },
+        "provenance": {
+          "applied_filters_required": true,
+          "cache_indicator_required": true,
+          "metric_definition_required": true,
+          "public_summary_required": true,
+          "source_freshness_required": true,
+          "validation_status_required": true,
+          "warnings_required": true
+        }
+      }
+    ],
+    "filter_groups": [],
+    "filters": [],
+    "governance": {
+      "classification": "TENANT_BUSINESS_DATA",
+      "contains_personal_data": false,
+      "permissions": [
+        {
+          "capability": "dashboard:view",
+          "reason": "Visualização do dashboard",
+          "required": true
+        }
+      ],
+      "template_eligible": true
+    },
+    "identity": {
+      "blueprint_id": "dashboard.sales.table",
+      "canonical_name": "dashboard.sales.table",
+      "description": "Dashboard sintético para certificação do contrato declarativo V2.",
+      "locale": "pt-BR",
+      "timezone_policy": "TENANT_AUTHORITY",
+      "title": "Tabela truncation-aware"
+    },
+    "interactions": [],
+    "layout": {
+      "breakpoints": [
+        {
+          "breakpoint": "MOBILE",
+          "grid": {
+            "columns": 4,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.sales.table",
+              "width": 4,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "minimum_width_px": 0
+        },
+        {
+          "breakpoint": "TABLET",
+          "grid": {
+            "columns": 8,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.sales.table",
+              "width": 8,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "minimum_width_px": 768
+        },
+        {
+          "breakpoint": "DESKTOP",
+          "grid": {
+            "columns": 12,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.sales.table",
+              "width": 12,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "minimum_width_px": 1280
+        },
+        {
+          "breakpoint": "ULTRAWIDE",
+          "grid": {
+            "columns": 16,
+            "gap_px": 16,
+            "padding_px": 16,
+            "row_height_policy": "CONTENT_AWARE"
+          },
+          "items": [
+            {
+              "fallback_widget_id": null,
+              "height": 4,
+              "reading_order": 0,
+              "visible": true,
+              "widget_id": "widget.sales.table",
+              "width": 16,
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "minimum_width_px": 1920
+        }
+      ]
+    },
+    "lifecycle": "DRAFT",
+    "purpose": {
+      "analytical_domains": [
+        "sales"
+      ],
+      "intended_decisions": [
+        "monitorar desempenho"
+      ],
+      "purpose_id": "purpose.executive.analysis",
+      "summary": "Apoiar decisões usando apenas referências analíticas canônicas."
+    },
+    "refresh_policy": "MANUAL",
+    "version": {
+      "blueprint_version": "1.0.0",
+      "contract_id": "lumina.dashboard-blueprint",
+      "contract_version": "lumina.dashboard-blueprint/2.0",
+      "publication_version": null,
+      "revision": {
+        "semantic_revision": 1,
+        "visual_revision": 1
+      }
+    },
+    "widgets": [
+      {
+        "accessibility": {
+          "accessible_description": "Visualização sintética e governada de Tabela detalhada sintética.",
+          "accessible_name": "Tabela detalhada sintética",
+          "chart_text_summary_required": false,
+          "focus_behavior": "CONTAINER",
+          "summary_template": "Resumo textual obrigatório de Tabela detalhada sintética.",
+          "table_alternative_required": false
+        },
+        "binding_id": "binding.sales.table",
+        "columns": [
+          {
+            "column_id": "column.product",
+            "column_kind": "DIMENSION",
+            "label": "Produto",
+            "sortable": true,
+            "source_binding_id": "dimension.product",
+            "visible": true
+          },
+          {
+            "column_id": "column.revenue",
+            "column_kind": "METRIC",
+            "label": "Faturamento",
+            "sortable": true,
+            "source_binding_id": "metric.revenue",
+            "visible": true
+          }
+        ],
+        "expected_result_shape": "TABLE",
+        "formatting": {
+          "currency": null,
+          "date": null,
+          "locale": "pt-BR",
+          "number": {
+            "maximum_fraction_digits": 2,
+            "minimum_fraction_digits": 0,
+            "negative_display": "MINUS",
+            "null_display": "SEM_VALOR",
+            "style": "DECIMAL",
+            "unit_visible": true
+          },
+          "percentage_display": null,
+          "theme_token": "PRIMARY"
+        },
+        "identity": {
+          "canonical_name": "widget.sales.table",
+          "widget_id": "widget.sales.table"
+        },
+        "maximum_visual_rows": 100,
+        "ordering": [],
+        "pagination_presentation": "PAGED",
+        "responsive_mode": "SCROLL",
+        "states": {
+          "empty": {
+            "action": "NONE",
+            "message": "Não há dados sintéticos para tabela detalhada.",
+            "title": "Sem dados"
+          },
+          "error": {
+            "action": "NONE",
+            "expose_diagnostics": false,
+            "message": "A validação governada bloqueou ou falhou.",
+            "title": "Não foi possível exibir"
+          },
+          "loading": {
+            "announce_to_screen_reader": true,
+            "label": "Carregando tabela detalhada",
+            "presentation": "SKELETON"
+          },
+          "partial_message": "Resultado parcial; consulte a proveniência.",
+          "permission_denied_message": "Permissão insuficiente para este conteúdo.",
+          "stale_message": "Resultado desatualizado; consulte a origem.",
+          "truncated_message": "Resultado truncado; nem todas as linhas estão visíveis.",
+          "unavailable_message": "Conteúdo temporariamente indisponível."
+        },
+        "subtotals_display": false,
+        "theme_token": "PRIMARY",
+        "title": {
+          "subtitle": null,
+          "title": "Tabela detalhada sintética",
+          "visible": true
+        },
+        "totals_display": false,
+        "truncation_indicator": "REQUIRED",
+        "visible": true,
+        "widget_type": "TABLE"
+      }
+    ]
+  }
+}

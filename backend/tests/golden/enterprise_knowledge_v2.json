@@ -1,0 +1,122 @@
+{
+  "approval": {
+    "decision": "APPROVED",
+    "lifecycle": "APPROVED",
+    "policy_version": "knowledge-sod/1.0",
+    "reviewer": "<reviewer>",
+    "version": 1
+  },
+  "asset_draft": {
+    "canonical_key": "faturamento",
+    "content_kind": "BUSINESS_TERM",
+    "lifecycle": "DRAFT",
+    "owner": "<owner>",
+    "schema_version": "lumina.enterprise-knowledge/1.0",
+    "tenant": "<tenant>",
+    "version": 1
+  },
+  "binding_conflict": {
+    "canonical_metric_id": "faturamento_comercial",
+    "error_code": "KNOWLEDGE_METRIC_BINDING_CONFLICT",
+    "published": false,
+    "status": "CONFLICT"
+  },
+  "binding_valid": {
+    "canonical_metric_id": "faturamento_comercial",
+    "formula_authority": "MetricRegistry",
+    "status": "VALID"
+  },
+  "deprecation": {
+    "current_published_version_id": null,
+    "event": "VERSION_DEPRECATED",
+    "lifecycle": "DEPRECATED",
+    "version": 1
+  },
+  "export": {
+    "contract": "lumina.enterprise-knowledge/1.0",
+    "format": "CSV",
+    "published_only": true,
+    "tenant": "<tenant>"
+  },
+  "forbidden_write": {
+    "allowed": false,
+    "permission": "knowledge:create",
+    "reason_code": "ROLE_PERMISSION_DENIED",
+    "role": "CONSULTA"
+  },
+  "import_dry_run": {
+    "accepted": 1,
+    "created_asset_ids": [],
+    "dry_run": true,
+    "import_id": null,
+    "rejected": 0
+  },
+  "public_read": {
+    "draft_visible": false,
+    "published_visible": true,
+    "review_comment_visible": false,
+    "role": "CONSULTA"
+  },
+  "publication": {
+    "event": "VERSION_PUBLISHED",
+    "lifecycle": "PUBLISHED",
+    "publisher": "<publisher>",
+    "superseded_version_id": null,
+    "version": 1
+  },
+  "rejection": {
+    "decision": "REJECTED",
+    "lifecycle": "REJECTED",
+    "published": false,
+    "version": 1
+  },
+  "rollback": {
+    "lifecycle": "DRAFT",
+    "source_kind": "ROLLBACK",
+    "source_version": 1,
+    "version": 3
+  },
+  "search_alias": {
+    "canonical_key": "faturamento",
+    "match_type": "ALIAS_EXACT",
+    "query": "receita de vendas",
+    "score": 950
+  },
+  "search_ambiguous": {
+    "ambiguous": true,
+    "candidate_count": 2,
+    "clarification_required": true,
+    "selected": null
+  },
+  "search_exact": {
+    "canonical_key": "faturamento",
+    "match_type": "CANONICAL_EXACT",
+    "query": "faturamento",
+    "score": 1000
+  },
+  "submitted": {
+    "checksum": "<checksum>",
+    "event": "REVIEW_SUBMITTED",
+    "lifecycle": "IN_REVIEW",
+    "version": 1
+  },
+  "version_diff": {
+    "added_fields": [],
+    "changed_fields": [
+      "definition"
+    ],
+    "from_version": 1,
+    "removed_fields": [],
+    "to_version": 2
+  },
+  "version_history": {
+    "current": 2,
+    "immutable_versions": [
+      1
+    ],
+    "versions": [
+      2,
+      1
+    ]
+  }
+}

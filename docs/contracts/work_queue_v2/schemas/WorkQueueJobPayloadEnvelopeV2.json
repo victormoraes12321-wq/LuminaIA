@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "WorkQueueJobTypeV2": {
+      "enum": [
+        "POST_SYNC_INSIGHT_RUN",
+        "MATERIALIZATION_BUILD",
+        "MATERIALIZATION_REFRESH",
+        "CACHE_REFRESH",
+        "EVALUATION_RUN",
+        "DASHBOARD_BACKGROUND_REFRESH",
+        "ANALYTICAL_BACKGROUND_QUERY",
+        "SYNC_POST_PROCESSING"
+      ],
+      "title": "WorkQueueJobTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "job_type": {
+      "$ref": "#/$defs/WorkQueueJobTypeV2"
+    },
+    "payload_version": {
+      "default": "1.0",
+      "maxLength": 16,
+      "minLength": 1,
+      "title": "Payload Version",
+      "type": "string"
+    },
+    "canonical_reference_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Canonical Reference Id",
+      "type": "string"
+    },
+    "parameters": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Parameters",
+      "type": "object"
+    },
+    "payload_checksum": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Payload Checksum",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_type",
+    "canonical_reference_id",
+    "payload_checksum"
+  ],
+  "title": "WorkQueueJobPayloadEnvelopeV2",
+  "type": "object"
+}

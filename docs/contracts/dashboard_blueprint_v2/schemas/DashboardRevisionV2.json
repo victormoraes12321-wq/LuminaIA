@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "semantic_revision": {
+      "default": 1,
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Semantic Revision",
+      "type": "integer"
+    },
+    "visual_revision": {
+      "default": 1,
+      "maximum": 1000000,
+      "minimum": 1,
+      "title": "Visual Revision",
+      "type": "integer"
+    }
+  },
+  "title": "DashboardRevisionV2",
+  "type": "object"
+}

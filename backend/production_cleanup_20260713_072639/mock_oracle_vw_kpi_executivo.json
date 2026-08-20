@@ -1,0 +1,34 @@
+[
+  {
+    "metrica": "Receita Total",
+    "valor": "1328312841.599999904632568359375",
+    "valor_formatado": "R$ 1.328.312.841,60",
+    "tendencia": "up",
+    "trend_label": "+15.8% vs ano anterior",
+    "comparativo_anterior": "R$ 11.240.500,00"
+  },
+  {
+    "metrica": "Ticket Médio",
+    "valor": "41217.390436590430908836424350738525390625",
+    "valor_formatado": "R$ 41.217,39",
+    "tendencia": "up",
+    "trend_label": "+6.2% vs ano anterior",
+    "comparativo_anterior": "R$ 9.230,00"
+  },
+  {
+    "metrica": "Pedidos Atendidos",
+    "valor": "32227",
+    "valor_formatado": "32227",
+    "tendencia": "up",
+    "trend_label": "+9.4% vs ano anterior",
+    "comparativo_anterior": "1.900"
+  },
+  {
+    "metrica": "Margem Global",
+    "valor": "38.96000000000000085265128291212022304534912109375",
+    "valor_formatado": "38.96%",
+    "tendencia": "stable",
+    "trend_label": "estável",
+    "comparativo_anterior": "36.5%"
+  }
+]

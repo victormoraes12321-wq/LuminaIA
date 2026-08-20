@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "binding_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Binding Id",
+      "type": "string"
+    },
+    "label": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "scale": {
+      "enum": [
+        "LINEAR",
+        "TIME",
+        "CATEGORY"
+      ],
+      "title": "Scale",
+      "type": "string"
+    }
+  },
+  "required": [
+    "binding_id",
+    "label",
+    "scale"
+  ],
+  "title": "DashboardChartAxisV2",
+  "type": "object"
+}

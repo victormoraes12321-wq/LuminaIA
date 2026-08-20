@@ -1,0 +1,32 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "dependency_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Dependency Id",
+      "type": "string"
+    },
+    "evidence": {
+      "maxLength": 300,
+      "minLength": 3,
+      "title": "Evidence",
+      "type": "string"
+    },
+    "required": {
+      "default": true,
+      "title": "Required",
+      "type": "boolean"
+    },
+    "satisfied": {
+      "title": "Satisfied",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "dependency_id",
+    "satisfied",
+    "evidence"
+  ],
+  "title": "FeatureDependencyV2",
+  "type": "object"
+}

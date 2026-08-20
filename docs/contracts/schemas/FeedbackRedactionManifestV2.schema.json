@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "RedactedFieldV2": {
+      "additionalProperties": false,
+      "properties": {
+        "field_name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Name",
+          "type": "string"
+        },
+        "reason_code": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field_name",
+        "reason_code"
+      ],
+      "title": "RedactedFieldV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "manifest_id": {
+      "format": "uuid",
+      "title": "Manifest Id",
+      "type": "string"
+    },
+    "original_size_bytes": {
+      "minimum": 0,
+      "title": "Original Size Bytes",
+      "type": "integer"
+    },
+    "policy_version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "redacted_size_bytes": {
+      "minimum": 0,
+      "title": "Redacted Size Bytes",
+      "type": "integer"
+    },
+    "removed_fields": {
+      "items": {
+        "$ref": "#/$defs/RedactedFieldV2"
+      },
+      "maxItems": 100,
+      "title": "Removed Fields",
+      "type": "array"
+    },
+    "sensitive_content_detected": {
+      "title": "Sensitive Content Detected",
+      "type": "boolean"
+    },
+    "transformed_fields": {
+      "items": {
+        "$ref": "#/$defs/RedactedFieldV2"
+      },
+      "maxItems": 100,
+      "title": "Transformed Fields",
+      "type": "array"
+    }
+  },
+  "required": [
+    "manifest_id",
+    "policy_version",
+    "original_size_bytes",
+    "redacted_size_bytes",
+    "sensitive_content_detected",
+    "checksum"
+  ],
+  "title": "FeedbackRedactionManifestV2",
+  "type": "object"
+}

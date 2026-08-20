@@ -1,0 +1,240 @@
+{
+  "$defs": {
+    "KnowledgeAssetType": {
+      "enum": [
+        "BUSINESS_TERM",
+        "METRIC",
+        "KPI",
+        "DIMENSION",
+        "ENTITY",
+        "BUSINESS_RULE",
+        "ALIAS_SET",
+        "CALENDAR_POLICY",
+        "DATA_QUALITY_POLICY",
+        "SEMANTIC_RELATION"
+      ],
+      "title": "KnowledgeAssetType",
+      "type": "string"
+    },
+    "KnowledgeMatchType": {
+      "enum": [
+        "CANONICAL_EXACT",
+        "ALIAS_EXACT",
+        "DISPLAY_EXACT",
+        "ALIAS_PREFIX",
+        "DISPLAY_PREFIX",
+        "TOKEN_OVERLAP",
+        "DESCRIPTION"
+      ],
+      "title": "KnowledgeMatchType",
+      "type": "string"
+    },
+    "KnowledgeResolutionCandidateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "format": "uuid",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "asset_type": {
+          "$ref": "#/$defs/KnowledgeAssetType"
+        },
+        "canonical_key": {
+          "pattern": "^[a-z0-9][a-z0-9_.-]{1,127}$",
+          "title": "Canonical Key",
+          "type": "string"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "match_type": {
+          "$ref": "#/$defs/KnowledgeMatchType"
+        },
+        "matched_field": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Matched Field",
+          "type": "string"
+        },
+        "matched_text": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Matched Text",
+          "type": "string"
+        },
+        "provenance": {
+          "items": {
+            "$ref": "#/$defs/KnowledgeSourceReferenceV2"
+          },
+          "maxItems": 30,
+          "title": "Provenance",
+          "type": "array"
+        },
+        "score": {
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Score",
+          "type": "integer"
+        },
+        "version_id": {
+          "format": "uuid",
+          "title": "Version Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "version_id",
+        "canonical_key",
+        "asset_type",
+        "display_name",
+        "domain",
+        "score",
+        "match_type",
+        "matched_field",
+        "matched_text",
+        "checksum"
+      ],
+      "title": "KnowledgeResolutionCandidateV2",
+      "type": "object"
+    },
+    "KnowledgeSourceReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Authority",
+          "type": "string"
+        },
+        "reference_type": {
+          "enum": [
+            "POLICY",
+            "SYSTEM",
+            "DOCUMENT",
+            "CATALOG",
+            "OWNER_ATTESTATION"
+          ],
+          "title": "Reference Type",
+          "type": "string"
+        },
+        "reference_uri": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Uri"
+        },
+        "reference_version": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Version"
+        },
+        "title": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "verified_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verified At"
+        }
+      },
+      "required": [
+        "reference_type",
+        "title",
+        "authority"
+      ],
+      "title": "KnowledgeSourceReferenceV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ambiguous": {
+      "default": false,
+      "title": "Ambiguous",
+      "type": "boolean"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/KnowledgeResolutionCandidateV2"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "duration_ms": {
+      "minimum": 0.0,
+      "title": "Duration Ms",
+      "type": "number"
+    },
+    "next_cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Cursor"
+    },
+    "query_normalized": {
+      "title": "Query Normalized",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "query_normalized",
+    "candidates",
+    "duration_ms"
+  ],
+  "title": "KnowledgeSearchResultV2",
+  "type": "object"
+}

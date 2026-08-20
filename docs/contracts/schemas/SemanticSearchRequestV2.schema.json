@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticSearchContextV2": {
+      "additionalProperties": false,
+      "properties": {
+        "active_canonical_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Active Canonical Ids",
+          "type": "array"
+        },
+        "expected_domain": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Domain"
+        },
+        "expected_entity_types": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/SemanticEntityType"
+          },
+          "title": "Expected Entity Types",
+          "type": "array"
+        },
+        "permission_fingerprint": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Permission Fingerprint",
+          "type": "string"
+        },
+        "profile_favorite_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Profile Favorite Ids",
+          "type": "array"
+        },
+        "profile_tie_breaker_enabled": {
+          "default": false,
+          "title": "Profile Tie Breaker Enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "permission_fingerprint"
+      ],
+      "title": "SemanticSearchContextV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "$ref": "#/$defs/SemanticSearchContextV2"
+    },
+    "include_public_explanation": {
+      "default": true,
+      "title": "Include Public Explanation",
+      "type": "boolean"
+    },
+    "index_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Index Id"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Locale",
+      "type": "string"
+    },
+    "query": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "top_k": {
+      "default": 10,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Top K",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "query",
+    "context"
+  ],
+  "title": "SemanticSearchRequestV2",
+  "type": "object"
+}

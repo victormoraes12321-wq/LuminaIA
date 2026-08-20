@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "context_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Context Fingerprint",
+      "type": "string"
+    },
+    "domain_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Domain Fingerprint",
+      "type": "string"
+    },
+    "expected_entity_types": {
+      "items": {
+        "$ref": "#/$defs/SemanticEntityType"
+      },
+      "title": "Expected Entity Types",
+      "type": "array"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "index_version_id": {
+      "format": "uuid",
+      "title": "Index Version Id",
+      "type": "string"
+    },
+    "locale": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Locale",
+      "type": "string"
+    },
+    "normalized_query_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Normalized Query Fingerprint",
+      "type": "string"
+    },
+    "profile_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Profile Fingerprint",
+      "type": "string"
+    },
+    "ranking_policy_version": {
+      "title": "Ranking Policy Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "threshold_policy_version": {
+      "title": "Threshold Policy Version",
+      "type": "string"
+    },
+    "top_k": {
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Top K",
+      "type": "integer"
+    },
+    "user_permission_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "User Permission Fingerprint",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "user_permission_fingerprint",
+    "index_id",
+    "index_version_id",
+    "ranking_policy_version",
+    "threshold_policy_version",
+    "locale",
+    "normalized_query_fingerprint",
+    "expected_entity_types",
+    "domain_fingerprint",
+    "context_fingerprint",
+    "profile_fingerprint",
+    "top_k",
+    "checksum"
+  ],
+  "title": "SemanticCacheKeyV2",
+  "type": "object"
+}

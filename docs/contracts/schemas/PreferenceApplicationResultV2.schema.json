@@ -1,0 +1,1235 @@
+{
+  "$defs": {
+    "ClarificationRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_options": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Candidate Options",
+          "type": "array"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "missing_fields": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Missing Fields",
+          "type": "array"
+        },
+        "question": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "missing_fields",
+        "reason",
+        "confidence"
+      ],
+      "title": "ClarificationRequest",
+      "type": "object"
+    },
+    "ComparisonCalculation": {
+      "enum": [
+        "VALUE",
+        "ABSOLUTE_DIFFERENCE",
+        "PERCENTAGE_DIFFERENCE",
+        "DIRECTION",
+        "SHARE",
+        "RANK"
+      ],
+      "title": "ComparisonCalculation",
+      "type": "string"
+    },
+    "ComparisonKind": {
+      "enum": [
+        "PERIOD_VS_PERIOD",
+        "ENTITY_VS_ENTITY",
+        "METRIC_VS_METRIC",
+        "ACTUAL_VS_TARGET",
+        "MULTI_PERIOD",
+        "MULTI_ENTITY"
+      ],
+      "title": "ComparisonKind",
+      "type": "string"
+    },
+    "ComparisonOperand": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_refs": {
+          "items": {
+            "$ref": "#/$defs/EntityReference"
+          },
+          "title": "Entity Refs",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpecification"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "metric_refs": {
+          "items": {
+            "$ref": "#/$defs/MetricReference"
+          },
+          "title": "Metric Refs",
+          "type": "array"
+        },
+        "operand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "time_windows": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Time Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "operand_id",
+        "label",
+        "origin"
+      ],
+      "title": "ComparisonOperand",
+      "type": "object"
+    },
+    "ComparisonSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "alignment_dimensions": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Alignment Dimensions",
+          "type": "array"
+        },
+        "baseline_operand_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Operand Id"
+        },
+        "calculations": {
+          "items": {
+            "$ref": "#/$defs/ComparisonCalculation"
+          },
+          "minItems": 1,
+          "title": "Calculations",
+          "type": "array"
+        },
+        "comparison_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Comparison Id",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "kind": {
+          "$ref": "#/$defs/ComparisonKind"
+        },
+        "operands": {
+          "items": {
+            "$ref": "#/$defs/ComparisonOperand"
+          },
+          "minItems": 2,
+          "title": "Operands",
+          "type": "array"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "requested_sort": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Sort"
+        }
+      },
+      "required": [
+        "comparison_id",
+        "kind",
+        "operands",
+        "calculations",
+        "origin",
+        "confidence"
+      ],
+      "title": "ComparisonSpecification",
+      "type": "object"
+    },
+    "ConfidenceAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/ConfidenceLevel"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Reasons",
+          "type": "array"
+        },
+        "requires_confirmation": {
+          "default": false,
+          "title": "Requires Confirmation",
+          "type": "boolean"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Score"
+        }
+      },
+      "required": [
+        "level",
+        "score"
+      ],
+      "title": "ConfidenceAssessment",
+      "type": "object"
+    },
+    "ConfidenceLevel": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ],
+      "title": "ConfidenceLevel",
+      "type": "string"
+    },
+    "ConsentStatus": {
+      "enum": [
+        "GRANTED",
+        "REVOKED",
+        "NOT_REQUIRED",
+        "MISSING"
+      ],
+      "title": "ConsentStatus",
+      "type": "string"
+    },
+    "ContractMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_used": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adapter Used"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "extensions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Extensions",
+          "type": "object"
+        },
+        "pipeline": {
+          "$ref": "#/$defs/PipelineKind"
+        },
+        "request_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Request Id"
+        },
+        "schema_name": {
+          "default": "lumina.analytics",
+          "title": "Schema Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "default": "2.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "trace_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Trace Id"
+        }
+      },
+      "required": [
+        "pipeline"
+      ],
+      "title": "ContractMetadata",
+      "type": "object"
+    },
+    "DimensionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "dimension_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Dimension Id",
+          "type": "string"
+        },
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "role": {
+          "$ref": "#/$defs/DimensionRole"
+        }
+      },
+      "required": [
+        "dimension_id",
+        "display_name",
+        "role",
+        "origin",
+        "confidence"
+      ],
+      "title": "DimensionReference",
+      "type": "object"
+    },
+    "DimensionRole": {
+      "enum": [
+        "GROUPING",
+        "SERIES",
+        "CATEGORY",
+        "ORDERING",
+        "DETAIL"
+      ],
+      "title": "DimensionRole",
+      "type": "string"
+    },
+    "EntityReference": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        }
+      },
+      "required": [
+        "entity_id",
+        "display_name",
+        "origin"
+      ],
+      "title": "EntityReference",
+      "type": "object"
+    },
+    "ExecutionReadiness": {
+      "enum": [
+        "READY",
+        "CLARIFICATION_REQUIRED",
+        "OUT_OF_SCOPE",
+        "UNSUPPORTED",
+        "BLOCKED",
+        "ERROR"
+      ],
+      "title": "ExecutionReadiness",
+      "type": "string"
+    },
+    "FieldOrigin": {
+      "enum": [
+        "EXPLICIT_USER",
+        "INHERITED_CONVERSATION",
+        "USER_PREFERENCE",
+        "TENANT_KNOWLEDGE",
+        "DETERMINISTIC_DEFAULT",
+        "LLM_INFERENCE",
+        "LEGACY_ADAPTER",
+        "SYSTEM_GENERATED"
+      ],
+      "title": "FieldOrigin",
+      "type": "string"
+    },
+    "FilterOperator": {
+      "enum": [
+        "EQ",
+        "NE",
+        "IN",
+        "NOT_IN",
+        "GT",
+        "GTE",
+        "LT",
+        "LTE",
+        "BETWEEN",
+        "CONTAINS",
+        "STARTS_WITH",
+        "IS_NULL",
+        "IS_NOT_NULL"
+      ],
+      "title": "FilterOperator",
+      "type": "string"
+    },
+    "FilterSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Field Id",
+          "type": "string"
+        },
+        "filter_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Filter Id",
+          "type": "string"
+        },
+        "is_explicit": {
+          "title": "Is Explicit",
+          "type": "boolean"
+        },
+        "operator": {
+          "$ref": "#/$defs/FilterOperator"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "filter_id",
+        "field_id",
+        "operator",
+        "origin",
+        "confidence",
+        "is_explicit"
+      ],
+      "title": "FilterSpecification",
+      "type": "object"
+    },
+    "IntentKind": {
+      "enum": [
+        "METRIC",
+        "RANKING",
+        "BREAKDOWN",
+        "COMPARISON",
+        "DETAIL",
+        "METADATA",
+        "FOLLOW_UP",
+        "CLARIFICATION",
+        "OUT_OF_SCOPE"
+      ],
+      "title": "IntentKind",
+      "type": "string"
+    },
+    "JsonValue": {},
+    "MetricReference": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "metric_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "metric_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Metric Version",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "unit": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_id",
+        "metric_version",
+        "display_name",
+        "unit",
+        "aggregation",
+        "origin",
+        "confidence"
+      ],
+      "title": "MetricReference",
+      "type": "object"
+    },
+    "OutOfScopeReason": {
+      "enum": [
+        "NON_ANALYTICAL",
+        "UNRELATED_DOMAIN",
+        "PROHIBITED_REQUEST",
+        "UNKNOWN"
+      ],
+      "title": "OutOfScopeReason",
+      "type": "string"
+    },
+    "PipelineKind": {
+      "enum": [
+        "NEW",
+        "LEGACY",
+        "SHADOW",
+        "ADAPTER"
+      ],
+      "title": "PipelineKind",
+      "type": "string"
+    },
+    "PreferenceApplicationDecisionV2": {
+      "additionalProperties": false,
+      "properties": {
+        "consent_status": {
+          "$ref": "#/$defs/ConsentStatus"
+        },
+        "decision": {
+          "$ref": "#/$defs/PreferenceDecision"
+        },
+        "field_path": {
+          "title": "Field Path",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/PreferenceOrigin"
+        },
+        "preference_id": {
+          "format": "uuid",
+          "title": "Preference Id",
+          "type": "string"
+        },
+        "preference_key": {
+          "title": "Preference Key",
+          "type": "string"
+        },
+        "reason_code": {
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "risk": {
+          "$ref": "#/$defs/PreferenceRisk"
+        },
+        "visible_to_user": {
+          "title": "Visible To User",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "preference_id",
+        "preference_key",
+        "field_path",
+        "decision",
+        "reason_code",
+        "risk",
+        "origin",
+        "consent_status",
+        "visible_to_user"
+      ],
+      "title": "PreferenceApplicationDecisionV2",
+      "type": "object"
+    },
+    "PreferenceConflictV2": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks_application": {
+          "title": "Blocks Application",
+          "type": "boolean"
+        },
+        "field_path": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Field Path",
+          "type": "string"
+        },
+        "preference_id": {
+          "format": "uuid",
+          "title": "Preference Id",
+          "type": "string"
+        },
+        "public_message": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Public Message",
+          "type": "string"
+        },
+        "reason_code": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Reason Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preference_id",
+        "field_path",
+        "reason_code",
+        "public_message",
+        "blocks_application"
+      ],
+      "title": "PreferenceConflictV2",
+      "type": "object"
+    },
+    "PreferenceDecision": {
+      "enum": [
+        "APPLIED",
+        "SKIPPED",
+        "BLOCKED",
+        "CONFLICT",
+        "CONSENT_REQUIRED"
+      ],
+      "title": "PreferenceDecision",
+      "type": "string"
+    },
+    "PreferenceOrigin": {
+      "enum": [
+        "USER_EXPLICIT",
+        "SYSTEM_DEFAULT",
+        "ADMIN_POLICY",
+        "LEGACY_IMPORT",
+        "MIGRATED",
+        "FEEDBACK_CANDIDATE",
+        "INFERRED_UNCONFIRMED"
+      ],
+      "title": "PreferenceOrigin",
+      "type": "string"
+    },
+    "PreferenceRisk": {
+      "enum": [
+        "SAFE_PRESENTATION",
+        "VISIBLE_ANALYTICAL_DEFAULT",
+        "REFERENCE_ONLY",
+        "RESTRICTED",
+        "FORBIDDEN"
+      ],
+      "title": "PreferenceRisk",
+      "type": "string"
+    },
+    "PublicAppliedPreferenceItemV2": {
+      "additionalProperties": false,
+      "properties": {
+        "expires_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "origin_label": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Origin Label",
+          "type": "string"
+        },
+        "preference_type": {
+          "$ref": "#/$defs/UserPreferenceType"
+        },
+        "removable_this_turn": {
+          "default": true,
+          "title": "Removable This Turn",
+          "type": "boolean"
+        },
+        "settings_path": {
+          "default": "/dashboard/settings/profile",
+          "title": "Settings Path",
+          "type": "string"
+        },
+        "value_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Value Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preference_type",
+        "label",
+        "value_label",
+        "origin_label"
+      ],
+      "title": "PublicAppliedPreferenceItemV2",
+      "type": "object"
+    },
+    "PublicAppliedPreferenceSummaryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "applied": {
+          "items": {
+            "$ref": "#/$defs/PublicAppliedPreferenceItemV2"
+          },
+          "maxItems": 50,
+          "title": "Applied",
+          "type": "array"
+        },
+        "consent_required": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Consent Required",
+          "type": "array"
+        },
+        "has_visible_analytical_default": {
+          "default": false,
+          "title": "Has Visible Analytical Default",
+          "type": "boolean"
+        },
+        "ignored": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 50,
+          "title": "Ignored",
+          "type": "array"
+        },
+        "schema_version": {
+          "default": "lumina.user-analytical-profile/1.0",
+          "title": "Schema Version",
+          "type": "string"
+        }
+      },
+      "title": "PublicAppliedPreferenceSummaryV2",
+      "type": "object"
+    },
+    "QueryIntentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "clarification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ClarificationRequest"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "comparison": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ComparisonSpecification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "contract": {
+          "$ref": "#/$defs/ContractMetadata"
+        },
+        "dimension_refs": {
+          "items": {
+            "$ref": "#/$defs/DimensionReference"
+          },
+          "title": "Dimension Refs",
+          "type": "array"
+        },
+        "field_origins": {
+          "patternProperties": {
+            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
+              "$ref": "#/$defs/FieldOrigin"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Field Origins",
+          "type": "object"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpecification"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "intent_kind": {
+          "$ref": "#/$defs/IntentKind"
+        },
+        "metric_refs": {
+          "items": {
+            "$ref": "#/$defs/MetricReference"
+          },
+          "title": "Metric Refs",
+          "type": "array"
+        },
+        "normalized_question": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Normalized Question",
+          "type": "string"
+        },
+        "out_of_scope_reason": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/OutOfScopeReason"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "raw_question": {
+          "maxLength": 1000,
+          "minLength": 3,
+          "title": "Raw Question",
+          "type": "string"
+        },
+        "readiness": {
+          "$ref": "#/$defs/ExecutionReadiness"
+        },
+        "requested_visualizations": {
+          "items": {
+            "$ref": "#/$defs/VisualizationSpecification"
+          },
+          "title": "Requested Visualizations",
+          "type": "array"
+        },
+        "time_windows": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Time Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "contract",
+        "intent_kind",
+        "readiness",
+        "raw_question",
+        "normalized_question",
+        "confidence",
+        "field_origins"
+      ],
+      "title": "QueryIntentV2",
+      "type": "object"
+    },
+    "TemporalGranularity": {
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "QUARTER",
+        "SEMESTER",
+        "YEAR",
+        "CUSTOM"
+      ],
+      "title": "TemporalGranularity",
+      "type": "string"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "end_inclusive": {
+          "default": true,
+          "title": "End Inclusive",
+          "type": "boolean"
+        },
+        "granularity": {
+          "$ref": "#/$defs/TemporalGranularity"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "raw_expression": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Expression"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        },
+        "window_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Window Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "window_id",
+        "label",
+        "start",
+        "end",
+        "granularity",
+        "timezone",
+        "origin",
+        "confidence"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    },
+    "UserPreferenceType": {
+      "enum": [
+        "PRESENTATION",
+        "LOCALE",
+        "ACCESSIBILITY",
+        "ANALYTICAL_DEFAULT",
+        "FAVORITE_METRIC",
+        "FAVORITE_DIMENSION",
+        "FAVORITE_ENTITY",
+        "SAVED_FILTER_REFERENCE",
+        "SAVED_QUERY_REFERENCE",
+        "SAVED_DASHBOARD_REFERENCE",
+        "INTERACTION",
+        "PRIVACY",
+        "RETENTION"
+      ],
+      "title": "UserPreferenceType",
+      "type": "string"
+    },
+    "VisualizationKind": {
+      "enum": [
+        "KPI_CARD",
+        "SUMMARY_CARD",
+        "DATA_TABLE",
+        "BAR_CHART",
+        "LINE_CHART",
+        "AREA_CHART",
+        "PIE_CHART",
+        "DONUT_CHART",
+        "SCATTER_CHART",
+        "HEATMAP",
+        "TREEMAP",
+        "FUNNEL",
+        "INSIGHTS_LIST"
+      ],
+      "title": "VisualizationKind",
+      "type": "string"
+    },
+    "VisualizationSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "data_reference": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Data Reference",
+          "type": "string"
+        },
+        "dimension_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Dimension Ids",
+          "type": "array"
+        },
+        "is_primary": {
+          "default": false,
+          "title": "Is Primary",
+          "type": "boolean"
+        },
+        "kind": {
+          "$ref": "#/$defs/VisualizationKind"
+        },
+        "metric_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Metric Ids",
+          "type": "array"
+        },
+        "options": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Options",
+          "type": "object"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "priority": {
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "title": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "visualization_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Visualization Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "visualization_id",
+        "kind",
+        "title",
+        "data_reference",
+        "priority",
+        "origin"
+      ],
+      "title": "VisualizationSpecification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applied_preference_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "title": "Applied Preference Ids",
+      "type": "array"
+    },
+    "conflicts": {
+      "items": {
+        "$ref": "#/$defs/PreferenceConflictV2"
+      },
+      "title": "Conflicts",
+      "type": "array"
+    },
+    "decisions": {
+      "items": {
+        "$ref": "#/$defs/PreferenceApplicationDecisionV2"
+      },
+      "title": "Decisions",
+      "type": "array"
+    },
+    "deterministic_fingerprint": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Deterministic Fingerprint",
+      "type": "string"
+    },
+    "profile_version": {
+      "minimum": 1,
+      "title": "Profile Version",
+      "type": "integer"
+    },
+    "public_summary": {
+      "$ref": "#/$defs/PublicAppliedPreferenceSummaryV2"
+    },
+    "readiness": {
+      "$ref": "#/$defs/ExecutionReadiness"
+    },
+    "resolved_intent": {
+      "$ref": "#/$defs/QueryIntentV2"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "shadow_only": {
+      "default": false,
+      "title": "Shadow Only",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "resolved_intent",
+    "readiness",
+    "public_summary",
+    "profile_version",
+    "deterministic_fingerprint"
+  ],
+  "title": "PreferenceApplicationResultV2",
+  "type": "object"
+}

@@ -1,0 +1,83 @@
+{
+  "actual_vs_target": {
+    "baseline": "500.00",
+    "direction": "DECREASE",
+    "status": "READY",
+    "target": "400.00"
+  },
+  "blocked": {
+    "reason": "plan_not_ready",
+    "status": "BLOCKED"
+  },
+  "entity_vs_entity": {
+    "baseline": "120.00",
+    "delta": "80.00",
+    "status": "READY",
+    "target": "200.00"
+  },
+  "equal_values": {
+    "baseline": "100.00",
+    "delta": "0.00",
+    "direction": "STABLE",
+    "status": "READY",
+    "target": "100.00"
+  },
+  "june_vs_july": {
+    "baseline": "300.00",
+    "delta": "100.00",
+    "direction": "INCREASE",
+    "percentage": "33.33",
+    "status": "READY",
+    "target": "400.00"
+  },
+  "legacy_compatibility": {
+    "compatible": true,
+    "sidecar": "lumina.analytics/2.0",
+    "status": "READY"
+  },
+  "metric_vs_metric_compatible": {
+    "baseline": "900.00",
+    "delta": "100.00",
+    "status": "READY",
+    "target": "1000.00"
+  },
+  "metric_vs_metric_incompatible": {
+    "reason": "incompatible_units",
+    "status": "BLOCKED"
+  },
+  "missing_bucket": {
+    "missing_bucket_count": 2,
+    "policy": "PRESERVE_NULL",
+    "status": "READY"
+  },
+  "multi_entity": {
+    "operand_count": 3,
+    "ranks": ["2", "1", "2"],
+    "status": "READY"
+  },
+  "multi_period": {
+    "operand_count": 3,
+    "status": "READY",
+    "values": ["300.00", "400.00", "500.00"]
+  },
+  "negative_values": {
+    "baseline": "-100.00",
+    "delta": "50.00",
+    "direction": "INCREASE",
+    "status": "READY",
+    "target": "-50.00"
+  },
+  "partial_result": {
+    "partial": true,
+    "status": "PARTIAL"
+  },
+  "timeout": {
+    "operand_status": "TIMED_OUT",
+    "status": "FAILED"
+  },
+  "zero_denominator": {
+    "percentage": null,
+    "status": "READY",
+    "zero_denominator": true
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "active_entries_count": {
+      "default": 0,
+      "title": "Active Entries Count",
+      "type": "integer"
+    },
+    "active_leases_count": {
+      "default": 0,
+      "title": "Active Leases Count",
+      "type": "integer"
+    },
+    "active_payload_bytes": {
+      "default": 0,
+      "title": "Active Payload Bytes",
+      "type": "integer"
+    },
+    "bypass_count": {
+      "default": 0,
+      "title": "Bypass Count",
+      "type": "integer"
+    },
+    "hit_count": {
+      "default": 0,
+      "title": "Hit Count",
+      "type": "integer"
+    },
+    "hit_rate": {
+      "default": 0.0,
+      "title": "Hit Rate",
+      "type": "number"
+    },
+    "miss_count": {
+      "default": 0,
+      "title": "Miss Count",
+      "type": "integer"
+    },
+    "published_materializations_count": {
+      "default": 0,
+      "title": "Published Materializations Count",
+      "type": "integer"
+    },
+    "stale_count": {
+      "default": 0,
+      "title": "Stale Count",
+      "type": "integer"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "total_lookups": {
+      "default": 0,
+      "title": "Total Lookups",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "tenant_id"
+  ],
+  "title": "CacheStatisticsV2",
+  "type": "object"
+}

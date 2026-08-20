@@ -1,0 +1,165 @@
+{
+  "$defs": {
+    "DashboardFilterDefaultV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_values": {
+          "default": [],
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "maxItems": 100,
+          "title": "Canonical Values",
+          "type": "array"
+        },
+        "mode": {
+          "default": "NONE",
+          "enum": [
+            "EXPLICIT",
+            "ALL_ALLOWED",
+            "INHERITED_CONTEXT",
+            "NONE"
+          ],
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "title": "DashboardFilterDefaultV2",
+      "type": "object"
+    },
+    "DashboardFilterScopeV2": {
+      "enum": [
+        "DASHBOARD_GLOBAL",
+        "WIDGET_LOCAL",
+        "SECTION",
+        "INHERITED_CONTEXT"
+      ],
+      "title": "DashboardFilterScopeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "accessibility_label": {
+      "maxLength": 160,
+      "minLength": 2,
+      "title": "Accessibility Label",
+      "type": "string"
+    },
+    "allowed_source": {
+      "enum": [
+        "USER_SELECTION",
+        "INHERITED_CONTEXT",
+        "GOVERNED_DEFAULT"
+      ],
+      "title": "Allowed Source",
+      "type": "string"
+    },
+    "canonical_target_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Canonical Target Id",
+      "type": "string"
+    },
+    "default": {
+      "$ref": "#/$defs/DashboardFilterDefaultV2"
+    },
+    "filter_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Filter Id",
+      "type": "string"
+    },
+    "filter_type": {
+      "const": "SEARCH",
+      "title": "Filter Type",
+      "type": "string"
+    },
+    "interaction_behavior": {
+      "default": "APPLY_IMMEDIATELY",
+      "enum": [
+        "APPLY_IMMEDIATELY",
+        "APPLY_ON_CONFIRM"
+      ],
+      "title": "Interaction Behavior",
+      "type": "string"
+    },
+    "maximum_query_length": {
+      "default": 120,
+      "maximum": 240,
+      "minimum": 20,
+      "title": "Maximum Query Length",
+      "type": "integer"
+    },
+    "maximum_selections": {
+      "default": 1,
+      "maximum": 100,
+      "minimum": 1,
+      "title": "Maximum Selections",
+      "type": "integer"
+    },
+    "minimum_query_length": {
+      "default": 2,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Minimum Query Length",
+      "type": "integer"
+    },
+    "required": {
+      "default": false,
+      "title": "Required",
+      "type": "boolean"
+    },
+    "scope": {
+      "$ref": "#/$defs/DashboardFilterScopeV2"
+    },
+    "section_id": {
+      "anyOf": [
+        {
+          "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Section Id"
+    },
+    "target_widget_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 64,
+      "title": "Target Widget Ids",
+      "type": "array"
+    },
+    "visible": {
+      "default": true,
+      "title": "Visible",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "filter_id",
+    "canonical_target_id",
+    "scope",
+    "allowed_source",
+    "accessibility_label",
+    "filter_type"
+  ],
+  "title": "DashboardSearchFilterV2",
+  "type": "object"
+}

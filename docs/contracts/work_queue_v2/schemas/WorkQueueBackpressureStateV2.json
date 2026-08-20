@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "WorkQueueBackpressureStateKindV2": {
+      "enum": [
+        "NORMAL",
+        "ELEVATED",
+        "SATURATED",
+        "REJECTING",
+        "DRAINING"
+      ],
+      "title": "WorkQueueBackpressureStateKindV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "state": {
+      "$ref": "#/$defs/WorkQueueBackpressureStateKindV2"
+    },
+    "queue_depth": {
+      "minimum": 0,
+      "title": "Queue Depth",
+      "type": "integer"
+    },
+    "oldest_job_age_seconds": {
+      "minimum": 0.0,
+      "title": "Oldest Job Age Seconds",
+      "type": "number"
+    },
+    "active_workers": {
+      "minimum": 0,
+      "title": "Active Workers",
+      "type": "integer"
+    },
+    "db_pool_utilization_ratio": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Db Pool Utilization Ratio",
+      "type": "number"
+    },
+    "evaluated_at": {
+      "format": "date-time",
+      "title": "Evaluated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "state",
+    "queue_depth",
+    "oldest_job_age_seconds",
+    "active_workers",
+    "db_pool_utilization_ratio",
+    "evaluated_at"
+  ],
+  "title": "WorkQueueBackpressureStateV2",
+  "type": "object"
+}

@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "blocks_application": {
+      "title": "Blocks Application",
+      "type": "boolean"
+    },
+    "field_path": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Field Path",
+      "type": "string"
+    },
+    "preference_id": {
+      "format": "uuid",
+      "title": "Preference Id",
+      "type": "string"
+    },
+    "public_message": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Public Message",
+      "type": "string"
+    },
+    "reason_code": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "preference_id",
+    "field_path",
+    "reason_code",
+    "public_message",
+    "blocks_application"
+  ],
+  "title": "PreferenceConflictV2",
+  "type": "object"
+}

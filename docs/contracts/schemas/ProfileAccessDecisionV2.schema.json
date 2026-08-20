@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "ProfilePermission": {
+      "enum": [
+        "profile:read_own",
+        "profile:update_own",
+        "profile:export_own",
+        "profile:delete_own",
+        "profile:manage_policy",
+        "profile:audit_read",
+        "profile:support_read_redacted"
+      ],
+      "title": "ProfilePermission",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed": {
+      "title": "Allowed",
+      "type": "boolean"
+    },
+    "permission": {
+      "$ref": "#/$defs/ProfilePermission"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "redacted": {
+      "default": false,
+      "title": "Redacted",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "default": "lumina.user-analytical-profile/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "user_id",
+    "permission",
+    "allowed",
+    "reason_code"
+  ],
+  "title": "ProfileAccessDecisionV2",
+  "type": "object"
+}

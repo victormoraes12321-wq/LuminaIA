@@ -1,0 +1,13 @@
+{
+  "expected": "COMPLETE_WITH_WARNINGS",
+  "payload": {
+    "components": [
+      {
+        "id": "legacy-kpi",
+        "title": "Indicador",
+        "type": "KPI_CARD"
+      }
+    ],
+    "name": "Legacy synthetic"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Canonical Id",
+      "type": "string"
+    },
+    "display_label": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Display Label",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "FAVORITE_METRIC",
+        "FAVORITE_DIMENSION",
+        "FAVORITE_ENTITY"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "knowledge_asset_id": {
+      "format": "uuid",
+      "title": "Knowledge Asset Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "canonical_id",
+    "display_label",
+    "knowledge_asset_id"
+  ],
+  "title": "FavoriteAssetPreferenceV2",
+  "type": "object"
+}

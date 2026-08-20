@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "columns": {
+      "maximum": 16,
+      "minimum": 1,
+      "title": "Columns",
+      "type": "integer"
+    },
+    "gap_px": {
+      "default": 16,
+      "maximum": 48,
+      "minimum": 0,
+      "title": "Gap Px",
+      "type": "integer"
+    },
+    "padding_px": {
+      "default": 16,
+      "maximum": 64,
+      "minimum": 0,
+      "title": "Padding Px",
+      "type": "integer"
+    },
+    "row_height_policy": {
+      "default": "CONTENT_AWARE",
+      "pattern": "^(CONTENT_AWARE|FIXED_SMALL|FIXED_MEDIUM|FIXED_LARGE)$",
+      "title": "Row Height Policy",
+      "type": "string"
+    }
+  },
+  "required": [
+    "columns"
+  ],
+  "title": "DashboardGridV2",
+  "type": "object"
+}

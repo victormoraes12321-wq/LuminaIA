@@ -1,0 +1,480 @@
+{
+  "$defs": {
+    "ComparisonCalculation": {
+      "enum": [
+        "VALUE",
+        "ABSOLUTE_DIFFERENCE",
+        "PERCENTAGE_DIFFERENCE",
+        "DIRECTION",
+        "SHARE",
+        "RANK"
+      ],
+      "title": "ComparisonCalculation",
+      "type": "string"
+    },
+    "ComparisonKind": {
+      "enum": [
+        "PERIOD_VS_PERIOD",
+        "ENTITY_VS_ENTITY",
+        "METRIC_VS_METRIC",
+        "ACTUAL_VS_TARGET",
+        "MULTI_PERIOD",
+        "MULTI_ENTITY"
+      ],
+      "title": "ComparisonKind",
+      "type": "string"
+    },
+    "ComparisonOperand": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_refs": {
+          "items": {
+            "$ref": "#/$defs/EntityReference"
+          },
+          "title": "Entity Refs",
+          "type": "array"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/FilterSpecification"
+          },
+          "title": "Filters",
+          "type": "array"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "metric_refs": {
+          "items": {
+            "$ref": "#/$defs/MetricReference"
+          },
+          "title": "Metric Refs",
+          "type": "array"
+        },
+        "operand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Operand Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "time_windows": {
+          "items": {
+            "$ref": "#/$defs/TimeWindow"
+          },
+          "title": "Time Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "operand_id",
+        "label",
+        "origin"
+      ],
+      "title": "ComparisonOperand",
+      "type": "object"
+    },
+    "ConfidenceAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/ConfidenceLevel"
+        },
+        "reasons": {
+          "items": {
+            "maxLength": 500,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Reasons",
+          "type": "array"
+        },
+        "requires_confirmation": {
+          "default": false,
+          "title": "Requires Confirmation",
+          "type": "boolean"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Score"
+        }
+      },
+      "required": [
+        "level",
+        "score"
+      ],
+      "title": "ConfidenceAssessment",
+      "type": "object"
+    },
+    "ConfidenceLevel": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNKNOWN"
+      ],
+      "title": "ConfidenceLevel",
+      "type": "string"
+    },
+    "EntityReference": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        }
+      },
+      "required": [
+        "entity_id",
+        "display_name",
+        "origin"
+      ],
+      "title": "EntityReference",
+      "type": "object"
+    },
+    "FieldOrigin": {
+      "enum": [
+        "EXPLICIT_USER",
+        "INHERITED_CONVERSATION",
+        "USER_PREFERENCE",
+        "TENANT_KNOWLEDGE",
+        "DETERMINISTIC_DEFAULT",
+        "LLM_INFERENCE",
+        "LEGACY_ADAPTER",
+        "SYSTEM_GENERATED"
+      ],
+      "title": "FieldOrigin",
+      "type": "string"
+    },
+    "FilterOperator": {
+      "enum": [
+        "EQ",
+        "NE",
+        "IN",
+        "NOT_IN",
+        "GT",
+        "GTE",
+        "LT",
+        "LTE",
+        "BETWEEN",
+        "CONTAINS",
+        "STARTS_WITH",
+        "IS_NULL",
+        "IS_NOT_NULL"
+      ],
+      "title": "FilterOperator",
+      "type": "string"
+    },
+    "FilterSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "field_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Field Id",
+          "type": "string"
+        },
+        "filter_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Filter Id",
+          "type": "string"
+        },
+        "is_explicit": {
+          "title": "Is Explicit",
+          "type": "boolean"
+        },
+        "operator": {
+          "$ref": "#/$defs/FilterOperator"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JsonValue"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Values",
+          "type": "array"
+        }
+      },
+      "required": [
+        "filter_id",
+        "field_id",
+        "operator",
+        "origin",
+        "confidence",
+        "is_explicit"
+      ],
+      "title": "FilterSpecification",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "MetricReference": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "display_name": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "metric_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Metric Id",
+          "type": "string"
+        },
+        "metric_version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Metric Version",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "unit": {
+          "maxLength": 32,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_id",
+        "metric_version",
+        "display_name",
+        "unit",
+        "aggregation",
+        "origin",
+        "confidence"
+      ],
+      "title": "MetricReference",
+      "type": "object"
+    },
+    "TemporalGranularity": {
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "QUARTER",
+        "SEMESTER",
+        "YEAR",
+        "CUSTOM"
+      ],
+      "title": "TemporalGranularity",
+      "type": "string"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "$ref": "#/$defs/ConfidenceAssessment"
+        },
+        "end": {
+          "format": "date",
+          "title": "End",
+          "type": "string"
+        },
+        "end_inclusive": {
+          "default": true,
+          "title": "End Inclusive",
+          "type": "boolean"
+        },
+        "granularity": {
+          "$ref": "#/$defs/TemporalGranularity"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/FieldOrigin"
+        },
+        "raw_expression": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Expression"
+        },
+        "start": {
+          "format": "date",
+          "title": "Start",
+          "type": "string"
+        },
+        "timezone": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        },
+        "window_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "title": "Window Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "window_id",
+        "label",
+        "start",
+        "end",
+        "granularity",
+        "timezone",
+        "origin",
+        "confidence"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "alignment_dimensions": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "title": "Alignment Dimensions",
+      "type": "array"
+    },
+    "baseline_operand_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Baseline Operand Id"
+    },
+    "calculations": {
+      "items": {
+        "$ref": "#/$defs/ComparisonCalculation"
+      },
+      "minItems": 1,
+      "title": "Calculations",
+      "type": "array"
+    },
+    "comparison_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+      "title": "Comparison Id",
+      "type": "string"
+    },
+    "confidence": {
+      "$ref": "#/$defs/ConfidenceAssessment"
+    },
+    "kind": {
+      "$ref": "#/$defs/ComparisonKind"
+    },
+    "operands": {
+      "items": {
+        "$ref": "#/$defs/ComparisonOperand"
+      },
+      "minItems": 2,
+      "title": "Operands",
+      "type": "array"
+    },
+    "origin": {
+      "$ref": "#/$defs/FieldOrigin"
+    },
+    "requested_sort": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Requested Sort"
+    }
+  },
+  "required": [
+    "comparison_id",
+    "kind",
+    "operands",
+    "calculations",
+    "origin",
+    "confidence"
+  ],
+  "title": "ComparisonSpecification",
+  "type": "object"
+}

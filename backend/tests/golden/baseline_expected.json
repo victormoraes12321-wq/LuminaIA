@@ -1,0 +1,43 @@
+{
+  "dataset_version": "prompt-02-v1",
+  "tenant_a": {
+    "june_2026": {
+      "faturamento_comercial": 300.0,
+      "saida_rb": 30.0,
+      "devolucao": -20.0,
+      "venda_bonificada": 40.0,
+      "transferencias": 500.0,
+      "total_bruto_sem_transferencias": 350.0,
+      "total_movimentos_view": 850.0,
+      "pedidos_comerciais": 2,
+      "ticket_medio": 150.0,
+      "desconto_comercial": 40.0,
+      "desconto_medio": 20.0
+    },
+    "july_2026": {
+      "faturamento_comercial": 400.0,
+      "saida_rb": 50.0,
+      "devolucao": -10.0,
+      "venda_bonificada": 0.0,
+      "transferencias": 600.0,
+      "total_bruto_sem_transferencias": 440.0,
+      "total_movimentos_view": 1040.0,
+      "pedidos_comerciais": 2,
+      "ticket_medio": 200.0,
+      "desconto_comercial": 30.0,
+      "desconto_medio": 15.0
+    },
+    "comparison_june_july_2026": {
+      "absolute_difference": 100.0,
+      "percentage_difference": 33.333333,
+      "direction": "growth"
+    }
+  },
+  "tenant_b": {
+    "june_2026": {
+      "faturamento_comercial": 900.0,
+      "pedidos_comerciais": 1,
+      "ticket_medio": 900.0
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "added_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Added Fields",
+      "type": "array"
+    },
+    "asset_id": {
+      "format": "uuid",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "changed_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Changed Fields",
+      "type": "array"
+    },
+    "from_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "From Checksum",
+      "type": "string"
+    },
+    "from_version": {
+      "minimum": 1,
+      "title": "From Version",
+      "type": "integer"
+    },
+    "removed_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Removed Fields",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "lumina.enterprise-knowledge/1.0",
+      "default": "lumina.enterprise-knowledge/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "to_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "To Checksum",
+      "type": "string"
+    },
+    "to_version": {
+      "minimum": 1,
+      "title": "To Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "asset_id",
+    "from_version",
+    "to_version",
+    "from_checksum",
+    "to_checksum"
+  ],
+  "title": "KnowledgeDiffV2",
+  "type": "object"
+}

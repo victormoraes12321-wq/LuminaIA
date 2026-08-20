@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "allow_legacy_import": {
+      "default": false,
+      "title": "Allow Legacy Import",
+      "type": "boolean"
+    },
+    "application_audit_enabled": {
+      "default": true,
+      "title": "Application Audit Enabled",
+      "type": "boolean"
+    },
+    "kind": {
+      "const": "PRIVACY",
+      "default": "PRIVACY",
+      "title": "Kind",
+      "type": "string"
+    },
+    "profile_enabled": {
+      "default": true,
+      "title": "Profile Enabled",
+      "type": "boolean"
+    }
+  },
+  "title": "PrivacyPreferenceV2",
+  "type": "object"
+}

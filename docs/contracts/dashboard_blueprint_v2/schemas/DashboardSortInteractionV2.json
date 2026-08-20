@@ -1,0 +1,42 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "allowed_sort_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "title": "Allowed Sort Ids",
+      "type": "array"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "SORT",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type",
+    "allowed_sort_ids"
+  ],
+  "title": "DashboardSortInteractionV2",
+  "type": "object"
+}

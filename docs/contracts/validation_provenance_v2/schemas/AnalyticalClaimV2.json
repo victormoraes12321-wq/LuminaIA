@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "ClaimType": {
+      "enum": [
+        "NUMERIC",
+        "COMPARATIVE",
+        "TEMPORAL",
+        "RANKING",
+        "STATUS",
+        "COMPLETENESS",
+        "WARNING",
+        "DESCRIPTIVE",
+        "CLARIFICATION"
+      ],
+      "title": "ClaimType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "claim_id": {
+      "description": "Stable claim ID (e.g. CLAIM-001)",
+      "title": "Claim Id",
+      "type": "string"
+    },
+    "claim_type": {
+      "$ref": "#/$defs/ClaimType"
+    },
+    "comparison_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Comparison References",
+      "type": "array"
+    },
+    "fact_references": {
+      "description": "IDs of Supporting AnalyticalFactV2 items",
+      "items": {
+        "type": "string"
+      },
+      "title": "Fact References",
+      "type": "array"
+    },
+    "metric_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Metric References",
+      "type": "array"
+    },
+    "origin": {
+      "default": "MODEL_PROPOSED",
+      "title": "Origin",
+      "type": "string"
+    },
+    "period_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Period References",
+      "type": "array"
+    },
+    "qualifiers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Qualifiers",
+      "type": "array"
+    },
+    "text": {
+      "description": "Subsegment or text assertion",
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "claim_id",
+    "claim_type",
+    "text",
+    "checksum"
+  ],
+  "title": "AnalyticalClaimV2",
+  "type": "object"
+}

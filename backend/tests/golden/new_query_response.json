@@ -1,0 +1,21 @@
+{
+  "contract": "new_pipeline",
+  "dataset": [
+    {
+      "faturamento_comercial": 300.0,
+      "periodo": "2026-06"
+    }
+  ],
+  "filters": {
+    "end_date": "2026-06-30",
+    "start_date": "2026-06-01"
+  },
+  "metric": "faturamento_comercial",
+  "provenance": {
+    "source": "PostgreSQL test clone",
+    "view": "vw_vendas_lm"
+  },
+  "status": "FULL_RENDERING",
+  "tenant_id": "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+  "visualization": "KPI_CARD"
+}

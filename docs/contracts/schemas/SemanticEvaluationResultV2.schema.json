@@ -1,0 +1,104 @@
+{
+  "$defs": {
+    "SemanticEvaluationMetricV2": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "TOP_1_ACCURACY",
+            "TOP_K_RECALL",
+            "AMBIGUITY_PRECISION",
+            "UNRESOLVED_PRECISION",
+            "FORBIDDEN_LEAKAGE",
+            "CROSS_TENANT_LEAKAGE",
+            "EXACT_MATCH_PRESERVATION",
+            "ALIAS_RESOLUTION",
+            "DETERMINISTIC_REPEATABILITY",
+            "LATENCY_MS"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0.0,
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "SemanticEvaluationMetricV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_count": {
+      "minimum": 1,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "corpus_version": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Corpus Version",
+      "type": "string"
+    },
+    "evaluation_id": {
+      "format": "uuid",
+      "title": "Evaluation Id",
+      "type": "string"
+    },
+    "executed_at": {
+      "format": "date-time",
+      "title": "Executed At",
+      "type": "string"
+    },
+    "index_version_id": {
+      "format": "uuid",
+      "title": "Index Version Id",
+      "type": "string"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/SemanticEvaluationMetricV2"
+      },
+      "title": "Metrics",
+      "type": "array"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evaluation_id",
+    "tenant_id",
+    "index_version_id",
+    "corpus_version",
+    "case_count",
+    "passed",
+    "metrics",
+    "checksum",
+    "executed_at"
+  ],
+  "title": "SemanticEvaluationResultV2",
+  "type": "object"
+}

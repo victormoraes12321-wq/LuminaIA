@@ -1,0 +1,645 @@
+{
+  "components": {
+    "schemas": {
+      "CacheEvictionResultV2": {
+        "additionalProperties": false,
+        "properties": {
+          "bytes_freed": {
+            "title": "Bytes Freed",
+            "type": "integer"
+          },
+          "dry_run": {
+            "title": "Dry Run",
+            "type": "boolean"
+          },
+          "evicted_count": {
+            "title": "Evicted Count",
+            "type": "integer"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          }
+        },
+        "required": [
+          "evicted_count",
+          "bytes_freed",
+          "dry_run"
+        ],
+        "title": "CacheEvictionResultV2",
+        "type": "object"
+      },
+      "CacheGarbageCollectionRequestV2": {
+        "additionalProperties": false,
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cursor"
+          },
+          "dry_run": {
+            "default": true,
+            "title": "Dry Run",
+            "type": "boolean"
+          },
+          "limit": {
+            "default": 100,
+            "maximum": 1000.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "CacheGarbageCollectionRequestV2",
+        "type": "object"
+      },
+      "CacheInvalidationRequestV2": {
+        "additionalProperties": false,
+        "properties": {
+          "invalidation_scope": {
+            "$ref": "#/components/schemas/InvalidationScope"
+          },
+          "reason": {
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "target_identifier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Identifier"
+          }
+        },
+        "required": [
+          "invalidation_scope",
+          "reason"
+        ],
+        "title": "CacheInvalidationRequestV2",
+        "type": "object"
+      },
+      "CacheInvalidationResultV2": {
+        "additionalProperties": false,
+        "properties": {
+          "invalidated_count": {
+            "title": "Invalidated Count",
+            "type": "integer"
+          },
+          "invalidation_scope": {
+            "$ref": "#/components/schemas/InvalidationScope"
+          },
+          "success": {
+            "title": "Success",
+            "type": "boolean"
+          },
+          "tenant_id": {
+            "title": "Tenant Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "invalidated_count",
+          "tenant_id",
+          "invalidation_scope"
+        ],
+        "title": "CacheInvalidationResultV2",
+        "type": "object"
+      },
+      "CacheStatisticsV2": {
+        "additionalProperties": false,
+        "properties": {
+          "active_entries_count": {
+            "default": 0,
+            "title": "Active Entries Count",
+            "type": "integer"
+          },
+          "active_leases_count": {
+            "default": 0,
+            "title": "Active Leases Count",
+            "type": "integer"
+          },
+          "active_payload_bytes": {
+            "default": 0,
+            "title": "Active Payload Bytes",
+            "type": "integer"
+          },
+          "bypass_count": {
+            "default": 0,
+            "title": "Bypass Count",
+            "type": "integer"
+          },
+          "hit_count": {
+            "default": 0,
+            "title": "Hit Count",
+            "type": "integer"
+          },
+          "hit_rate": {
+            "default": 0.0,
+            "title": "Hit Rate",
+            "type": "number"
+          },
+          "miss_count": {
+            "default": 0,
+            "title": "Miss Count",
+            "type": "integer"
+          },
+          "published_materializations_count": {
+            "default": 0,
+            "title": "Published Materializations Count",
+            "type": "integer"
+          },
+          "stale_count": {
+            "default": 0,
+            "title": "Stale Count",
+            "type": "integer"
+          },
+          "tenant_id": {
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "total_lookups": {
+            "default": 0,
+            "title": "Total Lookups",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "tenant_id"
+        ],
+        "title": "CacheStatisticsV2",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "InvalidationScope": {
+        "enum": [
+          "KEY",
+          "TAG",
+          "TENANT",
+          "METRIC",
+          "CATALOG",
+          "SYNC",
+          "PERMISSION",
+          "VALIDATION_POLICY",
+          "MATERIALIZATION"
+        ],
+        "title": "InvalidationScope",
+        "type": "string"
+      },
+      "MaterializationPublicationCommandV2": {
+        "additionalProperties": false,
+        "properties": {
+          "definition_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Definition Id",
+            "type": "string"
+          },
+          "expected_lock_version": {
+            "minimum": 0.0,
+            "title": "Expected Lock Version",
+            "type": "integer"
+          },
+          "snapshot_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Snapshot Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "definition_id",
+          "snapshot_id",
+          "expected_lock_version"
+        ],
+        "title": "MaterializationPublicationCommandV2",
+        "type": "object"
+      },
+      "MaterializationPublicationV2": {
+        "additionalProperties": false,
+        "properties": {
+          "active_snapshot_id": {
+            "title": "Active Snapshot Id",
+            "type": "string"
+          },
+          "definition_id": {
+            "title": "Definition Id",
+            "type": "string"
+          },
+          "lock_version": {
+            "default": 1,
+            "minimum": 1.0,
+            "title": "Lock Version",
+            "type": "integer"
+          },
+          "previous_snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Snapshot Id"
+          },
+          "publication_id": {
+            "title": "Publication Id",
+            "type": "string"
+          },
+          "published_at": {
+            "title": "Published At",
+            "type": "string"
+          },
+          "published_by": {
+            "title": "Published By",
+            "type": "string"
+          },
+          "tenant_id": {
+            "title": "Tenant Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publication_id",
+          "definition_id",
+          "tenant_id",
+          "active_snapshot_id",
+          "published_by",
+          "published_at"
+        ],
+        "title": "MaterializationPublicationV2",
+        "type": "object"
+      },
+      "MaterializationRollbackCommandV2": {
+        "additionalProperties": false,
+        "properties": {
+          "definition_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "Definition Id",
+            "type": "string"
+          },
+          "expected_lock_version": {
+            "minimum": 1.0,
+            "title": "Expected Lock Version",
+            "type": "integer"
+          },
+          "to_snapshot_id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_.:-]+$",
+            "title": "To Snapshot Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "definition_id",
+          "to_snapshot_id",
+          "expected_lock_version"
+        ],
+        "title": "MaterializationRollbackCommandV2",
+        "type": "object"
+      },
+      "MaterializationRollbackV2": {
+        "additionalProperties": false,
+        "properties": {
+          "definition_id": {
+            "title": "Definition Id",
+            "type": "string"
+          },
+          "from_snapshot_id": {
+            "title": "From Snapshot Id",
+            "type": "string"
+          },
+          "rollback_id": {
+            "title": "Rollback Id",
+            "type": "string"
+          },
+          "rolled_back_at": {
+            "title": "Rolled Back At",
+            "type": "string"
+          },
+          "rolled_back_by": {
+            "title": "Rolled Back By",
+            "type": "string"
+          },
+          "tenant_id": {
+            "title": "Tenant Id",
+            "type": "string"
+          },
+          "to_snapshot_id": {
+            "title": "To Snapshot Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "rollback_id",
+          "definition_id",
+          "tenant_id",
+          "from_snapshot_id",
+          "to_snapshot_id",
+          "rolled_back_by",
+          "rolled_back_at"
+        ],
+        "title": "MaterializationRollbackV2",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2PasswordBearer": {
+        "flows": {
+          "password": {
+            "scopes": {},
+            "tokenUrl": "/api/v1/auth/login"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "info": {
+    "title": "LuminaAI Prompt 18 Experimental Contract",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v2/cache/gc": {
+      "post": {
+        "operationId": "execute_garbage_collection_api_v2_cache_gc_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CacheGarbageCollectionRequestV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CacheEvictionResultV2"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Execute Garbage Collection",
+        "tags": [
+          "Smart Cache & Materialization"
+        ]
+      }
+    },
+    "/api/v2/cache/invalidate": {
+      "post": {
+        "operationId": "invalidate_cache_api_v2_cache_invalidate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CacheInvalidationRequestV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CacheInvalidationResultV2"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Invalidate Cache",
+        "tags": [
+          "Smart Cache & Materialization"
+        ]
+      }
+    },
+    "/api/v2/cache/materialization/publish": {
+      "post": {
+        "operationId": "publish_materialization_api_v2_cache_materialization_publish_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MaterializationPublicationCommandV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaterializationPublicationV2"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Publish Materialization",
+        "tags": [
+          "Smart Cache & Materialization"
+        ]
+      }
+    },
+    "/api/v2/cache/materialization/rollback": {
+      "post": {
+        "operationId": "rollback_materialization_api_v2_cache_materialization_rollback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MaterializationRollbackCommandV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaterializationRollbackV2"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Rollback Materialization",
+        "tags": [
+          "Smart Cache & Materialization"
+        ]
+      }
+    },
+    "/api/v2/cache/statistics": {
+      "get": {
+        "operationId": "get_cache_statistics_api_v2_cache_statistics_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CacheStatisticsV2"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "summary": "Get Cache Statistics",
+        "tags": [
+          "Smart Cache & Materialization"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "baseline_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Baseline Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "default": "lumina.scale-queues-performance/1.0",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "origin_commit": {
+      "maxLength": 64,
+      "minLength": 7,
+      "title": "Origin Commit",
+      "type": "string"
+    },
+    "status": {
+      "default": "PROVISIONAL",
+      "maxLength": 32,
+      "minLength": 1,
+      "title": "Status",
+      "type": "string"
+    },
+    "small_throughput_rps": {
+      "minimum": 0.0,
+      "title": "Small Throughput Rps",
+      "type": "number"
+    },
+    "small_p95_latency_ms": {
+      "minimum": 0.0,
+      "title": "Small P95 Latency Ms",
+      "type": "number"
+    },
+    "medium_throughput_rps": {
+      "minimum": 0.0,
+      "title": "Medium Throughput Rps",
+      "type": "number"
+    },
+    "medium_p95_latency_ms": {
+      "minimum": 0.0,
+      "title": "Medium P95 Latency Ms",
+      "type": "number"
+    },
+    "baseline_checksum": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Baseline Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "baseline_id",
+    "origin_commit",
+    "small_throughput_rps",
+    "small_p95_latency_ms",
+    "medium_throughput_rps",
+    "medium_p95_latency_ms",
+    "baseline_checksum",
+    "created_at"
+  ],
+  "title": "WorkQueuePerformanceBaselineV2",
+  "type": "object"
+}

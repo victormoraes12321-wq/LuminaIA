@@ -1,0 +1,516 @@
+{
+  "$defs": {
+    "EntityIndexPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_vector_representation": {
+          "default": false,
+          "title": "Allow Vector Representation",
+          "type": "boolean"
+        },
+        "allowed_code_fields": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Allowed Code Fields",
+          "type": "array"
+        },
+        "allowed_label_fields": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Allowed Label Fields",
+          "type": "array"
+        },
+        "allowed_source_ids": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Allowed Source Ids",
+          "type": "array"
+        },
+        "classification": {
+          "$ref": "#/$defs/SemanticDataClassification"
+        },
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "maximum_documents": {
+          "default": 10000,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Maximum Documents",
+          "type": "integer"
+        },
+        "required_permission": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SemanticPermission"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "entity_type",
+        "enabled",
+        "classification"
+      ],
+      "title": "EntityIndexPolicyV2",
+      "type": "object"
+    },
+    "SemanticConfidenceBandV2": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "EXACT"
+          ],
+          "title": "Label",
+          "type": "string"
+        },
+        "minimum": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum",
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "minimum"
+      ],
+      "title": "SemanticConfidenceBandV2",
+      "type": "object"
+    },
+    "SemanticDataClassification": {
+      "enum": [
+        "PUBLIC_BUSINESS_METADATA",
+        "TENANT_BUSINESS_METADATA",
+        "RESTRICTED_BUSINESS_METADATA",
+        "PERSONAL_DATA",
+        "SENSITIVE_PERSONAL_DATA",
+        "FORBIDDEN"
+      ],
+      "title": "SemanticDataClassification",
+      "type": "string"
+    },
+    "SemanticDocumentType": {
+      "enum": [
+        "BUSINESS_TERM",
+        "METRIC",
+        "KPI",
+        "DIMENSION",
+        "ENTITY_TYPE",
+        "ENTITY_INSTANCE",
+        "BUSINESS_RULE",
+        "ALIAS",
+        "RELATION",
+        "CALENDAR_POLICY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CONCEPT"
+      ],
+      "title": "SemanticDocumentType",
+      "type": "string"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticPermission": {
+      "enum": [
+        "semantic:search",
+        "semantic:resolve",
+        "semantic:read_public_candidate",
+        "semantic:inspect_scores",
+        "semantic:manage_index",
+        "semantic:build_index",
+        "semantic:validate_index",
+        "semantic:publish_index",
+        "semantic:rollback_index",
+        "semantic:deprecate_index",
+        "semantic:run_evaluation",
+        "semantic:audit_read",
+        "semantic:read_restricted_entity"
+      ],
+      "title": "SemanticPermission",
+      "type": "string"
+    },
+    "SemanticRankingPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "deprecated_penalty": {
+          "default": 0.25,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Deprecated Penalty",
+          "type": "number"
+        },
+        "policy_version": {
+          "default": "lumina.semantic-ranking/1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "profile_tie_breaker_cap": {
+          "default": 0.02,
+          "maximum": 0.05,
+          "minimum": 0.0,
+          "title": "Profile Tie Breaker Cap",
+          "type": "number"
+        },
+        "score_precision": {
+          "default": 6,
+          "maximum": 9,
+          "minimum": 2,
+          "title": "Score Precision",
+          "type": "integer"
+        },
+        "stale_penalty": {
+          "default": 0.15,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Stale Penalty",
+          "type": "number"
+        },
+        "weights": {
+          "items": {
+            "$ref": "#/$defs/SemanticRankingWeightV2"
+          },
+          "title": "Weights",
+          "type": "array"
+        }
+      },
+      "required": [
+        "weights",
+        "checksum"
+      ],
+      "title": "SemanticRankingPolicyV2",
+      "type": "object"
+    },
+    "SemanticRankingWeightV2": {
+      "additionalProperties": false,
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/SemanticRetrievalChannel"
+        },
+        "weight": {
+          "maximum": 1.0,
+          "minimum": -1.0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "channel",
+        "weight"
+      ],
+      "title": "SemanticRankingWeightV2",
+      "type": "object"
+    },
+    "SemanticRepresentationType": {
+      "enum": [
+        "LEXICAL",
+        "DETERMINISTIC_FEATURE_HASH"
+      ],
+      "title": "SemanticRepresentationType",
+      "type": "string"
+    },
+    "SemanticRetrievalChannel": {
+      "enum": [
+        "EXACT_CANONICAL",
+        "EXACT_ALIAS",
+        "EXACT_LABEL",
+        "NORMALIZED_EXACT",
+        "PREFIX",
+        "TOKEN_OVERLAP",
+        "CHARACTER_SIMILARITY",
+        "RELATION_EXPANSION",
+        "VECTOR_SIMILARITY",
+        "CONTEXT_COMPATIBILITY",
+        "DOMAIN_COMPATIBILITY",
+        "TYPE_COMPATIBILITY",
+        "PROFILE_TIE_BREAKER",
+        "LEGACY_FALLBACK"
+      ],
+      "title": "SemanticRetrievalChannel",
+      "type": "string"
+    },
+    "SemanticSourceType": {
+      "enum": [
+        "ENTERPRISE_KNOWLEDGE",
+        "METRIC_REGISTRY",
+        "TECHNICAL_CATALOG",
+        "ANALYTICAL_ENTITY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CURATED"
+      ],
+      "title": "SemanticSourceType",
+      "type": "string"
+    },
+    "SemanticThresholdPolicyV2": {
+      "additionalProperties": false,
+      "properties": {
+        "ambiguity_margin": {
+          "default": 0.08,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Ambiguity Margin",
+          "type": "number"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "confidence_bands": {
+          "items": {
+            "$ref": "#/$defs/SemanticConfidenceBandV2"
+          },
+          "title": "Confidence Bands",
+          "type": "array"
+        },
+        "maximum_candidates": {
+          "default": 10,
+          "maximum": 50,
+          "minimum": 1,
+          "title": "Maximum Candidates",
+          "type": "integer"
+        },
+        "maximum_lexical_candidates": {
+          "default": 50,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Maximum Lexical Candidates",
+          "type": "integer"
+        },
+        "maximum_relation_expansion": {
+          "default": 10,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Maximum Relation Expansion",
+          "type": "integer"
+        },
+        "maximum_total_candidates": {
+          "default": 100,
+          "maximum": 1000,
+          "minimum": 1,
+          "title": "Maximum Total Candidates",
+          "type": "integer"
+        },
+        "maximum_vector_candidates": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Maximum Vector Candidates",
+          "type": "integer"
+        },
+        "minimum_automatic_resolution_score": {
+          "default": 0.72,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum Automatic Resolution Score",
+          "type": "number"
+        },
+        "minimum_retrieval_score": {
+          "default": 0.3,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum Retrieval Score",
+          "type": "number"
+        },
+        "policy_version": {
+          "default": "lumina.semantic-thresholds/1.0",
+          "title": "Policy Version",
+          "type": "string"
+        },
+        "stale_index_tolerance_seconds": {
+          "default": 3600,
+          "maximum": 604800,
+          "minimum": 0,
+          "title": "Stale Index Tolerance Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "confidence_bands",
+        "checksum"
+      ],
+      "title": "SemanticThresholdPolicyV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "active_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Active Version Id"
+    },
+    "allowed_classifications": {
+      "items": {
+        "$ref": "#/$defs/SemanticDataClassification"
+      },
+      "title": "Allowed Classifications",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "document_types": {
+      "items": {
+        "$ref": "#/$defs/SemanticDocumentType"
+      },
+      "title": "Document Types",
+      "type": "array"
+    },
+    "entity_policies": {
+      "items": {
+        "$ref": "#/$defs/EntityIndexPolicyV2"
+      },
+      "title": "Entity Policies",
+      "type": "array"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "locale": {
+      "default": "pt-BR",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Locale",
+      "type": "string"
+    },
+    "lock_version": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "name": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "owner_user_id": {
+      "format": "uuid",
+      "title": "Owner User Id",
+      "type": "string"
+    },
+    "ranking_policy": {
+      "$ref": "#/$defs/SemanticRankingPolicyV2"
+    },
+    "representation_provider": {
+      "$ref": "#/$defs/SemanticRepresentationType"
+    },
+    "representation_version": {
+      "default": "lumina.deterministic-feature-hash/1.0",
+      "title": "Representation Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_policies": {
+      "items": {
+        "$ref": "#/$defs/SemanticSourceType"
+      },
+      "title": "Source Policies",
+      "type": "array"
+    },
+    "status": {
+      "default": "ACTIVE",
+      "enum": [
+        "ACTIVE",
+        "DISABLED",
+        "ARCHIVED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "threshold_policy": {
+      "$ref": "#/$defs/SemanticThresholdPolicyV2"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "index_id",
+    "tenant_id",
+    "name",
+    "document_types",
+    "entity_policies",
+    "source_policies",
+    "allowed_classifications",
+    "representation_provider",
+    "ranking_policy",
+    "threshold_policy",
+    "owner_user_id",
+    "created_at",
+    "updated_at"
+  ],
+  "title": "SemanticIndexDefinitionV2",
+  "type": "object"
+}

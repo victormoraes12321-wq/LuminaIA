@@ -1,0 +1,30 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "payload_checksum": {
+      "title": "Payload Checksum",
+      "type": "string"
+    },
+    "payload_data": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Payload Data",
+      "type": "object"
+    },
+    "payload_id": {
+      "title": "Payload Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "payload_id",
+    "payload_checksum",
+    "payload_data"
+  ],
+  "title": "CacheEntryPayloadReferenceV2",
+  "type": "object"
+}

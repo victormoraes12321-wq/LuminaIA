@@ -1,0 +1,144 @@
+{
+  "$defs": {
+    "PostSyncInsightCategoryV2": {
+      "enum": [
+        "BUSINESS_PERFORMANCE",
+        "FINANCIAL",
+        "SALES",
+        "RECEIVABLES",
+        "INVENTORY",
+        "DATA_QUALITY",
+        "FRESHNESS",
+        "RECONCILIATION",
+        "OPERATIONAL_METADATA"
+      ],
+      "title": "PostSyncInsightCategoryV2",
+      "type": "string"
+    },
+    "PostSyncInsightLifecycleV2": {
+      "enum": [
+        "REQUESTED",
+        "PLANNING",
+        "EXECUTING",
+        "VALIDATING",
+        "DETECTED",
+        "CERTIFIED",
+        "PUBLISHED",
+        "ACKNOWLEDGED",
+        "DISMISSED",
+        "EXPIRED",
+        "BLOCKED",
+        "FAILED",
+        "CANCELLED",
+        "SUPERSEDED"
+      ],
+      "title": "PostSyncInsightLifecycleV2",
+      "type": "string"
+    },
+    "PostSyncInsightSeverityV2": {
+      "enum": [
+        "INFO",
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "PostSyncInsightSeverityV2",
+      "type": "string"
+    },
+    "PostSyncInsightTypeV2": {
+      "enum": [
+        "METRIC_INCREASE",
+        "METRIC_DECREASE",
+        "TARGET_REACHED",
+        "TARGET_MISSED",
+        "THRESHOLD_BREACH_HIGH",
+        "THRESHOLD_BREACH_LOW",
+        "RANKING_ENTRY",
+        "RANKING_EXIT",
+        "RANKING_MOVE_UP",
+        "RANKING_MOVE_DOWN",
+        "ANOMALY_HIGH",
+        "ANOMALY_LOW",
+        "FRESHNESS_DEGRADED",
+        "COMPLETENESS_DEGRADED",
+        "RECONCILIATION_VARIANCE",
+        "SOURCE_VOLUME_CHANGE",
+        "NEW_DATA_AVAILABLE",
+        "INSUFFICIENT_BASELINE",
+        "INSIGHT_RUN_BLOCKED"
+      ],
+      "title": "PostSyncInsightTypeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "insight_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Insight Id",
+      "type": "string"
+    },
+    "insight_type": {
+      "$ref": "#/$defs/PostSyncInsightTypeV2"
+    },
+    "category": {
+      "$ref": "#/$defs/PostSyncInsightCategoryV2"
+    },
+    "severity": {
+      "$ref": "#/$defs/PostSyncInsightSeverityV2"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/PostSyncInsightLifecycleV2"
+    },
+    "headline": {
+      "maxLength": 255,
+      "title": "Headline",
+      "type": "string"
+    },
+    "metric_key": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{2,127}$",
+      "title": "Metric Key",
+      "type": "string"
+    },
+    "metric_label": {
+      "maxLength": 128,
+      "title": "Metric Label",
+      "type": "string"
+    },
+    "formatted_delta": {
+      "maxLength": 64,
+      "title": "Formatted Delta",
+      "type": "string"
+    },
+    "published_at": {
+      "format": "date-time",
+      "title": "Published At",
+      "type": "string"
+    },
+    "is_acknowledged": {
+      "default": false,
+      "title": "Is Acknowledged",
+      "type": "boolean"
+    },
+    "is_dismissed": {
+      "default": false,
+      "title": "Is Dismissed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "insight_id",
+    "insight_type",
+    "category",
+    "severity",
+    "lifecycle",
+    "headline",
+    "metric_key",
+    "metric_label",
+    "formatted_delta",
+    "published_at"
+  ],
+  "title": "PostSyncInsightListItemV2",
+  "type": "object"
+}

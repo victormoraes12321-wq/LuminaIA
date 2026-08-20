@@ -1,0 +1,309 @@
+{
+  "$defs": {
+    "CacheDecision": {
+      "enum": [
+        "HIT",
+        "MISS",
+        "BYPASS",
+        "STALE",
+        "INVALID",
+        "EXPIRED",
+        "PERMISSION_CHANGED",
+        "CLASSIFICATION_BLOCKED",
+        "CERTIFICATION_INVALID",
+        "CHECKSUM_MISMATCH",
+        "REFRESH_REQUIRED",
+        "LEASE_HELD",
+        "ERROR"
+      ],
+      "title": "CacheDecision",
+      "type": "string"
+    },
+    "CacheEntryMetadataV2": {
+      "additionalProperties": false,
+      "properties": {
+        "cache_key_checksum": {
+          "title": "Cache Key Checksum",
+          "type": "string"
+        },
+        "cache_type": {
+          "$ref": "#/$defs/CacheType"
+        },
+        "certification_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Certification Id"
+        },
+        "classification": {
+          "default": "INTERNAL",
+          "title": "Classification",
+          "type": "string"
+        },
+        "compiler_version": {
+          "title": "Compiler Version",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "entry_id": {
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "string"
+        },
+        "generation": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Generation",
+          "type": "integer"
+        },
+        "hit_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Hit Count",
+          "type": "integer"
+        },
+        "metric_fingerprints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Metric Fingerprints",
+          "type": "array"
+        },
+        "payload_size_bytes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Payload Size Bytes",
+          "type": "integer"
+        },
+        "permission_fingerprint": {
+          "title": "Permission Fingerprint",
+          "type": "string"
+        },
+        "query_fingerprint": {
+          "title": "Query Fingerprint",
+          "type": "string"
+        },
+        "scope_fingerprint": {
+          "title": "Scope Fingerprint",
+          "type": "string"
+        },
+        "source_sync_version": {
+          "title": "Source Sync Version",
+          "type": "string"
+        },
+        "source_watermark": {
+          "title": "Source Watermark",
+          "type": "string"
+        },
+        "tenant_id": {
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "tenant_proof_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Proof Id"
+        },
+        "tool_registry_snapshot": {
+          "title": "Tool Registry Snapshot",
+          "type": "string"
+        },
+        "validation_policy_version": {
+          "title": "Validation Policy Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "tenant_id",
+        "cache_type",
+        "cache_key_checksum",
+        "scope_fingerprint",
+        "permission_fingerprint",
+        "query_fingerprint",
+        "metric_fingerprints",
+        "source_sync_version",
+        "source_watermark",
+        "validation_policy_version",
+        "compiler_version",
+        "tool_registry_snapshot",
+        "created_at",
+        "expires_at"
+      ],
+      "title": "CacheEntryMetadataV2",
+      "type": "object"
+    },
+    "CacheEntryPayloadReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "payload_checksum": {
+          "title": "Payload Checksum",
+          "type": "string"
+        },
+        "payload_data": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Payload Data",
+          "type": "object"
+        },
+        "payload_id": {
+          "title": "Payload Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "payload_id",
+        "payload_checksum",
+        "payload_data"
+      ],
+      "title": "CacheEntryPayloadReferenceV2",
+      "type": "object"
+    },
+    "CacheEntryStatus": {
+      "enum": [
+        "ACTIVE",
+        "STALE",
+        "EXPIRED",
+        "INVALIDATED",
+        "CORRUPTED",
+        "SUPERSEDED"
+      ],
+      "title": "CacheEntryStatus",
+      "type": "string"
+    },
+    "CacheEntryV2": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "default": "lumina.smart-cache-materialization/1.0",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "dependency_tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependency Tags",
+          "type": "array"
+        },
+        "entry_checksum": {
+          "title": "Entry Checksum",
+          "type": "string"
+        },
+        "freshness": {
+          "$ref": "#/$defs/FreshnessStatus",
+          "default": "FRESH"
+        },
+        "metadata": {
+          "$ref": "#/$defs/CacheEntryMetadataV2"
+        },
+        "payload_ref": {
+          "$ref": "#/$defs/CacheEntryPayloadReferenceV2"
+        },
+        "status": {
+          "$ref": "#/$defs/CacheEntryStatus",
+          "default": "ACTIVE"
+        }
+      },
+      "required": [
+        "metadata",
+        "payload_ref",
+        "entry_checksum"
+      ],
+      "title": "CacheEntryV2",
+      "type": "object"
+    },
+    "CacheType": {
+      "enum": [
+        "METADATA",
+        "CONTRACT_SCHEMA",
+        "POLICY",
+        "TOOL_CATALOG",
+        "ANALYTICAL_CATALOG",
+        "SEMANTIC_METADATA",
+        "COMPILED_PLAN",
+        "CERTIFIED_ANALYTICAL_RESULT",
+        "CERTIFICATION_ENVELOPE",
+        "PUBLIC_PROVENANCE",
+        "DETERMINISTIC_PRESENTATION",
+        "NEGATIVE_METADATA",
+        "FORBIDDEN"
+      ],
+      "title": "CacheType",
+      "type": "string"
+    },
+    "FreshnessStatus": {
+      "enum": [
+        "FRESH",
+        "STALE_SOFT",
+        "STALE_HARD",
+        "UNKNOWN",
+        "INVALIDATED"
+      ],
+      "title": "FreshnessStatus",
+      "type": "string"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cache_key_checksum": {
+      "title": "Cache Key Checksum",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/CacheDecision"
+    },
+    "entry": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CacheEntryV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "freshness": {
+      "$ref": "#/$defs/FreshnessStatus",
+      "default": "UNKNOWN"
+    },
+    "lookup_latency_ms": {
+      "default": 0.0,
+      "title": "Lookup Latency Ms",
+      "type": "number"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision",
+    "reason_code",
+    "cache_key_checksum"
+  ],
+  "title": "CacheLookupResultV2",
+  "type": "object"
+}

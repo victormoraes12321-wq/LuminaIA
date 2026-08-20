@@ -1,0 +1,61 @@
+{
+  "$defs": {
+    "FeedbackPermission": {
+      "enum": [
+        "feedback:create_own",
+        "feedback:read_own",
+        "feedback:update_own",
+        "feedback:withdraw_own",
+        "feedback:export_own",
+        "feedback:triage",
+        "feedback:review",
+        "feedback:approve",
+        "feedback:reject",
+        "feedback:request_information",
+        "feedback:curate_training",
+        "feedback:publish_dataset",
+        "feedback:export_dataset",
+        "feedback:audit_read",
+        "feedback:manage_retention",
+        "feedback:support_read_redacted"
+      ],
+      "title": "FeedbackPermission",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allowed": {
+      "title": "Allowed",
+      "type": "boolean"
+    },
+    "permission": {
+      "$ref": "#/$defs/FeedbackPermission"
+    },
+    "reason_code": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "user_id": {
+      "format": "uuid",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "user_id",
+    "permission",
+    "allowed",
+    "reason_code"
+  ],
+  "title": "FeedbackAccessDecisionV2",
+  "type": "object"
+}

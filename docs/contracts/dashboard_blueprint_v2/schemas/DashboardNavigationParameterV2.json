@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "parameter_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Parameter Id",
+      "type": "string"
+    },
+    "source_binding_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Binding Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "parameter_id",
+    "source_binding_id"
+  ],
+  "title": "DashboardNavigationParameterV2",
+  "type": "object"
+}

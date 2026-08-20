@@ -1,0 +1,52 @@
+{
+  "$defs": {
+    "RefreshTrigger": {
+      "enum": [
+        "MANUAL",
+        "ON_DEMAND",
+        "AFTER_SYNC",
+        "INTERVAL_POLICY",
+        "SOURCE_WATERMARK",
+        "DISABLED"
+      ],
+      "title": "RefreshTrigger",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "definition_id": {
+      "title": "Definition Id",
+      "type": "string"
+    },
+    "new_snapshot_id": {
+      "title": "New Snapshot Id",
+      "type": "string"
+    },
+    "refresh_id": {
+      "title": "Refresh Id",
+      "type": "string"
+    },
+    "refreshed_at": {
+      "title": "Refreshed At",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "trigger": {
+      "$ref": "#/$defs/RefreshTrigger"
+    }
+  },
+  "required": [
+    "refresh_id",
+    "definition_id",
+    "tenant_id",
+    "trigger",
+    "new_snapshot_id",
+    "refreshed_at"
+  ],
+  "title": "MaterializationRefreshV2",
+  "type": "object"
+}

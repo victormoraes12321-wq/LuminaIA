@@ -1,0 +1,75 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "content_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Content Checksum",
+      "type": "string"
+    },
+    "dry_run": {
+      "const": true,
+      "default": true,
+      "title": "Dry Run",
+      "type": "boolean"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Issues",
+      "type": "array"
+    },
+    "persisted": {
+      "const": false,
+      "default": false,
+      "title": "Persisted",
+      "type": "boolean"
+    },
+    "published": {
+      "const": false,
+      "default": false,
+      "title": "Published",
+      "type": "boolean"
+    },
+    "record_count": {
+      "minimum": 0,
+      "title": "Record Count",
+      "type": "integer"
+    },
+    "rejected_count": {
+      "minimum": 0,
+      "title": "Rejected Count",
+      "type": "integer"
+    },
+    "result_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Result Checksum",
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "GOVERNED_DATASET_EXPORT",
+        "VERSIONED_EVALUATION_CASE",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "title": "Source Kind",
+      "type": "string"
+    },
+    "valid_count": {
+      "minimum": 0,
+      "title": "Valid Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "source_kind",
+    "record_count",
+    "valid_count",
+    "rejected_count",
+    "content_checksum",
+    "result_checksum"
+  ],
+  "title": "GovernedImportDryRunResultV2",
+  "type": "object"
+}

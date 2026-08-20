@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "FeedbackEvidenceReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Checksum"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "maxLength": 500,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "reference_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "reference_type": {
+          "enum": [
+            "RESPONSE_NODE",
+            "QUERY_NODE",
+            "SEARCH_HISTORY",
+            "VALIDATION_CHECK",
+            "KNOWLEDGE_ASSET",
+            "CONTRACT"
+          ],
+          "title": "Reference Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference_type",
+        "reference_id"
+      ],
+      "title": "FeedbackEvidenceReferenceV2",
+      "type": "object"
+    },
+    "FeedbackReviewDecisionV2": {
+      "enum": [
+        "CORRECT",
+        "ACCEPTABLE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT",
+        "UNVERIFIABLE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE",
+        "TECHNICAL_FAILURE"
+      ],
+      "title": "FeedbackReviewDecisionV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/FeedbackReviewDecisionV2"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/FeedbackEvidenceReferenceV2"
+      },
+      "maxItems": 50,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "expected_lock_version": {
+      "minimum": 0,
+      "title": "Expected Lock Version",
+      "type": "integer"
+    },
+    "feedback_id": {
+      "format": "uuid",
+      "title": "Feedback Id",
+      "type": "string"
+    },
+    "rationale": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Rationale",
+      "type": "string"
+    },
+    "review_id": {
+      "format": "uuid",
+      "title": "Review Id",
+      "type": "string"
+    },
+    "reviewer_user_id": {
+      "format": "uuid",
+      "title": "Reviewer User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "review_id",
+    "feedback_id",
+    "reviewer_user_id",
+    "decision",
+    "rationale",
+    "expected_lock_version",
+    "created_at",
+    "checksum"
+  ],
+  "title": "FeedbackReviewV2",
+  "type": "object"
+}

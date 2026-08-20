@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "batch_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Batch Id",
+      "type": "string"
+    },
+    "tenant_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "job_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Job Ids",
+      "type": "array"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "batch_id",
+    "tenant_id",
+    "job_ids",
+    "created_at"
+  ],
+  "title": "WorkQueueBatchV2",
+  "type": "object"
+}

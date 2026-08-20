@@ -1,0 +1,31 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "expected_profile_lock_version": {
+      "minimum": 0,
+      "title": "Expected Profile Lock Version",
+      "type": "integer"
+    },
+    "status": {
+      "anyOf": [
+        {
+          "enum": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Status"
+    }
+  },
+  "required": [
+    "expected_profile_lock_version"
+  ],
+  "title": "ProfilePatchV2",
+  "type": "object"
+}

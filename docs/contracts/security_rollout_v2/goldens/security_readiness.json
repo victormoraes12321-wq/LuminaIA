@@ -1,0 +1,300 @@
+{
+  "contract_version": "lumina.security-migration-rollout/1.0",
+  "controls": [
+    {
+      "control_id": "AUTH-001",
+      "evidence": "JWT validation plus active PostgreSQL user lookup",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "AUTHENTICATION",
+      "title": "Signed authentication authority"
+    },
+    {
+      "control_id": "AUTHZ-001",
+      "evidence": "Static deny-by-default matrix uses server role",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "AUTHORIZATION",
+      "title": "Role and capability authority"
+    },
+    {
+      "control_id": "TENANT-001",
+      "evidence": "Directed and full regression disclose and mutate zero foreign resources",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "TENANT",
+      "title": "Cross-tenant isolation"
+    },
+    {
+      "control_id": "IDOR-001",
+      "evidence": "Evaluation and governed resource lookups use tenant filters and 404",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "API",
+      "title": "Foreign IDs are concealed"
+    },
+    {
+      "control_id": "HEADER-001",
+      "evidence": "Validation tenant is authenticated-user derived and request ID is server generated",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "HTTP",
+      "title": "Forged identity headers rejected"
+    },
+    {
+      "control_id": "CORS-001",
+      "evidence": "Wildcard and production localhost combinations fail configuration validation",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "HTTP",
+      "title": "Credentialed CORS allowlist"
+    },
+    {
+      "control_id": "CSRF-001",
+      "evidence": "Unsafe cookie-auth methods require an allowlisted Origin",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "HTTP",
+      "title": "Cookie mutation origin control"
+    },
+    {
+      "control_id": "HEADERS-001",
+      "evidence": "nosniff, frame denial, referrer, permissions and API CSP are present",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "HTTP",
+      "title": "Response security headers"
+    },
+    {
+      "control_id": "XSS-001",
+      "evidence": "Visual corpus renders synthetic script text without executable HTML",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "FRONTEND",
+      "title": "React output safety"
+    },
+    {
+      "control_id": "SQLI-001",
+      "evidence": "Catalog identifiers and bind values remain governed; raw SQL is never Prompt 26 input",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "DATA",
+      "title": "SQL injection resistance"
+    },
+    {
+      "control_id": "PATH-001",
+      "evidence": "Trace IDs are bounded and resolved path parent must equal debug directory",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "FILESYSTEM",
+      "title": "Trace path containment"
+    },
+    {
+      "control_id": "COMMAND-001",
+      "evidence": "Prompt 26 runtime imports no subprocess or shell executor",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "FILESYSTEM",
+      "title": "No payload-controlled shell"
+    },
+    {
+      "control_id": "SSRF-001",
+      "evidence": "Prompt 26 runtime imports no HTTP client and test egress guard is active",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "NETWORK",
+      "title": "No arbitrary external URL"
+    },
+    {
+      "control_id": "SECRET-001",
+      "evidence": "Bearer, DSN, API key, JWT, PEM, cookie and credential patterns are redacted",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "SECRETS",
+      "title": "Secret leakage redaction"
+    },
+    {
+      "control_id": "COT-001",
+      "evidence": "Prompt and chain-of-thought keys are forbidden in diagnostic payloads",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "AI",
+      "title": "Reasoning leakage redaction"
+    },
+    {
+      "control_id": "ERROR-001",
+      "evidence": "Unhandled errors are constant and structured HTTP details use central sanitizer",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "API",
+      "title": "Public error sanitization"
+    },
+    {
+      "control_id": "INPUT-001",
+      "evidence": "Request body, query pagination, contracts and recursive diagnostics are bounded",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "API",
+      "title": "Input bounds"
+    },
+    {
+      "control_id": "REPLAY-001",
+      "evidence": "Queue replay requires ADMIN and DEAD_LETTER; inspector replay is disabled",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "WORK_QUEUE",
+      "title": "Replay is terminal-only"
+    },
+    {
+      "control_id": "CONFIG-001",
+      "evidence": "Test, worker, performance, canary and rollout combinations are rejected",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Production configuration fail closed"
+    },
+    {
+      "control_id": "TEST-001",
+      "evidence": "Guard enforces local disposable PostgreSQL and external network disabled",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "TEST_BOUNDARY",
+      "title": "Test target containment"
+    },
+    {
+      "control_id": "MIGRATION-001",
+      "evidence": "Unknown, old, future and missing-object manifests fail closed",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "MIGRATION",
+      "title": "Schema compatibility window"
+    },
+    {
+      "control_id": "MIGRATION-LOCK-001",
+      "evidence": "PostgreSQL two-session advisory lock contention and release pass",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "MIGRATION",
+      "title": "Migration concurrency lock"
+    },
+    {
+      "control_id": "DRIFT-001",
+      "evidence": "Missing required tables changes compatibility to BLOCKED",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "MIGRATION",
+      "title": "Critical schema drift"
+    },
+    {
+      "control_id": "ROLLOUT-001",
+      "evidence": "Eight features have migration, dependency, environment and rollback policy",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Static rollout inventory"
+    },
+    {
+      "control_id": "KILL-001",
+      "evidence": "Global then feature switch precede every other readiness gate",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Kill switch precedence"
+    },
+    {
+      "control_id": "CANARY-001",
+      "evidence": "Versioned SHA-256 bucket uses trusted tenant identifier and denies production baseline",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Deterministic server canary"
+    },
+    {
+      "control_id": "GATES-001",
+      "evidence": "Security, tenant, migration, error budget, performance and rollback gates block advancement",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Critical rollout gates"
+    },
+    {
+      "control_id": "ROLLBACK-001",
+      "evidence": "All eight features define disable, in-flight, persistence and validation policy",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "Rollback-first matrix"
+    },
+    {
+      "control_id": "OBS-001",
+      "evidence": "Restricted events and low-cardinality metrics reuse Prompt 24 guards",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "OBSERVABILITY",
+      "title": "Security observability redacted"
+    },
+    {
+      "control_id": "OPENAPI-001",
+      "evidence": "Default and combined schemas are stable across clean processes",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "OPENAPI",
+      "title": "OpenAPI reproducibility"
+    },
+    {
+      "control_id": "HEALTH-001",
+      "evidence": "Health reports process liveness; deep health reports dependency readiness",
+      "justification": null,
+      "severity": "HIGH",
+      "status": "PASS",
+      "surface": "STARTUP",
+      "title": "Liveness and readiness separation"
+    },
+    {
+      "control_id": "DEFAULTS-001",
+      "evidence": "Production defaults remain legacy, worker/performance/rollout off and canary zero",
+      "justification": null,
+      "severity": "CRITICAL",
+      "status": "PASS",
+      "surface": "ROLLOUT",
+      "title": "No real rollout"
+    }
+  ],
+  "critical_failures": 0,
+  "failed_controls": 0,
+  "findings": [],
+  "passed_controls": 32,
+  "ready": true,
+  "tenant_checks": [],
+  "total_controls": 32
+}

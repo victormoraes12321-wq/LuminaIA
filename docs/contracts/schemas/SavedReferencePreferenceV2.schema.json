@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_scope": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Canonical Scope",
+      "type": "string"
+    },
+    "display_label": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Display Label",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "SAVED_FILTER_REFERENCE",
+        "SAVED_QUERY_REFERENCE",
+        "SAVED_DASHBOARD_REFERENCE"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "reference_id": {
+      "format": "uuid",
+      "title": "Reference Id",
+      "type": "string"
+    },
+    "reference_version": {
+      "minimum": 1,
+      "title": "Reference Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "kind",
+    "reference_id",
+    "reference_version",
+    "display_label",
+    "canonical_scope"
+  ],
+  "title": "SavedReferencePreferenceV2",
+  "type": "object"
+}

@@ -1,0 +1,41 @@
+{
+  "$defs": {
+    "GateOutcomeV2": {
+      "enum": [
+        "PASS",
+        "DENY",
+        "BLOCKED"
+      ],
+      "title": "GateOutcomeV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "critical": {
+      "default": false,
+      "title": "Critical",
+      "type": "boolean"
+    },
+    "gate_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "outcome": {
+      "$ref": "#/$defs/GateOutcomeV2"
+    },
+    "reason_code": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+      "title": "Reason Code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "gate_id",
+    "outcome",
+    "reason_code"
+  ],
+  "title": "RolloutGateV2",
+  "type": "object"
+}

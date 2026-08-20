@@ -1,0 +1,74 @@
+{
+  "$defs": {
+    "FeedbackReviewDecisionV2": {
+      "enum": [
+        "CORRECT",
+        "ACCEPTABLE",
+        "PARTIALLY_CORRECT",
+        "INCORRECT",
+        "UNVERIFIABLE",
+        "AMBIGUOUS",
+        "OUT_OF_SCOPE",
+        "UNSAFE",
+        "TECHNICAL_FAILURE"
+      ],
+      "title": "FeedbackReviewDecisionV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "disagreement_id": {
+      "format": "uuid",
+      "title": "Disagreement Id",
+      "type": "string"
+    },
+    "feedback_id": {
+      "format": "uuid",
+      "title": "Feedback Id",
+      "type": "string"
+    },
+    "first_review_id": {
+      "format": "uuid",
+      "title": "First Review Id",
+      "type": "string"
+    },
+    "rationale": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rationale"
+    },
+    "resolution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackReviewDecisionV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "second_review_id": {
+      "format": "uuid",
+      "title": "Second Review Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "disagreement_id",
+    "feedback_id",
+    "first_review_id",
+    "second_review_id"
+  ],
+  "title": "FeedbackDisagreementV2",
+  "type": "object"
+}

@@ -1,0 +1,328 @@
+{
+  "$defs": {
+    "SemanticIndexLifecycle": {
+      "enum": [
+        "DRAFT",
+        "BUILDING",
+        "VALIDATING",
+        "READY",
+        "PUBLISHED",
+        "FAILED",
+        "DEPRECATED",
+        "ARCHIVED"
+      ],
+      "title": "SemanticIndexLifecycle",
+      "type": "string"
+    },
+    "SemanticIndexSourceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "effective_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective At"
+        },
+        "source_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Checksum",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SemanticSourceType"
+        },
+        "source_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "stale": {
+          "default": false,
+          "title": "Stale",
+          "type": "boolean"
+        },
+        "tenant_scoped": {
+          "title": "Tenant Scoped",
+          "type": "boolean"
+        },
+        "watermark": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Watermark"
+        }
+      },
+      "required": [
+        "source_type",
+        "source_id",
+        "source_version",
+        "source_checksum",
+        "tenant_scoped"
+      ],
+      "title": "SemanticIndexSourceV2",
+      "type": "object"
+    },
+    "SemanticSourceManifestV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/SemanticIndexSourceV2"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "sources",
+        "checksum"
+      ],
+      "title": "SemanticSourceManifestV2",
+      "type": "object"
+    },
+    "SemanticSourceType": {
+      "enum": [
+        "ENTERPRISE_KNOWLEDGE",
+        "METRIC_REGISTRY",
+        "TECHNICAL_CATALOG",
+        "ANALYTICAL_ENTITY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CURATED"
+      ],
+      "title": "SemanticSourceType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "alias_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Alias Count",
+      "type": "integer"
+    },
+    "build_completed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Build Completed At"
+    },
+    "build_mode": {
+      "default": "FULL",
+      "enum": [
+        "FULL",
+        "INCREMENTAL"
+      ],
+      "title": "Build Mode",
+      "type": "string"
+    },
+    "build_started_at": {
+      "format": "date-time",
+      "title": "Build Started At",
+      "type": "string"
+    },
+    "checksum": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Checksum"
+    },
+    "created_by": {
+      "format": "uuid",
+      "title": "Created By",
+      "type": "string"
+    },
+    "document_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Document Count",
+      "type": "integer"
+    },
+    "entity_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Entity Count",
+      "type": "integer"
+    },
+    "failure_summary": {
+      "anyOf": [
+        {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Failure Summary"
+    },
+    "index_id": {
+      "format": "uuid",
+      "title": "Index Id",
+      "type": "string"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/SemanticIndexLifecycle"
+    },
+    "lock_version": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Lock Version",
+      "type": "integer"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "published_by": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published By"
+    },
+    "relation_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Relation Count",
+      "type": "integer"
+    },
+    "representation_version": {
+      "default": "lumina.deterministic-feature-hash/1.0",
+      "title": "Representation Version",
+      "type": "string"
+    },
+    "reviewed_by": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewed By"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest": {
+      "$ref": "#/$defs/SemanticSourceManifestV2"
+    },
+    "superseded_version_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Superseded Version Id"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "version_id": {
+      "format": "uuid",
+      "title": "Version Id",
+      "type": "string"
+    },
+    "watermark": {
+      "anyOf": [
+        {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Watermark"
+    }
+  },
+  "required": [
+    "version_id",
+    "tenant_id",
+    "index_id",
+    "version",
+    "lifecycle",
+    "source_manifest",
+    "build_started_at",
+    "created_by"
+  ],
+  "title": "SemanticIndexVersionV2",
+  "type": "object"
+}

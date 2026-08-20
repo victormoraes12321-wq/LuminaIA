@@ -1,0 +1,805 @@
+{
+  "$defs": {
+    "AliasSemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "alias": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Alias",
+          "type": "string"
+        },
+        "kind": {
+          "const": "ALIAS",
+          "default": "ALIAS",
+          "title": "Kind",
+          "type": "string"
+        },
+        "target_canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Target Canonical Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alias",
+        "target_canonical_id"
+      ],
+      "title": "AliasSemanticContentV2",
+      "type": "object"
+    },
+    "BusinessSemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_dimensions": {
+          "default": [],
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+            "type": "string"
+          },
+          "title": "Allowed Dimensions",
+          "type": "array"
+        },
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "kind": {
+          "const": "BUSINESS",
+          "default": "BUSINESS",
+          "title": "Kind",
+          "type": "string"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "BusinessSemanticContentV2",
+      "type": "object"
+    },
+    "EntityCanonicalReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Canonical Id",
+          "type": "string"
+        },
+        "display_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Display Label",
+          "type": "string"
+        },
+        "domain": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "entity_type": {
+          "$ref": "#/$defs/SemanticEntityType"
+        },
+        "permission_requirement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SemanticPermission"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SemanticSourceType"
+        },
+        "source_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        },
+        "tenant_id": {
+          "format": "uuid",
+          "title": "Tenant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonical_id",
+        "entity_type",
+        "display_label",
+        "tenant_id",
+        "domain",
+        "source_type",
+        "source_id",
+        "source_version"
+      ],
+      "title": "EntityCanonicalReferenceV2",
+      "type": "object"
+    },
+    "EntitySemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "business_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Business Label",
+          "type": "string"
+        },
+        "code": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code"
+        },
+        "kind": {
+          "const": "ENTITY",
+          "default": "ENTITY",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "business_label"
+      ],
+      "title": "EntitySemanticContentV2",
+      "type": "object"
+    },
+    "LexicalRepresentationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "character_ngrams": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Character Ngrams",
+          "type": "array"
+        },
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "kind": {
+          "const": "LEXICAL",
+          "default": "LEXICAL",
+          "title": "Kind",
+          "type": "string"
+        },
+        "normalized_aliases": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Normalized Aliases",
+          "type": "array"
+        },
+        "normalized_label": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Normalized Label",
+          "type": "string"
+        },
+        "normalizer_version": {
+          "default": "lumina.semantic-normalizer.pt-BR/1.0",
+          "title": "Normalizer Version",
+          "type": "string"
+        },
+        "tokens": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Tokens",
+          "type": "array"
+        }
+      },
+      "required": [
+        "normalized_label",
+        "normalized_aliases",
+        "tokens",
+        "character_ngrams",
+        "checksum"
+      ],
+      "title": "LexicalRepresentationV2",
+      "type": "object"
+    },
+    "RelationSemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "RELATION",
+          "default": "RELATION",
+          "title": "Kind",
+          "type": "string"
+        },
+        "relation_type": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Relation Type",
+          "type": "string"
+        },
+        "source_canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Canonical Id",
+          "type": "string"
+        },
+        "target_canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Target Canonical Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "relation_type",
+        "source_canonical_id",
+        "target_canonical_id"
+      ],
+      "title": "RelationSemanticContentV2",
+      "type": "object"
+    },
+    "SemanticDataClassification": {
+      "enum": [
+        "PUBLIC_BUSINESS_METADATA",
+        "TENANT_BUSINESS_METADATA",
+        "RESTRICTED_BUSINESS_METADATA",
+        "PERSONAL_DATA",
+        "SENSITIVE_PERSONAL_DATA",
+        "FORBIDDEN"
+      ],
+      "title": "SemanticDataClassification",
+      "type": "string"
+    },
+    "SemanticDocumentLifecycle": {
+      "enum": [
+        "ACTIVE",
+        "DEPRECATED",
+        "TOMBSTONED"
+      ],
+      "title": "SemanticDocumentLifecycle",
+      "type": "string"
+    },
+    "SemanticDocumentProvenanceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "canonical_reference": {
+          "$ref": "#/$defs/EntityCanonicalReferenceV2"
+        },
+        "indexed_at": {
+          "format": "date-time",
+          "title": "Indexed At",
+          "type": "string"
+        },
+        "indexed_by": {
+          "format": "uuid",
+          "title": "Indexed By",
+          "type": "string"
+        },
+        "source_checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Checksum",
+          "type": "string"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "$ref": "#/$defs/SemanticSourceType"
+        },
+        "source_version": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Source Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_type",
+        "source_id",
+        "source_version",
+        "source_checksum",
+        "canonical_reference",
+        "indexed_by",
+        "indexed_at"
+      ],
+      "title": "SemanticDocumentProvenanceV2",
+      "type": "object"
+    },
+    "SemanticDocumentType": {
+      "enum": [
+        "BUSINESS_TERM",
+        "METRIC",
+        "KPI",
+        "DIMENSION",
+        "ENTITY_TYPE",
+        "ENTITY_INSTANCE",
+        "BUSINESS_RULE",
+        "ALIAS",
+        "RELATION",
+        "CALENDAR_POLICY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CONCEPT"
+      ],
+      "title": "SemanticDocumentType",
+      "type": "string"
+    },
+    "SemanticEffectivePeriodV2": {
+      "additionalProperties": false,
+      "properties": {
+        "valid_from": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid From"
+        },
+        "valid_to": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid To"
+        }
+      },
+      "title": "SemanticEffectivePeriodV2",
+      "type": "object"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticPermission": {
+      "enum": [
+        "semantic:search",
+        "semantic:resolve",
+        "semantic:read_public_candidate",
+        "semantic:inspect_scores",
+        "semantic:manage_index",
+        "semantic:build_index",
+        "semantic:validate_index",
+        "semantic:publish_index",
+        "semantic:rollback_index",
+        "semantic:deprecate_index",
+        "semantic:run_evaluation",
+        "semantic:audit_read",
+        "semantic:read_restricted_entity"
+      ],
+      "title": "SemanticPermission",
+      "type": "string"
+    },
+    "SemanticRelationReferenceV2": {
+      "additionalProperties": false,
+      "properties": {
+        "relation_type": {
+          "enum": [
+            "SYNONYM_OF",
+            "BROADER_THAN",
+            "NARROWER_THAN",
+            "RELATED_TO",
+            "ALLOWED_DIMENSION",
+            "INCOMPATIBLE_WITH"
+          ],
+          "title": "Relation Type",
+          "type": "string"
+        },
+        "target_canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Target Canonical Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "relation_type",
+        "target_canonical_id"
+      ],
+      "title": "SemanticRelationReferenceV2",
+      "type": "object"
+    },
+    "SemanticSourceType": {
+      "enum": [
+        "ENTERPRISE_KNOWLEDGE",
+        "METRIC_REGISTRY",
+        "TECHNICAL_CATALOG",
+        "ANALYTICAL_ENTITY",
+        "APPROVED_TRAINING_EXAMPLE",
+        "SYSTEM_CURATED"
+      ],
+      "title": "SemanticSourceType",
+      "type": "string"
+    },
+    "SystemSemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "kind": {
+          "const": "SYSTEM",
+          "default": "SYSTEM",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "title": "SystemSemanticContentV2",
+      "type": "object"
+    },
+    "TrainingExampleSemanticContentV2": {
+      "additionalProperties": false,
+      "properties": {
+        "evaluation_only": {
+          "default": true,
+          "title": "Evaluation Only",
+          "type": "boolean"
+        },
+        "expected_canonical_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+          "title": "Expected Canonical Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "APPROVED_EXAMPLE",
+          "default": "APPROVED_EXAMPLE",
+          "title": "Kind",
+          "type": "string"
+        },
+        "normalized_mention": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Normalized Mention",
+          "type": "string"
+        }
+      },
+      "required": [
+        "normalized_mention",
+        "expected_canonical_id"
+      ],
+      "title": "TrainingExampleSemanticContentV2",
+      "type": "object"
+    },
+    "VectorRepresentationV2": {
+      "additionalProperties": false,
+      "properties": {
+        "checksum": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Checksum",
+          "type": "string"
+        },
+        "deterministic": {
+          "default": true,
+          "title": "Deterministic",
+          "type": "boolean"
+        },
+        "dimension": {
+          "maximum": 4096,
+          "minimum": 32,
+          "title": "Dimension",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "DETERMINISTIC_FEATURE_HASH",
+          "default": "DETERMINISTIC_FEATURE_HASH",
+          "title": "Kind",
+          "type": "string"
+        },
+        "l2_normalized": {
+          "default": true,
+          "title": "L2 Normalized",
+          "type": "boolean"
+        },
+        "network_required": {
+          "default": false,
+          "title": "Network Required",
+          "type": "boolean"
+        },
+        "provider_type": {
+          "const": "DETERMINISTIC_FEATURE_HASH",
+          "default": "DETERMINISTIC_FEATURE_HASH",
+          "title": "Provider Type",
+          "type": "string"
+        },
+        "provider_version": {
+          "default": "lumina.deterministic-feature-hash/1.0",
+          "title": "Provider Version",
+          "type": "string"
+        },
+        "vector": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Vector",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "vector",
+        "checksum"
+      ],
+      "title": "VectorRepresentationV2",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "canonical_key": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+      "title": "Canonical Key",
+      "type": "string"
+    },
+    "canonical_reference": {
+      "$ref": "#/$defs/EntityCanonicalReferenceV2"
+    },
+    "checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Checksum",
+      "type": "string"
+    },
+    "classification": {
+      "$ref": "#/$defs/SemanticDataClassification"
+    },
+    "content": {
+      "discriminator": {
+        "mapping": {
+          "ALIAS": "#/$defs/AliasSemanticContentV2",
+          "APPROVED_EXAMPLE": "#/$defs/TrainingExampleSemanticContentV2",
+          "BUSINESS": "#/$defs/BusinessSemanticContentV2",
+          "ENTITY": "#/$defs/EntitySemanticContentV2",
+          "RELATION": "#/$defs/RelationSemanticContentV2",
+          "SYSTEM": "#/$defs/SystemSemanticContentV2"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/BusinessSemanticContentV2"
+        },
+        {
+          "$ref": "#/$defs/EntitySemanticContentV2"
+        },
+        {
+          "$ref": "#/$defs/AliasSemanticContentV2"
+        },
+        {
+          "$ref": "#/$defs/RelationSemanticContentV2"
+        },
+        {
+          "$ref": "#/$defs/TrainingExampleSemanticContentV2"
+        },
+        {
+          "$ref": "#/$defs/SystemSemanticContentV2"
+        }
+      ],
+      "title": "Content"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "maxLength": 4000,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "display_label": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Display Label",
+      "type": "string"
+    },
+    "document_id": {
+      "format": "uuid",
+      "title": "Document Id",
+      "type": "string"
+    },
+    "document_type": {
+      "$ref": "#/$defs/SemanticDocumentType"
+    },
+    "domain": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Domain",
+      "type": "string"
+    },
+    "effective_period": {
+      "$ref": "#/$defs/SemanticEffectivePeriodV2"
+    },
+    "entity_type": {
+      "$ref": "#/$defs/SemanticEntityType"
+    },
+    "index_version_id": {
+      "format": "uuid",
+      "title": "Index Version Id",
+      "type": "string"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/SemanticDocumentLifecycle"
+    },
+    "locale": {
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Locale",
+      "type": "string"
+    },
+    "normalized_label": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Normalized Label",
+      "type": "string"
+    },
+    "permission_requirement": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SemanticPermission"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "provenance": {
+      "$ref": "#/$defs/SemanticDocumentProvenanceV2"
+    },
+    "published_aliases": {
+      "default": [],
+      "items": {
+        "maxLength": 256,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Published Aliases",
+      "type": "array"
+    },
+    "relations": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SemanticRelationReferenceV2"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "representation_version": {
+      "default": "lumina.deterministic-feature-hash/1.0",
+      "title": "Representation Version",
+      "type": "string"
+    },
+    "representations": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "DETERMINISTIC_FEATURE_HASH": "#/$defs/VectorRepresentationV2",
+            "LEXICAL": "#/$defs/LexicalRepresentationV2"
+          },
+          "propertyName": "kind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/LexicalRepresentationV2"
+          },
+          {
+            "$ref": "#/$defs/VectorRepresentationV2"
+          }
+        ]
+      },
+      "title": "Representations",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "document_id",
+    "tenant_id",
+    "index_version_id",
+    "document_type",
+    "canonical_reference",
+    "canonical_key",
+    "display_label",
+    "normalized_label",
+    "locale",
+    "domain",
+    "entity_type",
+    "provenance",
+    "lifecycle",
+    "effective_period",
+    "classification",
+    "content",
+    "representations",
+    "created_at",
+    "checksum"
+  ],
+  "title": "SemanticDocumentV2",
+  "type": "object"
+}

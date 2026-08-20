@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "query_node_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Query Node Id"
+    },
+    "response_checksum": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Response Checksum",
+      "type": "string"
+    },
+    "response_contract_version": {
+      "default": "lumina.query-response/1.0",
+      "maxLength": 64,
+      "title": "Response Contract Version",
+      "type": "string"
+    },
+    "response_node_id": {
+      "format": "uuid",
+      "title": "Response Node Id",
+      "type": "string"
+    },
+    "session_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Session Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "response_node_id",
+    "session_id",
+    "response_checksum"
+  ],
+  "title": "FeedbackTargetV2",
+  "type": "object"
+}

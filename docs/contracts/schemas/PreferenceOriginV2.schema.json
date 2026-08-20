@@ -1,0 +1,61 @@
+{
+  "$defs": {
+    "PreferenceOrigin": {
+      "enum": [
+        "USER_EXPLICIT",
+        "SYSTEM_DEFAULT",
+        "ADMIN_POLICY",
+        "LEGACY_IMPORT",
+        "MIGRATED",
+        "FEEDBACK_CANDIDATE",
+        "INFERRED_UNCONFIRMED"
+      ],
+      "title": "PreferenceOrigin",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "confirmed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confirmed At"
+    },
+    "kind": {
+      "$ref": "#/$defs/PreferenceOrigin"
+    },
+    "source_label": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Source Label",
+      "type": "string"
+    },
+    "source_reference": {
+      "anyOf": [
+        {
+          "maxLength": 256,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Reference"
+    }
+  },
+  "required": [
+    "kind",
+    "source_label"
+  ],
+  "title": "PreferenceOriginV2",
+  "type": "object"
+}

@@ -1,0 +1,138 @@
+{
+  "$defs": {
+    "EntityResolutionDecisionType": {
+      "enum": [
+        "RESOLVED",
+        "AMBIGUOUS",
+        "UNRESOLVED",
+        "BLOCKED",
+        "NOT_FOUND",
+        "OUT_OF_SCOPE",
+        "STALE_INDEX",
+        "PERMISSION_DENIED"
+      ],
+      "title": "EntityResolutionDecisionType",
+      "type": "string"
+    },
+    "SemanticEntityType": {
+      "enum": [
+        "METRIC",
+        "DIMENSION",
+        "BUSINESS_CONCEPT",
+        "BRANCH",
+        "PRODUCT",
+        "PRODUCT_GROUP",
+        "CUSTOMER",
+        "SUPPLIER",
+        "SELLER",
+        "REGION",
+        "CITY",
+        "STATE",
+        "COST_CENTER",
+        "WAREHOUSE",
+        "PAYMENT_METHOD",
+        "RECEIVABLE_STATUS",
+        "STOCK_LOCATION",
+        "UNKNOWN"
+      ],
+      "title": "SemanticEntityType",
+      "type": "string"
+    },
+    "SemanticRetrievalChannel": {
+      "enum": [
+        "EXACT_CANONICAL",
+        "EXACT_ALIAS",
+        "EXACT_LABEL",
+        "NORMALIZED_EXACT",
+        "PREFIX",
+        "TOKEN_OVERLAP",
+        "CHARACTER_SIMILARITY",
+        "RELATION_EXPANSION",
+        "VECTOR_SIMILARITY",
+        "CONTEXT_COMPATIBILITY",
+        "DOMAIN_COMPATIBILITY",
+        "TYPE_COMPATIBILITY",
+        "PROFILE_TIE_BREAKER",
+        "LEGACY_FALLBACK"
+      ],
+      "title": "SemanticRetrievalChannel",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "corpus_version": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Corpus Version",
+      "type": "string"
+    },
+    "expected_canonical_ids": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+        "type": "string"
+      },
+      "title": "Expected Canonical Ids",
+      "type": "array"
+    },
+    "expected_decision": {
+      "$ref": "#/$defs/EntityResolutionDecisionType"
+    },
+    "expected_entity_types": {
+      "items": {
+        "$ref": "#/$defs/SemanticEntityType"
+      },
+      "title": "Expected Entity Types",
+      "type": "array"
+    },
+    "forbidden_canonical_ids": {
+      "default": [],
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,255}$",
+        "type": "string"
+      },
+      "title": "Forbidden Canonical Ids",
+      "type": "array"
+    },
+    "normalized_query": {
+      "maxLength": 256,
+      "minLength": 1,
+      "title": "Normalized Query",
+      "type": "string"
+    },
+    "required_channels": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SemanticRetrievalChannel"
+      },
+      "title": "Required Channels",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "lumina.semantic-retrieval/1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tenant_id": {
+      "format": "uuid",
+      "title": "Tenant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "case_id",
+    "tenant_id",
+    "normalized_query",
+    "expected_decision",
+    "expected_canonical_ids",
+    "expected_entity_types",
+    "corpus_version"
+  ],
+  "title": "SemanticEvaluationCaseV2",
+  "type": "object"
+}

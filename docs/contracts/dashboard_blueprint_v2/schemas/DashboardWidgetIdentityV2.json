@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "canonical_name": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Canonical Name",
+      "type": "string"
+    },
+    "widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "widget_id",
+    "canonical_name"
+  ],
+  "title": "DashboardWidgetIdentityV2",
+  "type": "object"
+}

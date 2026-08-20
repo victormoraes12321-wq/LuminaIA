@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "FeatureRolloutStageV2": {
+      "enum": [
+        "DISABLED",
+        "AUDIT_ONLY",
+        "SHADOW",
+        "INTERNAL",
+        "CANARY",
+        "EXPANDED",
+        "FULL",
+        "PAUSED",
+        "ROLLED_BACK"
+      ],
+      "title": "FeatureRolloutStageV2",
+      "type": "string"
+    },
+    "GateOutcomeV2": {
+      "enum": [
+        "PASS",
+        "DENY",
+        "BLOCKED"
+      ],
+      "title": "GateOutcomeV2",
+      "type": "string"
+    },
+    "GovernedFeatureV2": {
+      "enum": [
+        "DASHBOARD_V2_READ",
+        "DASHBOARD_V2_AUTHORING",
+        "DASHBOARD_AI",
+        "POST_SYNC_INSIGHTS",
+        "OBSERVABILITY_V2",
+        "EVALUATIONS_V2",
+        "WORK_QUEUE_V2",
+        "PERFORMANCE_CERTIFICATION"
+      ],
+      "title": "GovernedFeatureV2",
+      "type": "string"
+    },
+    "RolloutDecisionV2": {
+      "enum": [
+        "DENY",
+        "ALLOW_AUDIT",
+        "ALLOW_SHADOW",
+        "ALLOW_INTERNAL",
+        "ALLOW_CANARY",
+        "ALLOW_EXPANSION",
+        "PAUSE",
+        "ROLLBACK"
+      ],
+      "title": "RolloutDecisionV2",
+      "type": "string"
+    },
+    "RolloutGateV2": {
+      "additionalProperties": false,
+      "properties": {
+        "critical": {
+          "default": false,
+          "title": "Critical",
+          "type": "boolean"
+        },
+        "gate_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Gate Id",
+          "type": "string"
+        },
+        "outcome": {
+          "$ref": "#/$defs/GateOutcomeV2"
+        },
+        "reason_code": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,127}$",
+          "title": "Reason Code",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gate_id",
+        "outcome",
+        "reason_code"
+      ],
+      "title": "RolloutGateV2",
+      "type": "object"
+    },
+    "RolloutReadinessStateV2": {
+      "enum": [
+        "NOT_READY",
+        "READY_FOR_AUDIT",
+        "READY_FOR_SHADOW",
+        "READY_FOR_INTERNAL",
+        "READY_FOR_CANARY",
+        "READY_FOR_EXPANSION",
+        "READY_FOR_FULL",
+        "PAUSED",
+        "BLOCKED"
+      ],
+      "title": "RolloutReadinessStateV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "blocking_reasons": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Blocking Reasons",
+      "type": "array"
+    },
+    "contract_version": {
+      "default": "lumina.security-migration-rollout/1.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/RolloutDecisionV2"
+    },
+    "feature": {
+      "$ref": "#/$defs/GovernedFeatureV2"
+    },
+    "gates": {
+      "items": {
+        "$ref": "#/$defs/RolloutGateV2"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "requested_stage": {
+      "$ref": "#/$defs/FeatureRolloutStageV2"
+    },
+    "state": {
+      "$ref": "#/$defs/RolloutReadinessStateV2"
+    }
+  },
+  "required": [
+    "feature",
+    "requested_stage",
+    "state",
+    "decision",
+    "gates"
+  ],
+  "title": "RolloutReadinessV2",
+  "type": "object"
+}

@@ -1,0 +1,88 @@
+{
+  "analytical_default_active": {
+    "decision": "APPLIED",
+    "origin": "USER_EXPLICIT",
+    "public": true,
+    "status": "ACTIVE"
+  },
+  "analytical_default_pending_consent": {
+    "decision": "CONSENT_REQUIRED",
+    "origin": "USER_EXPLICIT",
+    "public": true,
+    "status": "ACTIVE"
+  },
+  "ambiguous_legacy_reference": {
+    "decision": "BLOCKED",
+    "reason": "USER_PREFERENCE_AMBIGUOUS"
+  },
+  "consent_granted": {
+    "decision": "APPLIED",
+    "status": "GRANTED"
+  },
+  "consent_revoked": {
+    "decision": "CONSENT_REQUIRED",
+    "status": "REVOKED"
+  },
+  "context_overrides_profile": {
+    "decision": "SKIPPED",
+    "reason": "CURRENT_REQUEST_OR_CONTEXT_WINS",
+    "value": "norte"
+  },
+  "cross_user_forbidden": {
+    "decision": "BLOCKED",
+    "reason": "USER_PROFILE_USER_MISMATCH"
+  },
+  "deprecated_favorite": {
+    "decision": "BLOCKED",
+    "reason": "USER_PREFERENCE_REFERENCE_INVALID"
+  },
+  "empty_profile": {
+    "applied": 0,
+    "decisions": 0,
+    "profile_version": 1
+  },
+  "explicit_request_overrides_profile": {
+    "decision": "SKIPPED",
+    "reason": "CURRENT_REQUEST_OR_CONTEXT_WINS",
+    "value": "sul"
+  },
+  "favorite_metric": {
+    "decision": "SKIPPED",
+    "reason": "REFERENCE_ONLY"
+  },
+  "legacy_import": {
+    "decision": "SKIPPED",
+    "origin": "LEGACY_IMPORT",
+    "reason": "ORIGIN_NOT_AUTO_APPLICABLE"
+  },
+  "presentation_preference": {
+    "decision": "APPLIED",
+    "origin": "USER_EXPLICIT",
+    "visualization": "BAR_CHART"
+  },
+  "profile_disabled": {
+    "decision": "SKIPPED",
+    "reason": "PROFILE_NOT_ACTIVE"
+  },
+  "profile_export": {
+    "format": "JSON",
+    "schema_version": "lumina.user-analytical-profile/1.0"
+  },
+  "public_applied_summary": {
+    "label": "default.filial",
+    "origin": "Definido por você",
+    "value": "Filial Centro"
+  },
+  "removal_blocks_profile": {
+    "decision": "CONFLICT",
+    "reason": "EXPLICIT_REMOVAL_WINS"
+  },
+  "reset_blocks_profile": {
+    "decision": "SKIPPED",
+    "reason": "RESET_BLOCKS_DEFAULTS_THIS_TURN"
+  },
+  "version_conflict": {
+    "decision": "BLOCKED",
+    "reason": "USER_PROFILE_VERSION_CONFLICT"
+  }
+}

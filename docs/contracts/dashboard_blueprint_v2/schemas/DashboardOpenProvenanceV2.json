@@ -1,0 +1,54 @@
+{
+  "$defs": {
+    "DashboardCapabilityV2": {
+      "enum": [
+        "dashboard:view",
+        "dashboard:filter",
+        "dashboard:drilldown",
+        "dashboard:export",
+        "dashboard:edit_visual",
+        "dashboard:edit_semantic",
+        "dashboard:review",
+        "dashboard:publish",
+        "dashboard:archive",
+        "dashboard:view_provenance"
+      ],
+      "title": "DashboardCapabilityV2",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "interaction_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Interaction Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "OPEN_PROVENANCE",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "permission_requirement": {
+      "$ref": "#/$defs/DashboardCapabilityV2",
+      "default": "dashboard:view_provenance"
+    },
+    "source_widget_id": {
+      "pattern": "^[a-z][a-z0-9_.:-]{2,127}$",
+      "title": "Source Widget Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "interaction_id",
+    "source_widget_id",
+    "interaction_type"
+  ],
+  "title": "DashboardOpenProvenanceV2",
+  "type": "object"
+}
