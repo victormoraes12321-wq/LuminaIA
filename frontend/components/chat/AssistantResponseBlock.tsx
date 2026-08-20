@@ -78,7 +78,7 @@ function parseBIAnalysis(content: string) {
     observacoes: ''
   }
 
-  const headerRegex = /##\s+(\d)\.\s+([A-ZÀ-Ý\s]+)/g
+  const headerRegex = /##\s+(\d)\.\s+([^\n\r]+)/g
   const matches = Array.from(content.matchAll(headerRegex))
 
   if (matches.length === 0) {
@@ -986,7 +986,6 @@ export function AssistantResponseBlock({
                   <DynamicRenderer
                     chartType={selectedFormat}
                     chartData={adaptedDataForFormat}
-                    visualizations={response?.visualizations}
                     title={response?.view_name ?? undefined}
                   />
                 </div>

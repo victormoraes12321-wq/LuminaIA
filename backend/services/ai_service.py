@@ -326,12 +326,18 @@ def _extract_entity_registry_params_for_fallback(query_norm: str, entity: str) -
         product = _first_fallback_match(
             query_norm,
             (
-                r"\b(?:produto|item|sku)\s+(?:chamado|nome|descricao|descri[cç]ao|de nome)?\s*([a-z0-9\s]{2,}?)(?:\s+(?:com|que|onde|em|na|no|codigo|ean|familia|categoria|fornecedor|situacao)\b|$)",
+                r"\b(?:produtos|produto|item|itens|pecas|peças)\s+(?:chamado|nome|descricao|descri[cç]ao|de nome)\s*([a-z0-9\s]{2,}?)(?:\s+(?:com|que|onde|em|na|no|codigo|ean|familia|categoria|fornecedor|situacao|por|para|orden)\b|$)",
+                r"\b(?:produtos|produto|item|itens|pecas|peças)\s+(?:da|do|de|marca|fabricante)\s+([a-z0-9\s]{2,}?)(?:\s+(?:com|que|onde|em|na|no|codigo|ean|familia|categoria|fornecedor|situacao|por|para|orden|comprad|vendid|mais|menos)\b|$)",
+                r"\b(?:marca|fabricante)\s+(?:da|do|de)?\s*([a-z0-9\s]{2,}?)(?:\s+(?:e|com|que|onde|familia|categoria|situacao|por|para|orden|comprad|vendid|mais|menos)\b|$)",
                 r"\b(?:dados|cadastro|estoque)\s+(?:do|da|de)\s+(?:produto|item|sku)\s+([a-z0-9\s]{2,}?)(?:\s+(?:com|que|onde|em|na|no)\b|$)",
+                r"\b(?:sobre|da|de|do)\s+(?:a|o)?\s*(husqvarna|stihl|tramontina|bristol|makita|bosch|toyama|trapp|buffalo)\b",
             ),
         )
-        if product and product.split()[0] not in {"codigo", "ean", "familia", "categoria", "fornecedor", "situacao"}:
-            params["produto_nome"] = product
+        if product and product.split()[0] not in {"codigo", "ean", "familia", "categoria", "fornecedor", "situacao", "todos", "todas"}:
+            clean_product = product.strip()
+            params["produto_nome"] = clean_product
+            params["marca"] = clean_product
+            params["termo_busca"] = clean_product
         code = _first_fallback_match(query_norm, (r"\b(?:codigo|cod|sku)\s+(?:do|da|de)?\s*(?:produto|item)?\s*([a-z0-9.\-\/]{2,})\b",))
         if code:
             params["codigo_produto"] = code

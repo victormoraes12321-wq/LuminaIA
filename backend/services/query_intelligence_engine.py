@@ -758,10 +758,19 @@ def _metric_order_hint_from_query(query_text: str) -> tuple[str | None, str | No
     elif any(term in normalized for term in ("receita", "faturamento", "venda", "vendas", "compraram", "comprou")):
         metric = "receita_total"
 
-    if not metric:
-        return None, None
-
+    descending_explicit_terms = (
+        "mais vendeu para o que menos",
+        "mais vendeu para o menos",
+        "maior para o menor",
+        "maior para menor",
+        "mais vendidos para o menos",
+        "mais vendidos para os menos",
+        "do mais vendido para",
+        "do maior para",
+    )
     ascending_terms = (
+        "do menor para",
+        "do menos vendido para",
         "menor",
         "pior",
         "menos",
@@ -770,7 +779,12 @@ def _metric_order_hint_from_query(query_text: str) -> tuple[str | None, str | No
         "baixo retorno",
         "baixa rentabilidade",
     )
-    direction = "ASC" if any(term in normalized for term in ascending_terms) else "DESC"
+    if any(term in normalized for term in descending_explicit_terms):
+        direction = "DESC"
+    elif any(term in normalized for term in ascending_terms):
+        direction = "ASC"
+    else:
+        direction = "DESC"
     return metric, direction
 
 

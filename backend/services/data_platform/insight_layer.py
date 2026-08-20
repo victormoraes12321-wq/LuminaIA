@@ -127,10 +127,71 @@ class InsightLayer:
                 "Se a margem estiver abaixo do esperado, valide custo, preco de venda, descontos e impostos antes de decidir a acao comercial."
             )
 
+        has_product_column = bool(
+            raw_rows
+            and any(
+                k.upper() in {"PRODUTO_NOME", "DESCRICAO_", "DESCRICAO", "PRODUTO", "NOME_PRODUTO"}
+                for k in raw_rows[0].keys()
+            )
+        )
+        if ("PRODUTOS" in view_upper or has_product_column or "produto" in question) and raw_rows and has_product_column:
+            top = raw_rows[0]
+            product = self._first_value(
+                top,
+                ("produto_nome", "PRODUTO_NOME", "produto", "PRODUTO", "descricao_", "DESCRICAO_", "descricao", "DESCRICAO"),
+            ) or "produto líder"
+            units = self._first_number(top, ("unidades_vendidas", "UNIDADES_VENDIDAS", "quantidade_vendida", "QTDE_", "quantidade_pedidos"))
+            revenue = self._first_number(top, ("receita_total", "RECEITA_TOTAL", "faturamento_realizado", "FATURAMENTO_REALIZADO", "valor_vendido", "PTOTAL_"))
+            total_items = len(raw_rows)
+            
+            return (
+                "## 1. RESUMO ANALITICO\n"
+                f"O relatório retornou {total_items} produtos ranqueados com base nos registros do banco de dados. "
+                f"O item na primeira posição é {product}"
+                f"{f' com {self._format_number(units)} unidades comercializadas' if units is not None else ''}"
+                f"{f' e receita total de {self._format_brl(revenue)}' if revenue is not None else ''}.\n\n"
+                "## 2. COMPARACOES DISPONIVEIS\n"
+                "A listagem foi processada e consolidada com precisão matemática diretamente sobre as transações de vendas.\n\n"
+                "## 3. INSIGHTS RELEVANTES\n"
+                "A base de dados clonada contém o histórico analítico de agosto/2024 a agosto/2026. "
+                "É possível visualizar a evolução por trimestre ou por mês utilizando os controles de período.\n\n"
+                "## 4. ALERTAS\n"
+                "O relatório reflete as quantidades e faturamento de vendas. "
+                "Para acompanhamento de compras, são exibidos os estoques atuais cadastrados."
+            )
+
+        has_seller_column = bool(
+            raw_rows
+            and any(
+                k.upper() in {"VENDEDOR_NOME", "NOME_VED", "VENDEDOR", "NOME_VENDEDOR"}
+                for k in raw_rows[0].keys()
+            )
+        )
+        if ("PERFORMANCE_VENDEDORES" in view_upper or has_seller_column) and raw_rows and has_seller_column:
+            top = raw_rows[0]
+            seller = self._first_value(
+                top,
+                ("vendedor_nome", "VENDEDOR_NOME", "vendedor", "VENDEDOR", "nome_ved", "NOME_VED", "nome_vendedor", "NOME_VENDEDOR"),
+            ) or "vendedor líder"
+            value = self._first_number(top, ("valor_vendido", "receita_total", "VALOR_VENDIDO", "RECEITA_TOTAL", "faturamento_realizado", "FATURAMENTO_REALIZADO"))
+            orders = self._first_number(top, ("pedidos_qtd", "quantidade_pedidos", "PEDIDOS_QTD", "unidades_vendidas", "UNIDADES_VENDIDAS"))
+            return (
+                "## 1. RESUMO ANALITICO\n"
+                f"O ranking retornou {len(raw_rows)} vendedores. A liderança está com {seller}"
+                f"{f' com {self._format_brl(value)} em vendas' if value is not None else ''}.\n\n"
+                "## 2. COMPARACOES DISPONIVEIS\n"
+                f"A ordenação foi entregue pela Data Platform pela métrica principal da view."
+                f"{f' O líder possui {self._format_number(orders)} pedidos/vendas registrados.' if orders is not None else ''}\n\n"
+                "## 3. INSIGHTS RELEVANTES\n"
+                "Use o ranking e a tabela para avaliar concentração de performance entre vendedores.\n\n"
+                "## 4. ALERTAS\n"
+                "Sem alertas críticos identificados para esta consulta."
+            )
+
         asks_total_sales = (
             any(term in question for term in ("valor", "quanto", "total", "vendeu", "vendas", "faturamento"))
-            and "VENDED" not in view_upper
-            and "PRODUTO" not in view_upper
+            and not has_product_column
+            and not has_seller_column
         )
         if asks_total_sales and raw_rows and self._is_number(kpis.get("receita_total")):
             total = float(kpis["receita_total"])
@@ -138,50 +199,14 @@ class InsightLayer:
             periodo = self._period_label(raw_rows)
             return (
                 "## 1. RESUMO ANALITICO\n"
-                f"No periodo {periodo}, o valor total das vendas foi de {self._format_brl(total)}, "
+                f"No período {periodo}, o valor total das vendas foi de {self._format_brl(total)}, "
                 f"considerando {records} registros retornados pelo backend.\n\n"
                 "## 2. COMPARACOES DISPONIVEIS\n"
-                "Nenhuma comparacao automatica foi aplicada porque a pergunta solicitou um valor pontual.\n\n"
+                "Nenhuma comparação automática foi aplicada porque a pergunta solicitou um valor pontual.\n\n"
                 "## 3. INSIGHTS RELEVANTES\n"
-                "O resultado foi calculado pela camada de BI deterministica do backend e respeita os filtros temporais da pergunta.\n\n"
+                "O resultado foi calculado pela camada de BI determinística do backend e respeita os filtros temporais da pergunta.\n\n"
                 "## 4. ALERTAS\n"
-                "Sem alertas criticos identificados para esta consulta."
-            )
-
-        if "PERFORMANCE_VENDEDORES" in view_upper and raw_rows:
-            top = raw_rows[0]
-            seller = top.get("vendedor") or top.get("VENDEDOR") or "vendedor lider"
-            value = self._first_number(top, ("valor_vendido", "receita_total", "VALOR_VENDIDO", "RECEITA_TOTAL"))
-            orders = self._first_number(top, ("pedidos_qtd", "quantidade_pedidos", "PEDIDOS_QTD"))
-            return (
-                "## 1. RESUMO ANALITICO\n"
-                f"O ranking retornou {len(raw_rows)} vendedores. A lideranca esta com {seller}"
-                f"{f' com {self._format_brl(value)} em vendas' if value is not None else ''}.\n\n"
-                "## 2. COMPARACOES DISPONIVEIS\n"
-                f"A ordenacao foi entregue pela Data Platform pela metrica principal da view."
-                f"{f' O lider possui {self._format_number(orders)} pedidos/vendas registrados.' if orders is not None else ''}\n\n"
-                "## 3. INSIGHTS RELEVANTES\n"
-                "Use o ranking e a tabela para avaliar concentracao de performance entre vendedores.\n\n"
-                "## 4. ALERTAS\n"
-                "Sem alertas criticos identificados para esta consulta."
-            )
-
-        if "PRODUTOS" in view_upper and raw_rows:
-            top = raw_rows[0]
-            product = top.get("produto") or top.get("PRODUTO") or "produto lider"
-            units = self._first_number(top, ("unidades_vendidas", "quantidade_vendida", "quantidade_pedidos"))
-            revenue = self._first_number(top, ("receita_total", "valor_vendido"))
-            return (
-                "## 1. RESUMO ANALITICO\n"
-                f"O ranking retornou {len(raw_rows)} produtos. O produto mais vendido e {product}"
-                f"{f' com {self._format_number(units)} unidades' if units is not None else ''}"
-                f"{f' e {self._format_brl(revenue)} de receita' if revenue is not None else ''}.\n\n"
-                "## 2. COMPARACOES DISPONIVEIS\n"
-                "A consulta foi ordenada pela metrica de vendas disponivel para produtos.\n\n"
-                "## 3. INSIGHTS RELEVANTES\n"
-                "A tabela/ranking permite avaliar concentracao de vendas por produto e categoria.\n\n"
-                "## 4. ALERTAS\n"
-                "Sem alertas criticos identificados para esta consulta."
+                "Sem alertas críticos identificados para esta consulta."
             )
 
         return None

@@ -103,37 +103,60 @@ def _enrich_semantic_aliases(row: dict[str, Any]) -> dict[str, Any]:
 
 _METRIC_COLUMN_ALIASES: dict[str, tuple[str, tuple[str, ...]]] = {
     "receita_total": ("SUM", ("RECEITA_TOTAL", "FATURAMENTO_REALIZADO", "VALOR_VENDIDO", "VALOR_TOTAL", "TOTAL_VENDIDO", "PTOTAL_", "PTOTAL")),
+    "met_001": ("SUM", ("RECEITA_TOTAL", "FATURAMENTO_REALIZADO", "VALOR_VENDIDO", "VALOR_TOTAL", "TOTAL_VENDIDO", "PTOTAL_", "PTOTAL")),
     "faturamento": ("SUM", ("FATURAMENTO_REALIZADO", "RECEITA_TOTAL", "PTOTAL_", "PTOTAL")),
     "faturamento_realizado": ("SUM", ("FATURAMENTO_REALIZADO", "RECEITA_TOTAL", "PTOTAL_", "PTOTAL")),
     "valor_vendido": ("SUM", ("VALOR_VENDIDO", "RECEITA_TOTAL", "PTOTAL_", "PTOTAL")),
     "unidades_vendidas": ("SUM", ("UNIDADES_VENDIDAS", "QUANTIDADE_VENDIDA", "QTDE_", "QTDE", "QUANTIDADE")),
+    "met_003": ("SUM", ("UNIDADES_VENDIDAS", "QUANTIDADE_VENDIDA", "QTDE_", "QTDE", "QUANTIDADE")),
     "quantidade_vendida": ("SUM", ("UNIDADES_VENDIDAS", "QUANTIDADE_VENDIDA", "QTDE_", "QTDE", "QUANTIDADE")),
     "quantidade_pedidos": ("COUNT_DISTINCT", ("PEDIDO_", "PEDIDO", "NOTA_", "NOTA", "NUMERO_NFE")),
     "pedidos_qtd": ("COUNT_DISTINCT", ("PEDIDO_", "PEDIDO", "NOTA_", "NOTA", "NUMERO_NFE")),
+    "met_006": ("COUNT_DISTINCT", ("PEDIDO_", "PEDIDO", "NOTA_", "NOTA", "NUMERO_NFE")),
     "clientes_distintos": ("COUNT_DISTINCT", ("CODCLIENTE_", "CODCLIENTE", "CODIGO_CLIENTE", "CLIENTE_ID", "CD_CLIENTE")),
     "ticket_medio": ("AVG", ("RECEITA_TOTAL", "VALOR_TOTAL", "PTOTAL_", "PTOTAL")),
+    "met_005": ("AVG", ("RECEITA_TOTAL", "VALOR_TOTAL", "PTOTAL_", "PTOTAL")),
     "desconto_total": ("SUM", ("DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
     "desconto": ("SUM", ("DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
     "desconto_medio": ("AVG", ("DESCONTO_MEDIO", "DESCONTO_TOTAL", "VALOR_DESCONTO", "VLDESCONTO", "VLDESC")),
     "preco_unitario": ("AVG", ("PRECO_UNITARIO", "PRECO_MEDIO", "P_UNIT_", "P_UNIT")),
     "lucro_bruto": ("SUM", ("LUCRO_BRUTO", "LUCRO", "VALOR_LUCRO")),
+    "met_002": ("SUM", ("LUCRO_BRUTO", "LUCRO", "VALOR_LUCRO")),
+    "custo_total": ("SUM", ("CUSTO_TOTAL", "VALOR_CUSTO", "CUSTO", "PCUSTO_", "PCUSTO")),
+    "met_007": ("SUM", ("CUSTO_TOTAL", "VALOR_CUSTO", "CUSTO", "PCUSTO_", "PCUSTO")),
     "margem_lucro": ("AVG", ("MARGEM_LUCRO", "MARGEM_MEDIA", "MARGEM", "MARGEM_BRUTA")),
     "margem_media": ("AVG", ("MARGEM_MEDIA", "MARGEM_LUCRO", "MARGEM", "MARGEM_BRUTA")),
+    "met_004": ("AVG", ("MARGEM_LUCRO", "MARGEM_MEDIA", "MARGEM", "MARGEM_BRUTA")),
 }
 
 _DIMENSION_COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
     "vendedor": ("VENDEDOR_NOME", "VENDEDOR", "NOME_", "NOME_VENDEDOR", "NOME_VED", "NM_VENDEDOR"),
     "vendedor_nome": ("VENDEDOR_NOME", "VENDEDOR", "NOME_", "NOME_VENDEDOR", "NOME_VED", "NM_VENDEDOR"),
+    "dim_002": ("VENDEDOR_NOME", "VENDEDOR", "NOME_", "NOME_VENDEDOR", "NOME_VED", "NM_VENDEDOR"),
     "codigo_vendedor": ("CODIGO_VENDEDOR", "RCA_", "RCA", "CODI_VED", "VENDEDOR_ID"),
     "produto": ("PRODUTO_NOME", "PRODUTO", "DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "NM_PRODUTO"),
     "produto_nome": ("PRODUTO_NOME", "PRODUTO", "DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "NM_PRODUTO"),
+    "dim_003": ("PRODUTO_NOME", "PRODUTO", "DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "NM_PRODUTO"),
+    "marca": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA", "FAMILIA"),
+    "fabricante": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA"),
+    "termo_busca": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"),
+    "busca": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"),
+    "peca": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"),
+    "peça": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"),
+    "item": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"),
+    "descricao": ("DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"),
     "codigo_produto": ("CODIGO_PRODUTO", "CODPROD_", "CODPROD", "CD_PRODUTO", "SKU"),
     "cliente": ("CLIENTE_NOME", "CLIENTE", "RAZAO_", "RAZAO", "NOME_CLIENTE", "NM_CLIENTE", "FANTASIA"),
     "cliente_nome": ("CLIENTE_NOME", "CLIENTE", "RAZAO_", "RAZAO", "NOME_CLIENTE", "NM_CLIENTE", "FANTASIA"),
+    "dim_001": ("CLIENTE_NOME", "CLIENTE", "RAZAO_", "RAZAO", "NOME_CLIENTE", "NM_CLIENTE", "FANTASIA"),
     "codigo_cliente": ("CODIGO_CLIENTE", "CODCLIENTE_", "CODCLIENTE", "CLIENTE_ID", "CD_CLIENTE"),
+    "categoria": ("FAMILIA", "CATEGORIA", "CODIGO_FAMILIA_PRODUTO"),
+    "dim_004": ("FAMILIA", "CATEGORIA", "CODIGO_FAMILIA_PRODUTO"),
     "cidade": ("NOME_CIDADE", "CIDADE", "MUNICIPIO", "MUNI_VED"),
     "estado": ("UF", "ESTADO"),
     "uf": ("UF", "ESTADO"),
+    "regiao": ("UF", "ESTADO", "REGIAO", "REGIAO_LOJA", "FILIAL_", "FILIAL"),
+    "dim_005": ("UF", "ESTADO", "REGIAO", "REGIAO_LOJA", "FILIAL_", "FILIAL"),
     "fornecedor": ("FORNECEDOR_NOME", "FORNECEDOR", "NOME_FORNECEDOR", "NM_FORNECEDOR", "FANTASIA_FORNECEDOR"),
     "fornecedor_nome": ("FORNECEDOR_NOME", "FORNECEDOR", "NOME_FORNECEDOR", "NM_FORNECEDOR", "FANTASIA_FORNECEDOR"),
     "filial": ("FILIAL", "FILIAL_", "LOJA", "UNIDADE"),
@@ -141,6 +164,11 @@ _DIMENSION_COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
     "cfop": ("CFOP_", "CFOP"),
     "ncm": ("NCM_", "NCM"),
     "plano": ("PLANO_", "PLANO"),
+    "trimestre": ("DTEMISSAO_", "DT_EMISSAO", "DATA_REF", "DATA"),
+    "mes": ("DTEMISSAO_", "DT_EMISSAO", "DATA_REF", "DATA"),
+    "dim_006": ("DTEMISSAO_", "DT_EMISSAO", "DATA_REF", "DATA"),
+    "ano": ("DTEMISSAO_", "DT_EMISSAO", "DATA_REF", "DATA"),
+    "dim_007": ("DTEMISSAO_", "DT_EMISSAO", "DATA_REF", "DATA"),
     "data": ("DATA_REF", "DATA_REFERENCIA", "DATA_VENDA", "DATA_PEDIDO", "DTEMISSAO_", "DT_EMISSAO", "DATA"),
     "data_ref": ("DATA_REF", "DATA_REFERENCIA", "DATA_VENDA", "DATA_PEDIDO", "DTEMISSAO_", "DT_EMISSAO", "DATA"),
 }
@@ -264,6 +292,12 @@ def _dimension_select_expression(
         return f"DATE_TRUNC('month', {table_prefix}{date_column})::date", "MES", f"DATE_TRUNC('month', {table_prefix}{date_column})::date"
     if clean_dimension in {"ano", "year"} and date_column:
         return f"EXTRACT(YEAR FROM {table_prefix}{date_column})::int", "ANO", f"EXTRACT(YEAR FROM {table_prefix}{date_column})::int"
+    if clean_dimension in {"trimestre", "quarter", "trim", "ano_trimestre", "trimestre_ano"} and date_column:
+        return (
+            f"CONCAT(EXTRACT(YEAR FROM {table_prefix}{date_column})::int, ' T', EXTRACT(QUARTER FROM {table_prefix}{date_column})::int)",
+            "TRIMESTRE",
+            f"EXTRACT(YEAR FROM {table_prefix}{date_column})::int, EXTRACT(QUARTER FROM {table_prefix}{date_column})::int",
+        )
     candidates = _DIMENSION_COLUMN_ALIASES.get(clean_dimension, (clean_dimension.upper(),))
     column = _resolve_existing_column(real_columns, candidates)
     if not column:
@@ -371,6 +405,7 @@ def _build_sales_enriched_aggregate_query(
     )
     needs_suppliers = bool(
         normalized_groups.intersection({"fornecedor", "fornecedor_nome"})
+        or params.get("fornecedor")
         or params.get("fornecedor_nome")
         or params.get("codigo_fornecedor")
     )
@@ -417,13 +452,15 @@ def _build_sales_enriched_aggregate_query(
     if needs_clients and state_value:
         enriched_where.append(_text_search_clause("__clientes.UF", len(query_values) + 1))
         query_values.append(_text_search_pattern(state_value))
-    supplier_value = params.get("fornecedor_nome")
+    supplier_value = params.get("fornecedor_nome") or params.get("fornecedor")
     if needs_suppliers and supplier_value:
         enriched_where.append(
             "("
             + _text_search_clause("__fornecedores.NOME", len(query_values) + 1)
             + " OR "
             + _text_search_clause("__fornecedores.FANTASIA", len(query_values) + 1)
+            + " OR "
+            + _text_search_clause("vw_vendas_lm.DESCRICAO_", len(query_values) + 1)
             + ")"
         )
         query_values.append(_text_search_pattern(supplier_value))
@@ -684,10 +721,20 @@ async def execute_clone_view(
         "nome_cliente": ["RAZAO_", "RAZAO", "NOME", "FANTASIA", "CLIENTE", "NOME_CLIENTE", "NM_CLIENTE", "CLIENTE_NOME"],
         "nome_fantasia": ["FANTASIA", "NOME"],
         "produto_nome": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NM_PRODUTO", "DESCRICAO_PRODUTO", "DESC_PRODUTO"],
+        "marca": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA", "FAMILIA"],
+        "fabricante": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA"],
+        "termo_busca": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"],
+        "busca": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"],
+        "termo": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "peca": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "peça": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "item": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "descricao": ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
         "codigo_produto": ["CODPROD_", "CODPROD", "CODIGO", "CODIGO_PRODUTO", "CD_PRODUTO", "SKU"],
         "codigo_barras": ["CODIGO_BARRAS_EAN", "EAN", "CODIGO_BARRAS", "BARRAS"],
         "ean": ["CODIGO_BARRAS_EAN", "EAN", "CODIGO_BARRAS", "BARRAS"],
-        "fornecedor_nome": ["FORNECEDOR", "NOME", "FANTASIA", "NOME_FORNECEDOR", "NM_FORNECEDOR"],
+        "fornecedor": ["FORNECEDOR", "NOME", "FANTASIA", "NOME_FORNECEDOR", "NM_FORNECEDOR", "DESCRICAO_", "DESCRICAO"],
+        "fornecedor_nome": ["FORNECEDOR", "NOME", "FANTASIA", "NOME_FORNECEDOR", "NM_FORNECEDOR", "DESCRICAO_", "DESCRICAO"],
         "codigo_fornecedor": ["CODIGO_FORNECEDOR", "CODIGO", "FORNECEDOR_ID"],
         "documento": ["CNPJ_", "CPF_", "CNPJ_CPF", "CPF_CNPJ", "CPF", "CNPJ", "DOCUMENTO", "CPFC_VED", "CGC", "CGC_CPF"],
         "cpf": ["CPF_", "CNPJ_CPF", "CPF_CNPJ", "CPF", "DOCUMENTO", "CPFC_VED", "CGC", "CGC_CPF"],

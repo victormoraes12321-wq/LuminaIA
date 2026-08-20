@@ -591,9 +591,18 @@ async def execute_view(
     # Prioridade: A) match direto de coluna > B) data_inicio/data_fim >
     #             C) alias semântico > D) fuzzy por substring > ignorado
     ALIAS_MAP: dict[str, list[str]] = {
-        "vendedor_nome":   ["VENDEDOR", "NOME_VENDEDOR", "NM_VENDEDOR", "VENDEDOR_NOME"],
-        "cliente_nome":    ["CLIENTE", "NOME_CLIENTE", "NM_CLIENTE", "CLIENTE_NOME", "COMPRADOR"],
-        "produto_nome":    ["PRODUTO", "NOME_PRODUTO", "NM_PRODUTO", "DESCRICAO_PRODUTO", "DESC_PRODUTO"],
+        "vendedor_nome":   ["VENDEDOR", "NOME_VENDEDOR", "NM_VENDEDOR", "VENDEDOR_NOME", "NOME_VED", "NOME_"],
+        "cliente_nome":    ["CLIENTE", "NOME_CLIENTE", "NM_CLIENTE", "CLIENTE_NOME", "COMPRADOR", "RAZAO_", "RAZAO"],
+        "produto_nome":    ["PRODUTO", "NOME_PRODUTO", "NM_PRODUTO", "DESCRICAO_PRODUTO", "DESC_PRODUTO", "DESCRICAO_", "DESCRICAO"],
+        "marca":           ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA", "FAMILIA"],
+        "fabricante":      ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "FORNECEDOR", "NOME", "FANTASIA"],
+        "termo_busca":     ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"],
+        "busca":           ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO", "NOME", "RAZAO_"],
+        "termo":           ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "peca":            ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "peça":            ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "item":            ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
+        "descricao":       ["DESCRICAO_", "DESCRICAO", "NOME_PRODUTO", "PRODUTO"],
         "regiao":          ["REGIAO", "REGIÃO", "REGIAO_LOJA", "UF", "ESTADO"],
         "loja":            ["LOJA", "FILIAL", "NOME_LOJA", "CD_LOJA", "UNIDADE"],
         "status":          ["STATUS", "STATUS_PEDIDO", "SITUACAO", "SIT_PEDIDO"],
