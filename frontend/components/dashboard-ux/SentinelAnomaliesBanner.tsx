@@ -16,21 +16,7 @@ import {
 } from 'lucide-react'
 import { cn, getApiBase } from '@/lib/utils'
 import { useAuth } from '@/context/AuthContext'
-
-interface AnomalyItem {
-  id: string
-  categoria: string
-  tipo: string
-  severidade: 'CRITICAL' | 'WARNING' | 'OPPORTUNITY'
-  titulo: string
-  entidade: string
-  codigo: string
-  descricao: string
-  impacto_financeiro: number
-  impacto_formatted: string
-  sugestao_acao: string
-  data_deteccao: string
-}
+import { SentinelInvestigationModal, AnomalyItem } from './SentinelInvestigationModal'
 
 interface SentinelAnomaliesBannerProps {
   onInvestigate?: (query: string) => void
@@ -42,6 +28,7 @@ export function SentinelAnomaliesBanner({ onInvestigate }: SentinelAnomaliesBann
   const [loading, setLoading] = useState(true)
   const [expanded, setExpanded] = useState(false)
   const [dismissed, setDismissed] = useState(false)
+  const [investigatingAnomaly, setInvestigatingAnomaly] = useState<AnomalyItem | null>(null)
 
   const fetchAnomalies = async () => {
     try {
@@ -176,25 +163,27 @@ export function SentinelAnomaliesBanner({ onInvestigate }: SentinelAnomaliesBann
                   {item.sugestao_acao}
                 </span>
 
-                {onInvestigate && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onInvestigate(
-                        `Investigar detalhamento analítico e histórico de ${item.entidade} (${item.titulo})`
-                      )
-                    }
-                    className="shrink-0 flex items-center gap-1 text-[10px] font-bold text-cyan-300 hover:text-cyan-200 bg-cyan-500/10 hover:bg-cyan-500/20 px-2 py-0.5 rounded-md border border-cyan-500/30 transition-all cursor-pointer"
-                  >
-                    <span>Investigar</span>
-                    <ArrowRight size={10} />
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => setInvestigatingAnomaly(item)}
+                  className="shrink-0 flex items-center gap-1 text-[10px] font-bold text-cyan-300 hover:text-cyan-200 bg-cyan-500/10 hover:bg-cyan-500/20 px-2.5 py-1 rounded-lg border border-cyan-500/30 transition-all cursor-pointer shadow-sm"
+                >
+                  <Sparkles size={11} />
+                  <span>Investigar Dossiê</span>
+                  <ArrowRight size={10} />
+                </button>
               </div>
             </div>
           )
         })}
       </div>
+
+      {/* Deep-Dive Investigation Modal */}
+      <SentinelInvestigationModal
+        anomaly={investigatingAnomaly}
+        isOpen={!!investigatingAnomaly}
+        onClose={() => setInvestigatingAnomaly(null)}
+      />
     </div>
   )
 }
