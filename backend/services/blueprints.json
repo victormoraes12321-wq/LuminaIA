@@ -32757,9 +32757,9 @@
   ],
   "global_metrics": {
     "execucoes_com_ia": 674,
-    "execucoes_sem_ia": 3241,
+    "execucoes_sem_ia": 3242,
     "tempo_total_com_ia_ms": 2898375.0,
-    "tempo_total_sem_ia_ms": 20783014.0,
-    "tokens_economizados_total": 4861500
+    "tempo_total_sem_ia_ms": 20794585.0,
+    "tokens_economizados_total": 4863000
   }
 }

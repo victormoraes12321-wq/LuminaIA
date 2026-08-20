@@ -29,6 +29,7 @@ import {
   buildClarifiedPrompt,
   type ClarificationRequirement,
 } from '@/lib/clarification/slotAnalyzer'
+import { VoiceInputButton } from './VoiceInputButton'
 
 // ── ChatInterface ─────────────────────────────────────────────
 
@@ -369,21 +370,31 @@ export function ChatInterface({
             </div>
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={isInvalid || loading}
-            aria-label="Enviar pergunta"
-            className={cn(
-              'flex h-8 w-8 items-center justify-center rounded-xl transition-all duration-200',
-              isInvalid || loading
-                ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed opacity-50'
-                : 'bg-lumina-gradient text-white shadow-md shadow-lumina-500/20 hover:scale-105 active:scale-95'
-            )}
-          >
-            <Send size={14} className={loading ? 'animate-pulse' : ''} />
-          </button>
+          <div className="flex items-center gap-1.5">
+            {/* Voice Input (Speech-to-Text) Button */}
+            <VoiceInputButton
+              onTranscript={(text) => {
+                setInput((prev) => (prev ? `${prev} ${text}` : text))
+              }}
+              disabled={loading}
+            />
+
+            {/* Submit Button */}
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={isInvalid || loading}
+              aria-label="Enviar pergunta"
+              className={cn(
+                'flex h-8 w-8 items-center justify-center rounded-xl transition-all duration-200 cursor-pointer',
+                isInvalid || loading
+                  ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed opacity-50'
+                  : 'bg-lumina-gradient text-white shadow-md shadow-lumina-500/20 hover:scale-105 active:scale-95'
+              )}
+            >
+              <Send size={14} className={loading ? 'animate-pulse' : ''} />
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -15,6 +15,8 @@ import {
   Maximize2,
   Star,
   StarOff,
+  Pin,
+  PinOff,
   X,
   FileSpreadsheet,
   FileText,
@@ -37,7 +39,8 @@ import { cn } from '@/lib/utils'
 import { DynamicRenderer } from '@/components/DynamicRenderer'
 import { DataTable } from '@/components/charts/DataTable'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
-import { exportToCSV, exportToExcel, exportToPDF } from '@/lib/exportUtils'
+import { exportToCSV } from '@/lib/exportUtils'
+import { exportReportToPDF, exportDataToExcel } from '@/lib/exportReport'
 import { InlineDashboardRuntime } from '@/components/chat/InlineDashboardRuntime'
 import { ClarificationPanel } from '@/components/chat/ClarificationPanel'
 import { FeedbackControls } from '@/components/chat/FeedbackControls'
@@ -414,9 +417,77 @@ export function AssistantResponseBlock({
   const [showOutliers, setShowOutliers] = useState(false)
   const [showAdminDiagnostics, setShowAdminDiagnostics] = useState(false)
   const [showAppliedPreferences, setShowAppliedPreferences] = useState(true)
+  const [isPinned, setIsPinned] = useState(() => {
+    if (typeof window === 'undefined') return false
+    try {
+      const stored = localStorage.getItem('lumina_pinned_dashboard_widgets')
+      if (!stored) return false
+      const list = JSON.parse(stored)
+      const targetId = `pin-${msg.queryResponse?.query_id || msg.id}`
+      return list.some((item: any) => item.id === targetId)
+    } catch {
+      return false
+    }
+  })
 
   const response = msg.queryResponse
   const uniqueId = `response-block-${msg.id}`
+
+  const handlePinToDashboard = () => {
+    if (typeof window === 'undefined') return
+    try {
+      const stored = localStorage.getItem('lumina_pinned_dashboard_widgets')
+      const list = stored ? JSON.parse(stored) : []
+      const widgetId = `pin-${response?.query_id || msg.id}`
+
+      if (isPinned) {
+        const updated = list.filter((item: any) => item.id !== widgetId)
+        localStorage.setItem('lumina_pinned_dashboard_widgets', JSON.stringify(updated))
+        setIsPinned(false)
+      } else {
+        const newWidget = {
+          id: widgetId,
+          title: response?.view_name ? response.view_name.replace('VW_', '') : 'Consulta Analítica Fixada',
+          queryText: response?.pergunta_original || msg.content.slice(0, 100),
+          chartType: selectedFormat || response?.chart_type || 'TABLE',
+          chartData: adaptedDataForFormat || response?.chart_data,
+          kpis: kpis,
+          summary: sections.resumo || displayContent.slice(0, 150),
+          pinnedAt: new Date().toISOString(),
+        }
+        list.unshift(newWidget)
+        localStorage.setItem('lumina_pinned_dashboard_widgets', JSON.stringify(list))
+        setIsPinned(true)
+      }
+      window.dispatchEvent(new Event('lumina_pinned_widgets_changed'))
+    } catch (err) {
+      console.warn('[PinToDashboard] Erro:', err)
+    }
+  }
+
+  const handleTableRowClick = (row: Record<string, unknown>) => {
+    if (!row || typeof row !== 'object') return
+    const rcaOrVed = row.vendedor || row.nome_ved || row.nome || row.rca || row.RCA_ || row.NOME_
+    const prod = row.produto || row.descricao || row.nome_produto || row.DESCRICAO_
+    const cli = row.cliente || row.razao || row.RAZAO_ || row.nome_cliente
+    const filial = row.filial || row.FILIAL_
+    const cid = row.cidade || row.NOME_CIDADE || row.praca
+
+    if (rcaOrVed && typeof rcaOrVed === 'string' && !rcaOrVed.match(/^\d+$/)) {
+      onSendQuery(`Evolução mensal e histórico de vendas do vendedor ${rcaOrVed}`)
+    } else if (prod && typeof prod === 'string') {
+      onSendQuery(`Detalhamento de filiais e vendas do produto ${prod}`)
+    } else if (cli && typeof cli === 'string') {
+      onSendQuery(`Histórico de compras e produtos do cliente ${cli}`)
+    } else if (cid && typeof cid === 'string') {
+      onSendQuery(`Detalhamento de vendas e clientes na região de ${cid}`)
+    } else if (filial) {
+      onSendQuery(`Top vendedores e produtos da Filial ${filial}`)
+    } else {
+      const firstVal = Object.values(row).filter((v) => typeof v === 'string' && v.length > 2)[0]
+      if (firstVal) onSendQuery(`Detalhamento analítico de ${firstVal}`)
+    }
+  }
 
   const drillDownData = useMemo(() => {
     if (!drillDownKey || !response?.bi_intelligence?.datasets?.[drillDownKey]) {
@@ -522,15 +593,50 @@ export function AssistantResponseBlock({
   }
 
   const handleExcelExport = () => {
-    if (!response?.chart_data) return
-    const tableData = response.visualizations?.find(v => v.chart_type === 'TABLE')?.chart_data || response.chart_data
-    if ('columns' in tableData && 'rows' in tableData) {
-      exportToExcel(response.view_name || 'relatorio', tableData.columns, tableData.rows)
+    const tableData = response?.visualizations?.find(v => v.chart_type === 'TABLE')?.chart_data || response?.chart_data
+    let headers: string[] = []
+    let rows: Array<Array<string | number>> = []
+    if (tableData && 'columns' in tableData && 'rows' in tableData) {
+      headers = (tableData.columns as any[]).map((c) => c.label || c.key)
+      rows = (tableData.rows as any[]).map((r) =>
+        (tableData.columns as any[]).map((c) => r[c.key] ?? '')
+      )
     }
+    exportDataToExcel({
+      title: response?.view_name
+        ? `Relatório: ${response.view_name.replace('VW_', '')}`
+        : 'Relatório Executivo LuminaAI',
+      queryText: response?.pergunta_original || msg.content.slice(0, 100),
+      summaryText: sections.resumo || displayContent,
+      kpis: kpis.map((k) => ({ titulo: k.titulo, valor: k.valor, comparacao: k.variacao })),
+      tableHeaders: headers.length > 0 ? headers : undefined,
+      tableRows: rows.length > 0 ? rows : undefined,
+      fileName: `relatorio-${(response?.view_name || 'lumina').toLowerCase()}-${Date.now()}.xlsx`,
+    })
   }
 
   const handlePDFExport = () => {
-    exportToPDF(uniqueId, response?.view_name || 'Relatorio Executivo LuminaAI')
+    const tableData = response?.visualizations?.find(v => v.chart_type === 'TABLE')?.chart_data || response?.chart_data
+    let headers: string[] = []
+    let rows: Array<Array<string | number>> = []
+    if (tableData && 'columns' in tableData && 'rows' in tableData) {
+      headers = (tableData.columns as any[]).map((c) => c.label || c.key)
+      rows = (tableData.rows as any[]).map((r) =>
+        (tableData.columns as any[]).map((c) => r[c.key] ?? '')
+      )
+    }
+    exportReportToPDF({
+      title: response?.view_name
+        ? `Relatório Executivo: ${response.view_name.replace('VW_', '')}`
+        : 'Relatório Executivo de Inteligência',
+      subtitle: 'Casa do Campo • BI Executivo',
+      queryText: response?.pergunta_original || msg.content.slice(0, 100),
+      summaryText: sections.resumo || displayContent,
+      kpis: kpis.map((k) => ({ titulo: k.titulo, valor: k.valor, comparacao: k.variacao })),
+      tableHeaders: headers.length > 0 ? headers : undefined,
+      tableRows: rows.length > 0 ? rows : undefined,
+      fileName: `relatorio-executivo-${(response?.view_name || 'lumina').toLowerCase()}-${Date.now()}.pdf`,
+    })
   }
 
   // Helper properties
@@ -646,16 +752,34 @@ export function AssistantResponseBlock({
 
             {/* PDF print button */}
             <button
+              type="button"
               onClick={handlePDFExport}
-              className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-all duration-200"
-              title="Imprimir PDF"
+              className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900/60 transition-all duration-200 cursor-pointer"
+              title="Exportar Relatório em PDF"
             >
               <Download size={14} />
+            </button>
+
+            {/* Pin to Dashboard button */}
+            <button
+              type="button"
+              onClick={handlePinToDashboard}
+              className={cn(
+                "p-1.5 rounded-lg transition-all duration-200 cursor-pointer flex items-center gap-1",
+                isPinned
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_10px_rgba(6,182,212,0.3)]"
+                  : "text-zinc-400 hover:text-cyan-400 hover:bg-zinc-900/60"
+              )}
+              title={isPinned ? "Desafixar da Dashboard" : "Fixar na Dashboard (Pin to Dashboard)"}
+              aria-label="Fixar na Dashboard"
+            >
+              {isPinned ? <PinOff size={14} className="text-cyan-400" /> : <Pin size={14} />}
             </button>
 
             {/* Favorite button */}
             {response?.pode_favoritar && (
               <button
+                type="button"
                 onClick={onFavorite}
                 className="p-1.5 rounded-lg text-zinc-400 hover:text-yellow-400 hover:bg-zinc-900/60 transition-all duration-200"
                 title={isFavorited ? 'Remover Favorito' : 'Salvar nos Favoritos'}
@@ -987,6 +1111,7 @@ export function AssistantResponseBlock({
                     chartType={selectedFormat}
                     chartData={adaptedDataForFormat}
                     title={response?.view_name ?? undefined}
+                    onRowClick={handleTableRowClick}
                   />
                 </div>
               ) : (

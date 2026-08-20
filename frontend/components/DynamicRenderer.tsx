@@ -131,6 +131,7 @@ interface DynamicRendererProps {
   title?: string
   visualizations?: Array<{ chart_type: ChartType; chart_data: AnyChartData }> | null
   comparisonModel?: ComparisonPresentationModel | null
+  onRowClick?: (row: Record<string, unknown>) => void
 }
 
 function hasDirectResponse(data: unknown): data is { resposta_direta: string } {
@@ -231,6 +232,7 @@ export function DynamicRenderer({
   title,
   visualizations,
   comparisonModel,
+  onRowClick,
 }: DynamicRendererProps) {
   if (comparisonModel) {
     return <ComparisonRenderer model={comparisonModel} className={className} />
@@ -357,7 +359,7 @@ export function DynamicRenderer({
       // ── Table ───────────────────────────────────────────────
       case 'TABLE':
         if (!isChartDataTable(typedData)) return <NoDataFallback chartType={chartType} />
-        return <DataTable data={typedData} />
+        return <DataTable data={typedData} onRowClick={onRowClick} />
 
       default:
         return <NoDataFallback chartType={chartType} />

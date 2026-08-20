@@ -53,6 +53,8 @@ from routers import ai_tool_registry as ai_tool_registry_router
 from routers import safe_analytical_postgresql as safe_analytical_postgresql_router
 from routers import ai_orchestration as ai_orchestration_router
 from routers import validation_provenance as validation_provenance_router
+from routers import logistics as logistics_router
+from routers import sentinel as sentinel_router
 from services.ai_credential_manager import ai_credential_manager
 from services.ai_invocation_manager import ai_invocation_manager
 from services.scheduler import start_scheduler, stop_scheduler
@@ -720,6 +722,12 @@ app.include_router(
 )
 app.include_router(
     validation_provenance_router.router,
+)
+app.include_router(
+    logistics_router.router,
+)
+app.include_router(
+    sentinel_router.router,
 )
 include_smart_cache_materialization_router_if_enabled(app)
 include_dashboard_backend_v2_router_if_enabled(app)

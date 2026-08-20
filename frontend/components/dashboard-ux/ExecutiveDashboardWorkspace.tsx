@@ -10,6 +10,8 @@ import { ActiveFiltersAndBreadcrumb } from './ActiveFiltersAndBreadcrumb'
 import { InteractiveChartsGrid } from './InteractiveChartsGrid'
 import { ContextualSideChat } from './ContextualSideChat'
 import { AnalyticalFocusMode } from './AnalyticalFocusMode'
+import { SentinelAnomaliesBanner } from './SentinelAnomaliesBanner'
+import { PinnedWidgetsSection } from './PinnedWidgetsSection'
 import { useAuth } from '@/context/AuthContext'
 import type {
   AnalyticalContext,
@@ -594,6 +596,14 @@ export function ExecutiveDashboardWorkspace() {
           onRefresh={() => fetchMetrics(context)}
         />
 
+        {/* 1.5. Sentinel Autonomous Anomaly Detection Banner */}
+        <SentinelAnomaliesBanner
+          onInvestigate={(query) => {
+            setSideChatOpen(true)
+            handleSideChatQuery(query, context)
+          }}
+        />
+
         {/* 2. Breadcrumb & Active Filter Badges */}
         <ActiveFiltersAndBreadcrumb
           breadcrumb={context.breadcrumb}
@@ -634,6 +644,9 @@ export function ExecutiveDashboardWorkspace() {
           onSelectInsight={handleSelectInsight}
           onOpenFocusMode={handleOpenFocusMode}
         />
+
+        {/* 5. Isolated Pinned User Widgets & Custom Insights */}
+        <PinnedWidgetsSection />
       </main>
 
       {/* ── Contextual AI Side Chat (Docked on Right) ── */}
