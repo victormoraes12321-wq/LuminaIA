@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import {
   ShieldAlert,
@@ -74,6 +75,7 @@ interface CfopResponse {
 // Main Page Component
 // ─────────────────────────────────────────────────────────────
 export default function OperacoesPage() {
+  const router = useRouter()
   const { token, loading: authLoading } = useAuth()
   const [rebalancing, setRebalancing] = useState<RebalancingItem[]>([])
   const [heatmap, setHeatmap] = useState<HeatmapResponse | null>(null)
@@ -323,7 +325,11 @@ export default function OperacoesPage() {
         {/* ── Section 1: Sentinel Autonomous Anomalies ── */}
         <section className="space-y-3">
           <SectionBadge icon={<ShieldAlert size={15} />} title="Sentinela Proativo de Anomalias" color="rose" />
-          <SentinelAnomaliesBanner />
+          <SentinelAnomaliesBanner
+            onInvestigate={(query) => {
+              router.push(`/consultar?q=${encodeURIComponent(query)}`)
+            }}
+          />
         </section>
 
         {/* ── Section 2: Branch Inventory Rebalancing ── */}

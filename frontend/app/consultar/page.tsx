@@ -89,10 +89,25 @@ export default function ConsultarPage() {
   } = useLuminaQuery()
 
   const bottomRef = useRef<HTMLDivElement>(null)
+  const queryProcessedRef = useRef(false)
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages.length, loading])
+
+  // Automatically execute query if navigated with ?q= (e.g. from Sentinel Investigar button)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !queryProcessedRef.current && !loading && !authLoading) {
+      const params = new URLSearchParams(window.location.search)
+      const q = params.get('q')
+      if (q && q.trim()) {
+        queryProcessedRef.current = true
+        // Clean URL to prevent re-execution on refresh
+        window.history.replaceState({}, '', '/consultar')
+        sendQuery(q.trim())
+      }
+    }
+  }, [loading, authLoading, sendQuery])
 
   if (authLoading) {
     return (

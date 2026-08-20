@@ -10,7 +10,6 @@ import { ActiveFiltersAndBreadcrumb } from './ActiveFiltersAndBreadcrumb'
 import { InteractiveChartsGrid } from './InteractiveChartsGrid'
 import { ContextualSideChat } from './ContextualSideChat'
 import { AnalyticalFocusMode } from './AnalyticalFocusMode'
-import { SentinelAnomaliesBanner } from './SentinelAnomaliesBanner'
 import { PinnedWidgetsSection } from './PinnedWidgetsSection'
 import { useAuth } from '@/context/AuthContext'
 import type {
@@ -29,7 +28,6 @@ import type {
 export function ExecutiveDashboardWorkspace() {
   const { token, user } = useAuth()
   const [sideChatOpen, setSideChatOpen] = useState(true)
-  const [investigateQuery, setInvestigateQuery] = useState<string | undefined>(undefined)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -597,15 +595,6 @@ export function ExecutiveDashboardWorkspace() {
           onRefresh={() => fetchMetrics(context)}
         />
 
-        {/* 1.5. Sentinel Autonomous Anomaly Detection Banner */}
-        <SentinelAnomaliesBanner
-          onInvestigate={(query) => {
-            setSideChatOpen(true)
-            // Use a unique suffix to re-trigger autoQuery even if same query is clicked twice
-            setInvestigateQuery(`${query}__${Date.now()}`)
-          }}
-        />
-
         {/* 2. Breadcrumb & Active Filter Badges */}
         <ActiveFiltersAndBreadcrumb
           breadcrumb={context.breadcrumb}
@@ -665,7 +654,6 @@ export function ExecutiveDashboardWorkspace() {
           onClose={() => setSideChatOpen(false)}
           onSendQuery={handleSideChatQuery}
           onExecuteAction={handleExecuteAction}
-          autoQuery={investigateQuery ? investigateQuery.replace(/__\d+$/, '') : undefined}
         />
       </div>
 
